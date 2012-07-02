@@ -1,0 +1,16 @@
+{
+  "name": "alxarch/basex",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://packages.zendframework.com/"
+    }
+  ],
+  "require": {
+    "zendframework/zend-http": "2.0.*",
+    "zendframework/zend-registry": "2.0.*"
+  }
+  "autoload": {
+    "psr-0": {"BaseX": "src/"}
+  }
+} 
