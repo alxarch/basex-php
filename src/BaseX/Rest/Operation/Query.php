@@ -33,7 +33,9 @@ namespace alxarch\BaseX\Rest\Operation;
 use alxarch\BaseX\Rest\Operation;
 
 /**
- * XQuery operation.
+ * XQuery operation Query.
+ * 
+ * @TODO implement context functionality
  */
 class Query extends Operation
 {
@@ -46,8 +48,8 @@ class Query extends Operation
   
   protected function doBuild(){
     return parent::doBuild();
-    //TODO: handle context in query request (needs 'rest:' prefix in all parent items).
-//    
+//    TODO: handle context in query request (needs 'rest:' prefix in all parent items).
+    
 //    if($this->context){
 //      $xml = simplexml_load_string(parent::doBuild());
 //      $xml->addChild('context', $this->context);

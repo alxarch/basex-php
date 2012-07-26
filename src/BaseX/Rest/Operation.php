@@ -51,7 +51,12 @@ abstract class Operation
          ->setOptions($options)
          ->setParameters($parameters);
   }
-
+  
+  /**
+   * Returns the tag to be used for the request body.
+   * 
+   * @return string $tag
+   */
   abstract protected function getTag();
 
   
@@ -135,12 +140,25 @@ abstract class Operation
     return $this;
   }
 
+  /**
+   * Set serializarion method for this operation.
+   * 
+   * @see http://docs.basex.org/wiki/Serialization
+   * 
+   * @param string $method
+   * @throws \InvalidArgumentException 
+   */
   public function setMethod($method){
     if(!preg_match(self::METHODS, $method))
       throw new \InvalidArgumentException('Invalid serialization method.');
     $this->parameters['method'] = $method;
   }
 
+  /**
+   * Gets serialization method for this operation.
+   * 
+   * @return type 
+   */
   public function getMethod(){
     return isset($this->parameters['method']) ? $this->parameters['method'] : 'xml';
   }
