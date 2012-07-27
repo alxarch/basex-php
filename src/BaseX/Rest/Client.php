@@ -27,7 +27,7 @@
  * 
  */
 
-namespace alxarch\BaseX\Rest;
+namespace BaseX\Rest;
 
 use BaseX\Rest\Operation;
 use BaseX\Rest\Operation\Command;
