@@ -134,10 +134,12 @@ class Client{
    */
   public function get($path='/', $query=array())
   {
-    $this->http->getUri()->setPath($path);
-    $this->http->setParameterGet($query);
-    $this->http->setMethod('get');
-    $this->http->send();
+    $this->setPath($path)
+         ->http
+         ->setParameterGet($query)
+         ->setMethod('get')
+         ->send();
+    
     return $this->handleResponse();
   }
  
