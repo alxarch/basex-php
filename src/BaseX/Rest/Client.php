@@ -208,10 +208,12 @@ class Client{
    * @return string The server response.
    */
   public function put($doc, $path="/"){
-    $this->http->getUri()->setPath($path);
-    $this->http->setRawBody($doc);
-    $this->http->setMethod('put');
-    $this->http->send();
+    $this->setPath($path)
+         ->http
+         ->setRawBody($doc)
+         ->setMethod('put')
+         ->send();
+    
     return $this->handleResponse();
   }
 }
