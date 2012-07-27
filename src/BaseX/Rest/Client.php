@@ -140,9 +140,9 @@ class Client{
     $this->http->send();
     return $this->handleResponse();
   }
-
+ 
   /**
-   * Handles a response from the spi.
+   * Handles a response from the api.
    * @return string The response text.
    * @throws \Exception If the request failed.
    */
@@ -173,23 +173,6 @@ class Client{
   }
   
   /**
-   * Adds documents to a database.
-   * 
-   * @param string $db The database name.
-   * @param string $doc A file/directory uri or an xml string. 
-   * @param string $to The path at which to store the document. 
-   * @return string The server response.
-   */
-  public function store($db, $doc, $to = null){
-    $com = "OPEN $db";
-    $this->exec(new Operation\Command($com));
-    
-    $com = $to ? "ADD TO $to $doc" : "ADD $doc";
-    
-    return $this->exec(new Operation\Command($com));
-  }
-  
-  /**
    * Adds a full text index to the specified databse.
    * 
    * @param string $db     The database name.
@@ -215,5 +198,20 @@ class Client{
     $op->setMethod('text');
     $result = $this->exec($op);
     return explode(' ', $result);
+  }
+  
+  /**
+   * Adds/updates a document.
+   * 
+   * @param string $doc A file/directory uri or an xml string. 
+   * @param string $path The path at which to store the document. 
+   * @return string The server response.
+   */
+  public function put($doc, $path="/"){
+    $this->http->getUri()->setPath($path);
+    $this->http->setRawBody($doc);
+    $this->http->setMethod('put');
+    $this->http->send();
+    return $this->handleResponse();
   }
 }
