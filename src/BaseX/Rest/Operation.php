@@ -28,7 +28,7 @@
  */
 
 
-namespace alxarch\BaseX\Rest;
+namespace BaseX\Rest;
 
 abstract class Operation
 {

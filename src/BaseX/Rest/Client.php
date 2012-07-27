@@ -29,10 +29,10 @@
 
 namespace alxarch\BaseX\Rest;
 
-use alxarch\BaseX\Rest\Operation;
-use alxarch\BaseX\Rest\Operation\Command;
-use alxarch\BaseX\Rest\Operation\Query;
-use alxarch\BaseX\Rest\Operation\Run;
+use BaseX\Rest\Operation;
+use BaseX\Rest\Operation\Command;
+use BaseX\Rest\Operation\Query;
+use BaseX\Rest\Operation\Run;
 
 use Zend\Http\Client as HttpClient;
 use Zend\Uri\Http as HttpUri;
@@ -171,7 +171,24 @@ class Client{
     $op = new Operation\Command($com);
     return $this->exec($op);
   }
-
+  
+  /**
+   * Adds documents to a database.
+   * 
+   * @param string $db The database name.
+   * @param string $doc A file/directory uri or an xml string. 
+   * @param string $to The path at which to store the document. 
+   * @return string The server response.
+   */
+  public function store($db, $doc, $to = null){
+    $com = "OPEN $db";
+    $this->exec(new Operation\Command($com));
+    
+    $com = $to ? "ADD TO $to $doc" : "ADD $doc";
+    
+    return $this->exec(new Operation\Command($com));
+  }
+  
   /**
    * Adds a full text index to the specified databse.
    * 
@@ -193,8 +210,10 @@ class Client{
    * @return string 
    */
   public function listDatabases(){
-    $com = "LIST";
-    $op = new Operation\Command($com);
-    return $this->exec($op);
+    $q = "db:list()";
+    $op = new Operation\Query($q);
+    $op->setMethod('text');
+    $result = $this->exec($op);
+    return explode(' ', $result);
   }
 }

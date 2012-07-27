@@ -27,9 +27,9 @@
  * 
  */
 
-namespace alxarch\BaseX\Rest\Operation;
+namespace BaseX\Rest\Operation;
 
-use alxarch\BaseX\Rest\Operation;
+use BaseX\Rest\Operation;
 
 class Run extends Operation
 {
