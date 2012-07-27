@@ -29,10 +29,7 @@
 
 namespace BaseX\Rest;
 
-use BaseX\Rest\Operation;
-use BaseX\Rest\Operation\Command;
-use BaseX\Rest\Operation\Query;
-use BaseX\Rest\Operation\Run;
+use BaseX\Rest\Operation as Op;
 
 use Zend\Http\Client as HttpClient;
 use Zend\Uri\Http as HttpUri;
@@ -157,49 +154,6 @@ class Client{
     }
     
     throw new \Exception($response->getContent(), $response->getStatusCode());
-  }
-
-  /**
-   * Creates a new database on the server.
-   * 
-   * @param string $name The database name.
-   * @param uri $document A URI pointing to an initial document to put in the db. 
-   * @return string The server response.
-   */
-  public function createDatabase($name, $document=null){
-    $com = "CREATE DATABASE $name";
-    if(null!== $document)
-      $com .= " '$document'";
-    $op = new Operation\Command($com);
-    return $this->exec($op);
-  }
-  
-  /**
-   * Adds a full text index to the specified databse.
-   * 
-   * @param string $db     The database name.
-   * @param array $options Options for the command (ie 'CHOP' => 'off')
-   * 
-   * @return string        The response from the server
-   */
-  public function addFullTextIndex($db, $options=array()){
-    $com = "CREATE INDEX FULLTEXT";
-    $op = new Operation\Command($com);
-    $op->setOptions($options);
-    return $this->exec($op, $db);
-  }
-
-  /**
-   * Retrieves a list of databases stored on the service.
-   * 
-   * @return string 
-   */
-  public function listDatabases(){
-    $q = "db:list()";
-    $op = new Operation\Query($q);
-    $op->setMethod('text');
-    $result = $this->exec($op);
-    return explode(' ', $result);
   }
   
   /**
