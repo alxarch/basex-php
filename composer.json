@@ -1,15 +1,5 @@
 {
-  "name": "alxarch/basex-rest",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "http://packages.zendframework.com/"
-    }
-  ],
-  "require": {
-    "zendframework/zend-http": "2.0.*",
-    "zendframework/zend-registry": "2.0.*"
-  },
+  "name": "alxarch/basex-silex",
   "autoload": {
     "psr-0": {"BaseX": "src/"}
   }
