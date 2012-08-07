@@ -31,22 +31,49 @@ class Query {
    */
   protected $open;
   
-  public function __construct(Session $s, $q) {
-    $this->session = $s;
-    $this->id = $this->exec(chr(0), $q);
+  /**
+   *
+   * @param \BaseX\Session $session The session to use
+   * @param string $xquery The query to execute
+   * 
+   */
+  public function __construct(Session $session, $xquery) {
+    $this->session = $session;
+    $this->id = $this->exec(chr(0), $xquery);
   }
   
-  /* see readme.txt */
+  /**
+   * Binds an external variable to a value.
+   * 
+   * @param string $name   The name of the variable (without '$')
+   * @param mixed  $value  The value to assign to the variable
+   * @param string $type   A type to cast the value to
+   * 
+   * @return \BaseX\Query $this
+   */
   public function bind($name, $value, $type = "") {
     $this->exec(chr(3), Session::concat($this->id, $name, $value, $type));
+    return $this;
   }
 
-  /* see readme.txt */
+  /**
+   * Sets context for the query.
+   * 
+   * @param string $value
+   * @param string $type 
+   * 
+   * @return \BaseX\Query $this
+   */
   public function context($value, $type = "") {
     $this->exec(chr(14), Session::concat($this->id, $value, $type));
+    return $this;
   }
 
-  /* see readme.txt */
+  /**
+   * Executes the query.
+   * 
+   * @return mixed The result of the query
+   */
   public function execute() {
     return $this->exec(chr(5), $this->id);
   }
@@ -62,38 +89,42 @@ class Query {
   }
   
   /* see readme.txt */
-  public function close() {
-    $this->exec(chr(2), $this->id);   
-  }
-  
-  /* see readme.txt */
   protected function exec($cmd, $arg)
   {
     $this->session->send($cmd.$arg);
     $s = $this->session->receive();
-    if($this->session->ok() != True) {
+    
+    if($this->session->ok() != True) 
+    {
       throw new Exception($this->session->readString());
     }
     return $s;
   }
   
   /**
-   *
-   * @return BaseX\Client\Session
+   * Gets the session for this query.
+   * 
+   * @return \BaseX\Client\Session
    */
   public function getSession(){
     return $this->session;
   }
   
-   /**
-   *
-   * @return BaseX\Client\Query
+  /**
+   * Sets the session for this query.
+   * 
+   * @return \BaseX\Client\Query $this
    */
   public function setSession(Session $session){
     $this->session = $session;
     return $this;
   }
   
+  /**
+   * Gets this query id.
+   * 
+   * @return string
+   */
   public function getId(){
     return $this->id;
   }

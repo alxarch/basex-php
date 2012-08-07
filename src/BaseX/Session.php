@@ -1,8 +1,8 @@
 <?php
 
-namespace BaseX\Client;
+namespace BaseX;
 
-use BaseX\Client\Query;
+use BaseX\Query;
 
 /** 
  * @file PHP client for BaseX.
@@ -19,7 +19,8 @@ use BaseX\Client\Query;
  * Socket-based implementation.
  *
  */ 
-class Session {
+class Session 
+{
   /**
    *
    * @var resource
@@ -48,11 +49,21 @@ class Session {
     */
    protected $bsize = null;
 
-
-  function __construct($h, $p, $user, $pw) {
+   /**
+    * Creates a new Session
+    * 
+    * @param string $host Server hostname
+    * @param string $port Port to use
+    * @param string $user Username
+    * @param type $pass   Password
+    * @throws \Exception 
+    */
+  function __construct($host, $port, $user, $pass) {
     // create server connection
     $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-    if(!socket_connect($this->socket, $h, $p)) {
+    
+    if(!socket_connect($this->socket, $host, $pass)) 
+    {
       throw new \Exception("Can't communicate with server.");
     }
 
@@ -60,67 +71,126 @@ class Session {
     $ts = $this->readString();
 
     // send username and hashed password/timestamp
-    $md5 = hash("md5", hash("md5", $pw).$ts);
+    $md5 = hash("md5", hash("md5", $pass).$ts);
+    
     socket_write($this->socket, self::concat($user, $md5, ''));
 
     // receives success flag
-    if(socket_read($this->socket, 1) != chr(0)) {
+    if(socket_read($this->socket, 1) != chr(0)) 
+    {
       throw new \Exception("Access denied.");
     }
   }
 
-  /* see readme.txt */
+  /**
+   * Executes a database command.
+   * 
+   * @param string $com The command to execute
+   * @return mixed $result The command output
+   * @throws \Exception If there was any errors on command execution
+   */
   public function execute($com) {
     // send command to server
     socket_write($this->socket, $com.chr(0));
 
     // receive result
     $result = $this->receive();
+    
     $this->info = $this->readString();
-    if(!$this->ok()) {
+    
+    if(!$this->ok()) 
+    {
       throw new \Exception($this->info);
     }
+    
     return $result;
   }
   
-  /* Returns the query object.*/
-  public function query($q) {
+  /**
+   * Creates a new Query that uses this session.
+   * 
+   * @param string $q XQuery code
+   * @return \BaseX\Query $q
+   */
+  public function query($q) 
+  {
     return new Query($this, $q);
   }
   
-  /* see readme.txt */
-  public function create($path, $input) {
-    $this->sendCmd(8, $path, $input);
+  /**
+   * Creates the database [name] with an optional [input] and opens it.
+   * 
+   * @see http://docs.basex.org/wiki/Commands#CREATE_DB
+   * 
+   * @param type $name name of the new database
+   * @param type $input initial document
+   */
+  public function create($name, $input) 
+  {
+    $this->sendCmd(8, $name, $input);
   }
   
-  /* see readme.txt */
-  public function add($path, $input) {
+  /**
+   * Adds the files, directory or XML string specified by [input] 
+   * to the currently opened database at the specified [path].
+   * 
+   * @see http://docs.basex.org/wiki/Commands#ADD
+   * 
+   * @param string $path path to add
+   * @param mixed $input document contents
+   *
+   */
+  public function add($path, $input)
+  {
     $this->sendCmd(9, $path, $input);
   }
 
-  /* see readme.txt */
-  public function replace($path, $input) {
+  /**
+   * Replaces a document at the specified path.
+   * 
+   * @param string $path Path to overwrite
+   * @param mixed $input Document contents
+   */
+  public function replace($path, $input)
+  {
     $this->sendCmd(12, $path, $input);
   }
 
-  /* see readme.txt */
-  public function store($path, $input){
+  /**
+   * Stores a raw file in the opened database to the specified [path].
+   * 
+   * @see http://docs.basex.org/wiki/Commands#STORE
+   * 
+   * @param string $path
+   * @param string $input 
+   */
+  public function store($path, $input='')
+  {
     $this->sendCmd(13, $path, $input);
   }
   
-  /* see readme.txt */
-  public function getInfo(){
+  /**
+   * Retrieves information about the session.
+   * 
+   * @return string
+   */
+  public function getInfo()
+  {
     return $this->info;
   }
 
-  /* see readme.txt */
-  public function close() {
+  /**
+   * Closes the connection to the server 
+   */
+  public function close()
+  {
     socket_write($this->socket, "exit".chr(0));
     socket_close($this->socket);
   }
 
   /* Initializes the byte transfer */
-  private function init() {
+  private function init()
+  {
     $this->bpos = 0;
     $this->bsize = 0;
   }
@@ -130,9 +200,11 @@ class Session {
    * 
    * @return string
    */
-  protected function readString() {
+  protected function readString()
+  {
     $com = "";
-    while(($d = $this->read()) != chr(0)) {
+    while(($d = $this->read()) != chr(0)) 
+    {
       $com .= $d;
     }
     return $com;
@@ -143,41 +215,59 @@ class Session {
    * 
    * @return char
    */
-  protected function read() {
-    if($this->bpos === $this->bsize) {
+  protected function read()
+  {
+    if($this->bpos === $this->bsize) 
+    {
       $this->bsize = socket_recv($this->socket, $this->buffer, 4096, 0);
       $this->bpos = 0;
     }
+    
     return $this->buffer[$this->bpos++];
   }
   
   /* see readme.txt */
-  protected function sendCmd($code, $arg, $input) {
+  protected function sendCmd($code, $arg, $input)
+  {
     $parts = array(chr($code), $arg, chr(0), $input, $chr(0));
+    
     socket_write($this->socket, implode('', $parts));
+    
     $this->info = $this->receive();
-    if($this->ok() != True) {
+    
+    if(!$this->ok()) 
+    {
       throw new \Exception($this->info);
     }
   }
   
   /* Sends the str. */
-  protected function send($str) {
+  protected function send($str)
+  {
     socket_write($this->socket, $str.chr(0));
   }
   
   /* Returns success check. */
-  protected function ok() {
+  protected function ok()
+  {
     return $this->read() == chr(0);
   }
   
   /* Returns the result. */
-  protected function receive() {
+  protected function receive()
+  {
     $this->init();
     return $this->readString();
   }
   
-  static public function concat(){
+  /**
+   * Helper function to concatenate server messages
+   * 
+   * @param mixed $args All arguments will be concateneted
+   * @return string
+   */
+  static private function concat()
+  {
     $parts = func_get_args();
     return implode(chr(0), $parts);
   }
