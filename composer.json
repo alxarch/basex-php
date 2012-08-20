@@ -1,5 +1,5 @@
 {
-  "name": "alxarch/basex-silex",
+  "name": "alxarch/basex-php",
   "autoload": {
     "psr-0": {"BaseX": "src/"}
   }
