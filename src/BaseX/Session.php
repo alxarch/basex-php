@@ -62,7 +62,7 @@ class Session
     // create server connection
     $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
     
-    if(!socket_connect($this->socket, $host, $pass)) 
+    if(!socket_connect($this->socket, $host, $port)) 
     {
       throw new \Exception("Can't communicate with server.");
     }
