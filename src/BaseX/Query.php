@@ -12,17 +12,29 @@ use BaseX\Session;
  * 
  * (C) BaseX Team 2005-12, BSD License
  */
-class Query {
+class Query{
+  
+  const INIT = 0;
+  const CLOSE = 2;
+  const BIND= 3;
+  const RESULTS = 4;
+  const EXECUTE = 5;
+  const INFO = 6;
+  const OPTIONS = 7;
+  const CONTEXT = 14;
+  const UPDATING = 30;
+  const FULL = 31;
+
   /**
    * 
    *
-   * @var BaseX\Client\Session
+   * @var BaseX\Session
    */
   protected $session;
   
   /**
    *
-   * @var string
+   * @var integer
    */
   protected $id;
   
@@ -33,13 +45,15 @@ class Query {
   
   /**
    *
-   * @param \BaseX\Session $session The session to use
+   * @param BaseX\Session $session The session to use
    * @param string $xquery The query to execute
    * 
    */
-  public function __construct(Session $session, $xquery) {
+  public function __construct(Session $session, $xquery)
+  {
     $this->session = $session;
-    $this->id = $this->exec(chr(0), $xquery);
+    $this->id = (int) $this->session->send(self::INIT, $xquery);
+            
   }
   
   /**
@@ -49,10 +63,12 @@ class Query {
    * @param mixed  $value  The value to assign to the variable
    * @param string $type   A type to cast the value to
    * 
-   * @return \BaseX\Query $this
+   * @return BaseX\Query $this
    */
-  public function bind($name, $value, $type = "") {
-    $this->exec(chr(3), Session::concat($this->id, $name, $value, $type));
+  public function bind($name, $value, $type = "")
+  {
+    $this->session->send(self::BIND, array($this->id, $name, $value, $type));
+    
     return $this;
   }
 
@@ -62,10 +78,12 @@ class Query {
    * @param string $value
    * @param string $type 
    * 
-   * @return \BaseX\Query $this
+   * @return BaseX\Query $this
    */
-  public function context($value, $type = "") {
-    $this->exec(chr(14), Session::concat($this->id, $value, $type));
+  public function context($value, $type = "") 
+  {
+    $this->session->send(self::CONTEXT, array($this->id, $value, $type));
+    
     return $this;
   }
 
@@ -74,50 +92,31 @@ class Query {
    * 
    * @return mixed The result of the query
    */
-  public function execute() {
-    return $this->exec(chr(5), $this->id);
-  }
-  
-  /* see readme.txt */
-  public function info() {
-    return $this->exec(chr(6), $this->id);
-  }
-  
-  /* see readme.txt */
-  public function options() {
-    return $this->exec(chr(7), $this->id);
-  }
-  
-  /* see readme.txt */
-  protected function exec($cmd, $arg)
+  public function execute()
   {
-    $this->session->send($cmd.$arg);
-    $s = $this->session->receive();
-    
-    if($this->session->ok() != True) 
-    {
-      throw new Exception($this->session->readString());
-    }
-    return $s;
+    return $this->session->send(self::EXECUTE, $this->id);
   }
   
+  /* see readme.txt */
+  public function info() 
+  {
+    return $this->session->send(self::INFO, $this->id);
+  }
+  
+  /* see readme.txt */
+  public function options()
+  {
+    return $this->session->send(self::OPTIONS, $this->id);
+  }
+   
   /**
    * Gets the session for this query.
    * 
-   * @return \BaseX\Client\Session
+   * @return BaseX\Session
    */
-  public function getSession(){
+  public function getSession()
+  {
     return $this->session;
-  }
-  
-  /**
-   * Sets the session for this query.
-   * 
-   * @return \BaseX\Client\Query $this
-   */
-  public function setSession(Session $session){
-    $this->session = $session;
-    return $this;
   }
   
   /**
@@ -125,9 +124,9 @@ class Query {
    * 
    * @return string
    */
-  public function getId(){
+  public function getId()
+  {
     return $this->id;
   }
- 
  
 }

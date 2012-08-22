@@ -3,6 +3,7 @@
 namespace BaseX;
 
 use BaseX\Query;
+use BaseX\SocketWrapper;
 
 /** 
  * @file PHP client for BaseX.
@@ -21,33 +22,25 @@ use BaseX\Query;
  */ 
 class Session 
 {
+  
+  const GAP = 0;
+  const OK = 0;
+  const QUERY = 0;
+  const CREATE = 8;
+  const ADD = 9;
+  const REPLACE = 12;
+  const STORE = 13;
+  
   /**
    *
-   * @var resource
+   * @var BaseX\SocketClient
    */
   protected $socket;
-  
+    
   /**
    * @var string
    */
    protected $info = null;
-   
-  /**
-   * @var string
-   */
-   protected $buffer = null;
-   
-   /**
-    *
-    * @var int
-    */
-   protected $bpos = null;
-   
-   /**
-    *
-    * @var int
-    */
-   protected $bsize = null;
 
    /**
     * Creates a new Session
@@ -58,25 +51,26 @@ class Session
     * @param type $pass   Password
     * @throws \Exception 
     */
-  function __construct($host, $port, $user, $pass) {
-    // create server connection
-    $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+  function __construct($host, $port, $user, $pass) 
+  {
+    $this->socket = new SocketWrapper($host, $port);
     
-    if(!socket_connect($this->socket, $host, $pass)) 
-    {
-      throw new \Exception("Can't communicate with server.");
-    }
-
+    $this->authenticate($user, $pass);
+    
+  }
+  
+  protected function authenticate($user, $pass)
+  {
     // receive timestamp
-    $ts = $this->readString();
-
-    // send username and hashed password/timestamp
-    $md5 = hash("md5", hash("md5", $pass).$ts);
+    $ts = $this->socket->read(true);
     
-    socket_write($this->socket, self::concat($user, $md5, ''));
-
+    // send username and hashed password/timestamp
+    $msg = $user . chr(0) . hash("md5", hash("md5", $pass) . $ts) . chr(0);
+    
+    $this->socket->send($msg);
+    
     // receives success flag
-    if(socket_read($this->socket, 1) != chr(0)) 
+    if(!$this->ok()) 
     {
       throw new \Exception("Access denied.");
     }
@@ -87,16 +81,13 @@ class Session
    * 
    * @param string $com The command to execute
    * @return mixed $result The command output
-   * @throws \Exception If there was any errors on command execution
    */
-  public function execute($com) {
-    // send command to server
-    socket_write($this->socket, $com.chr(0));
-
-    // receive result
-    $result = $this->receive();
+  public function execute($command) 
+  {
+    $this->socket->send($command.chr(0));
     
-    $this->info = $this->readString();
+    $result = $this->socket->read(true);
+    $this->info = $this->socket->read();
     
     if(!$this->ok()) 
     {
@@ -110,7 +101,7 @@ class Session
    * Creates a new Query that uses this session.
    * 
    * @param string $q XQuery code
-   * @return \BaseX\Query $q
+   * @return BaseX\Query $q
    */
   public function query($q) 
   {
@@ -125,9 +116,9 @@ class Session
    * @param type $name name of the new database
    * @param type $input initial document
    */
-  public function create($name, $input) 
+  public function create($name, $input = '') 
   {
-    $this->sendCmd(8, $name, $input);
+    $this->sendCmd(self::CREATE, $name, $input);
   }
   
   /**
@@ -142,7 +133,7 @@ class Session
    */
   public function add($path, $input)
   {
-    $this->sendCmd(9, $path, $input);
+    $this->sendCmd(self::ADD, $path, $input);
   }
 
   /**
@@ -153,7 +144,7 @@ class Session
    */
   public function replace($path, $input)
   {
-    $this->sendCmd(12, $path, $input);
+    $this->sendCmd(self::REPLACE, $path, $input);
   }
 
   /**
@@ -164,111 +155,52 @@ class Session
    * @param string $path
    * @param string $input 
    */
-  public function store($path, $input='')
+  public function store($path, $input)
   {
-    $this->sendCmd(13, $path, $input);
+    $this->sendCmd(self::STORE, $path, $input);
   }
   
-  /**
-   * Retrieves information about the session.
-   * 
-   * @return string
-   */
-  public function getInfo()
-  {
-    return $this->info;
-  }
-
   /**
    * Closes the connection to the server 
    */
   public function close()
   {
-    socket_write($this->socket, "exit".chr(0));
-    socket_close($this->socket);
+    $this->socket->send("exit".chr(0));
+    $this->socket->close();
   }
 
-  /* Initializes the byte transfer */
-  private function init()
+  private function sendCmd($code, $arg, $input) 
   {
-    $this->bpos = 0;
-    $this->bsize = 0;
-  }
+    $msg = chr($code).$arg.chr(0).$input.chr(0);
+    
+    $this->socket->send($msg);
 
-  /**
-   * Receives a string from the socket. 
-   * 
-   * @return string
-   */
-  protected function readString()
-  {
-    $com = "";
-    while(($d = $this->read()) != chr(0)) 
-    {
-      $com .= $d;
-    }
-    return $com;
-  }
-
-  /**
-   * Returns a single byte from the socket. 
-   * 
-   * @return char
-   */
-  protected function read()
-  {
-    if($this->bpos === $this->bsize) 
-    {
-      $this->bsize = socket_recv($this->socket, $this->buffer, 4096, 0);
-      $this->bpos = 0;
-    }
+    $this->info = $this->socket->read(true);
     
-    return $this->buffer[$this->bpos++];
-  }
-  
-  /* see readme.txt */
-  protected function sendCmd($code, $arg, $input)
-  {
-    $parts = array(chr($code), $arg, chr(0), $input, $chr(0));
-    
-    socket_write($this->socket, implode('', $parts));
-    
-    $this->info = $this->receive();
-    
-    if(!$this->ok()) 
-    {
+    if(!$this->ok())
       throw new \Exception($this->info);
+  }
+  
+  
+  private function ok()
+  {
+    return $this->socket->readSingle() === chr(0);
+  }
+
+  public function send($code, $arg)
+  {
+    if(is_array($arg))
+      $arg = implode (chr(0), $arg);
+    
+    $this->socket->send(chr($code).$arg.chr(0));
+    
+    $result = $this->socket->read(true);
+    
+    if(!$this->ok())
+    {
+      throw new \Exception($this->session->read());
     }
-  }
-  
-  /* Sends the str. */
-  protected function send($str)
-  {
-    socket_write($this->socket, $str.chr(0));
-  }
-  
-  /* Returns success check. */
-  protected function ok()
-  {
-    return $this->read() == chr(0);
-  }
-  
-  /* Returns the result. */
-  protected function receive()
-  {
-    $this->init();
-    return $this->readString();
-  }
-  
-  /**
-   * Helper function to concatenate server messages
-   * 
-   * @param mixed $args All arguments will be concateneted
-   * @return string
-   */
-  static private function concat()
-  {
-    $parts = func_get_args();
-    return implode(chr(0), $parts);
+    
+    return $result;
   }
 }
