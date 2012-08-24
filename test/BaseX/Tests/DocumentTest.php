@@ -190,4 +190,24 @@ class DocumentTest extends TestCaseDb
     $contents = $this->doc('test.xml');
     $this->assertXmlStringEqualsXmlString('<other/>', $contents);
   }
+  
+  public function testReload()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $doc = new Document($this->db, 'test.xml');
+    
+    $this->db->replace('test.xml', '<new/>');
+    
+    $xql = "db:list-details('$this->dbname', 'test.xml')/@modified-date/string()";
+    $modified = $this->session->query($xql)->execute();
+    
+    $result = $doc->reload();
+    
+    $this->assertInstanceOf('BaseX\Document', $result);
+    $this->assertXmlStringEqualsXmlString('<new/>', $doc->getContents());
+    $this->assertEquals($modified, $doc->getInfo()->modified());
+    
+    
+    
+  }
 }
