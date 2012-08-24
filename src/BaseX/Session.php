@@ -4,6 +4,7 @@ namespace BaseX;
 
 use BaseX\Query;
 use BaseX\Session\Socket;
+use BaseX\Helpers as B;
 use BaseX\Session\Exception;
 
 /** 
@@ -23,7 +24,6 @@ use BaseX\Session\Exception;
  */ 
 class Session 
 {
-  
   const GAP = 0;
   const OK = 0;
   const QUERY = 0;
@@ -37,7 +37,13 @@ class Session
    * @var BaseX\SocketClient
    */
   protected $socket;
-    
+  
+  /**
+   *
+   * @var string
+   */
+  protected $version;
+  
   /**
    * @var string
    */
@@ -58,6 +64,9 @@ class Session
     
     $this->authenticate($user, $pass);
     
+//    $this->info = $this->execute('INFO');
+    
+//    $this->version = preg_replace('/Version:\s+(\d+\.\d+)/', '$1', $this->info);
   }
   
   protected function authenticate($user, $pass)
@@ -86,16 +95,22 @@ class Session
   public function execute($command) 
   {
     $this->socket->send($command.chr(0));
-    
     $result = $this->socket->read(true);
     $this->info = $this->socket->read();
-    
     if(!$this->ok()) 
     {
       throw new Exception($this->info);
     }
     
     return $result;
+  }
+  
+  public function script($script)
+  {
+//    $this->requireVersion('7.4');
+   
+    $command = sprintf('EXECUTE "%s"', $script);
+    return $this->execute($command);
   }
   
   /**
@@ -204,4 +219,17 @@ class Session
     
     return $result;
   }
+  
+//  public function getVersion()
+//  {
+//    return $this->version;
+//  }
+  
+//  protected function requireVersion($ver)
+//  {
+//    if($this->version < $ver)
+//    {
+//      throw new Exception('Not available in this version.');
+//    }
+//  }
 }

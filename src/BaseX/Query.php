@@ -13,7 +13,8 @@ use BaseX\Session;
  * 
  * (C) BaseX Team 2005-12, BSD License
  */
-class Query{
+class Query
+{
   
   const INIT = 0;
   const CLOSE = 2;
