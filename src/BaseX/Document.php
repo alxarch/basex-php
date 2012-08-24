@@ -2,9 +2,10 @@
 
 namespace BaseX;
 
+use BaseX\Document\Info;
 use BaseX\Database;
 use BaseX\Exception;
-
+use \DOMDocument as XML;
 class Document
 {
   /**
@@ -21,28 +22,10 @@ class Document
 
   /**
    *
-   * @var boolean
+   * @var BaseX\Document\Info
    */
-  protected $raw = true;
+  protected $info;
 
-  /**
-   *
-   * @var string
-   */
-  protected $type;
-
-  /**
-   *
-   * @var DateTime
-   */
-  protected $updated = null;
-
-  /**
-   *
-   * @var integer
-   */
-  protected $size;
-  
   /**
    *
    * @var string
@@ -56,48 +39,72 @@ class Document
   protected $xml = null;
 
 
-  public function __construct(Database $db, $path = null)
+  public function __construct(Database $db, $path)
   {
     $this->db = $db;
     $this->path = $path;
-    
-    $this->info();
   }
   
-  public function getContents()
+  protected function doGetContents()
   {
     if(null === $this->contents)
     {
-      $this->getDatabase()->retrieve($this->getPath());
+      $this->contents = $this->getDatabase()->fetch($this->getPath(), $this->isRaw());
     }
     
     return $this->contents;
   }
   
-  public function save($as = null)
+  public function getContents()
   {
-    $dest = null === $as ? $this->getPath() : (string) $as;
-    
-    $success = $this->raw ?
-        $this->getDatabase()->add($dest, $this->getContents()) :
-        $this->getDatabase()->store($dest, $this->getContents());
-    
-    if($success)
+    if($this->isRaw())
     {
-      $this->info();
+      return $this->doGetContents();
     }
-    
-    return $success;
+    else
+    {
+      // This way any changes made to the DOM will be visible.
+      return $this->getXML()->saveXML();
+    }
+  }
+  
+  protected function doSave($path)
+  {
+    if($this->isRaw())
+    {
+      $this->getDatabase()->store($path, $this->getContents());
+    }
+    else
+    {
+      $this->getDatabase()->replace($path, $this->getContents()) ;
+    }
+  }
+
+  public function save()
+  {
+    $this->doSave($this->getPath());
+    $this->info = null;
+    return $this;
+  }
+  
+  public function copy($dest)
+  {
+    $this->doSave($dest);
+    return new Document($this->getDatabase(), $dest);
   }
   
   public function move($to)
   {
-    return $this->getDatabase()->rename($this->getPath(), $to);
+    $this->getDatabase()->rename($this->getPath(), $to);
+    $this->info = null;
+    $this->setPath($to);
+    return $this;
   }
   
   public function delete()
   {
-    return $this->getDatabase()->delete($this->getPath());
+    $this->getDatabase()->delete($this->getPath());
+    $this->setPath(null);
   }
   
   public function getDatabase()
@@ -105,14 +112,16 @@ class Document
     return $this->db;
   }
   
+  protected function setPath($path)
+  {
+    $this->path = $path;
+    
+    return $this;
+  }
+  
   public function getPath()
   {
     return $this->path;
-  }
-  
-  public function exists()
-  {
-    return null !== $this->updated;
   }
   
   /**
@@ -122,24 +131,55 @@ class Document
    */
   public function getXML()
   {
-    if(!$this->raw && null === $this->xml)
+    if($this->isRaw())
     {
-      $this->xml = \DOMDocument::loadXML($this->getContents());
+      return null;
+    }
+
+    // Avoid cyclic calls by not using getContents directly.
+    if(null === $this->xml)
+    {
+      $this->xml = XML::loadXML($this->doGetContents());
     }
     
     return $this->xml;
   }
   
-  protected function info()
+  public function isRaw()
   {
-    $resources = $this->db->index($path);
-    if($resources)
+    return $this->getInfo()->raw();
+  }
+  
+  /**
+   *
+   * @return SimpleXMLElement
+   */
+  public function getInfo()
+  {
+    if(null == $this->info)
     {
-      $info = $resources[0];
-      $this->type = $info['content-type'];
-      $this->raw = $info['raw'];
-      $this->size = isset($info['size']) ? (int) $info['size'] : null;
-      $this->updated = new \DateTime($info['updated']);
+      $this->reloadInfo();
     }
+    
+    return $this->info;
+  }
+  
+  public function setContents($contents)
+  {
+    $this->contents = $contents;
+    $this->xml = null;
+    return $this;
+  }
+  
+  public function reloadInfo()
+  {
+    $index = $this->getDatabase()->getResources($this->getPath());
+    
+    if(empty($index))
+      throw new Exception(sprintf("No document found at path: %s.", $this->getPath()));
+    
+    $this->info = new Info($index[0]);
+    
+    return $this;
   }
 }
