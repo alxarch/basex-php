@@ -61,20 +61,29 @@ class DatabaseTest extends TestCaseDb
   
   /**
    * @depends testStore
+   * @depends testAdd
    */
-  public function testRetrieve()
+  public function testFetch()
   {
     $path = 'test.txt';
     $input = 'This is a test.';
     
     $this->db->store($path, $input);
     
-    $contents = $this->db->retrieve($path);
+    $contents = $this->db->fetch($path, true);
     
     $this->assertEquals($input, $contents);
     
     // Make sure the serializer is set back to the default.
     $this->assertEquals("SERIALIZER: \n", $this->session->execute('GET SERIALIZER'));
+    
+    $path = 'test.xml';
+    $input = '<test>This is a test.</test>';
+    
+    $this->db->add($path, $input);
+    
+    $contents = $this->db->fetch($path);
+    $this->assertXmlStringEqualsXmlString($input, $contents);
   }
   
   /**

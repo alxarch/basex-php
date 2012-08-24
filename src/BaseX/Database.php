@@ -98,50 +98,6 @@ class Database
   }
   
   /**
-   * Retrieves contents of a raw resource from the database.
-   * 
-   * @see http://docs.basex.org/wiki/Commands#RETRIEVE
-   * 
-   * @param string $path
-   * @return string
-   */
-  public function retrieve($path)
-  {
-    
-//    $script = <<<XML
-//<commands>
-//    <set option='serializer'>raw</set>
-//    <open name='$db'/>
-//    <retrieve path='$path'/>
-//    <set option='serializer'/>
-//</commands>
-//XML;
-    $script = <<<SCRIPT
-      SET SERIALIZER raw;
-      OPEN $this->name;
-      RETRIEVE "$path";
-      SET SERIALIZER
-SCRIPT;
-    
-    return $this->session->script($script);
-    
-    // Using xquery to limit socket traffic.
-//    $xql =<<<XQL
-//      declare option output:method "raw";
-//      db:retrieve("$db", "$path") 
-//XQL;
-//    return $this->session->query($xql)->execute();
-    
-//    $this->session->execute("SET SERIALIZER method=raw");
-//    $this->open();
-//    $retrieve = sprintf('RETRIEVE "%s"', B::escape($path));
-//    $data = $this->session->execute($retrieve);
-//    $this->session->execute('SET SERIALIZER');
-//    return $data;
-  }
-  
-  
-  /**
    * Executes a command after opening the database.
    * 
    * @see http://docs.basex.org/wiki/Commands
@@ -371,4 +327,23 @@ SCRIPT;
     $open = sprintf('OPEN %s', $this->getName());
     $this->session->execute($open);
   }
+  
+  /**
+   * Fetches contents of a document at specified path.
+   * 
+   * @param type $path
+   * @return type 
+   */
+  public function fetch($path, $raw=false)
+  {
+    $db =  $this->getName();
+    
+    if($raw)
+    {
+      $script = "SET SERIALIZER raw; OPEN $db; RETRIEVE \"$path\"; SET SERIALIZER";
+      return $this->session->script($script);
+    }
+    
+    return $this->session->query("db:open('$db', '$path')")->execute();
+  }    
 }
