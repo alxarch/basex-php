@@ -4,24 +4,10 @@ namespace BaseX\Tests;
 
 use BaseX\Session;
 use BaseX\Query;
+use BaseX\TestCaseSession;
 
-class QueryTest extends \PHPUnit_Framework_TestCase
+class QueryTest extends TestCaseSession
 {
-   /**
-   *
-   * @var BaseX\Session
-   */
-  protected $session;
-  
-  protected function setUp()
-  {
-    $this->session = new Session(BASEX_HOST, BASEX_PORT, BASEX_USER, BASEX_PASS);
-  }
-  protected function tearDown()
-  {
-    $this->session->close();
-  }
-  
   private function query($xq)
   {
     return new Query($this->session, $xq);

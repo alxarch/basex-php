@@ -2,40 +2,13 @@
 
 namespace BaseX\Tests;
 
-use \PHPUnit_Framework_TestCase as TestCase;
-
+use BaseX\TestCaseDb;
 use BaseX\Session;
 use BaseX\Database;
 
 
-class DatabaseTest extends TestCase
+class DatabaseTest extends TestCaseDb
 {
-  /**
-   *
-   * @var BaseX\Session
-   */
-  protected $session;
-  
-  /**
-   *
-   * @var BaseX\Database
-   */
-  protected $db;
-  
-  /**
-   *
-   * @var string
-   */
-  protected $dbname;
-
-
-  protected function setUp()
-  {
-    $this->session = new Session(BASEX_HOST, BASEX_PORT, BASEX_USER, BASEX_PASS);
-    $this->dbname = 'test_db_'.time();
-    $this->db = new Database($this->session, $this->dbname);
-  }
-  
   public function testInit()
   {
     $this->assertContains($this->dbname, $this->session->execute("LIST"));
@@ -298,28 +271,5 @@ HTML;
     $this->assertEquals("CREATEFILTER: \n", $actual);
   }
   
-  protected function doc($path)
-  {
-    $this->session->execute("SET SERIALIZER method=xml");
-    return $this->session->execute("XQUERY db:open('$this->dbname','$path')");
-  }
-  
-  protected function raw($path)
-  {
-    $this->session->execute("OPEN $this->dbname");
-    $this->session->execute("SET SERIALIZER method=raw");
-    $raw = $this->session->execute('RETRIEVE "'.$path.'"');
-    return $raw;
-  }
 
-  protected function ls()
-  {
-    return $this->session->execute('LIST '.$this->dbname);
-  }
-  
-  protected function tearDown()
-  {
-    $this->session->execute('DROP DB '.$this->dbname);
-    $this->session->close();
-  }
 }
