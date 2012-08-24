@@ -4,6 +4,7 @@ namespace BaseX;
 
 use BaseX\Session;
 use BaseX\Document;
+use BaseX\Exception;
 
 class Database
 {

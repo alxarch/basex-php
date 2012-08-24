@@ -3,7 +3,8 @@
 namespace BaseX;
 
 use BaseX\Query;
-use BaseX\SocketWrapper;
+use BaseX\Session\Socket;
+use BaseX\Session\Exception;
 
 /** 
  * @file PHP client for BaseX.
@@ -53,7 +54,7 @@ class Session
     */
   function __construct($host, $port, $user, $pass) 
   {
-    $this->socket = new SocketWrapper($host, $port);
+    $this->socket = new Socket($host, $port);
     
     $this->authenticate($user, $pass);
     
@@ -72,7 +73,7 @@ class Session
     // receives success flag
     if(!$this->ok()) 
     {
-      throw new \Exception("Access denied.");
+      throw new Exception("Access denied.");
     }
   }
 
@@ -91,7 +92,7 @@ class Session
     
     if(!$this->ok()) 
     {
-      throw new \Exception($this->info);
+      throw new Exception($this->info);
     }
     
     return $result;
@@ -178,7 +179,7 @@ class Session
     $this->info = $this->socket->read(true);
     
     if(!$this->ok())
-      throw new \Exception($this->info);
+      throw new Exception($this->info);
   }
   
   
@@ -198,7 +199,7 @@ class Session
     
     if(!$this->ok())
     {
-      throw new \Exception($this->session->read());
+      throw new Exception($this->socket->read());
     }
     
     return $result;

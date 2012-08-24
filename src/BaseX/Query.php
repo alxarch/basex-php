@@ -2,6 +2,7 @@
 
 namespace BaseX;
 
+use BaseX\Exception;
 use BaseX\Session;
 
 /*

@@ -3,6 +3,7 @@
 namespace BaseX;
 
 use BaseX\Database;
+use BaseX\Exception;
 
 class Document
 {
