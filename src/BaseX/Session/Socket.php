@@ -1,11 +1,11 @@
 <?php
 
-namespace BaseX;
+namespace BaseX\Session;
 
-class SocketWrapper
+use BaseX\Exception;
+
+class Socket
 {
-  const TERMINATOR = 0;
-  
   protected $socket = null;
   protected $buffer = '';
   protected $pos = 0;
@@ -14,10 +14,10 @@ class SocketWrapper
   public function __construct($host, $port)
   {
     $this->socket = stream_socket_client("tcp://$host:$port");
-    stream_set_timeout($this->socket, 4);
+    
     if(false === $this->socket) 
     {
-      throw new \Exception("Can't communicate with server.");
+      throw new Exception("Can't communicate with server.");
     }
   }
   
@@ -79,7 +79,7 @@ class SocketWrapper
   public function send($msg)
   {
     if(false === fwrite($this->socket, $msg))
-      throw new \Exception("Failed to send message.");
+      throw new Exception("Failed to send message.");
   }
   
   public function close()

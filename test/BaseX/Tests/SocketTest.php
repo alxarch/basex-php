@@ -1,15 +1,14 @@
 <?php
 
-
 namespace BaseX\Tests;
 
-
-use BaseX\SocketWrapper;
+use BaseX\Session\Socket;
+use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  * 
  */
-class SocketWrapperTest extends \PHPUnit_Framework_TestCase
+class SocketTest extends TestCase
 {
   /**
    *
@@ -19,12 +18,12 @@ class SocketWrapperTest extends \PHPUnit_Framework_TestCase
   
   protected function setUp()
   {
-    $this->socket = new SocketWrapper(BASEX_HOST, BASEX_PORT);
+    $this->socket = new Socket(BASEX_HOST, BASEX_PORT);
   }
   
   public function testConstruct()
   {
-    $this->assertInstanceOf('BaseX\SocketWrapper', $this->socket);
+    $this->assertInstanceOf('BaseX\Session\Socket', $this->socket);
   }
   
   public function testRead()
