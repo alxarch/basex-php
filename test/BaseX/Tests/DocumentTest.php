@@ -11,76 +11,87 @@ class DocumentTest extends TestCaseDb
 {
   public function testInit()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     $this->assertInstanceOf('BaseX\Document', $doc);
     
-    $this->db->store('test.txt', 'test');
-    $doc = new Document($this->db, 'test.txt');
+    self::$db->store('test.txt', 'test');
+    $doc = new Document(self::$db, 'test.txt');
     $this->assertInstanceOf('BaseX\Document', $doc);
     
+    self::$db->delete('text.xml');
+    self::$db->delete('text.txt');
   }
   
   public function testGetPath()
   {
     $path = 'test.xml';
-    $this->db->add($path, '<test/>');
-    $doc = new Document($this->db, $path);
+    self::$db->add($path, '<test/>');
+    $doc = new Document(self::$db, $path);
     $this->assertEquals($path, $doc->getPath());
+    self::$db->delete($path);
   }
   
   public function testGetInfo()
   {
     $path = 'test.xml';
-    $this->db->add($path, '<test/>');
-    $doc = new Document($this->db, $path);
+    self::$db->add($path, '<test/>');
+    $doc = new Document(self::$db, $path);
     $info = $doc->getInfo();
-    $this->assertInstanceOf('BaseX\Document\Info', $info);
     
+    $this->assertInstanceOf('BaseX\Document\Info', $info);
 
     $this->assertEquals($info->path(), $doc->getPath());
+    
+    self::$db->delete($path);
   }
   
   public function testIsRaw()
   {
-    $path = 'test.xml';
-    $this->db->add($path, '<test/>');
-    $doc = new Document($this->db, $path);
+    self::$db->add('test.xml', '<test/>');
+    
+    $doc = new Document(self::$db, 'test.xml');
     $this->assertFalse($doc->isRaw());
     
-    $this->db->store('test.txt', 'test');
-    $doc = new Document($this->db, 'test.txt');
+    self::$db->delete('test.xml');
+    
+    self::$db->store('test.txt', 'test');
+    $doc = new Document(self::$db, 'test.txt');
     $this->assertTrue($doc->isRaw());
+    
+    self::$db->delete('test.txt');
   }
   
   public function testGetDatabase()
   {
-    $path = 'test.xml';
-    $this->db->add($path, '<test/>');
-    $doc = new Document($this->db, $path);
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     $db = $doc->getDatabase();
     $this->assertInstanceOf('BaseX\Database', $db);
-    $this->assertTrue($db === $this->db);
+    $this->assertTrue($db === self::$db);
+    self::$db->delete('test.xml');
   }
   
   public function testGetContents()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     
     $contents = $doc->getContents();
     $this->assertXmlStringEqualsXmlString('<test/>', $contents);
+    self::$db->delete('test.xml');
     
-    $this->db->store('test.txt', 'test');
-    $doc = new Document($this->db, 'test.txt');
+    self::$db->store('test.txt', 'test');
+    $doc = new Document(self::$db, 'test.txt');
     $contents = $doc->getContents();
     $this->assertEquals('test', $contents);
+    self::$db->delete('test.txt');
   }
   
   public function testSave()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     $old = $doc->getInfo();
     
     $result = $doc->save();
@@ -89,12 +100,13 @@ class DocumentTest extends TestCaseDb
     $this->assertTrue($result === $doc);
     $this->assertNotEquals($new->modified(), $old->modified());
     
+    self::$db->delete('test.xml');
   }
   
   public function testCopy()
   {
-    $this->db->add('test.xml', '<test/>');
-    $original = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $original = new Document(self::$db, 'test.xml');
     
     $copy = $original->copy('copy.xml');
     
@@ -102,18 +114,19 @@ class DocumentTest extends TestCaseDb
     
     $this->assertEquals('copy.xml', $copy->getPath());
     
-    $this->assertContains('copy.xml', $this->ls());
+    $this->assertContains('copy.xml', self::ls());
     
-    $contents = $this->doc('copy.xml');
+    $contents = self::doc('copy.xml');
     
     $this->assertXmlStringEqualsXmlString('<test/>', $contents);
         
+    self::$db->delete('test.xml');
   }
   
   public function testMove()
   {
-    $this->db->add('test.xml', '<test/>');
-    $original = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $original = new Document(self::$db, 'test.xml');
     
     $result = $original->move('moved.xml');
     
@@ -122,44 +135,49 @@ class DocumentTest extends TestCaseDb
     $this->assertEquals($result->getPath(), 'moved.xml');
     $this->assertXmlStringEqualsXmlString('<test/>', $result->getContents());
     
-    $contents = $this->doc('moved.xml');
+    $contents = self::doc('moved.xml');
     $this->assertEquals($contents, '<test/>');
     
-    $this->assertNotContains('test.xml', $this->ls());
+    $this->assertNotContains('test.xml', self::ls());
+    
+    self::$db->delete('moved.xml');
   }
   
   
   public function testDelete()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     $doc->delete();
     
     $this->assertNull($doc->getPath());
-    $this->assertNotContains('test.xml', $this->ls());
+    $this->assertNotContains('test.xml', self::ls());
+    self::$db->delete('test.xml');
   }
   
   public function testGetXML()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     
     $xml = $doc->getXML();
     
     $this->assertInstanceOf('\DOMDocument', $xml);
+    self::$db->delete('test.xml');
     
   }
   
   public function testReloadInfo()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     $old = $doc->getInfo();
-    $this->db->replace('test.xml', '<other/>');
+    self::$db->replace('test.xml', '<other/>');
     $result = $doc->reloadInfo();
     $new = $doc->getInfo();
     $this->assertTrue($result === $doc);
     $this->assertNotEquals($new->modified(), $old->modified());
+    self::$db->delete('test.xml');
   }
   
   /**
@@ -167,12 +185,13 @@ class DocumentTest extends TestCaseDb
    */
   public function testSetContents()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     
     $result = $doc->setContents('<other/>');
     $this->assertTrue($result === $doc);
     $this->assertXmlStringEqualsXmlString('<other/>', $doc->getContents());
+    self::$db->delete('test.xml');
     
   }
   
@@ -182,24 +201,25 @@ class DocumentTest extends TestCaseDb
    */
   public function testSetContentsAndSave()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     
     $doc->setContents('<other/>')->save();
     
-    $contents = $this->doc('test.xml');
+    $contents = self::doc('test.xml');
     $this->assertXmlStringEqualsXmlString('<other/>', $contents);
+    self::$db->delete('test.xml');
   }
   
   public function testReload()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
+    self::$db->add('test.xml', '<test/>');
+    $doc = new Document(self::$db, 'test.xml');
     
-    $this->db->replace('test.xml', '<new/>');
+    self::$db->replace('test.xml', '<new/>');
     
-    $xql = "db:list-details('$this->dbname', 'test.xml')/@modified-date/string()";
-    $modified = $this->session->query($xql)->execute();
+    $xql = "db:list-details('".self::$dbname."', 'test.xml')/@modified-date/string()";
+    $modified = self::$session->query($xql)->execute();
     
     $result = $doc->reload();
     
@@ -207,7 +227,6 @@ class DocumentTest extends TestCaseDb
     $this->assertXmlStringEqualsXmlString('<new/>', $doc->getContents());
     $this->assertEquals($modified, $doc->getInfo()->modified());
     
-    
-    
+    self::$db->delete('test.xml');
   }
 }

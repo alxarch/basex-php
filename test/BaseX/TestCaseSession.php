@@ -13,22 +13,15 @@ class TestCaseSession extends PHPUnit_Framework_TestCase
    *
    * @var BaseX\Session
    */
-  protected $session;
+  static protected $session;
   
-  /**
-   *
-   * @var string
-   */
-  protected $dbname;
-  
-  protected function setUp()
+  static public function setUpBeforeClass()
   {
-    $this->session = new Session(BASEX_HOST, BASEX_PORT, BASEX_USER, BASEX_PASS);
-    $this->dbname = 'test_db_' . time();
+    self::$session = new Session(BASEX_HOST, BASEX_PORT, BASEX_USER, BASEX_PASS);
   }
   
-  protected function tearDown()
+  static public function tearDownAfterClass()
   {
-    $this->session->close();
+    self::$session->close();
   }
 }

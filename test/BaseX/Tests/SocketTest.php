@@ -12,23 +12,23 @@ class SocketTest extends TestCase
 {
   /**
    *
-   * @var BaseX\SocketClient
+   * @var BaseX\Session\Socket
    */
-  protected $socket = null;
+  static protected $socket = null;
   
-  protected function setUp()
+  static public function setUpBeforeClass()
   {
-    $this->socket = new Socket(BASEX_HOST, BASEX_PORT);
+    self::$socket = new Socket(BASEX_HOST, BASEX_PORT);
   }
   
   public function testConstruct()
   {
-    $this->assertInstanceOf('BaseX\Session\Socket', $this->socket);
+    $this->assertInstanceOf('BaseX\Session\Socket', self::$socket);
   }
   
   public function testRead()
   {
-    $ts = $this->socket->read();
+    $ts = self::$socket->read();
     $this->assertNotEmpty($ts);
     $this->assertNotContains(chr(0), $ts);
     $this->assertRegExp('/^\d+$/', $ts);
@@ -38,7 +38,7 @@ class SocketTest extends TestCase
   {
     $error = false;
     try{
-      $this->socket->send('INFO');
+      self::$socket->send('INFO');
     }
     catch(\Exception $e)
     {
@@ -49,10 +49,18 @@ class SocketTest extends TestCase
     
   }
   
-  protected function tearDown()
+  public function testClose()
   {
-    if(null !== $this->socket)
-      $this->socket->close();
+    $this->assertTrue(self::$socket->close());
+    
+    self::$socket = new Socket(BASEX_HOST, BASEX_PORT);
+  }
+  
+  
+  static public function tearDownAfterClass()
+  {
+    if(null !== self::$socket)
+      self::$socket->close();
   }
   
 }

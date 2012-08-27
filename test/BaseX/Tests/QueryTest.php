@@ -10,7 +10,7 @@ class QueryTest extends TestCaseSession
 {
   private function query($xq)
   {
-    return new Query($this->session, $xq);
+    return new Query(self::$session, $xq);
   }
 
   public function testInit()

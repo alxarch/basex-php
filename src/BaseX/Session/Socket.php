@@ -84,7 +84,7 @@ class Socket
   
   public function close()
   {
-    fclose($this->socket);
+    return fclose($this->socket);
   }
   
 }

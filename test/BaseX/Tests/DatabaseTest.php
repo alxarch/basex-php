@@ -11,19 +11,19 @@ class DatabaseTest extends TestCaseDb
 {
   public function testInit()
   {
-    $this->assertContains($this->dbname, $this->session->execute("LIST"));
+    $this->assertContains(self::$dbname, self::$session->execute("LIST"));
   }
   
 //  public function testDrop()
 //  {
-//    $this->db->drop();
-//    $this->assertNotContains($this->dbname, $this->session->execute('LIST'));
-//    $this->db = new Database($this->session, $this->dbname);
+//    self::$db->drop();
+//    $this->assertNotContains(self::$dbname, self::$session->execute('LIST'));
+//    self::$db = new Database(self::$session, self::$dbname);
 //  }
   
   public function testGetName()
   {
-    $this->assertEquals($this->dbname, $this->db->getName());
+    $this->assertEquals(self::$dbname, self::$db->getName());
   }
   
   /**
@@ -34,11 +34,15 @@ class DatabaseTest extends TestCaseDb
     $path = 'test.xml';
     $input = '<test>This is a test.</test>';
     
-    $this->db->add($path, $input);
+    self::$db->add($path, $input);
     
-    $this->assertContains($path, $this->ls());
+    $this->assertContains($path, self::ls());
     
-    $this->assertXmlStringEqualsXmlString($input, $this->doc($path));
+    $this->assertXmlStringEqualsXmlString($input, self::doc($path));
+    
+    $this->assertXmlStringEqualsXmlString($input, self::doc($path));
+    
+    return $path;
   }
   
   /**
@@ -49,60 +53,66 @@ class DatabaseTest extends TestCaseDb
     $path = 'test.txt';
     $input = 'This is a test.';
     
-    $this->db->store($path, $input);
+    self::$db->store($path, $input);
     
-    $this->assertContains($path, $this->ls());
+    $this->assertContains($path, self::ls());
     
-    $contents = $this->raw($path);
+    $contents = self::raw($path);
     
     $this->assertEquals($input, $contents);
+    
+    return $path;
   }
   
   
   /**
-   * @depends testStore
-   * @depends testAdd
+   * @depends testDelete
    */
   public function testFetch()
   {
     $path = 'test.txt';
     $input = 'This is a test.';
     
-    $this->db->store($path, $input);
+    self::$db->store($path, $input);
     
-    $contents = $this->db->fetch($path, true);
+    $contents = self::$db->fetch($path, true);
     
     $this->assertEquals($input, $contents);
     
     // Make sure the serializer is set back to the default.
-    $this->assertEquals("SERIALIZER: \n", $this->session->execute('GET SERIALIZER'));
+    $this->assertEquals("SERIALIZER: \n", self::$session->execute('GET SERIALIZER'));
+    self::$db->delete($path);
     
     $path = 'test.xml';
     $input = '<test>This is a test.</test>';
     
-    $this->db->add($path, $input);
+    self::$db->add($path, $input);
     
-    $contents = $this->db->fetch($path);
+    $contents = self::$db->fetch($path);
     $this->assertXmlStringEqualsXmlString($input, $contents);
+    self::$db->delete($path);
+    
+   
   }
   
   /**
    * @depends testAdd 
+   * @depends testStore
    */
-  public function testDelete()
+  public function testDelete($doc, $raw)
   {
-    $path = 'test.xml';
-    $input = '<test>This is a test.</test>';
     
-    $this->db->add($path, $input);
+    self::$db->delete($doc);
     
-    $this->db->delete($path);
+    $this->assertNotContains($doc, self::ls());
     
-    $this->assertNotContains($path, $this->ls());
+    self::$db->delete($raw);
+    
+    $this->assertNotContains($raw, self::ls());
   }
   
   /**
-   * @depends testAdd 
+   * @depends testDelete
    */
   public function testRename()
   {
@@ -111,18 +121,21 @@ class DatabaseTest extends TestCaseDb
     
     $input = '<test>This is a test.</test>';
     
-    $this->db->add($old, $input);
+    self::$db->add($old, $input);
     
-    $this->db->rename($old, $new);
-    $this->assertNotContains($old, $this->ls());
-    $this->assertContains($new, $this->ls());
+    self::$db->rename($old, $new);
+    $this->assertNotContains($old, self::ls());
+    $this->assertContains($new, self::ls());
     
-    $this->assertXmlStringEqualsXmlString($input, $this->doc($new));
+    $contents =  self::doc($new);
+    
+    $this->assertXmlStringEqualsXmlString($input, $contents);
+    
+    self::$db->delete($new);
   }
   
   /**
-   * @depends testAdd 
-   * @depends testStore
+   * @depends testDelete
    */
   public function testReplace()
   {
@@ -130,91 +143,116 @@ class DatabaseTest extends TestCaseDb
     $old = "<old/>";
     $new = "<new/>";
     
-    $this->db->add($path, $old);
-    $this->db->replace($path, $new);
+    self::$db->add($path, $old);
+    self::$db->replace($path, $new);
     
-    $this->assertXmlStringEqualsXmlString($new, $this->doc($path));
+    $this->assertXmlStringEqualsXmlString($new, self::doc($path));
+    
+    self::$db->delete($path);
     
     $path = 'test.txt';
     $old = "old";
     $new = "new";
     
-    $this->db->store($path, $old);
-    $this->db->replace($path, $new);
+    self::$db->store($path, $old);
+    self::$db->replace($path, $new);
     
-    $this->assertEquals($new, $this->raw($path));
+    $this->assertEquals($new, self::raw($path));
     
-    $this->assertXmlStringEqualsXmlString("<new/>", $this->doc("test.xml"));
+    self::$db->delete($path);
   }
   
   public function testExecute()
   {
     
     // Open another database.
-    $this->session->execute('CHECK other');
-    $this->session->execute('OPEN other');
+    self::$session->execute('CHECK other');
+    self::$session->execute('OPEN other');
     
-    $info = $this->db->execute('INFO DB');
+    $info = self::$db->execute('INFO DB');
     
-    $this->assertContains("Name: ".$this->dbname, $info);
+    $this->assertContains("Name: ".self::$dbname, $info);
     
-    $this->session->execute('DROP DB other');
+    self::$session->execute('DROP DB other');
   }
   
   /**
-   * @depends testAdd 
+   * @depends testDelete
    */
   public function testDocument()
   {
     
-    $this->db->add('test.xml', '<root/>');
+    self::$db->add('test.xml', '<root/>');
     
-    $doc = $this->db->document('test.xml');
+    $doc = self::$db->document('test.xml');
     $this->assertInstanceOf('BaseX\Document', $doc);
+    $this->assertTrue($doc->getDatabase() === self::$db);
+    
+    self::$db->delete('test.xml');
   }
   
   /**
-   * @depends testAdd 
+   * @depends testDelete
    */
   public function testGetResources()
   {
+    self::$db->add('test-1.xml', '<test1/>');
+    self::$db->add('test-2.xml', '<test2/>');
+    self::$db->add('test-3.xml', '<test3/>');
+    self::$db->store('test.txt', 'test');
     
-    $this->db->add('test-1.xml', '<test1/>');
-    $this->db->add('test-2.xml', '<test2/>');
-    $this->db->add('test-3.xml', '<test3/>');
-    $this->db->store('test.txt', 'test');
+    $resources = self::$db->getResources();
     
-    $resources = $this->db->getResources();
-    
+    $this->assertTrue(is_array($resources));
     $this->assertEquals(4, count($resources));
     
-    $this->assertEquals('test-1.xml', (string) $resources[0]);
+    foreach ($resources as $r)
+    {
+      $this->assertInstanceOf('BaseX\Document\Info', $r);
+    }
     
-//    $this->assertEquals('test', $this->db->retrieve('test.txt'));
+    $resource = $resources[0];
+    
+    $this->assertEquals('test-1.xml', $resource->path());
+    
+//    $this->assertEquals('test', self::$db->retrieve('test.txt'));
+    
+    self::$db->delete('test-1.xml');
+    self::$db->delete('test-2.xml');
+    self::$db->delete('test-3.xml');
+    self::$db->delete('test.txt');
     
   }
   
+  /**
+   * @depends testDelete
+   */
   public function testAddXML()
   {
     $input = '<root/>';
     $path = 'test.xml';
     
-    $this->db->addXML($path, $input);
+    self::$db->addXML($path, $input);
     
-    $this->assertContains($path, $this->ls());
-    $actual = $this->doc($path);
+    $this->assertContains($path, self::ls());
+    $actual = self::doc($path);
     $this->assertXmlStringEqualsXmlString($input, $actual);
     
-    $this->db->delete($path);
+    self::$db->delete($path);
     
-    $this->db->addXML(array($path => $input), null);
-    $this->assertContains($path, $this->ls());
-    $actual = $this->doc($path);
+    self::$db->addXML(array($path => $input), null);
+    $this->assertContains($path, self::ls());
+    $actual = self::doc($path);
     $this->assertXmlStringEqualsXmlString($input, $actual);
     
     $this->assertResetAfterAdd();
+    
+    self::$db->delete($path);
   }
   
+  /**
+   * @depends testDelete
+   */
   public function testAddHTML()
   {
     $html = <<<HTML
@@ -232,51 +270,61 @@ HTML;
     
     $path = "test.html";
     
-    $this->db->addHTML($path, $html);
+    self::$db->addHTML($path, $html);
     
-    $this->assertContains($path, $this->ls());
+    $this->assertContains($path, self::ls());
     
     $this->assertResetAfterAdd();
+    
+    self::$db->delete($path);
   }
   
+  /**
+   * @depends testDelete
+   */
   public function testAddJSON()
   {
     $json = '{"key": "value"}';
     
     $path = "test.json";
     
-    $this->db->addJSON($path, $json);
+    self::$db->addJSON($path, $json);
     
-    $this->assertContains($path, $this->ls());
+    $this->assertContains($path, self::ls());
     
     $this->assertResetAfterAdd();
   }
   
+  /**
+   * @depends testDelete
+   */
   public function testAddCSV()
   {
     $json = "val1, val2\nval1, val2";
     
     $path = "test.csv";
     
-    $this->db->addCSV($path, $json);
+    self::$db->addCSV($path, $json);
     
-    $this->assertContains($path, $this->ls());
+    $this->assertContains($path, self::ls());
     
     $this->assertResetAfterAdd();
+    
+    self::$db->delete($path);
   }
   
   protected function assertResetAfterAdd()
   {
-    $actual = $this->session->execute('GET PARSER');
+    $actual = self::$session->execute('GET PARSER');
     $this->assertEquals("PARSER: \n", $actual);
     
-    $actual = $this->session->execute('GET PARSEROPT');
+    $actual = self::$session->execute('GET PARSEROPT');
     $this->assertEquals("PARSEROPT: \n", $actual);
     
-    $actual = $this->session->execute('GET HTMLOPT');
+    $actual = self::$session->execute('GET HTMLOPT');
     $this->assertEquals("HTMLOPT: \n", $actual);
     
-    $actual = $this->session->execute('GET CREATEFILTER');
+    $actual = self::$session->execute('GET CREATEFILTER');
     $this->assertEquals("CREATEFILTER: \n", $actual);
   }
   

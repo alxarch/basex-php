@@ -15,30 +15,33 @@ class SessionTest extends TestCaseSession
    */
   public function testAuthenticate()
   {
-    $session = new Session(BASEX_HOST, BASEX_PORT, BASEX_USER.time(), BASEX_PASS.time());
+    $pass = BASEX_PASS . time();
+    $user = BASEX_USER.time();
+    $session = new Session(BASEX_HOST, BASEX_PORT, $user, $pass);
   }
   
   public function testConstruct()
   {
-    $this->assertInstanceOf('BaseX\Session', $this->session);
+    $this->assertInstanceOf('BaseX\Session', self::$session);
   }
   
 //  public function testGetVersion()
 //  {
-//    $this->assertRegExp('/\d+\.\d+/', $this->session->getVersion());
+//    $this->assertRegExp('/\d+\.\d+/', self::$session->getVersion());
 //  }
   
   public function testExecute()
   {
-    $info = $this->session->execute('INFO');
+    $info = self::$session->execute('INFO');
     $this->assertNotEmpty($info);
     $this->assertContains('HOST: '.BASEX_HOST, $info);
   }
   
   public function testQuery()
   {
-    $q = $this->session->query('<test/>');
+    $q = self::$session->query('<test/>');
     $this->assertInstanceOf('BaseX\Query', $q);
+    $this->assertTrue($q->getSession() === self::$session);
   }
   
   /**
@@ -46,93 +49,96 @@ class SessionTest extends TestCaseSession
    */
   public function testCreate()
   {
-    $this->session->create($this->dbname);
+    $db = 'test_db_'.time();
+    self::$session->create($db);
     
-    $this->assertContains($this->dbname, $this->session->execute('LIST'));
+    $list = self::$session->execute('LIST');
+    $this->assertContains($db, $list);
     
-    $this->drop($this->dbname);
+    self::$session->execute("DELETE $db");
     
     $input = '<test>'.time().'</test>';
     
-    $this->session->create($this->dbname, $input);
+    self::$session->create($db, $input);
     
-    $this->assertContains($this->dbname, $this->session->execute('LIST'));
-    $this->assertContains($this->dbname.'.xml', $this->session->execute('LIST '.$this->dbname));
+    $list = self::$session->execute('LIST');
+    $this->assertContains($db, $list);
     
-    $result = $this->session->execute("XQUERY db:open('$this->dbname', '$this->dbname.xml')");
+    $list = self::$session->execute("LIST $db");
+    $this->assertContains($db.'.xml', $list);
+    
+    $result = self::$session->execute("XQUERY db:open('$db', '$db.xml')");
     
     $this->assertXmlStringEqualsXmlString($input, $result);
     
-    $this->drop($this->dbname);
+    self::$session->execute("OPEN $db");
+    self::$session->execute("DELETE $db.xml");
     
+    return $db;
   }
   
   /**
    * @depends testCreate
    */
-  public function testAdd()
+  public function testAdd($db)
   {
     $path = 'test.xml';
     $contents = '<test>This is a test</test>';
     
-    $this->session->create($this->dbname);
-    $this->session->execute("OPEN $this->dbname");
+    self::$session->create($db);
+    self::$session->execute("OPEN $db");
     
-    $this->session->add($path, $contents);
+    self::$session->add($path, $contents);
     
-    $result = $this->session->execute("XQUERY db:open('$this->dbname', '$path')");
+    $result = self::$session->execute("XQUERY db:open('$db', '$path')");
     
     $this->assertXmlStringEqualsXmlString($contents, $result);
     
-    $this->drop($this->dbname);
-    
+    self::$session->execute("DELETE $path");
   }
   
   /**
    * @depends testCreate
    */
-  public function testReplace()
+  public function testReplace($db)
   {
+    
     $path = 'test.xml';
     $contents = '<test>This is a test</test>';
     $replace = '<replace/>';
     
-    $this->session->create($this->dbname);
+    self::$session->add($path, $contents);
     
-    $this->session->add($path, $contents);
+    self::$session->replace($path, $replace);
     
-    $this->session->replace($path, $replace);
-    
-    $result = $this->session->execute("XQUERY db:open('$this->dbname', '$path')");
+    $result = self::$session->execute("XQUERY db:open('$db', '$path')");
     
     $this->assertXmlStringEqualsXmlString($replace, $result);
     
-    $this->drop($this->dbname);
+    self::$session->execute("DELETE $path");
   }
   
   /**
    * @depends testCreate
    */
-  public function testStore()
+  public function testStore($db)
   {
     
     $path = 'raw.txt';
-    
     $contents = 'raw';
     
-    $this->session->create($this->dbname);
+    self::$session->store($path, $contents);
     
-    $this->session->store($path, $contents);
+    $list = self::$session->execute("LIST $db");
+    $this->assertContains($path, $list);
     
-    $this->assertContains($path, $this->session->execute('LIST '.$this->dbname));
-    
-    $this->session->execute("SET SERIALIZER method=raw");
-    $this->session->execute("OPEN $this->dbname");
-    $result = $this->session->execute("RETRIEVE $path");
+    self::$session->execute("SET SERIALIZER method=raw");
+    self::$session->execute("OPEN $db");
+    $result = self::$session->execute("RETRIEVE $path");
     
     $this->assertSame($result, $contents);
     
-    $this->drop($this->dbname);
+    self::$session->execute("DELETE $path");
   }
   
   /**
@@ -140,26 +146,32 @@ class SessionTest extends TestCaseSession
    */
   public function testScript()
   {
-    $script = "CREATE DB $this->dbname;DROP DB $this->dbname";
+    $db = 'script_test_db_'.time();
+    $script = "CREATE DB $db;DROP DB $db";
     
-    $this->session->script($script);
+    self::$session->script($script);
     
-    $list = $this->session->execute("LIST");
+    $list = self::$session->execute("LIST");
     
+    $this->assertNotContains($db, $list);
     
-    $script = "<commands><create-db name='$this->dbname'/><open name='$this->dbname'/></commands>";
-    $this->session->script($script);
-    $list = $this->session->execute("LIST");
-    $this->assertContains($this->dbname, $list);
-    $script = "<commands><close/><drop-db name='$this->dbname'/></commands>";
-    $this->session->script($script);
-    $list = $this->session->execute("LIST");
-    $this->assertNotContains($this->dbname, $list);
+    $script = "<commands><create-db name='$db'/><open name='$db'/></commands>";
+    
+    self::$session->script($script);
+    
+    $list = self::$session->execute("LIST");
+    $this->assertContains($db, $list);
+    
+    $script = "<commands><close/><drop-db name='$db'/></commands>";
+    self::$session->script($script);
+    
+    $list = self::$session->execute("LIST");
+    $this->assertNotContains($db, $list);
     
   }
   
   private function drop($db)
   {
-    $this->session->execute('DROP DATABASE '.$db);
+    self::$session->execute('DROP DATABASE '.$db);
   }
 }

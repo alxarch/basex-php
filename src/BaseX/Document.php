@@ -268,12 +268,12 @@ class Document
    */
   public function reloadInfo()
   {
-    $index = $this->getDatabase()->getResources($this->getPath());
+    $resources = $this->getDatabase()->getResources($this->getPath());
     
-    if(empty($index))
+    if(empty($resources))
       throw new Exception(sprintf("No document found at path: %s.", $this->getPath()));
     
-    $this->info = new Info($index[0]);
+    $this->info = $resources[0];
     
     return $this;
   }

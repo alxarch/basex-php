@@ -166,7 +166,7 @@ class Database
    * Lists all database resources.
    * 
    * @param string $path 
-   * @return \SimpleXmlElement
+   * @return array 
    */
   public function getResources($path = null)
   {
@@ -174,9 +174,14 @@ class Database
     $db = $this->getName();
     $xql = "<index>{ db:list-details('$db', '$path')$filter }</index>";
     
-    $index = $this->session->query($xql)->execute();
-
-    return simplexml_load_string($index)->resource;
+    $data = $this->session->query($xql)->execute();
+    $resources = array();
+    foreach (simplexml_load_string($data)->resource as $resource)
+    {
+      $resources[] = new Document\Info($resource);
+    }
+    
+    return $resources;
   }
   
   /**
