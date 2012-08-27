@@ -178,20 +178,47 @@ class DatabaseTest extends TestCaseDb
   
   /**
    * @depends testDelete
+   * 
    */
-  public function testDocument()
+  public function testResource()
   {
     
     self::$db->add('test.xml', '<root/>');
     
-    $doc = self::$db->document('test.xml');
+    $doc = self::$db->resource('test.xml');
+    $this->assertInstanceOf('BaseX\Resource', $doc);
+    $this->assertTrue($doc->getDatabase() === self::$db);
+    
+    $doc = self::$db->resource('test.xml', 'BaseX\Document');
     $this->assertInstanceOf('BaseX\Document', $doc);
     $this->assertTrue($doc->getDatabase() === self::$db);
     
     self::$db->delete('test.xml');
     
+    $this->assertNull(self::$db->resource('test.xml'));
     
-    $this->assertNull(self::$db->document('not-here-doc'.time()));
+    
+  }
+  
+  /**
+   * @depends testResource
+   * @expectedException InvalidArgumentException
+   * @expectedExceptionMessage Invalid class for resource.
+   * 
+   */
+  public function testResourceException()
+  {
+    self::$db->add('test.xml', '<root/>');
+    try{
+      $doc = self::$db->resource('test.xml', 'StdClass');
+    }
+    catch (\InvalidArgumentException $e)
+    {
+      self::$db->delete('test.xml');
+      throw $e;
+    }
+    self::$db->delete('test.xml');
+    
   }
   
   /**
@@ -200,11 +227,56 @@ class DatabaseTest extends TestCaseDb
   public function testGetResources()
   {
     self::$db->add('test-1.xml', '<test1/>');
-    self::$db->add('test-2.xml', '<test2/>');
-    self::$db->add('test-3.xml', '<test3/>');
+    self::$db->add('dir/test-2.xml', '<test2/>');
+    self::$db->add('dir/test-3.xml', '<test3/>');
     self::$db->store('test.txt', 'test');
     
+     
     $resources = self::$db->getResources();
+    
+    $this->assertTrue(is_array($resources));
+    $this->assertEquals(4, count($resources));
+    
+    foreach ($resources as $r)
+    {
+      $this->assertInstanceOf('BaseX\Resource', $r);
+    }
+    
+    $resource = $resources[0];
+    $this->assertEquals('test-1.xml', $resource->getPath());
+    $resource = $resources[1];
+    $this->assertEquals('dir/test-2.xml', $resource->getPath());
+    $resource = $resources[2];
+    $this->assertEquals('dir/test-3.xml', $resource->getPath());
+    $resource = $resources[3];
+    $this->assertEquals('test.txt', $resource->getPath());
+    
+    $resources = self::$db->getResources('dir/');
+    $this->assertTrue(is_array($resources));
+    $this->assertEquals(2, count($resources));
+    
+    foreach ($resources as $r)
+    {
+      $this->assertInstanceOf('BaseX\Resource', $r);
+    }
+    
+    self::$db->delete('test-1.xml');
+    self::$db->delete('test-2.xml');
+    self::$db->delete('test-3.xml');
+    self::$db->delete('test.txt');
+  }
+  
+  /**
+   * @depends testDelete
+   */
+  public function testGetResourceInfo()
+  {
+    self::$db->add('test-1.xml', '<test1/>');
+    self::$db->add('dir/test-2.xml', '<test2/>');
+    self::$db->add('dir/test-3.xml', '<test3/>');
+    self::$db->store('test.txt', 'test');
+    
+    $resources = self::$db->getResourceInfo();
     
     $this->assertTrue(is_array($resources));
     $this->assertEquals(4, count($resources));
@@ -217,11 +289,20 @@ class DatabaseTest extends TestCaseDb
     $resource = $resources[0];
     $this->assertEquals('test-1.xml', $resource->path());
     $resource = $resources[1];
-    $this->assertEquals('test-2.xml', $resource->path());
+    $this->assertEquals('dir/test-2.xml', $resource->path());
     $resource = $resources[2];
-    $this->assertEquals('test-3.xml', $resource->path());
+    $this->assertEquals('dir/test-3.xml', $resource->path());
     $resource = $resources[3];
     $this->assertEquals('test.txt', $resource->path());
+    
+    $resources = self::$db->getResourceInfo('dir/');
+    $this->assertTrue(is_array($resources));
+    $this->assertEquals(2, count($resources));
+    
+    foreach ($resources as $r)
+    {
+      $this->assertInstanceOf('BaseX\Resource\Info', $r);
+    }
     
     self::$db->delete('test-1.xml');
     self::$db->delete('test-2.xml');

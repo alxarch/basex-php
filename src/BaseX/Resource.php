@@ -31,7 +31,7 @@ class Resource
    *
    * @var BaseX\Resource\Info
    */
-  protected $info;
+  protected $info=null;
 
   /**
    *
@@ -46,10 +46,11 @@ class Resource
    * @param Database $db
    * @param string $path 
    */
-  public function __construct(Database $db, $path)
+  public function __construct(Database $db, $path, \BaseX\Resource\Info $info=null)
   {
     $this->db = $db;
     $this->path = $path;
+    $this->info = $info;
   }
   
   /**
@@ -233,7 +234,7 @@ class Resource
    */
   public function reloadInfo()
   {
-    $resources = $this->getDatabase()->getResources($this->getPath());
+    $resources = $this->getDatabase()->getResourceInfo($this->getPath());
     
     if(empty($resources))
 //      $this->info = null;

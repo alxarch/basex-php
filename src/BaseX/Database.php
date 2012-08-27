@@ -121,18 +121,18 @@ class Database
    * @return \Basex\Resource or null if file not found
    * @throws \InvalidArgumentException 
    */
-  public function document($path, $class=null)
+  public function resource($path, $class=null)
   {
     if(!$this->exists($path))
       return null;
     
     if(null === $class)
     {
-      $class = 'BaseX\Document';
+      $class = 'BaseX\Resource';
     }
-    else if(!is_subclass_of($class, 'BaseX\Document'))
+    else if(!is_subclass_of($class, 'BaseX\Resource'))
     {
-      throw new \InvalidArgumentException('Invalid class for document.');
+      throw new \InvalidArgumentException('Invalid class for resource.');
     }
     
     return new $class($this, $path);
@@ -173,7 +173,7 @@ class Database
    * @param string $path 
    * @return array 
    */
-  public function getResources($path = null)
+  public function getResourceInfo($path = null)
   {
     $filter = $this->getResourceFilter();
     $db = $this->getName();
@@ -190,9 +190,32 @@ class Database
   }
   
   /**
+   * Lists all database resources.
+   * 
+   * @param string $path 
+   * @return array 
+   */
+  public function getResources($path = null)
+  {
+    $filter = $this->getResourceFilter();
+    $db = $this->getName();
+    $xql = "<index>{ db:list-details('$db', '$path')$filter }</index>";
+    
+    $data = $this->session->query($xql)->execute();
+    $resources = array();
+    foreach (simplexml_load_string($data)->resource as $resource)
+    {
+      $info = new \BaseX\Resource\Info($resource);
+      $resources[] = new Resource($this, $info->path(), $info) ;
+    }
+    
+    return $resources;
+  }
+  
+  /**
    * XPath expression to limit index results.
    * 
-   * Used by getResources.
+   * Used by getResourceInfo / getResource.
    * 
    * @return string 
    */
