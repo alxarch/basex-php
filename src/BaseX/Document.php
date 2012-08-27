@@ -271,9 +271,10 @@ class Document
     $resources = $this->getDatabase()->getResources($this->getPath());
     
     if(empty($resources))
-      throw new Exception(sprintf("No document found at path: %s.", $this->getPath()));
-    
-    $this->info = $resources[0];
+      $this->info = null;
+//      throw new Exception(sprintf("No document found at path: %s.", $this->getPath()));
+    else
+      $this->info = $resources[0];
     
     return $this;
   }
@@ -296,4 +297,9 @@ class Document
     
     return $this;
   }
+//  
+//  public function exists()
+//  {
+//    return $this->getDatabase()->exists($this->getPath());
+//  }
 }

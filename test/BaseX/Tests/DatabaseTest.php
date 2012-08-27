@@ -189,6 +189,9 @@ class DatabaseTest extends TestCaseDb
     $this->assertTrue($doc->getDatabase() === self::$db);
     
     self::$db->delete('test.xml');
+    
+    
+    $this->assertNull(self::$db->document('not-here-doc'.time()));
   }
   
   /**
@@ -212,10 +215,13 @@ class DatabaseTest extends TestCaseDb
     }
     
     $resource = $resources[0];
-    
     $this->assertEquals('test-1.xml', $resource->path());
-    
-//    $this->assertEquals('test', self::$db->retrieve('test.txt'));
+    $resource = $resources[1];
+    $this->assertEquals('test-2.xml', $resource->path());
+    $resource = $resources[2];
+    $this->assertEquals('test-3.xml', $resource->path());
+    $resource = $resources[3];
+    $this->assertEquals('test.txt', $resource->path());
     
     self::$db->delete('test-1.xml');
     self::$db->delete('test-2.xml');
@@ -316,7 +322,7 @@ HTML;
   protected function assertResetAfterAdd()
   {
     $actual = self::$session->execute('GET PARSER');
-    $this->assertEquals("PARSER: \n", $actual);
+    $this->assertEquals("PARSER: xml\n", $actual);
     
     $actual = self::$session->execute('GET PARSEROPT');
     $this->assertEquals("PARSEROPT: \n", $actual);
@@ -328,5 +334,15 @@ HTML;
     $this->assertEquals("CREATEFILTER: \n", $actual);
   }
   
+//  /**
+//   * @depends testDelete
+//   */
+//  public function testExists()
+//  {
+//    $this->assertFalse(self::$db->exists('file_'.time().'.xml'));
+//    self::$db->add('test.xml', '<test/>');
+//    $this->assertTrue(self::$db->exists('test.xml'));
+//    self::$db->delete('test.xml');
+//  }
 
 }

@@ -116,11 +116,14 @@ class Database
    * 
    * @param string          $path
    * @param string|object   $class A BaseX\Document subclass to use.
-   * @return \Basex\Document
+   * @return \Basex\Document or null if file not found
    * @throws \InvalidArgumentException 
    */
   public function document($path, $class=null)
   {
+    if(!$this->exists($path))
+      return null;
+    
     if(null === $class)
     {
       $class = 'BaseX\Document';
@@ -323,8 +326,7 @@ class Database
     {
       $this->session->add($path, $input);
     }
-    
-    $this->session->script("SET PARSER; SET PARSEROPT; SET HTMLOPT; SET CREATEFILTER");
+    $this->session->script("SET PARSER xml; SET PARSEROPT; SET HTMLOPT; SET CREATEFILTER");
   }
 
   protected function open()
@@ -350,5 +352,16 @@ class Database
     }
     
     return $this->session->query("db:open('$db', '$path')")->execute();
-  }    
+  }
+  
+  /**
+   * Checks to see if $path exists.
+   * @param type $path 
+   */
+  protected function exists($path)
+  {
+    $db = $this->getName();
+    $xq = "count(db:list('$db', '$path')) > 0";
+    return 'true' === $this->session->query($xq)->execute();
+  }
 }
