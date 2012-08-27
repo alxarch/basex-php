@@ -25,8 +25,8 @@ class QueryTest extends TestCaseSession
   public function testGetId(Query $q)
   {
     $this->assertInternalType('integer', $q->getId());
-//    $q2 = $this->query('<test2/>');
-//    $this->assertNotEquals($q->getId(), $q2->getId());
+    $q2 = new Query(self::$session, '<test2/>');
+    $this->assertNotEquals($q->getId(), $q2->getId());
   }
   
   /**
