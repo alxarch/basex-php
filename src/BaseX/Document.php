@@ -2,49 +2,20 @@
 
 namespace BaseX;
 
-use BaseX\Document\Info;
-use BaseX\Database;
-use BaseX\Exception;
+use BaseX\Resource;
 use \DOMDocument as XML;
 
 /**
- * Document abstraction class for BaseX resources.
- * 
- * @todo Instanciate/manipulate a document 'offline' and save afterwards.
- * 
+ * BaseX\Resource for non-raw resources. 
  */
-class Document
+class Document extends Resource
 {
-  /**
-  *
-  * @var string
-  */
-  protected $path;
-  
-  /**
-   * 
-   * @var \BaseX\Database
-   */
-  protected $db;
-
-  /**
-   *
-   * @var BaseX\Document\Info
-   */
-  protected $info;
-
-  /**
-   *
-   * @var string
-   */
-  protected $contents = null;
-  
   /**
    *
    * @var \DOMDocument
    */
   protected $xml = null;
-
+  
   /**
    * Constructor
    * 
@@ -53,23 +24,9 @@ class Document
    */
   public function __construct(Database $db, $path)
   {
-    $this->db = $db;
-    $this->path = $path;
-  }
-  
-  /**
-   * Intermediate helper function
-   * 
-   * @return string
-   */
-  protected function doGetContents()
-  {
-    if(null === $this->contents)
-    {
-      $this->contents = $this->getDatabase()->fetch($this->getPath(), $this->isRaw());
-    }
-    
-    return $this->contents;
+    parent::__construct($db, $path);
+    if($this->isRaw())
+      throw new \InvalidArgumentException('Specified resource is stored as raw file.');
   }
   
   /**
@@ -93,108 +50,19 @@ class Document
   }
   
   /**
-   * Helper that actually saves the data.
+   * Sets the contents of a document.
    * 
-   * @todo posibility to save to another database.
+   * Storing any changes to the database must occur in a separate step.
    * 
-   * @param string $path 
+   * Any local changes made to the xml tree will be lost.
+   * 
+   * @param type $contents
+   * @return \BaseX\Document
    */
-  protected function doSave($path)
+  public function setContents($contents)
   {
-    if($this->isRaw())
-    {
-      $this->getDatabase()->store($path, $this->getContents());
-    }
-    else
-    {
-      $this->getDatabase()->replace($path, $this->getContents()) ;
-    }
-  }
-
-  /**
-   * Persist any local changes.
-   * 
-   * @return \BaseX\Document 
-   */
-  public function save()
-  {
-    $this->doSave($this->getPath());
-    $this->info = null;
-    return $this;
-  }
-  
-  /**
-   * Copy this document to another location.
-   * 
-   * @todo posibility to copy accross databases.
-   * 
-   * @param type $dest
-   * @return \BaseX\Document 
-   */
-  public function copy($dest)
-  {
-    $this->doSave($dest);
-    return new Document($this->getDatabase(), $dest);
-  }
-  
-  /**
-   * Move this to document to another path.
-   * 
-   * @todo posibility to move accross databases.
-   * 
-   * @param type $to
-   * @return \BaseX\Document 
-   */
-  public function move($to)
-  {
-    $this->getDatabase()->rename($this->getPath(), $to);
-    $this->info = null;
-    $this->setPath($to);
-    return $this;
-  }
-  
-  /**
-   * Delete this document.
-   *  
-   */
-  public function delete()
-  {
-    $this->getDatabase()->delete($this->getPath());
-    $this->setPath(null);
-  }
-  
-  /**
-   * The database this document belongs to.
-   * 
-   * @return type 
-   */
-  public function getDatabase()
-  {
-    return $this->db;
-  }
-  
-  /**
-   * Set the path of the current document.
-   * 
-   * To move the document use move()
-   * 
-   * @param string $path
-   * @return \BaseX\Document 
-   */
-  protected function setPath($path)
-  {
-    $this->path = $path;
-    
-    return $this;
-  }
-  
-  /**
-   * Path of this document within it's database.
-   * @return type 
-   */
-  public function getPath()
-  {
-    return $this->path;
+    $this->xml = null;
+    return parent::setContents($contents);
   }
   
   /**
@@ -218,88 +86,15 @@ class Document
     return $this->xml;
   }
   
+
   /**
-   * Whether the document is raw file or xml document. 
+   * Retrieves contents of a document filtered by an XPath expression.
    * 
-   * @return boolean
+   * @param string $xpath An XPath expression to apply to the contents.
+   * @return string $result
    */
-  public function isRaw()
+  public function xpath($xpath)
   {
-    return $this->getInfo()->raw();
+    return $this->getDatabase()->xpath($xpath, $this->getPath());
   }
-  
-  /**
-   * Resource info for this document.
-   * 
-   * @return BaseX\Document\Info
-   */
-  public function getInfo()
-  {
-    if(null == $this->info)
-    {
-      $this->reloadInfo();
-    }
-    
-    return $this->info;
-  }
-  
-  /**
-   * Sets the contents of a document.
-   * 
-   * Storing any changes to the database must occur in a separate step.
-   * 
-   * Any local changes made to the xml tree will be lost.
-   * 
-   * @param type $contents
-   * @return \BaseX\Document 
-   */
-  public function setContents($contents)
-  {
-    $this->contents = $contents;
-    $this->xml = null;
-    return $this;
-  }
-  
-  /**
-   * Reload resource info from the database.
-   * 
-   * @return \BaseX\Document $this
-   * @throws Exception 
-   */
-  public function reloadInfo()
-  {
-    $resources = $this->getDatabase()->getResources($this->getPath());
-    
-    if(empty($resources))
-      $this->info = null;
-//      throw new Exception(sprintf("No document found at path: %s.", $this->getPath()));
-    else
-      $this->info = $resources[0];
-    
-    return $this;
-  }
-  
-  /**
-   * Reloads document contents & info from the database. 
-   * 
-   * Any local changes made to contents or the xml tree will be lost.
-   * 
-   * @return \BaseX\Document $this
-   */
-  public function reload()
-  {
-    $old = $this->getInfo()->modified();
-    $this->reloadInfo();
-    if($old !== $this->getInfo()->modified())
-    {
-      $this->doGetContents();
-    }
-    
-    return $this;
-  }
-//  
-//  public function exists()
-//  {
-//    return $this->getDatabase()->exists($this->getPath());
-//  }
 }

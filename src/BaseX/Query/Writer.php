@@ -31,17 +31,29 @@ class Writer
   protected $variables = array();
   
   /**
+   * Namespaces to declare in the query prologue.
+   * 
+   * @var array
+   */
+  protected $namespaces = array();
+  
+  /**
+   * Modules to import in the query prologue.
+   * 
+   * @var array
+   */
+  protected $modules = array();
+  
+  /**
    * Query body
    * @var string
    */
   protected $body;
   
-  public function __construct($xquery, $variables=array(), $options=array(), $parameters=array())
+  public function __construct($xquery, $variables=array())
   {
-    $this->setBody($xquery)
-         ->setVariables($variables)
-         ->setOptions($options)
-         ->setParameters($parameters);
+    $this->setBody($xquery);
+    $this->setVariables($variables);
   }
   
   public function getParameters()
@@ -125,7 +137,6 @@ class Writer
     $this->body = $body;
     
     return $this;
-    
   }
   
   public function getBody()
@@ -142,6 +153,16 @@ class Writer
       $xq[] = sprintf('declare variable $%s external;', $name);
     }
     
+    foreach ($this->namespaces as $alias => $uri)
+    {
+      $xq[] = sprintf('declare namespace %s = "%s";', $alias, $uri);
+    }
+    
+    foreach ($this->modules as $alias => $uri)
+    {
+      $xq[] = sprintf('import module namespace %s = "%s";', $alias, $uri);
+    }
+    
     foreach ($this->parameters as $name => $value)
     {
       $xq[] = sprintf('declare option output:%s = "%s";', $name, $value);
@@ -156,6 +177,48 @@ class Writer
     $xq[] = $this->getBody();
     
     return implode("\n", $xq);
+  }
+  
+  public function getModules()
+  {
+    return $this->modules;
+  }
+  
+  public function setModules($modules)  
+  {
+    foreach ($modules as $m => $uri)
+    {
+      $this->setModule($m, $uri);
+    }
+    
+    return $this;
+  }
+  
+  public function setModule($alias, $uri)
+  {
+    $this->modules[$alias] = $uri;
+    return $this;
+  }
+  
+  public function getNamespaces()
+  {
+    return $this->namespaces;
+  }
+  
+  public function setNamespaces($namespaces)  
+  {
+    foreach ($namespaces as $n => $uri)
+    {
+      $this->setNamespace($n, $uri);
+    }
+    
+    return $this;
+  }
+  
+  public function setNamespace($alias, $uri)
+  {
+    $this->namespaces[$alias] = $uri;
+    return $this;
   }
   
   public function getQuery(Session $session)

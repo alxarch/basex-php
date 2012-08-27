@@ -23,7 +23,7 @@ class TestCaseDb extends TestCaseSession
   static public function setUpBeforeClass()
   {
     parent::setUpBeforeClass();
-    self::$dbname = 'test_db_' . time();
+    self::$dbname = 'db_' . time();
     self::$db = new Database(self::$session, self::$dbname);
   }
   

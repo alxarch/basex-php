@@ -10,99 +10,161 @@ use BaseX\Query;
 
 class QueryWriterTest extends TestCase
 {
-  
-  public function testGetParameter()
+
+  public function testSetNamespace()
   {
-    $w = new Writer('<test/>', array(), array(), array('test' => 3));
-    $this->assertEquals($w->getParameter('test'), 3);
-    $this->assertNull($w->getParameter('undefined'));
+    $w = new Writer('<test/>');
+    $result = $w->setNamespace('tei', 'http://www.tei-c.org/ns/1.0');
+    $this->assertInstanceOf('BaseX\Query\Writer', $result);
+    $this->assertTrue($result === $w);
+    return $w;
   }
   
-  public function testGetParameters()
+  public function testSetNamespaces()
   {
-    $params = array('test' => 3);
-    $w = new Writer('<test/>', array(), array(), $params);
+    $w = new Writer('<test/>');
+    $namespaces = array(
+      'tei' => 'http://www.tei-c.org/ns/1.0', 
+      'other' => 'http://example.com'
+    );
+    
+    $result = $w->setNamespaces($namespaces);
+    $this->assertInstanceOf('BaseX\Query\Writer', $result);
+    $this->assertTrue($result === $w);
+    
+    return array($w, $namespaces);
+  }
+  
+  /**
+   * @depends testSetNamespaces 
+   */
+  public function testGetNamespaces($args)
+  {
+    list($w, $namespaces) = $args;
+    $result = $w->getNamespaces();
+    $this->assertTrue(is_array($result));
+    $this->assertEquals($result, $namespaces);
+  }
+  
+  
+
+  public function testSetModules()
+  {
+    $w = new Writer('<test/>');
+    $mods = array('functx'=> 'http://www.functx.com');
+    $result = $w->setModules($mods);
+    $this->assertInstanceOf('BaseX\Query\Writer', $result);
+    $this->assertTrue($result === $w);
+    
+    return array($w, $mods);
+  }
+  
+  /**
+   * @depends testSetModules 
+   */
+  public function testGetModules($args)
+  {
+    list($w, $mods) = $args;
+    $result = $w->getModules();
+    $this->assertTrue(is_array($result));
+    $this->assertEquals($result, $mods);
+  }
+
+  public function testSetModule()
+  {
+    $w = new Writer('<test/>');
+    $result = $w->setModule('functx', 'http://www.functx.com');
+    $this->assertInstanceOf('BaseX\Query\Writer', $result);
+    $this->assertTrue($result === $w);
+    return $w;
+  }
+
+  public function testSetParameters()
+  {
+    $w = new Writer('<test/>');
+    $params = array('test' => 8, 'other' => 'something');
+    $result = $w->setParameters($params);
+    $this->assertInstanceOf('BaseX\Query\Writer', $result);
+    $this->assertTrue($result === $w);
+    
+    return array($w, $params);
+  }
+  
+  /**
+   * @depends testSetParameters 
+   */
+  public function testGetParameters($args)
+  {
+    list($w, $params) = $args;
     $result = $w->getParameters();
     $this->assertTrue(is_array($result));
     $this->assertEquals($result, $params);
   }
-  
-  /**
-   * @depends testGetParameters 
-   */
-  public function testSetParameters()
-  {
-    $params = array('test' => 3);
-    $w = new Writer('<test/>', array(), array(), $params);
-    $extra = array('test'=>8, 'other' => 'voidsalt');
-    $result = $w->setParameters($extra);
-    $this->assertInstanceOf('BaseX\Query\Writer', $result);
-    $this->assertTrue($result === $w);
-    $this->assertEquals($w->getParameters(), array('test' => 8, 'other' => 'voidsalt'));
-  }
-  
-  /**
-   * @depends testGetParameter 
-   */
+
   public function testSetParameter()
   {
-    $params = array('test' => 3);
-    $w = new Writer('<test/>', array(), array(), $params);
-    $result = $w->setParameter('test', 8);
+    $w = new Writer('<test/>');
+    $result = $w->setParameter('test', 3);
     $this->assertInstanceOf('BaseX\Query\Writer', $result);
     $this->assertTrue($result === $w);
-    $this->assertEquals($w->getParameter('test'), 8);
+    return $w;
   }
   
-    
-  public function testGetOption()
+  /**
+   * @depends testSetParameter 
+   */
+  public function testGetParameter(Writer $w)
   {
-    $w = new Writer('<test/>', array(), array('test' => 3), array());
+    $this->assertEquals($w->getParameter('test'), 3);
+    $this->assertNull($w->getParameter('undefined'));
+    
+  }
+  
+  public function testSetOptions()
+  {
+    $w = new Writer('<test/>');
+    $opts = array('test' => 3, 'other' => 'voidsalt');
+    $result = $w->setOptions($opts);
+    $this->assertInstanceOf('BaseX\Query\Writer', $result);
+    $this->assertTrue($result === $w);
+    
+    return array($w, $opts);
+  }
+  
+  /**
+   * @depends testSetOptions 
+   */
+  public function testGetOptions($args)
+  {
+    list($w, $options) = $args;
+    $result = $w->getOptions();
+    $this->assertTrue(is_array($result));
+    $this->assertEquals($result, $options);
+  }
+  
+  public function testSetOption()
+  {
+    $w = new Writer('<test/>');
+    $result = $w->setOption('test', 3);
+    $this->assertInstanceOf('BaseX\Query\Writer', $result);
+    $this->assertTrue($result === $w);
+    
+    return $w;
+  }
+  
+  /**
+   * @depends testSetOption 
+   */
+  public function testGetOption(Writer $w)
+  {
     $this->assertEquals($w->getOption('test'), 3);
     $this->assertNull($w->getOption('undefined'));
   }
   
-  public function testGetOptions()
-  {
-    $opts = array('test' => 3);
-    $w = new Writer('<test/>', array(),  $opts, array());
-    $result = $w->getOptions();
-    $this->assertTrue(is_array($result));
-    $this->assertEquals($result, $opts);
-  }
-  
-  /**
-   * @depends testGetOptions 
-   */
-  public function testSetOptions()
-  {
-    $opts = array('test' => 3);
-    $w = new Writer('<test/>', array(), $opts, array());
-    $extra = array('test'=>8, 'other' => 'voidsalt');
-    $result = $w->setOptions($extra);
-    $this->assertInstanceOf('BaseX\Query\Writer', $result);
-    $this->assertTrue($result === $w);
-    $this->assertEquals($w->getOptions(), array('test' => 8, 'other' => 'voidsalt'));
-  }
-  
-  /**
-   * @depends testGetOption 
-   */
-  public function testSetOption()
-  {
-    $opts = array('test' => 3);
-    $w = new Writer('<test/>', array(), $opts, array());
-    $result = $w->setOption('test', 8);
-    $this->assertInstanceOf('BaseX\Query\Writer', $result);
-    $this->assertTrue($result === $w);
-    $this->assertEquals($w->getOption('test'), 8);
-  }
-  
-    
     
   public function testGetVariable()
   {
-    $w = new Writer('<test/>', array('test' => 3), array(), array());
+    $w = new Writer('<test/>', array('test' => 3));
     $this->assertEquals($w->getVariable('test'), 3);
     $this->assertNull($w->getVariable('undefined'));
   }
@@ -110,7 +172,7 @@ class QueryWriterTest extends TestCase
   public function testGetVariables()
   {
     $vars = array('test' => 3);
-    $w = new Writer('<test/>',  $vars, array(), array());
+    $w = new Writer('<test/>',  $vars);
     $result = $w->getVariables();
     $this->assertTrue(is_array($result));
     $this->assertEquals($result, $vars);
@@ -122,7 +184,7 @@ class QueryWriterTest extends TestCase
   public function testSetVariables()
   {
     $vars = array('test' => 3);
-    $w = new Writer('<test/>', $vars, array(), array());
+    $w = new Writer('<test/>', $vars);
     $extra = array('test'=>8, 'other' => 'voidsalt');
     $result = $w->setVariables($extra);
     $this->assertInstanceOf('BaseX\Query\Writer', $result);
@@ -136,7 +198,7 @@ class QueryWriterTest extends TestCase
   public function testSetVariable()
   {
     $vars = array('test' => 3);
-    $w = new Writer('<test/>', $vars, array(), array());
+    $w = new Writer('<test/>', $vars);
     $result = $w->setVariable('test', 8);
     $this->assertInstanceOf('BaseX\Query\Writer', $result);
     $this->assertTrue($result === $w);
@@ -157,6 +219,32 @@ class QueryWriterTest extends TestCase
     $w = new Writer('<body/>');
     $w->setBody('<new/>');
     $this->assertEquals($w->getBody(), '<new/>');
+  }
+  public function testBuild()
+  {
+    $vars = array('contents' => "Hello World!");
+    $w = new Writer('<body>{$contents}</body>', $vars);
+    
+    $opts = array('chop' => 'false');
+    $params = array('method' => 'xml');
+    $namespaces = array('tei' => 'http://www.tei-c.org/ns/1.0');
+    $modules = array('functx'=> 'http://www.functx.com');
+    
+    $w->setOptions($opts)
+      ->setParameters($params)
+      ->setNamespaces($namespaces)
+      ->setModules($modules);
+    
+    $expect = <<<XQL
+declare variable \$contents external;
+declare namespace tei = "http://www.tei-c.org/ns/1.0";
+import module namespace functx = "http://www.functx.com";
+declare option output:method = "xml";
+declare option db:chop = "false";
+<body>{\$contents}</body>
+XQL;
+    
+    $this->assertEquals($expect, $w->build());
   }
   
   /**
@@ -182,20 +270,5 @@ class QueryWriterTest extends TestCase
     $this->assertTrue($session === $q->getSession());
     $this->assertXmlStringEqualsXmlString('<body>Hello World!</body>', $q->execute());
   }
-  public function testBuild()
-  {
-    $vars = array('contents' => "Hello World!");
-    $opts = array('chop', 'false');
-    $params = array('method', 'xml');
-    $w = new Writer('<body>{$contents}</body>', $vars, $opts, $params);
-    
-    $expect = <<<XQL
-declare variable external \$contents;
-declare option db:chop = "false";
-declare option output:method = "xml";
-<body>{\$contents}</body>
-XQL;
-    
-    $this->assertEquals($w->build(), $expect);
-  }
+  
 }

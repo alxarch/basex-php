@@ -4,6 +4,8 @@ namespace BaseX;
 
 use BaseX\Session;
 use BaseX\Document;
+use BaseX\Resource;
+use BaseX\Resource\Info;
 use BaseX\Exception;
 use BaseX\Helpers as B;
 
@@ -116,7 +118,7 @@ class Database
    * 
    * @param string          $path
    * @param string|object   $class A BaseX\Document subclass to use.
-   * @return \Basex\Document or null if file not found
+   * @return \Basex\Resource or null if file not found
    * @throws \InvalidArgumentException 
    */
   public function document($path, $class=null)
@@ -181,7 +183,7 @@ class Database
     $resources = array();
     foreach (simplexml_load_string($data)->resource as $resource)
     {
-      $resources[] = new Document\Info($resource);
+      $resources[] = new Info($resource);
     }
     
     return $resources;
@@ -363,5 +365,31 @@ class Database
     $db = $this->getName();
     $xq = "count(db:list('$db', '$path')) > 0";
     return 'true' === $this->session->query($xq)->execute();
+  }
+  
+  /**
+   * Retrieves contents of a database filtered by an XPath expression.
+   * 
+   * @param string $xpath An XPath expression to apply to the contents.
+   * @param string $path An path to limit scope of contents.
+   * @return string $result
+   */
+  public function xpath($xpath, $path=null)
+  {
+    if(null === $path)
+      $xq = sprintf("db:open('%s')%s", $this->getName(), $xpath);
+    else
+      $xq = sprintf("db:open('%s', '%s')%s", $this->getName(), $path, $xpath);
+    
+    return $this->getSession()->query($xq)->execute();
+  }
+  
+  /**
+   *
+   * @return \BaseX\Session
+   */
+  public function getSession()
+  {
+    return $this->session;
   }
 }

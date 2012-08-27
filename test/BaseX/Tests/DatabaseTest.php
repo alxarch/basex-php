@@ -66,6 +66,22 @@ class DatabaseTest extends TestCaseDb
   
   
   /**
+   * @depends testAdd 
+   * @depends testStore
+   */
+  public function testDelete($doc, $raw)
+  {
+    
+    self::$db->delete($doc);
+    
+    $this->assertNotContains($doc, self::ls());
+    
+    self::$db->delete($raw);
+    
+    $this->assertNotContains($raw, self::ls());
+  }
+  
+  /**
    * @depends testDelete
    */
   public function testFetch()
@@ -93,22 +109,6 @@ class DatabaseTest extends TestCaseDb
     self::$db->delete($path);
     
    
-  }
-  
-  /**
-   * @depends testAdd 
-   * @depends testStore
-   */
-  public function testDelete($doc, $raw)
-  {
-    
-    self::$db->delete($doc);
-    
-    $this->assertNotContains($doc, self::ls());
-    
-    self::$db->delete($raw);
-    
-    $this->assertNotContains($raw, self::ls());
   }
   
   /**
@@ -211,7 +211,7 @@ class DatabaseTest extends TestCaseDb
     
     foreach ($resources as $r)
     {
-      $this->assertInstanceOf('BaseX\Document\Info', $r);
+      $this->assertInstanceOf('BaseX\Resource\Info', $r);
     }
     
     $resource = $resources[0];
@@ -345,4 +345,35 @@ HTML;
 //    self::$db->delete('test.xml');
 //  }
 
+  /**
+   * @depends testDelete 
+   */
+  public function testXpath()
+  {
+    self::$db->add('test-1.xml', '<root><test/><test/></root>');
+    self::$db->add('test-2.xml', '<root><test/></root>');
+    
+    $result = self::$db->xpath('//test');
+    
+    $this->assertNotEmpty($result);
+    
+    $xml = simplexml_load_string("<root>$result</root>");
+    
+    $this->assertInstanceOf('\SimpleXmlElement', $xml);
+    
+    $this->assertEquals(3, count($xml->test));
+    
+    $result = self::$db->xpath('//test', 'test-1.xml');
+    
+    $this->assertNotEmpty($result);
+    
+    $xml = simplexml_load_string("<root>$result</root>");
+    
+    $this->assertInstanceOf('\SimpleXmlElement', $xml);
+    
+    $this->assertEquals(2, count($xml->test));
+    
+    self::$db->delete('test-1.xml');
+    self::$db->delete('test-2.xml');
+  }
 }

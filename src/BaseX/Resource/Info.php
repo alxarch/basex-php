@@ -1,6 +1,6 @@
 <?php
 
-namespace BaseX\Document;
+namespace BaseX\Resource;
 
 use BaseX\Database;
 

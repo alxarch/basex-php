@@ -55,7 +55,7 @@ class SessionTest extends TestCaseSession
     $list = self::$session->execute('LIST');
     $this->assertContains($db, $list);
     
-    self::$session->execute("DELETE $db");
+    self::$session->execute("DROP DB $db");
     
     $input = '<test>'.time().'</test>';
     
@@ -73,8 +73,7 @@ class SessionTest extends TestCaseSession
     
     self::$session->execute("OPEN $db");
     self::$session->execute("DELETE $db.xml");
-    
-    return $db;
+    self::$session->execute("DROP DB $db");
   }
   
   /**
@@ -82,6 +81,7 @@ class SessionTest extends TestCaseSession
    */
   public function testAdd($db)
   {
+    $db = 'test_db_'.time();
     $path = 'test.xml';
     $contents = '<test>This is a test</test>';
     
@@ -95,17 +95,22 @@ class SessionTest extends TestCaseSession
     $this->assertXmlStringEqualsXmlString($contents, $result);
     
     self::$session->execute("DELETE $path");
+    self::$session->execute("DROP DB $db");
   }
   
   /**
-   * @depends testCreate
+   * @depends testAdd
    */
-  public function testReplace($db)
+  public function testReplace()
   {
     
+    $db = 'test_db_'.time();
     $path = 'test.xml';
     $contents = '<test>This is a test</test>';
     $replace = '<replace/>';
+    
+    self::$session->create($db);
+    self::$session->execute("OPEN $db");
     
     self::$session->add($path, $contents);
     
@@ -115,18 +120,22 @@ class SessionTest extends TestCaseSession
     
     $this->assertXmlStringEqualsXmlString($replace, $result);
     
-    self::$session->execute("DELETE $path");
+    self::$session->execute("DELETE $path");    
+    self::$session->execute("DROP DB $db");
   }
   
   /**
    * @depends testCreate
    */
-  public function testStore($db)
+  public function testStore()
   {
     
+    $db = 'test_db_'.time();
     $path = 'raw.txt';
     $contents = 'raw';
     
+    self::$session->create($db);
+    self::$session->execute("OPEN $db");
     self::$session->store($path, $contents);
     
     $list = self::$session->execute("LIST $db");
@@ -139,6 +148,7 @@ class SessionTest extends TestCaseSession
     $this->assertSame($result, $contents);
     
     self::$session->execute("DELETE $path");
+    self::$session->execute("DROP DB $db");
   }
   
   /**
@@ -168,10 +178,7 @@ class SessionTest extends TestCaseSession
     $list = self::$session->execute("LIST");
     $this->assertNotContains($db, $list);
     
-  }
-  
-  private function drop($db)
-  {
-    self::$session->execute('DROP DATABASE '.$db);
+    self::$session->execute("DROP DB ".$db);
+    
   }
 }

@@ -3,7 +3,7 @@ namespace BaseX\Tests;
 
 
 use \PHPUnit_Framework_TestCase as TestCase;
-use BaseX\Document\Info;
+use BaseX\Resource\Info;
 
 class InfoTest extends TestCase
 {
