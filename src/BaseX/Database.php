@@ -5,7 +5,7 @@ namespace BaseX;
 use BaseX\Session;
 use BaseX\Document;
 use BaseX\Resource;
-use BaseX\Resource\Info;
+use BaseX\Resource\Info as ResourceInfo;
 use BaseX\Exception;
 use BaseX\Helpers as B;
 
@@ -166,6 +166,21 @@ class Database
     $command = sprintf('RENAME "%s" "%s"', $old, $new);
     $this->execute($command);
   }
+  
+  /**
+   *
+   * @param string $path
+   * @return \SimpleXmlElement
+   */
+  protected function resources($path=null)
+  {
+    $filter = $this->getResourceFilter();
+    $db = $this->getName();
+    $xql = "<resources>{ db:list-details('$db', '$path')$filter }</resources>";
+    
+    $data = $this->session->query($xql)->execute();
+    return simplexml_load_string($data)->resource;
+  }
     
   /**
    * Lists all database resources.
@@ -175,18 +190,12 @@ class Database
    */
   public function getResourceInfo($path = null)
   {
-    $filter = $this->getResourceFilter();
-    $db = $this->getName();
-    $xql = "<index>{ db:list-details('$db', '$path')$filter }</index>";
-    
-    $data = $this->session->query($xql)->execute();
-    $resources = array();
-    foreach (simplexml_load_string($data)->resource as $resource)
+    $result = array();
+    foreach ($this->resources($path) as $resource)
     {
-      $resources[] = new Info($resource);
+      $result[] = new ResourceInfo($resource);
     }
-    
-    return $resources;
+    return $result;
   }
   
   /**
@@ -197,15 +206,10 @@ class Database
    */
   public function getResources($path = null)
   {
-    $filter = $this->getResourceFilter();
-    $db = $this->getName();
-    $xql = "<index>{ db:list-details('$db', '$path')$filter }</index>";
-    
-    $data = $this->session->query($xql)->execute();
     $resources = array();
-    foreach (simplexml_load_string($data)->resource as $resource)
+    foreach ($this->resources($path) as $resource)
     {
-      $info = new \BaseX\Resource\Info($resource);
+      $info = new ResourceInfo($resource);
       $resources[] = new Resource($this, $info->path(), $info) ;
     }
     
@@ -414,5 +418,42 @@ class Database
   public function getSession()
   {
     return $this->session;
+  }
+  
+  /**
+   * Lists database resources/collections at $path.
+   * 
+   * all subcollections are returned as <collection/>
+   * @param string $path 
+   */
+  public function getContents($path=null)
+  {
+    $path = (string) $path;
+    $path = trim($path, '/');
+    $db = $this->getName();
+    $filter = $this->getResourceFilter();
+    //Frakking XQuery starts counting at 1 (+1 to trim leading '/')
+    $start = '' === $path ? 1 : strlen($path) + 2; 
+    $xql = <<<XQL
+<contents>
+{
+for \$r in db:list-details('$db', '$path')$filter
+  let \$p := substring(\$r/string(), $start)
+  let \$parts := tokenize(\$p, '/')
+  let \$name := \$parts[1]
+  let \$count := count(\$parts)
+  let \$time :=  xs:dateTime(\$r/@modified-date/string())
+  group by \$name
+  order by -sum(\$count), \$name
+  return if(\$count > 1) 
+    then <collection modified-date="{max(\$time)}">{\$name}</collection>
+    else \$r
+}
+</contents>
+XQL;
+    
+    $data = $this->getSession()->query($xql)->execute();
+    
+    return simplexml_load_string($data);
   }
 }

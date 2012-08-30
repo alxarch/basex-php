@@ -2,7 +2,7 @@
 
 namespace BaseX;
 
-use BaseX\Resource\Info;
+use BaseX\Resource\Info as ResourceInfo;
 use BaseX\Database;
 use BaseX\Exception;
 
@@ -46,7 +46,7 @@ class Resource
    * @param Database $db
    * @param string $path 
    */
-  public function __construct(Database $db, $path, \BaseX\Resource\Info $info=null)
+  public function __construct(Database $db, $path, ResourceInfo $info=null)
   {
     $this->db = $db;
     $this->path = $path;
@@ -161,7 +161,7 @@ class Resource
   }
   
   /**
-   * Set the path of the current document.
+   * Set the path of the current resource.
    * 
    * To move the document use move()
    * 
@@ -176,8 +176,8 @@ class Resource
   }
   
   /**
-   * Path of this document within it's database.
-   * @return type 
+   * Path of this resource within it's database.
+   * @return string 
    */
   public function getPath()
   {
@@ -185,7 +185,16 @@ class Resource
   }
   
   /**
-   * Whether the document is raw file or xml document. 
+   * Filenamne of this resource within it's database.
+   * @return string 
+   */
+  public function getName()
+  {
+    return basename($this->getPath());
+  }
+  
+  /**
+   * Whether the resource is raw file or xml document. 
    * 
    * @return boolean
    */
@@ -195,7 +204,7 @@ class Resource
   }
   
   /**
-   * Resource info for this document.
+   * Resource info.
    * 
    * @return BaseX\Resource\Info
    */
@@ -210,7 +219,7 @@ class Resource
   }
   
   /**
-   * Sets the contents of a document.
+   * Sets the contents of a resource.
    * 
    * Storing any changes to the database must occur in a separate step.
    * 
@@ -235,18 +244,18 @@ class Resource
   public function reloadInfo()
   {
     $resources = $this->getDatabase()->getResourceInfo($this->getPath());
-    
+ 
     if(empty($resources))
 //      $this->info = null;
       throw new Exception(sprintf("No document found at path: %s.", $this->getPath()));
     else
       $this->info = $resources[0];
-    
+  
     return $this;
   }
   
   /**
-   * Reloads document contents & info from the database. 
+   * Reloads resource contents & info from the database. 
    * 
    * Any local changes made to contents or the xml tree will be lost.
    * 

@@ -43,7 +43,7 @@ class TestCaseDb extends TestCaseSession
   static protected function doc($path)
   {
     return self::$session->execute("XQUERY db:open('".self::$dbname."','$path')");
-  }
+    }
   
   /**
    * Get raw document contents.
