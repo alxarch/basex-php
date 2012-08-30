@@ -129,7 +129,7 @@ class Resource
    * 
    * @todo posibility to move accross databases.
    * 
-   * @param type $to
+   * @param string $to
    * @return \BaseX\Resource 
    */
   public function move($to)
@@ -153,7 +153,7 @@ class Resource
   /**
    * The database this document belongs to.
    * 
-   * @return type 
+   * @return \BaseX\Database 
    */
   public function getDatabase()
   {
@@ -271,6 +271,19 @@ class Resource
     }
     
     return $this;
+  }
+  
+  /**
+   * Returns a hash value to be used as an etag.
+   * 
+   * @return string 
+   */
+  public function etag()
+  {
+    $db = $this->getDatabase()->getName();
+    $path = $this->getPath();
+    $time = $this->getInfo()->modified();
+    return md5("$db/$path/$time");
   }
 //  
 //  public function exists()

@@ -217,4 +217,21 @@ class ResourceTest extends TestCaseDb
     
     self::$db->delete('test.xml');
   }
+  
+
+  public function testEtag()
+  {
+    self::$db->add('test.xml', '<test/>');
+    $db = self::$dbname;
+    $xql = "max(db:list-details('$db', 'test.xml')/@modified-date/string())";
+    $time = self::$session->query($xql)->execute();
+    $etag = md5("$db/test.xml/$time");
+    $resource = new Resource(self::$db, 'test.xml');
+    $this->assertEquals($etag, $resource->etag());
+    
+    self::$db->replace('test.xml', '<new/>');
+    $resource->reloadInfo();
+    $this->assertNotEquals($resource->etag(), $etag);
+    self::$db->delete('test.xml');
+  }
 }
