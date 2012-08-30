@@ -387,7 +387,7 @@ class Database
    * Checks to see if $path exists.
    * @param type $path 
    */
-  protected function exists($path)
+  public function exists($path)
   {
     $db = $this->getName();
     $xq = "count(db:list('$db', '$path')) > 0";
