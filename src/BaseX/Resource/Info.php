@@ -2,8 +2,6 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Database;
-
 use \SimpleXMLElement as SimpleXml;
 use \DateTime;
 
@@ -11,14 +9,14 @@ class Info
 {
   /**
    *
-   * @var SimpleXmlElement
+   * @var \SimpleXmlElement
    */
   protected $info;
 
   public function __construct($info)
   {
     if(is_string($info))
-      $info = simplexml_load_string ($info);
+      $info = simplexml_load_string($info);
     
     $this->info = $info;
   }

@@ -6,6 +6,8 @@ use BaseX\Exception;
 
 class Socket
 {
+  const BUFFER_SIZE = 4096;
+
   protected $socket = null;
   protected $buffer = '';
   protected $pos = 0;
@@ -21,19 +23,65 @@ class Socket
     }
   }
   
+  public function stream_read($size)
+  {
+    $chunks = array();
+    
+    while($size > 0)
+    {
+      $this->_fill();
+      
+      $pos = strpos($this->buffer, chr(0), $this->pos);
+      
+      if(false === $pos)
+      {
+        $actual = $this->size - $this->pos;
+        
+        if($actual > $size)
+        {
+          $chunks[] = substr($this->buffer, $this->pos, $size);
+          $this->pos += $size;
+          $size = 0;
+        }
+        else
+        {
+          $chunks[] = substr($this->buffer, $this->pos);
+          $size -= $actual;
+          $this->pos = $this->size;
+        }
+      }
+      else
+      {
+        $actual = $pos - $this->pos;
+        if($actual > $size)
+        {
+          $chunks[] = substr($this->buffer, $this->pos, $size);
+          $this->pos += $size;
+        }
+        else
+        {
+          $chunks[] = substr($this->buffer, $this->pos, $actual);
+          $this->pos = $pos + 1;
+        }
+        $size = 0;
+      }
+    }
+    
+    return implode($chunks);
+  }
+  
   public function read($clear=false)
   {
     if($clear)
     {
-      $this->pos = 0;
-      $this->size = 0;
+      $this->pos = $this->size;
     }
     
     $parts = array();
     
     while(true)
     {
-      $this->fillBuffer();
+      $this->_fill();
       $pos = strpos($this->buffer, chr(0), $this->pos);
       
       if(false === $pos)
@@ -54,7 +102,7 @@ class Socket
   
   public function readSingle()
   {
-    $this->fillBuffer();
+    $this->_fill();
     
     return $this->buffer[$this->pos++];
     
@@ -66,14 +114,16 @@ class Socket
     $this->size = 0;
   }
   
-  protected function fillBuffer()
+  protected function _fill()
   {
     if($this->pos >= $this->size)
     {
       $this->buffer = fread($this->socket, 4096);;
       $this->size = strlen($this->buffer);
       $this->pos = 0;
+      return $this->size;
     }
+    return 0;
   }
   
   public function send($msg)
@@ -87,4 +137,4 @@ class Socket
     return fclose($this->socket);
   }
   
-}
+} 

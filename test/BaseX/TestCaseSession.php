@@ -11,7 +11,7 @@ class TestCaseSession extends PHPUnit_Framework_TestCase
 {
   /**
    *
-   * @var BaseX\Session
+   * @var \BaseX\Session
    */
   static protected $session;
   

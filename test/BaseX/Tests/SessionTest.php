@@ -3,6 +3,7 @@
 namespace BaseX\Tests;
 
 use BaseX\Session;
+use BaseX\Session\Info;
 use BaseX\TestCaseSession;
 
 /**
@@ -180,5 +181,18 @@ class SessionTest extends TestCaseSession
     
     self::$session->execute("DROP DB ".$db);
     
+  }
+  
+  function testGetInfo() {
+    $result = self::$session->getInfo();
+    
+    $this->assertInstanceOf('BaseX\Session\Info', $result);
+  }
+  
+  function testGetStatus() 
+  {
+    self::$session->execute('INFO');
+    $status = self::$session->getStatus();
+    $this->assertEquals(sprintf('%c%c', 0, 0), $status);
   }
 }

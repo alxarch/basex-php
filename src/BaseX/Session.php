@@ -6,7 +6,7 @@ use BaseX\Query;
 use BaseX\Session\Socket;
 use BaseX\Helpers as B;
 use BaseX\Session\Exception;
-
+use BaseX\Session\Info as SessionInfo;
 /** 
  * @file PHP client for BaseX.
  * Works with BaseX 7.0 and later
@@ -45,9 +45,14 @@ class Session
   protected $version;
   
   /**
-   * @var string
+   * @var \BaseX\Session\Info
    */
    protected $info = null;
+   
+  /**
+   * @var string
+   */
+   protected $status = null;
 
    /**
     * Creates a new Session
@@ -63,10 +68,21 @@ class Session
     $this->socket = new Socket($host, $port);
     
     $this->authenticate($user, $pass);
+  }
+  
+  public function getInfo()
+  {
+    if(null === $this->info)
+    {
+      $this->info = new SessionInfo($this);
+    }
     
-//    $this->info = $this->execute('INFO');
-    
-//    $this->version = preg_replace('/Version:\s+(\d+\.\d+)/', '$1', $this->info);
+    return $this->info;
+  }
+  
+  public function getStatus()
+  {
+    return (string)$this->status;
   }
   
   protected function authenticate($user, $pass)
@@ -75,7 +91,8 @@ class Session
     $ts = $this->socket->read(true);
     
     // send username and hashed password/timestamp
-    $msg = $user . chr(0) . hash("md5", hash("md5", $pass) . $ts) . chr(0);
+    $hash = hash("md5", hash("md5", $pass) . $ts);
+    $msg = sprintf("%s%c%s%c", $user , 0, $hash, 0);
     
     $this->socket->send($msg);
     
@@ -94,12 +111,12 @@ class Session
    */
   public function execute($command) 
   {
-    $this->socket->send($command.chr(0));
+    $this->socket->send(sprintf("%s%c",$command, 0));
     $result = $this->socket->read(true);
-    $this->info = $this->socket->read();
+    $this->status = $this->socket->read();
     if(!$this->ok()) 
     {
-      throw new Exception($this->info);
+      throw new Exception($this->status);
     }
     
     return $result;
@@ -181,20 +198,20 @@ class Session
    */
   public function close()
   {
-    $this->socket->send("exit".chr(0));
+    $this->socket->send(sprintf("exit%c",0));
     $this->socket->close();
   }
 
   private function sendCmd($code, $arg, $input) 
   {
-    $msg = chr($code).$arg.chr(0).$input.chr(0);
+    $msg = sprintf("%c%s%c%s%c", $code, $arg, 0, $input, 0);
     
     $this->socket->send($msg);
 
-    $this->info = $this->socket->read(true);
+    $this->status = $this->socket->read(true);
     
     if(!$this->ok())
-      throw new Exception($this->info);
+      throw new Exception($this->status);
   }
   
   
@@ -208,7 +225,8 @@ class Session
     if(is_array($arg))
       $arg = implode (chr(0), $arg);
     
-    $this->socket->send(chr($code).$arg.chr(0));
+    $msg = sprintf("%c%s%c", $code, $arg, 0);
+    $this->socket->send($msg);
     
     $result = $this->socket->read(true);
     
