@@ -87,7 +87,7 @@ class DatabaseTest extends TestCaseDb
   public function testFetch()
   {
    
-    $path = 'test.txt';
+    $path = 'test 1.txt';
     $input = 'This is a test.';
     
     self::$db->store($path, $input);

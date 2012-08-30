@@ -74,18 +74,18 @@ class ResourceTest extends TestCaseDb
   
   public function testGetContents()
   {
-    self::$db->add('test.xml', '<test/>');
-    $doc = new Resource(self::$db, 'test.xml');
+    self::$db->add('te st.xml', '<test/>');
+    $doc = new Resource(self::$db, 'te st.xml');
     
     $contents = $doc->getContents();
     $this->assertXmlStringEqualsXmlString('<test/>', $contents);
-    self::$db->delete('test.xml');
+    self::$db->delete('te st.xml');
     
-    self::$db->store('test.txt', 'test');
-    $doc = new Resource(self::$db, 'test.txt');
+    self::$db->store('te st.txt', 'test');
+    $doc = new Resource(self::$db, 'te st.txt');
     $contents = $doc->getContents();
     $this->assertEquals('test', $contents);
-    self::$db->delete('test.txt');
+    self::$db->delete('te st.txt');
   }
   
   public function testSave()

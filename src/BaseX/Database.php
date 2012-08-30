@@ -376,8 +376,21 @@ class Database
     
     if($raw)
     {
-      $script = "SET SERIALIZER raw; OPEN $db; RETRIEVE \"$path\"; SET SERIALIZER";
-      return $this->session->script($script);
+      $this->session->execute('SET SERIALIZER raw');
+      $this->session->execute("OPEN $db");
+      $result = $this->session->execute("RETRIEVE \"$path\"");
+      $this->session->execute("SET SERIALIZER");
+      return $result;
+      // EXECUTE still has problems with spaces in path.
+//      $script = <<<XML
+//<commands>
+//  <set option='serializer'>raw</set>
+//  <open name='$db'/>
+//  <retrieve path='$path'/>
+//  <set option='serializer'></set>
+//</commands>
+//XML;
+//      return $this->session->script($script);
     }
     
     return $this->session->query("declare option output:omit-xml-declaration 'false';db:open('$db', '$path')")->execute();
