@@ -365,10 +365,10 @@ class Database
   }
   
   /**
-   * Fetches contents of a document at specified path.
+   * Fetches contents of a resource at specified path.
    * 
-   * @param type $path
-   * @return type 
+   * @param string $path
+   * @return string 
    */
   public function fetch($path, $raw=false)
   {
@@ -380,7 +380,7 @@ class Database
       return $this->session->script($script);
     }
     
-    return $this->session->query("db:open('$db', '$path')")->execute();
+    return $this->session->query("declare option output:omit-xml-declaration 'false';db:open('$db', '$path')")->execute();
   }
   
   /**
