@@ -116,7 +116,7 @@ class Session
     $this->status = $this->socket->read();
     if(!$this->ok()) 
     {
-      throw new Exception($this->status);
+      throw new Exception($this->getStatus());
     }
     
     return $result;
@@ -146,8 +146,8 @@ class Session
    * 
    * @see http://docs.basex.org/wiki/Commands#CREATE_DB
    * 
-   * @param type $name name of the new database
-   * @param type $input initial document
+   * @param string $name name of the new database
+   * @param string|resource $input initial document
    */
   public function create($name, $input = '') 
   {
@@ -161,7 +161,7 @@ class Session
    * @see http://docs.basex.org/wiki/Commands#ADD
    * 
    * @param string $path path to add
-   * @param mixed $input document contents
+   * @param string|resource $input document contents
    *
    */
   public function add($path, $input)
@@ -173,7 +173,7 @@ class Session
    * Replaces a document at the specified path.
    * 
    * @param string $path Path to overwrite
-   * @param mixed $input Document contents
+   * @param string|resource $input Document contents
    */
   public function replace($path, $input)
   {
@@ -186,7 +186,7 @@ class Session
    * @see http://docs.basex.org/wiki/Commands#STORE
    * 
    * @param string $path
-   * @param string $input 
+   * @param string|resource $input 
    */
   public function store($path, $input)
   {
@@ -204,14 +204,24 @@ class Session
 
   private function sendCmd($code, $arg, $input) 
   {
-    $msg = sprintf("%c%s%c%s%c", $code, $arg, 0, $input, 0);
-    
-    $this->socket->send($msg);
+    if(is_resource($input))
+    {
+      //  In case input is a resource allow the socket to pipe it in.
+      $msg = sprintf("%c%s%c", $code, $arg, 0);
+      $this->socket->send($msg);
+      $this->socket->send($input);
+      $this->socket->send(chr(0));
+    }
+    else
+    {
+      $msg = sprintf("%c%s%c%s%c", $code, $arg, 0, $input, 0);
+      $this->socket->send($msg);
+    }
 
     $this->status = $this->socket->read(true);
     
     if(!$this->ok())
-      throw new Exception($this->status);
+      throw new Exception($this->getStatus());
   }
   
   

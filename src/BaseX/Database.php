@@ -91,7 +91,7 @@ class Database
    * @see http://docs.basex.org/wiki/Commands#STORE
    * 
    * @param string $path
-   * @param string $input
+   * @param string|resource $input
    */
   public function store($path, $input)
   {
@@ -438,6 +438,7 @@ class Database
    * 
    * all subcollections are returned as <collection/>
    * @param string $path 
+   * @return \SimpleXmlElement
    */
   public function getContents($path=null)
   {
@@ -466,7 +467,9 @@ for \$r in db:list-details('$db', '$path')$filter
 XQL;
     
     $data = $this->getSession()->query($xql)->execute();
-    
-    return simplexml_load_string($data);
+    $xml = simplexml_load_string($data);
+    if(false === $xml)
+      throw new Exception('Failed to get contents.');
+    return $xml;
   }
 }

@@ -16,7 +16,6 @@ class Socket
   public function __construct($host, $port)
   {
     $this->socket = stream_socket_client("tcp://$host:$port");
-    
     if(false === $this->socket) 
     {
       throw new Exception("Can't communicate with server.");
@@ -128,8 +127,14 @@ class Socket
   
   public function send($msg)
   {
-    if(false === fwrite($this->socket, $msg))
+    $written = false;
+    if(is_resource($msg))
+      $written = stream_copy_to_stream ($msg, $this->socket);
+    else
+      $written = fwrite($this->socket, $msg, strlen($msg));
+    if(false === $written)
       throw new Exception("Failed to send message.");
+    return $written;
   }
   
   public function close()
