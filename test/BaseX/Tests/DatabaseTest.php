@@ -5,10 +5,23 @@ namespace BaseX\Tests;
 use BaseX\TestCaseDb;
 use BaseX\Session;
 use BaseX\Database;
-
+use \InvalidArgumentException;
 
 class DatabaseTest extends TestCaseDb
 {
+  /**
+   * @expectedException InvalidArgumentException
+   * @expectedExceptionMessage Invalid database name.
+   */
+  public function test__construct()
+  {
+    $name = 'nameok'.time();
+    $db = new \BaseX\Database(self::$session, $name);
+    self::$session->execute("DROP DB $name");
+    $name = 'not ok όνομα';
+    $db = new Database(self::$session, $name);
+  }
+  
   public function testInit()
   {
     $this->assertContains(self::$dbname, self::$session->execute("LIST"));

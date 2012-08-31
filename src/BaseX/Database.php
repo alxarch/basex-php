@@ -8,6 +8,7 @@ use BaseX\Resource;
 use BaseX\Resource\Info as ResourceInfo;
 use BaseX\Exception;
 use BaseX\Helpers as B;
+use \InvalidArgumentException;
 
 /**
  * BaseX Session Wrapper that operates within a database.
@@ -27,7 +28,7 @@ class Database
    * @var string
    */
   protected $name;
-  
+
   /**
    * Constructor.
    * 
@@ -39,6 +40,9 @@ class Database
    */
   public function __construct(Session $session, $name)
   {
+    if(!preg_match('/^[\-_a-zA-Z0-9]{1,128}$/', $name))
+      throw new InvalidArgumentException('Invalid database name.');
+    
     $this->session = $session;
     $this->name = $name;
     
