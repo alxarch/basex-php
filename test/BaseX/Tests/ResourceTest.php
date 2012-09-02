@@ -18,9 +18,7 @@ class ResourceTest extends TestCaseDb
     $this->db->store('test.txt', 'test');
     $doc = new Resource($this->db, 'test.txt');
     $this->assertInstanceOf('BaseX\Resource', $doc);
-    
-    $this->db->delete('text.xml');
-    $this->db->delete('text.txt');
+
   }
   
   public function testGetPath()
@@ -29,7 +27,7 @@ class ResourceTest extends TestCaseDb
     $this->db->add($path, '<test/>');
     $doc = new Resource($this->db, $path);
     $this->assertEquals($path, $doc->getPath());
-    $this->db->delete($path);
+
   }
   
   public function testGetInfo()
@@ -42,8 +40,7 @@ class ResourceTest extends TestCaseDb
     $this->assertInstanceOf('BaseX\Resource\Info', $info);
 
     $this->assertEquals($info->path(), $doc->getPath());
-    
-    $this->db->delete($path);
+
   }
   
   public function testIsRaw()
@@ -53,13 +50,13 @@ class ResourceTest extends TestCaseDb
     $doc = new Resource($this->db, 'test.xml');
     $this->assertFalse($doc->isRaw());
     
-    $this->db->delete('test.xml');
+
     
     $this->db->store('test.txt', 'test');
     $doc = new Resource($this->db, 'test.txt');
     $this->assertTrue($doc->isRaw());
     
-    $this->db->delete('test.txt');
+
   }
   
   public function testGetDatabase()
@@ -69,7 +66,7 @@ class ResourceTest extends TestCaseDb
     $db = $doc->getDatabase();
     $this->assertInstanceOf('BaseX\Database', $db);
     $this->assertTrue($db === $this->db);
-    $this->db->delete('test.xml');
+
   }
   
   public function testGetContents()
@@ -79,13 +76,12 @@ class ResourceTest extends TestCaseDb
     
     $contents = $doc->getContents();
     $this->assertXmlStringEqualsXmlString('<test/>', $contents);
-    $this->db->delete('te st.xml');
-    
-    $this->db->store('te st.txt', 'test');
-    $doc = new Resource($this->db, 'te st.txt');
+
+    $this->db->store('test.txt', 'test');
+    $doc = new Resource($this->db, 'test.txt');
     $contents = $doc->getContents();
     $this->assertEquals('test', $contents);
-    $this->db->delete('te st.txt');
+
   }
   
   public function testSave()
@@ -99,8 +95,7 @@ class ResourceTest extends TestCaseDb
     $new = $doc->getInfo();
     $this->assertTrue($result === $doc);
     $this->assertNotEquals($new->modified(), $old->modified());
-    
-    $this->db->delete('test.xml');
+
   }
   
   public function testCopy()
@@ -119,8 +114,7 @@ class ResourceTest extends TestCaseDb
     $contents = self::doc('copy.xml');
     
     $this->assertXmlStringEqualsXmlString('<test/>', $contents);
-        
-    $this->db->delete('test.xml');
+
   }
   
   public function testMove()
@@ -139,8 +133,7 @@ class ResourceTest extends TestCaseDb
     $this->assertEquals($contents, '<test/>');
     
     $this->assertNotContains('test.xml', self::ls());
-    
-    $this->db->delete('moved.xml');
+
   }
   
   
@@ -152,7 +145,7 @@ class ResourceTest extends TestCaseDb
     
     $this->assertNull($doc->getPath());
     $this->assertNotContains('test.xml', self::ls());
-    $this->db->delete('test.xml');
+
   }
   
   public function testReloadInfo()
@@ -165,7 +158,7 @@ class ResourceTest extends TestCaseDb
     $new = $doc->getInfo();
     $this->assertTrue($result === $doc);
     $this->assertNotEquals($new->modified(), $old->modified());
-    $this->db->delete('test.xml');
+
   }
   
   /**
@@ -179,7 +172,7 @@ class ResourceTest extends TestCaseDb
     $result = $doc->setContents('<other/>');
     $this->assertTrue($result === $doc);
     $this->assertXmlStringEqualsXmlString('<other/>', $doc->getContents());
-    $this->db->delete('test.xml');
+
     
   }
   
@@ -196,7 +189,7 @@ class ResourceTest extends TestCaseDb
     
     $contents = self::doc('test.xml');
     $this->assertXmlStringEqualsXmlString('<other/>', $contents);
-    $this->db->delete('test.xml');
+
   }
   
   public function testReload()
@@ -214,8 +207,7 @@ class ResourceTest extends TestCaseDb
     $this->assertInstanceOf('BaseX\Resource', $result);
     $this->assertXmlStringEqualsXmlString('<new/>', $doc->getContents());
     $this->assertEquals($modified, $doc->getInfo()->modified());
-    
-    $this->db->delete('test.xml');
+  
   }
   
 
@@ -232,6 +224,12 @@ class ResourceTest extends TestCaseDb
     $this->db->replace('test.xml', '<new/>');
     $resource->reloadInfo();
     $this->assertNotEquals($resource->etag(), $etag);
-    $this->db->delete('test.xml');
+  }
+  
+  public function testUri()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $resource = new Resource($this->db, 'test.xml');
+    $this->assertEquals("basex://$this->dbname/test.xml", $resource->getUri());
   }
 }

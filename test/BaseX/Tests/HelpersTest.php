@@ -51,5 +51,11 @@ class HelpersTest  extends TestCase
     $data =   "___\xFF\x00___\xFF\xFF___\xFF\xFF\xFF\x00___";
     $this->assertEquals($expect, B::unscrub($data));
   }
+  
+  public function testUriSimple()
+  {
+    $this->assertEquals("basex://database/path.xml", B::uri('database', 'path.xml'));
+  }
+  
       
 }

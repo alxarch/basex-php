@@ -3,6 +3,9 @@
 namespace BaseX;
 
 use BaseX\Session\Socket;
+use BaseX\StreamWrapper;
+use BaseX\Resource;
+use BaseX\Database;
 
 class Helpers
 {
@@ -76,6 +79,53 @@ class Helpers
     $data = str_replace(Socket::PAD, Socket::PADDED_PAD, $data);
     $data = str_replace(Socket::NUL, Socket::PADDED_NUL, $data);
     return $data;
+  }
+  
+  
+  /**
+   * Helper function to build URIs for BaseX stream wrapper.
+   * 
+   * @param string $db
+   * @param string $path
+   * @param string $parser
+   * @param array $options
+   * 
+   * @return string 
+   */
+  static public function uri($db, $path, $parser=null, $options=array())
+  {
+    $parts = array(StreamWrapper::NAME, '://', $db, '/', $path);
+   
+    if(is_array($options) && !empty($options))
+    {
+      
+      $keys = array_keys($options);
+      $values = array_values($options);
+
+      array_map('strtolower', $keys);
+
+      $options = array_combine($keys, $values);
+
+      if(isset($options['parseopt']) && is_array($options['parseopt']))
+      {
+        $options['parseopt'] = self::options($options['parseopt']);
+      }
+
+      if(isset($options['htmlopt']) && is_array($options['htmlopt']))
+      {
+        $options['htmlopt'] = self::options($options['htmlopt']);
+      }
+      
+      $parts[] = http_build_query($options);
+    
+    }
+    
+    if(null !== $parser)
+    {
+      $parts[] = "#$parser";
+    }
+    
+    return implode($parts);
   }
   
 }

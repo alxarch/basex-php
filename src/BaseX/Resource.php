@@ -4,6 +4,7 @@ namespace BaseX;
 
 use BaseX\Resource\Info as ResourceInfo;
 use BaseX\Database;
+use BaseX\Helpers as B;
 use BaseX\Exception;
 
 
@@ -283,5 +284,10 @@ class Resource
     $path = $this->getPath();
     $time = $this->getInfo()->modified();
     return md5("$db/$path/$time");
+  }
+  
+  public function getUri()
+  {
+    return B::uri($this->getDatabase()->getName(), $this->getPath());
   }
 }
