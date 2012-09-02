@@ -231,7 +231,6 @@ class Resource
   public function setContents($contents)
   {
     $this->contents = $contents;
-    $this->xml = null;
     return $this;
   }
   
@@ -285,9 +284,4 @@ class Resource
     $time = $this->getInfo()->modified();
     return md5("$db/$path/$time");
   }
-//  
-//  public function exists()
-//  {
-//    return $this->getDatabase()->exists($this->getPath());
-//  }
 }

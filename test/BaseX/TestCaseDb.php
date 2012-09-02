@@ -12,26 +12,19 @@ class TestCaseDb extends TestCaseSession
    *
    * @var string
    */
-  static protected $dbname;
+  protected $dbname;
   
   /**
    *
    * @var BaseX\Database
    */
-  static protected $db = null;
+  protected $db = null;
   
-  static public function setUpBeforeClass()
+  public function setUp()
   {
-    parent::setUpBeforeClass();
-    self::$dbname = 'db_' . time();
-    self::$db = new Database(self::$session, self::$dbname);
-  }
-  
-  protected function tearDown()
-  {
-    // Truncate db.
-    self::$session->execute("DROP DB ".self::$dbname);
-    self::$session->execute("CREATE DB ".self::$dbname);
+    parent::setUp();
+    $this->dbname = 'db_' . time();
+    $this->db = new Database($this->session, $this->dbname);
   }
   
   /**
@@ -40,10 +33,10 @@ class TestCaseDb extends TestCaseSession
    * @param string $path
    * @return string 
    */
-  static protected function doc($path)
+  protected function doc($path)
   {
-    return self::$session->execute("XQUERY db:open('".self::$dbname."','$path')");
-    }
+    return $this->session->query("db:open('$this->dbname','$path')")->execute();
+  }
   
   /**
    * Get raw document contents.
@@ -51,12 +44,12 @@ class TestCaseDb extends TestCaseSession
    * @param string $path
    * @return string 
    */
-  static protected function raw($path)
+  protected function raw($path)
   {
-    self::$session->execute("OPEN ".self::$dbname);
-    self::$session->execute("SET SERIALIZER method=raw");
-    $raw = self::$session->execute('RETRIEVE "'.$path.'"');
-    self::$session->execute("SET SERIALIZER");
+    $this->session->execute("OPEN $this->dbname");
+    $this->session->execute("SET SERIALIZER method=raw");
+    $raw = $this->session->execute("RETRIEVE \"$path\"");
+    $this->session->execute("SET SERIALIZER");
     return $raw;
   }
 
@@ -65,14 +58,14 @@ class TestCaseDb extends TestCaseSession
    * 
    * @return string
    */
-  static protected function ls()
+  protected function ls()
   {
-    return self::$session->execute("LIST ".self::$dbname);
+    return $this->session->query("db:list('$this->dbname')")->execute();
   }
   
-  static public function tearDownAfterClass()
+  public function tearDown()
   {
-    self::$session->execute("DROP DB ".self::$dbname);
-    parent::tearDownAfterClass();
+    // Truncate db.
+    $this->session->execute("DROP DB $this->dbname");
   }
 }

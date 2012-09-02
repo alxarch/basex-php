@@ -14,16 +14,16 @@ use BaseX\TestCaseSession;
 class SessionInfoTest extends TestCaseSession{
   function testConstruct() 
   {
-    return new Info(self::$session);
+    return new Info($this->session);
   }
   
   /**
    */
   function testGet() 
   {
-    $info = new Info(self::$session);
+    $info = new Info($this->session);
     
-    $data = self::$session->query("db:system()")->execute();
+    $data = $this->session->query("db:system()")->execute();
     $xml = simplexml_load_string($data);
     
     foreach ($xml->mainoptions->children() as $opt)
@@ -36,8 +36,8 @@ class SessionInfoTest extends TestCaseSession{
   
   function testOption()
   {
-    $info = new Info(self::$session);
-    $data = self::$session->query("db:system()")->execute();
+    $info = new Info($this->session);
+    $data = $this->session->query("db:system()")->execute();
     $xml = simplexml_load_string($data);
     foreach ($xml->options->children() as $opt)
     {
@@ -49,17 +49,17 @@ class SessionInfoTest extends TestCaseSession{
   
   function testVersion()
   {
-    $info = new Info(self::$session);
+    $info = new Info($this->session);
     $this->assertNotEmpty($info->version());
   }
   
   function testReload()
   {
-    $info = new Info(self::$session);
+    $info = new Info($this->session);
     
     $old = $info->option('serializer');
     
-    self::$session->execute('SET SERIALIZER html');
+    $this->session->execute('SET SERIALIZER html');
     
     $info->reload();
     $new = $info->option('serializer');

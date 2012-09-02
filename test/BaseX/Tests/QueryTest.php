@@ -10,33 +10,23 @@ class QueryTest extends TestCaseSession
 {
   private function query($xq)
   {
-    return new Query(self::$session, $xq);
+    return new Query($this->session, $xq);
   }
 
-  public function testInit()
+  public function testGetId()
   {
-    $q = $this->query('<test/>');
-    return $q;
+    $q1 = new Query($this->session, '<test1/>');
+    $this->assertInternalType('integer', $q1->getId());
+    $q2 = new Query($this->session, '<test2/>');
+    $this->assertInternalType('integer', $q2->getId());
+    
+    $this->assertNotEquals($q1->getId(), $q2->getId());
   }
-  
-  /**
-   * @depends testInit 
-   */
-  public function testGetId(Query $q)
-  {
-    $this->assertInternalType('integer', $q->getId());
-    $q2 = new Query(self::$session, '<test2/>');
-    $this->assertNotEquals($q->getId(), $q2->getId());
-  }
-  
-  /**
-   * @depends testInit 
-   */
-  public function testExecute(Query $q)
+ 
+  public function testExecute()
   {
     $expected = '<root/>';
-    $q = $this->query($expected);
-    $actual = $q->execute();
+    $actual = $this->session->query($expected)->execute();
     $this->assertNotEmpty($actual);
     $this->assertXmlStringEqualsXmlString($expected, $actual);
   }

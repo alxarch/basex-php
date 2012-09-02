@@ -3,6 +3,7 @@
 namespace BaseX\Query;
 
 use BaseX\Session;
+use BaseX\Helpers as B;
 
 /**
  * Helper class to facilitate xquery writting. 
@@ -50,7 +51,7 @@ class Writer
    */
   protected $body;
   
-  public function __construct($xquery, $variables=array())
+  public function __construct($xquery='', $variables=array())
   {
     $this->setBody($xquery);
     $this->setVariables($variables);
@@ -150,27 +151,27 @@ class Writer
     
     foreach ($this->variables as $name => $value)
     {
-      $xq[] = sprintf('declare variable $%s external;', $name);
+      $xq[] = sprintf("declare variable $%s external;", $name);
     }
     
     foreach ($this->namespaces as $alias => $uri)
     {
-      $xq[] = sprintf('declare namespace %s = "%s";', $alias, $uri);
+      $xq[] = sprintf("declare namespace %s = '%s';", $alias, $uri);
     }
     
     foreach ($this->modules as $alias => $uri)
     {
-      $xq[] = sprintf('import module namespace %s = "%s";', $alias, $uri);
+      $xq[] = sprintf("import module namespace %s = '%s';", $alias, $uri);
     }
     
     foreach ($this->parameters as $name => $value)
     {
-      $xq[] = sprintf('declare option output:%s = "%s";', $name, $value);
+      $xq[] = sprintf("declare option output:%s '%s';", $name, B::value($value));
     }
     
     foreach ($this->options as $name => $value)
     {
-      $xq[] = sprintf('declare option db:%s = "%s";', $name, $value);
+      $xq[] = sprintf("declare option db:%s '%s';", $name, B::value($value));
     }
     
     
@@ -221,6 +222,11 @@ class Writer
     return $this;
   }
   
+  /**
+   *
+   * @param Session $session
+   * @return \BaseX\Query
+   */
   public function getQuery(Session $session)
   {
     
@@ -233,4 +239,10 @@ class Writer
     
     return $q;
   }
+  
+  public static function begin()
+  {
+    return new Writer('', array());
+  }
+  
 }

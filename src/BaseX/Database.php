@@ -5,6 +5,7 @@ namespace BaseX;
 use BaseX\Session;
 use BaseX\Document;
 use BaseX\Resource;
+use BaseX\Query\Writer as XQueryWriter;
 use BaseX\Resource\Info as ResourceInfo;
 use BaseX\Exception;
 use BaseX\Helpers as B;
@@ -41,14 +42,13 @@ class Database
   public function __construct(Session $session, $name)
   {
     if(!preg_match('/^[\-_a-zA-Z0-9]{1,128}$/', $name))
-      throw new InvalidArgumentException('Invalid database name.');
+      throw new \InvalidArgumentException('Invalid database name.');
     
     $this->session = $session;
     $this->name = $name;
     
     // Creates the database if it does not exist.
-    $check = sprintf('CHECK "%s"', B::escape($name));
-    $this->session->execute($check);
+    $this->session->execute("CHECK $name");
   }
   
   /**
@@ -67,7 +67,7 @@ class Database
    * @see http://docs.basex.org/wiki/Commands#ADD
    *
    * @param string $path
-   * @param string $input
+   * @param string|resource $input
    */
   public function add($path, $input)
   {
@@ -81,7 +81,7 @@ class Database
    * @see http://docs.basex.org/wiki/Commands#REPLACE
    * 
    * @param string $path
-   * @param string $input
+   * @param string|resource $input
    */
   public function replace($path, $input)
   {
@@ -113,8 +113,7 @@ class Database
    */
   public function execute($command)
   {
-    $this->open();
-    return $this->session->execute($command);
+    return $this->open()->getSession()->execute($command);
   }
   
   /**
@@ -348,56 +347,68 @@ class Database
   protected function doAdd($path, $input, $parser, $options, $filter)
   {
     $options = B::options($options);
+    
     $parseropt = ('html' === $parser) ? 'HTMLOPT' : 'PARSEROPT';
-    $db = $this->getName();
-    $s = "SET PARSER $parser; SET $parseropt $options; SET CREATEFILTER $filter; OPEN $db";
-    $this->session->script($s);
+    
+    $restore = $this->getSession()->getInfo();
+    
+    $this->getSession()
+        ->setOption('parser', $parser)
+        ->setOption($parseropt, $options)
+        ->setOption('createfilter', $filter)
+        ->execute('open '.$this->getName());
     
     $add = is_array($path) ? $path : array($path => $input);
     
     foreach ($add as $path => $input)
     {
-      $this->session->add($path, $input);
+      $this->getSession()->add($path, $input);
     }
-    $this->session->script("SET PARSER xml; SET PARSEROPT; SET HTMLOPT; SET CREATEFILTER");
+    
+    $this->getSession()
+        ->setOption('parser', $restore)
+        ->setOption('parseropt', $restore)
+        ->setOption('parser', $restore)
+        ->setOption('htmlopt', $restore)
+        ->setOption('createfilter', $restore);
+//        ->setOption('parser', $restore->option('parser'))
+//        ->setOption('parseropt', $restore->option('parseropt'))
+//        ->setOption('parser', $restore->option('parser'))
+//        ->setOption('htmlopt', $restore->option('htmlopt'))
+//        ->setOption('createfilter', $restore->option('createfilter'));
   }
 
   protected function open()
   {
-    $open = sprintf('OPEN %s', $this->getName());
-    $this->session->execute($open);
+    $this->session->execute('OPEN '.$this->getName());
+    return $this;
   }
   
   /**
    * Fetches contents of a resource at specified path.
    * 
    * @param string $path
+   * @param boolean $raw
    * @return string 
    */
   public function fetch($path, $raw=false)
   {
     $db =  $this->getName();
     
+    $q = new XQueryWriter();
+    
     if($raw)
     {
-      $this->session->execute('SET SERIALIZER raw');
-      $this->session->execute("OPEN $db");
-      $result = $this->session->execute("RETRIEVE \"$path\"");
-      $this->session->execute("SET SERIALIZER");
-      return $result;
-      // EXECUTE still has problems with spaces in path.
-//      $script = <<<XML
-//<commands>
-//  <set option='serializer'>raw</set>
-//  <open name='$db'/>
-//  <retrieve path='$path'/>
-//  <set option='serializer'></set>
-//</commands>
-//XML;
-//      return $this->session->script($script);
+      $q->setBody("db:retrieve('$db', '$path')")
+        ->setParameter('method', 'raw');
+    }
+    else
+    {
+      $q->setBody("db:open('$db', '$path')")
+        ->setParameter('omit-xml-declaration', false);
     }
     
-    return $this->session->query("declare option output:omit-xml-declaration 'false';db:open('$db', '$path')")->execute();
+    return $q->getQuery($this->getSession())->execute();
   }
   
   /**

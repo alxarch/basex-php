@@ -15,27 +15,27 @@ class DocumentTest extends TestCaseDb
    */
   public function testInit()
   {
-    self::$db->store('test.txt', 'test');
+    $this->db->store('test.txt', 'test');
     try
     {
-      $doc = new Document(self::$db, 'test.txt');
+      $doc = new Document($this->db, 'test.txt');
     }
     catch (InvalidArgumentException $e)
     {
-      self::$db->delete('text.txt');
+      $this->db->delete('text.txt');
       throw $e;
     }
   }
   
   public function testGetXML()
   {
-    self::$db->add('test.xml', '<test/>');
-    $doc = new Document(self::$db, 'test.xml');
+    $this->db->add('test.xml', '<test/>');
+    $doc = new Document($this->db, 'test.xml');
     
     $xml = $doc->getXML();
     
     $this->assertInstanceOf('\DOMDocument', $xml);
-    self::$db->delete('test.xml');
+    $this->db->delete('test.xml');
     
   }
   
@@ -44,8 +44,8 @@ class DocumentTest extends TestCaseDb
    */
   public function testGetContents()
   {
-    self::$db->add('test.xml', '<test xml:id="root"></test>');
-    $doc = new Document(self::$db, 'test.xml');
+    $this->db->add('test.xml', '<test xml:id="root"></test>');
+    $doc = new Document($this->db, 'test.xml');
     
     $xml = $doc->getXML();
     $node = $xml->createElement('append');
@@ -53,16 +53,16 @@ class DocumentTest extends TestCaseDb
     
     $contents = $doc->getContents();
     $this->assertXmlStringEqualsXmlString('<test xml:id="root"><append/></test>', $contents);
-    self::$db->delete('test.xml');
+    $this->db->delete('test.xml');
     
   }
   
   public function testXpath()
   {
-    self::$db->add('test-1.xml', '<root><test/><test/></root>');
-    self::$db->add('test-2.xml', '<root><test/></root>');
+    $this->db->add('test-1.xml', '<root><test/><test/></root>');
+    $this->db->add('test-2.xml', '<root><test/></root>');
     
-    $doc = new Document(self::$db, 'test-1.xml');
+    $doc = new Document($this->db, 'test-1.xml');
     
     $result = $doc->xpath('//test');
     
@@ -74,7 +74,7 @@ class DocumentTest extends TestCaseDb
     
     $this->assertEquals(2, count($xml->test));
     
-    self::$db->delete('test-1.xml');
-    self::$db->delete('test-2.xml');
+    $this->db->delete('test-1.xml');
+    $this->db->delete('test-2.xml');
   }
 }

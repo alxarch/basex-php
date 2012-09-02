@@ -54,8 +54,7 @@ class Query
   public function __construct(Session $session, $xquery)
   {
     $this->session = $session;
-    $this->id = (int) $this->session->send(self::INIT, $xquery);
-            
+    $this->id = (int) $this->session->sendQueryCommand(self::INIT, $xquery, true);
   }
   
   /**
@@ -69,7 +68,7 @@ class Query
    */
   public function bind($name, $value, $type = "")
   {
-    $this->session->send(self::BIND, array($this->id, $name, $value, $type));
+    $this->session->sendQueryCommand(self::BIND, array($this->id, $name, $value, $type), true);
     
     return $this;
   }
@@ -84,7 +83,7 @@ class Query
    */
   public function context($value, $type = "") 
   {
-    $this->session->send(self::CONTEXT, array($this->id, $value, $type));
+    $this->session->sendQueryCommand(self::CONTEXT, array($this->id, $value, $type), true);
     
     return $this;
   }
@@ -92,23 +91,30 @@ class Query
   /**
    * Executes the query.
    * 
-   * @return mixed The result of the query
+   * @return string|int Results of the query. If session redirects it returns 
+   * size of bytes writen to output.
    */
   public function execute()
   {
-    return $this->session->send(self::EXECUTE, $this->id);
+    return $this->session->sendQueryCommand(self::EXECUTE, $this->id);
   }
   
-  /* see readme.txt */
+  /**
+   * Gets query info
+   * @return string
+   */
   public function info() 
   {
-    return $this->session->send(self::INFO, $this->id);
+    return $this->session->sendQueryCommand(self::INFO, $this->id, true);
   }
   
-  /* see readme.txt */
+  /**
+   * Gets query options
+   * @return string
+   */
   public function options()
   {
-    return $this->session->send(self::OPTIONS, $this->id);
+    return $this->session->sendQueryCommand(self::OPTIONS, $this->id, true);
   }
    
   /**

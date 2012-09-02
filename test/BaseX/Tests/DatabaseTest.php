@@ -16,27 +16,22 @@ class DatabaseTest extends TestCaseDb
   public function test__construct()
   {
     $name = 'nameok'.time();
-    $db = new \BaseX\Database(self::$session, $name);
-    self::$session->execute("DROP DB $name");
+    $db = new Database($this->session, $name);
+    $this->assertContains($name, $this->session->execute('LIST'));
+    
+    $this->session->execute("DROP DB $name");
     $name = 'not ok όνομα';
-    $db = new Database(self::$session, $name);
+    $db = new Database($this->session, $name);
   }
   
   public function testInit()
   {
-    $this->assertContains(self::$dbname, self::$session->execute("LIST"));
+    $this->assertContains($this->dbname, $this->session->execute("LIST"));
   }
-  
-//  public function testDrop()
-//  {
-//    self::$db->drop();
-//    $this->assertNotContains(self::$dbname, self::$session->execute('LIST'));
-//    self::$db = new Database(self::$session, self::$dbname);
-//  }
   
   public function testGetName()
   {
-    $this->assertEquals(self::$dbname, self::$db->getName());
+    $this->assertEquals($this->dbname, $this->db->getName());
   }
   
   /**
@@ -47,11 +42,9 @@ class DatabaseTest extends TestCaseDb
     $path = 'test.xml';
     $input = '<test>This is a test.</test>';
     
-    self::$db->add($path, $input);
+    $this->db->add($path, $input);
     
     $this->assertContains($path, self::ls());
-    
-    $this->assertXmlStringEqualsXmlString($input, self::doc($path));
     
     $this->assertXmlStringEqualsXmlString($input, self::doc($path));
     
@@ -66,7 +59,7 @@ class DatabaseTest extends TestCaseDb
     $path = 'test.txt';
     $input = 'This is a test.';
     
-    self::$db->store($path, $input);
+    $this->db->store($path, $input);
     
     $this->assertContains($path, self::ls());
     
@@ -85,11 +78,11 @@ class DatabaseTest extends TestCaseDb
   public function testDelete($doc, $raw)
   {
     
-    self::$db->delete($doc);
+    $this->db->delete($doc);
     
     $this->assertNotContains($doc, self::ls());
     
-    self::$db->delete($raw);
+    $this->db->delete($raw);
     
     $this->assertNotContains($raw, self::ls());
   }
@@ -103,24 +96,24 @@ class DatabaseTest extends TestCaseDb
     $path = 'test 1.txt';
     $input = 'This is a test.';
     
-    self::$db->store($path, $input);
+    $this->db->store($path, $input);
     
-    $contents = self::$db->fetch($path, true);
+    $contents = $this->db->fetch($path, true);
     
     $this->assertEquals($input, $contents);
     
     // Make sure the serializer is set back to the default.
-    $this->assertEquals("SERIALIZER: \n", self::$session->execute('GET SERIALIZER'));
-    self::$db->delete($path);
+    $this->assertEquals("SERIALIZER: \n", $this->session->execute('GET SERIALIZER'));
+    $this->db->delete($path);
     
     $path = 'test.xml';
     $input = '<test>This is a test.</test>';
     
-    self::$db->add($path, $input);
+    $this->db->add($path, $input);
     
-    $contents = self::$db->fetch($path);
+    $contents = $this->db->fetch($path);
     $this->assertXmlStringEqualsXmlString($input, $contents);
-    self::$db->delete($path);
+    $this->db->delete($path);
 
    
   }
@@ -135,9 +128,9 @@ class DatabaseTest extends TestCaseDb
     
     $input = '<test>This is a test.</test>';
     
-    self::$db->add($old, $input);
+    $this->db->add($old, $input);
     
-    self::$db->rename($old, $new);
+    $this->db->rename($old, $new);
     $this->assertNotContains($old, self::ls());
     $this->assertContains($new, self::ls());
     
@@ -145,7 +138,7 @@ class DatabaseTest extends TestCaseDb
     
     $this->assertXmlStringEqualsXmlString($input, $contents);
     
-    self::$db->delete($new);
+    $this->db->delete($new);
   }
   
   /**
@@ -157,37 +150,37 @@ class DatabaseTest extends TestCaseDb
     $old = "<old/>";
     $new = "<new/>";
     
-    self::$db->add($path, $old);
-    self::$db->replace($path, $new);
+    $this->db->add($path, $old);
+    $this->db->replace($path, $new);
     
     $this->assertXmlStringEqualsXmlString($new, self::doc($path));
     
-    self::$db->delete($path);
+    $this->db->delete($path);
     
     $path = 'test.txt';
     $old = "old";
     $new = "new";
     
-    self::$db->store($path, $old);
-    self::$db->replace($path, $new);
+    $this->db->store($path, $old);
+    $this->db->replace($path, $new);
     
     $this->assertEquals($new, self::raw($path));
     
-    self::$db->delete($path);
+    $this->db->delete($path);
   }
   
   public function testExecute()
   {
     
     // Open another database.
-    self::$session->execute('CHECK other');
-    self::$session->execute('OPEN other');
+    $this->session->execute('CHECK other');
+    $this->session->execute('OPEN other');
     
-    $info = self::$db->execute('INFO DB');
+    $info = $this->db->execute('INFO DB');
     
-    $this->assertContains("Name: ".self::$dbname, $info);
+    $this->assertContains("Name: ".$this->dbname, $info);
     
-    self::$session->execute('DROP DB other');
+    $this->session->execute('DROP DB other');
   }
   
   /**
@@ -197,19 +190,19 @@ class DatabaseTest extends TestCaseDb
   public function testResource()
   {
     
-    self::$db->add('test.xml', '<root/>');
+    $this->db->add('test.xml', '<root/>');
     
-    $doc = self::$db->resource('test.xml');
+    $doc = $this->db->resource('test.xml');
     $this->assertInstanceOf('BaseX\Resource', $doc);
-    $this->assertTrue($doc->getDatabase() === self::$db);
+    $this->assertTrue($doc->getDatabase() === $this->db);
     
-    $doc = self::$db->resource('test.xml', 'BaseX\Document');
+    $doc = $this->db->resource('test.xml', 'BaseX\Document');
     $this->assertInstanceOf('BaseX\Document', $doc);
-    $this->assertTrue($doc->getDatabase() === self::$db);
+    $this->assertTrue($doc->getDatabase() === $this->db);
     
-    self::$db->delete('test.xml');
+    $this->db->delete('test.xml');
     
-    $this->assertNull(self::$db->resource('test.xml'));
+    $this->assertNull($this->db->resource('test.xml'));
     
     
   }
@@ -222,16 +215,16 @@ class DatabaseTest extends TestCaseDb
    */
   public function testResourceException()
   {
-    self::$db->add('test.xml', '<root/>');
+    $this->db->add('test.xml', '<root/>');
     try{
-      $doc = self::$db->resource('test.xml', 'StdClass');
+      $doc = $this->db->resource('test.xml', 'StdClass');
     }
     catch (\InvalidArgumentException $e)
     {
-      self::$db->delete('test.xml');
+      $this->db->delete('test.xml');
       throw $e;
     }
-    self::$db->delete('test.xml');
+    $this->db->delete('test.xml');
     
   }
   
@@ -240,13 +233,13 @@ class DatabaseTest extends TestCaseDb
    */
   public function testGetResources()
   {
-    self::$db->add('test-1.xml', '<test1/>');
-    self::$db->add('dir/test-2.xml', '<test2/>');
-    self::$db->add('dir/test-3.xml', '<test3/>');
-    self::$db->store('test.txt', 'test');
+    $this->db->add('test-1.xml', '<test1/>');
+    $this->db->add('dir/test-2.xml', '<test2/>');
+    $this->db->add('dir/test-3.xml', '<test3/>');
+    $this->db->store('test.txt', 'test');
     
      
-    $resources = self::$db->getResources();
+    $resources = $this->db->getResources();
     
     $this->assertTrue(is_array($resources));
     $this->assertEquals(4, count($resources));
@@ -265,7 +258,7 @@ class DatabaseTest extends TestCaseDb
     $resource = $resources[3];
     $this->assertEquals('test.txt', $resource->getPath());
     
-    $resources = self::$db->getResources('dir/');
+    $resources = $this->db->getResources('dir/');
     $this->assertTrue(is_array($resources));
     $this->assertEquals(2, count($resources));
     
@@ -274,10 +267,10 @@ class DatabaseTest extends TestCaseDb
       $this->assertInstanceOf('BaseX\Resource', $r);
     }
     
-    self::$db->delete('test-1.xml');
-    self::$db->delete('test-2.xml');
-    self::$db->delete('test-3.xml');
-    self::$db->delete('test.txt');
+    $this->db->delete('test-1.xml');
+    $this->db->delete('test-2.xml');
+    $this->db->delete('test-3.xml');
+    $this->db->delete('test.txt');
   }
   
   /**
@@ -285,12 +278,12 @@ class DatabaseTest extends TestCaseDb
    */
   public function testGetResourceInfo()
   {
-    self::$db->add('test-1.xml', '<test1/>');
-    self::$db->add('dir/test-2.xml', '<test2/>');
-    self::$db->add('dir/test-3.xml', '<test3/>');
-    self::$db->store('test.txt', 'test');
+    $this->db->add('test-1.xml', '<test1/>');
+    $this->db->add('dir/test-2.xml', '<test2/>');
+    $this->db->add('dir/test-3.xml', '<test3/>');
+    $this->db->store('test.txt', 'test');
     
-    $resources = self::$db->getResourceInfo();
+    $resources = $this->db->getResourceInfo();
     
     $this->assertTrue(is_array($resources));
     $this->assertEquals(4, count($resources));
@@ -309,7 +302,7 @@ class DatabaseTest extends TestCaseDb
     $resource = $resources[3];
     $this->assertEquals('test.txt', $resource->path());
     
-    $resources = self::$db->getResourceInfo('dir/');
+    $resources = $this->db->getResourceInfo('dir/');
     $this->assertTrue(is_array($resources));
     $this->assertEquals(2, count($resources));
     
@@ -318,10 +311,10 @@ class DatabaseTest extends TestCaseDb
       $this->assertInstanceOf('BaseX\Resource\Info', $r);
     }
     
-    self::$db->delete('test-1.xml');
-    self::$db->delete('test-2.xml');
-    self::$db->delete('test-3.xml');
-    self::$db->delete('test.txt');
+    $this->db->delete('test-1.xml');
+    $this->db->delete('test-2.xml');
+    $this->db->delete('test-3.xml');
+    $this->db->delete('test.txt');
     
   }
   
@@ -333,22 +326,22 @@ class DatabaseTest extends TestCaseDb
     $input = '<root/>';
     $path = 'test.xml';
     
-    self::$db->addXML($path, $input);
+    $this->db->addXML($path, $input);
     
     $this->assertContains($path, self::ls());
     $actual = self::doc($path);
     $this->assertXmlStringEqualsXmlString($input, $actual);
     
-    self::$db->delete($path);
+    $this->db->delete($path);
     
-    self::$db->addXML(array($path => $input), null);
+    $this->db->addXML(array($path => $input), null);
     $this->assertContains($path, self::ls());
     $actual = self::doc($path);
     $this->assertXmlStringEqualsXmlString($input, $actual);
     
     $this->assertResetAfterAdd();
     
-    self::$db->delete($path);
+    $this->db->delete($path);
   }
   
   /**
@@ -371,13 +364,13 @@ HTML;
     
     $path = "test.html";
     
-    self::$db->addHTML($path, $html);
+    $this->db->addHTML($path, $html);
     
     $this->assertContains($path, self::ls());
     
     $this->assertResetAfterAdd();
     
-    self::$db->delete($path);
+    $this->db->delete($path);
   }
   
   /**
@@ -389,7 +382,7 @@ HTML;
     
     $path = "test.json";
     
-    self::$db->addJSON($path, $json);
+    $this->db->addJSON($path, $json);
     
     $this->assertContains($path, self::ls());
     
@@ -405,28 +398,28 @@ HTML;
     
     $path = "test.csv";
     
-    self::$db->addCSV($path, $json);
+    $this->db->addCSV($path, $json);
     
     $this->assertContains($path, self::ls());
     
     $this->assertResetAfterAdd();
     
-    self::$db->delete($path);
+    $this->db->delete($path);
   }
   
   protected function assertResetAfterAdd()
   {
-    $actual = self::$session->execute('GET PARSER');
-    $this->assertEquals("PARSER: xml\n", $actual);
-    
-    $actual = self::$session->execute('GET PARSEROPT');
-    $this->assertEquals("PARSEROPT: \n", $actual);
-    
-    $actual = self::$session->execute('GET HTMLOPT');
-    $this->assertEquals("HTMLOPT: \n", $actual);
-    
-    $actual = self::$session->execute('GET CREATEFILTER');
-    $this->assertEquals("CREATEFILTER: \n", $actual);
+//    $actual = $this->session->execute('GET PARSER');
+//    $this->assertEquals("PARSER: xml\n", $actual);
+//    
+//    $actual = $this->session->execute('GET PARSEROPT');
+//    $this->assertEquals("PARSEROPT: \n", $actual);
+//    
+//    $actual = $this->session->execute('GET HTMLOPT');
+//    $this->assertEquals("HTMLOPT: \n", $actual);
+//    
+//    $actual = $this->session->execute('GET CREATEFILTER');
+//    $this->assertEquals("CREATEFILTER: \n", $actual);
   }
   
 //  /**
@@ -434,10 +427,10 @@ HTML;
 //   */
 //  public function testExists()
 //  {
-//    $this->assertFalse(self::$db->exists('file_'.time().'.xml'));
-//    self::$db->add('test.xml', '<test/>');
-//    $this->assertTrue(self::$db->exists('test.xml'));
-//    self::$db->delete('test.xml');
+//    $this->assertFalse($this->db->exists('file_'.time().'.xml'));
+//    $this->db->add('test.xml', '<test/>');
+//    $this->assertTrue($this->db->exists('test.xml'));
+//    $this->db->delete('test.xml');
 //  }
 
   /**
@@ -445,10 +438,10 @@ HTML;
    */
   public function testXpath()
   {
-    self::$db->add('test-1.xml', '<root><test/><test/></root>');
-    self::$db->add('test-2.xml', '<root><test/></root>');
+    $this->db->add('test-1.xml', '<root><test/><test/></root>');
+    $this->db->add('test-2.xml', '<root><test/></root>');
     
-    $result = self::$db->xpath('//test');
+    $result = $this->db->xpath('//test');
     
     $this->assertNotEmpty($result);
     
@@ -458,7 +451,7 @@ HTML;
     
     $this->assertEquals(3, count($xml->test));
     
-    $result = self::$db->xpath('//test', 'test-1.xml');
+    $result = $this->db->xpath('//test', 'test-1.xml');
     
     $this->assertNotEmpty($result);
     
@@ -468,8 +461,8 @@ HTML;
     
     $this->assertEquals(2, count($xml->test));
     
-    self::$db->delete('test-1.xml');
-    self::$db->delete('test-2.xml');
+    $this->db->delete('test-1.xml');
+    $this->db->delete('test-2.xml');
   }
   
   /**
@@ -477,14 +470,14 @@ HTML;
    */
   public function testGetContents()
   {
-    self::$db->add('test-1.xml', '<test/>');
-    self::$db->add('test-2.xml', '<test/>');
-    self::$db->store('test.txt', 'test');
-    self::$db->add('sa/test-1.xml', '<test/>');
-    self::$db->add('sa/test-2.xml', '<test/>');
-    self::$db->add('sa/sa/test-1.xml', '<test/>');
+    $this->db->add('test-1.xml', '<test/>');
+    $this->db->add('test-2.xml', '<test/>');
+    $this->db->store('test.txt', 'test');
+    $this->db->add('sa/test-1.xml', '<test/>');
+    $this->db->add('sa/test-2.xml', '<test/>');
+    $this->db->add('sa/sa/test-1.xml', '<test/>');
     
-    $contents = self::$db->getContents();
+    $contents = $this->db->getContents();
     
     $this->assertInstanceOf('\SimpleXmlElement', $contents);
     
@@ -493,16 +486,16 @@ HTML;
     $this->assertEquals('test-1.xml', (string) $contents->resource[0]);
     $this->assertEquals('sa', (string) $contents->collection[0]);
     
-    $contents = self::$db->getContents('sa');
+    $contents = $this->db->getContents('sa');
     $this->assertEquals(2, count($contents->resource));
     $this->assertEquals(1, count($contents->collection));
     
-    self::$db->delete('test-1.xml');
-    self::$db->delete('test-2.xml');
-    self::$db->delete('test.txt');
-    self::$db->delete('sa/test-1.xml');
-    self::$db->delete('sa/test-2.xml');
-    self::$db->delete('sa/sa/test-1.xml');
+    $this->db->delete('test-1.xml');
+    $this->db->delete('test-2.xml');
+    $this->db->delete('test.txt');
+    $this->db->delete('sa/test-1.xml');
+    $this->db->delete('sa/test-2.xml');
+    $this->db->delete('sa/sa/test-1.xml');
     
   }
 }

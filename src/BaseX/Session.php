@@ -7,6 +7,7 @@ use BaseX\Session\Socket;
 use BaseX\Helpers as B;
 use BaseX\Session\Exception;
 use BaseX\Session\Info as SessionInfo;
+
 /** 
  * @file PHP client for BaseX.
  * Works with BaseX 7.0 and later
@@ -24,9 +25,7 @@ use BaseX\Session\Info as SessionInfo;
  */ 
 class Session 
 {
-  const GAP = 0;
-  const OK = 0;
-  const QUERY = 0;
+  const OK = "\x00";
   const CREATE = 8;
   const ADD = 9;
   const REPLACE = 12;
@@ -34,7 +33,7 @@ class Session
   
   /**
    *
-   * @var BaseX\SocketClient
+   * @var BaseX\Session\Socket
    */
   protected $socket;
   
@@ -55,6 +54,19 @@ class Session
    protected $status = null;
 
    /**
+    * 
+    * @var resource
+    */
+   protected $out = null;
+   
+   /**
+    * Locks the curent session.
+    * @var boolean
+    */
+   protected $locked = false;
+
+   
+   /**
     * Creates a new Session
     * 
     * @param string $host Server hostname
@@ -68,6 +80,35 @@ class Session
     $this->socket = new Socket($host, $port);
     
     $this->authenticate($user, $pass);
+  }
+  
+  /**
+   *
+   * @return \BaseX\Session\Socket
+   */
+  public function getSocket()
+  {
+    return $this->socket;
+  }
+  
+  /**
+   *
+   * @param resource $to
+   * @return \BaseX\Session $this 
+   */
+  public function redirectOutput($to)
+  {
+    $this->out = $to;
+    return $this;
+  }
+  
+  /**
+   *
+   * @return resource 
+   */
+  public function redirectsTo()
+  {
+    return $this->out;
   }
   
   public function getInfo()
@@ -88,11 +129,13 @@ class Session
   protected function authenticate($user, $pass)
   {
     // receive timestamp
-    $ts = $this->socket->read(true);
+    $this->socket->clearBuffer();
+    $ts = $this->socket->read();
     
     // send username and hashed password/timestamp
     $hash = hash("md5", hash("md5", $pass) . $ts);
-    $msg = sprintf("%s%c%s%c", $user , 0, $hash, 0);
+    
+    $msg = implode(array($user , Socket::NUL, $hash, Socket::NUL));
     
     $this->socket->send($msg);
     
@@ -107,14 +150,28 @@ class Session
    * Executes a database command.
    * 
    * @param string $com The command to execute
-   * @return mixed $result The command output
+   * @return string|int 
    */
   public function execute($command) 
   {
-    $this->socket->send(sprintf("%s%c",$command, 0));
-    $result = $this->socket->read(true);
+    $this->checkLock();
+    
+    $this->socket->send($command . Socket::NUL );
+    
+    $this->socket->clearBuffer();
+    
+    if(is_resource($this->out))
+    {
+      $result = $this->socket->readInto($this->out);
+    }
+    else 
+    {
+      $result = $this->socket->read();
+    }
+    
     $this->status = $this->socket->read();
-    if(!$this->ok()) 
+    
+    if(!$this->ok())
     {
       throw new Exception($this->getStatus());
     }
@@ -125,19 +182,18 @@ class Session
   public function script($script)
   {
 //    $this->requireVersion('7.4');
-   
-    $command = sprintf('EXECUTE "%s"', $script);
-    return $this->execute($command);
+    return $this->execute("EXECUTE \"$script\"");
   }
   
   /**
    * Creates a new Query that uses this session.
    * 
    * @param string $q XQuery code
-   * @return BaseX\Query $q
+   * @return \BaseX\Query $q
    */
   public function query($q) 
   {
+//    $this->checkLock();
     return new Query($this, $q);
   }
   
@@ -151,7 +207,7 @@ class Session
    */
   public function create($name, $input = '') 
   {
-    $this->sendCmd(self::CREATE, $name, $input);
+    $this->sendCommand(self::CREATE, $name, $input);
   }
   
   /**
@@ -166,7 +222,7 @@ class Session
    */
   public function add($path, $input)
   {
-    $this->sendCmd(self::ADD, $path, $input);
+    $this->sendCommand(self::ADD, $path, $input);
   }
 
   /**
@@ -177,7 +233,7 @@ class Session
    */
   public function replace($path, $input)
   {
-    $this->sendCmd(self::REPLACE, $path, $input);
+    $this->sendCommand(self::REPLACE, $path, $input);
   }
 
   /**
@@ -190,7 +246,7 @@ class Session
    */
   public function store($path, $input)
   {
-    $this->sendCmd(self::STORE, $path, $input);
+    $this->sendCommand(self::STORE, $path, $input);
   }
   
   /**
@@ -198,27 +254,31 @@ class Session
    */
   public function close()
   {
-    $this->socket->send(sprintf("exit%c",0));
+    $this->checkLock();
+    $this->socket->send("EXIT".Socket::NUL);
     $this->socket->close();
   }
 
-  private function sendCmd($code, $arg, $input) 
+  private function sendCommand($code, $arg, $input) 
   {
+    $this->checkLock();
+ 
     if(is_resource($input))
     {
       //  In case input is a resource allow the socket to pipe it in.
-      $msg = sprintf("%c%s%c", $code, $arg, 0);
+      $msg = sprintf("%c%s%s", $code, $arg, Socket::NUL);
       $this->socket->send($msg);
       $this->socket->send($input);
-      $this->socket->send(chr(0));
+      $this->socket->send(Socket::NUL);
     }
     else
     {
-      $msg = sprintf("%c%s%c%s%c", $code, $arg, 0, $input, 0);
+      $msg = sprintf("%c%s%s%s%s", $code, $arg, Socket::NUL, B::scrub($input), Socket::NUL);
       $this->socket->send($msg);
     }
-
-    $this->status = $this->socket->read(true);
+ 
+    $this->socket->clearBuffer();
+    $this->status = $this->socket->read();
     
     if(!$this->ok())
       throw new Exception($this->getStatus());
@@ -227,31 +287,87 @@ class Session
   
   private function ok()
   {
-    return $this->socket->readSingle() === chr(0);
+    return $this->socket->readSingle() === self::OK;
   }
 
-  public function send($code, $arg)
+  /**
+   *
+   * @param int $code
+   * @param string $arg
+   * @param boolean $noredirects Don't redirect output.
+   * @return mixed
+   * @throws Exception 
+   */
+  public function sendQueryCommand($code, $arg, $noredirects = false)
   {
+    $this->checkLock();
     if(is_array($arg))
-      $arg = implode (chr(0), $arg);
-    
-    $msg = sprintf("%c%s%c", $code, $arg, 0);
+      $arg = implode (Socket::NUL, $arg);
+
+    $msg = sprintf("%c%s%s", $code, $arg, Socket::NUL);
     $this->socket->send($msg);
+    $this->socket->clearBuffer();
     
-    $result = $this->socket->read(true);
-    
+    if($noredirects || !is_resource($this->out))
+    {
+      $result = $this->socket->read();
+    }
+    else 
+    {
+      $result = $this->socket->readInto($this->out);
+    }
     if(!$this->ok())
     {
       throw new Exception($this->socket->read());
     }
     
+    $this->socket->clearBuffer();
     return $result;
   }
   
-//  public function getVersion()
-//  {
-//    return $this->version;
-//  }
+  protected function checkLock()
+  {
+    if($this->isLocked())
+    {
+      throw new Exception("Session is locked.");
+    }
+  }
+  
+  
+  public function isLocked()
+  {
+    return $this->locked;
+  }
+  
+  public function lock()
+  {
+    $this->locked = true;
+  }
+  
+  public function unlock()
+  {
+    $this->locked = false;
+  }
+  
+  public function getOption($name)
+  {
+    return $this->getInfo()->option($name);
+  }
+  
+  public function setOption($name, $value)
+  {
+    if($value instanceof SessionInfo)
+      $value = $value->option($name);
+    
+    $this->execute("SET $name \"$value\"");
+    return $this;
+  }
+  
+  public function resetOption($name)
+  {
+    $this->execute("SET $name");
+    return $this;
+  }
   
 //  protected function requireVersion($ver)
 //  {

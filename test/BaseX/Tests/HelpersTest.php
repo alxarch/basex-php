@@ -37,5 +37,19 @@ class HelpersTest  extends TestCase
     $actual = B::options($options);
     $this->assertEquals($expect, $actual);
   }
+  
+  public function testScrub()
+  {
+    $data =   "___\x00___\xFF___\xFF\x00___";
+    $expect = "___\xFF\x00___\xFF\xFF___\xFF\xFF\xFF\x00___";
+    $this->assertEquals($expect, B::scrub($data));
+  }
+  
+  public function testUnScrub()
+  {
+    $expect = "___\x00___\xFF___\xFF\x00___";
+    $data =   "___\xFF\x00___\xFF\xFF___\xFF\xFF\xFF\x00___";
+    $this->assertEquals($expect, B::unscrub($data));
+  }
       
 }

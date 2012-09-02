@@ -237,10 +237,10 @@ class QueryWriterTest extends TestCase
     
     $expect = <<<XQL
 declare variable \$contents external;
-declare namespace tei = "http://www.tei-c.org/ns/1.0";
-import module namespace functx = "http://www.functx.com";
-declare option output:method = "xml";
-declare option db:chop = "false";
+declare namespace tei = 'http://www.tei-c.org/ns/1.0';
+import module namespace functx = 'http://www.functx.com';
+declare option output:method 'xml';
+declare option db:chop 'false';
 <body>{\$contents}</body>
 XQL;
     
