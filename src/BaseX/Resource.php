@@ -290,4 +290,9 @@ class Resource
   {
     return B::uri($this->getDatabase()->getName(), $this->getPath());
   }
+  
+  public function __toString()
+  {
+    return $this->getPath();
+  }
 }

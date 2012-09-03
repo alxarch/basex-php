@@ -3,7 +3,7 @@
 namespace BaseX\Tests;
 
 use BaseX\StreamWrapper;
-use BaseX\TestCaseDb;
+use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Session\Socket;
 
 class StreamWrapperTest extends TestCaseDb

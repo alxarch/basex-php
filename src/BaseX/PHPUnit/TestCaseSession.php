@@ -1,6 +1,6 @@
 <?php
 
-namespace BaseX;
+namespace BaseX\PHPUnit;
 
 use BaseX\Session;
 use \PHPUnit_Framework_TestCase;

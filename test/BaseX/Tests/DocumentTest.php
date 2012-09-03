@@ -2,7 +2,7 @@
 
 namespace BaseX\Tests;
 
-use BaseX\TestCaseDb;
+use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Session;
 use BaseX\Document;
 use BaseX\Database;

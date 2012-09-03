@@ -3,7 +3,7 @@
 namespace BaseX\Tests;
 
 use BaseX\Session\Info;
-use BaseX\TestCaseSession;
+use BaseX\PHPUnit\TestCaseSession;
 
 
 /**
@@ -11,7 +11,8 @@ use BaseX\TestCaseSession;
  *
  * @author alxarch
  */
-class SessionInfoTest extends TestCaseSession{
+class SessionInfoTest extends TestCaseSession
+{
   function testConstruct() 
   {
     return new Info($this->session);

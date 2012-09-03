@@ -1,8 +1,8 @@
 <?php
 
-namespace BaseX;
+namespace BaseX\PHPUnit;
 
-use BaseX\TestCaseSession;
+use BaseX\PHPUnit\TestCaseSession;
 
 use BaseX\Database;
 

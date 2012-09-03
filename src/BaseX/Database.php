@@ -487,4 +487,9 @@ XQL;
       throw new Exception('Failed to get contents.');
     return $xml;
   }
+  
+  public function __toString()
+  {
+    return $this->getName();
+  }
 }

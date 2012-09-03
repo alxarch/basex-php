@@ -9,7 +9,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 /**
  * 
  */
-class SocketTest extends \PHPUnit_Framework_TestCase
+class SocketTest extends TestCase
 {
   /**
    *

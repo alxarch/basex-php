@@ -45,4 +45,9 @@ class Info
   {
     return (string) $this->info['content-type'];
   }
+  
+  public function __toString()
+  {
+    return $this->path();
+  }
 }

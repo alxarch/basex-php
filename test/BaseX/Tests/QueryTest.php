@@ -4,7 +4,7 @@ namespace BaseX\Tests;
 
 use BaseX\Session;
 use BaseX\Query;
-use BaseX\TestCaseSession;
+use BaseX\PHPUnit\TestCaseSession;
 
 class QueryTest extends TestCaseSession
 {

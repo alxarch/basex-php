@@ -2,7 +2,7 @@
 
 namespace BaseX\Tests;
 
-use BaseX\TestCaseDb;
+use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Session;
 use BaseX\Resource;
 use BaseX\Database;
@@ -136,7 +136,6 @@ class ResourceTest extends TestCaseDb
 
   }
   
-  
   public function testDelete()
   {
     $this->db->add('test.xml', '<test/>');
@@ -209,7 +208,6 @@ class ResourceTest extends TestCaseDb
     $this->assertEquals($modified, $doc->getInfo()->modified());
   
   }
-  
 
   public function testEtag()
   {

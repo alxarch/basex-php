@@ -4,7 +4,7 @@ namespace BaseX\Tests;
 
 use BaseX\Session;
 use BaseX\Session\Info;
-use BaseX\TestCaseSession;
+use BaseX\PHPUnit\TestCaseSession;
 
 /**
  */
