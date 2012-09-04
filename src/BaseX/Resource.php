@@ -295,4 +295,17 @@ class Resource
   {
     return $this->getPath();
   }
+  
+  static public function fromURI(Session $session, $uri)
+  {
+    $parts = parse_url($uri);
+    if('basex' !== $parts['scheme'] || !isset($parts['host']) || !isset($parts['path']))
+      throw new \InvalidArgumentException('Invalid url');
+    
+    $db = new Database($session, $parts['host']);
+    
+    $class = get_called_class();
+    
+    return new $class($db, substr($parts['path'], 1));
+  }
 }

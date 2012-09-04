@@ -230,4 +230,15 @@ class ResourceTest extends TestCaseDb
     $resource = new Resource($this->db, 'test.xml');
     $this->assertEquals("basex://$this->dbname/test.xml", $resource->getUri());
   }
+  
+  public function testFromUri()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $uri = "basex://$this->dbname/test.xml";
+    $result = Resource::fromURI($this->session, $uri);
+    $this->assertInstanceOf('BaseX\Resource', $result);
+    $this->assertEquals('test.xml', $result->getPath());
+    $this->assertEquals($this->dbname, $result->getDatabase()->getName());
+    
+  }
 }
