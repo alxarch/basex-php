@@ -15,6 +15,12 @@ class StreamWrapper
   
   /**
    *
+   * @var resource
+   */
+  public $context;
+  
+  /**
+   *
    * @var \BaseX\Session
    */
   static protected $session;
