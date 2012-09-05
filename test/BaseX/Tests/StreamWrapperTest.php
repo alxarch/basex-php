@@ -210,6 +210,27 @@ class StreamWrapperTest extends TestCaseDb
     $this->assertEquals($tmp, $contents);
   }
   
+  public function testStreamCopy()
+  {
+    $filename = __DIR__.'/../../data/test.jpg';
+    
+    $jpg = fopen($filename, 'r');
+    
+    $basex = fopen("basex://$this->dbname/test.jpg", 'w');
+    
+    $ok = stream_copy_to_stream($jpg, $basex);
+    
+    $this->assertTrue($ok !== false);
+    $this->assertTrue($ok > 0);
+    
+    fclose($basex);
+    fclose($jpg);
+    
+    $contents = $this->raw('test.jpg');
+    
+    $this->assertEquals(file_get_contents($filename), $contents);
+  }
+  
   protected function assertOpenFails($url, $mode='r', $msg='Resource did not fail on open.')
   {
     try
