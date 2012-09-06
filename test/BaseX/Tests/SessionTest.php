@@ -11,7 +11,7 @@ use BaseX\PHPUnit\TestCaseSession;
 class SessionTest extends TestCaseSession
 {
   /**
-   * @expectedException         BaseX\Session\Exception
+   * @expectedException         BaseX\Error\SessionError
    * @expectedExceptionMessage  Access denied.
    */
   public function testAuthenticate()
@@ -234,7 +234,7 @@ class SessionTest extends TestCaseSession
   function testGetInfo() {
     $result = $this->session->getInfo();
     
-    $this->assertInstanceOf('BaseX\Session\Info', $result);
+    $this->assertInstanceOf('BaseX\Session\SessionInfo', $result);
   }
   
   function testGetStatus() 

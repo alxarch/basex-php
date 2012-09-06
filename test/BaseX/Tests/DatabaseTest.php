@@ -5,6 +5,8 @@ namespace BaseX\Tests;
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Session;
 use BaseX\Database;
+use BaseX\Resource\Document;
+use BaseX\Resource\Raw;
 use \InvalidArgumentException;
 
 class DatabaseTest extends TestCaseDb
@@ -193,12 +195,18 @@ class DatabaseTest extends TestCaseDb
     $this->db->add('test.xml', '<root/>');
     
     $doc = $this->db->resource('test.xml');
-    $this->assertInstanceOf('BaseX\Resource', $doc);
-    $this->assertTrue($doc->getDatabase() === $this->db);
+    $this->assertInstanceOf('BaseX\Resource\Document', $doc);
+    $this->assertTrue($doc->getDatabase() === $this->dbname);
     
-    $doc = $this->db->resource('test.xml', 'BaseX\Document');
-    $this->assertInstanceOf('BaseX\Document', $doc);
-    $this->assertTrue($doc->getDatabase() === $this->db);
+    $this->db->store('test.txt', 'root');
+    
+    $doc = $this->db->resource('test.txt');
+    $this->assertInstanceOf('BaseX\Resource\Raw', $doc);
+    $this->assertTrue($doc->getDatabase() === $this->dbname);
+    
+    $doc = $this->db->resource('test.xml', 'BaseX\Resource\Document');
+    $this->assertInstanceOf('BaseX\Resource\Document', $doc);
+    $this->assertTrue($doc->getDatabase() === $this->dbname);
     
     $this->db->delete('test.xml');
     
@@ -209,7 +217,7 @@ class DatabaseTest extends TestCaseDb
   
   /**
    * @depends testResource
-   * @expectedException InvalidArgumentException
+   * @expectedException BaseX\Error
    * @expectedExceptionMessage Invalid class for resource.
    * 
    */
@@ -246,7 +254,7 @@ class DatabaseTest extends TestCaseDb
     
     foreach ($resources as $r)
     {
-      $this->assertInstanceOf('BaseX\Resource', $r);
+      $this->assertInstanceOf('BaseX\Resource\Generic', $r);
     }
     
     $resource = $resources[0];
@@ -264,58 +272,13 @@ class DatabaseTest extends TestCaseDb
     
     foreach ($resources as $r)
     {
-      $this->assertInstanceOf('BaseX\Resource', $r);
+      $this->assertInstanceOf('BaseX\Resource\Generic', $r);
     }
     
     $this->db->delete('test-1.xml');
     $this->db->delete('test-2.xml');
     $this->db->delete('test-3.xml');
     $this->db->delete('test.txt');
-  }
-  
-  /**
-   * @depends testDelete
-   */
-  public function testGetResourceInfo()
-  {
-    $this->db->add('test-1.xml', '<test1/>');
-    $this->db->add('dir/test-2.xml', '<test2/>');
-    $this->db->add('dir/test-3.xml', '<test3/>');
-    $this->db->store('test.txt', 'test');
-    
-    $resources = $this->db->getResourceInfo();
-    
-    $this->assertTrue(is_array($resources));
-    $this->assertEquals(4, count($resources));
-    
-    foreach ($resources as $r)
-    {
-      $this->assertInstanceOf('BaseX\Resource\Info', $r);
-    }
-    
-    $resource = $resources[0];
-    $this->assertEquals('test-1.xml', $resource->path());
-    $resource = $resources[1];
-    $this->assertEquals('dir/test-2.xml', $resource->path());
-    $resource = $resources[2];
-    $this->assertEquals('dir/test-3.xml', $resource->path());
-    $resource = $resources[3];
-    $this->assertEquals('test.txt', $resource->path());
-    
-    $resources = $this->db->getResourceInfo('dir/');
-    $this->assertTrue(is_array($resources));
-    $this->assertEquals(2, count($resources));
-    
-    foreach ($resources as $r)
-    {
-      $this->assertInstanceOf('BaseX\Resource\Info', $r);
-    }
-    
-    $this->db->delete('test-1.xml');
-    $this->db->delete('test-2.xml');
-    $this->db->delete('test-3.xml');
-    $this->db->delete('test.txt');
-    
   }
   
   /**

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @package BaseX 
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
 
 namespace BaseX;
 
@@ -6,21 +13,35 @@ use BaseX\Helpers as B;
 use BaseX\Session;
 use BaseX\Session\Socket;
 use BaseX\Database;
-use BaseX\Resource\Info as ResourceInfo;
+use BaseX\Resource\Raw;
+use BaseX\Resource\Document;
 
+/**
+ * Stream wrapper for BaseX resources
+ * 
+ * @package BaseX 
+ */
 class StreamWrapper
 {
-  
+  /**
+   * Used for the scheme part of the url.
+   * 
+   * ie basex://database/example.xml 
+   */
   const NAME = 'basex';
   
   /**
-   *
+   * Stream context
+   * 
+   * Not currently used.
+   * 
    * @var resource
    */
   public $context;
   
   /**
-   *
+   * The session to use for all requests.
+   * 
    * @var \BaseX\Session
    */
   static protected $session;
@@ -52,7 +73,7 @@ class StreamWrapper
   protected $restore = null;
   
   /**
-   * Opens a resource on BaseX
+   * Opens a resource on BaseX server as a stream
    * 
    * In write mode any options (ie CHOP, HTMLOPT etc) can be passed via query
    * string in the url. 
@@ -92,7 +113,7 @@ class StreamWrapper
   }
   
   /**
-   * Delete shortcut.
+   * Deletes a resource on basex.
    * 
    * @param string $path
    */
@@ -108,6 +129,7 @@ class StreamWrapper
       $this->error($e->getMessage());
       return false;
     }
+    
     return true;
   }
   
@@ -148,6 +170,46 @@ class StreamWrapper
       return 0; 
       
     return strlen ($data);
+  }
+  
+  public function stream_stat()
+  {
+    $mode = 0100000 + (($this->mode === 'w') ? 0666 : 0444);
+    $size = $this->info ? $this->info->getSize() : 0;
+    $mtime = $this->info ? $this->info->getModified() : 0;
+    
+    $values = array(
+      0  => 0 ,
+      1  => 0,
+      2  => $mode,
+      3  => 1,
+      4  => 0,
+      5  => 0,
+      6  => 0,
+      7  => $size,
+      8  => $mtime,
+      9  => $mtime,
+      10 => $mtime,
+      11 => -1,
+      12 => -1,
+    );
+    $keys = array(
+      'dev',
+      'ino',
+      'mode' ,
+      'nlink',
+      'uid' ,
+      'gid' ,
+      'rdev' ,
+      'size' ,
+      'atime' ,
+      'mtime' ,
+      'ctime' ,
+      'blksize' ,
+      'blocks'
+    );
+    
+    return array_merge($values, array_combine($keys, $values));
   }
 
   /**
@@ -227,6 +289,9 @@ class StreamWrapper
     }
   }
   
+  /**
+   * Locks session and starts receiving data.
+   */
   protected function startSending()
   {
     if(!$this->sending)
@@ -257,6 +322,9 @@ class StreamWrapper
     }
   }
   
+  /**
+   * Stops sendong data and unlocks session.
+   */
   protected function stopSending()
   {
     if($this->sending)
@@ -268,7 +336,7 @@ class StreamWrapper
       $sock->clearBuffer();
       
       self::$session->unlock();
-      
+      self::$session->execute('CLOSE');
       // Restore options to previous values.
       
       foreach ($this->options as $name => $value)
@@ -295,6 +363,9 @@ class StreamWrapper
     return true;
   }
   
+  /**
+   * Auto-detect method to use for storing a document.
+   */
   protected function detectMethod()
   {
     if(null === $this->info)
@@ -309,7 +380,7 @@ class StreamWrapper
         }
       }
     }
-    elseif(!$this->info->raw())
+    elseif(!$this->info->isRaw())
     {
       return Session::REPLACE;
     }
@@ -318,7 +389,7 @@ class StreamWrapper
   }
 
   /**
-   * Start receiving data and lock all needed resources.
+   * Lock session and start receiving data.
    * 
    * Session is locked because buffer contents affect to current transmission.
    */
@@ -327,7 +398,7 @@ class StreamWrapper
     if(!$this->receiving)
     {
       $sock = self::$session->getSocket();
-      if($this->info->raw())
+      if($this->info->isRaw())
       {
         self::$session->execute("OPEN $this->db");
         self::$session->execute("SET SERIALIZER raw");
@@ -365,6 +436,15 @@ class StreamWrapper
     }
   }
   
+  /**
+   * Set stream mode.
+   * 
+   * Valid modes: r, w
+   * 
+   * @param string $mode
+   * 
+   * @throws \InvalidArgumentException 
+   */
   protected function setMode($mode)
   {
     if('r' === $mode || 'w' === $mode)
@@ -373,6 +453,14 @@ class StreamWrapper
       throw new \InvalidArgumentException('Only r and w modes implemented.');
   }
   
+  /**
+   * Parses a uri.
+   * 
+   * @param string $path
+   * 
+   * @throws \InvalidArgumentException If no database and/or document is 
+   * specified in the url
+   */
   protected function parsePath($path)
   {
     $url = parse_url($path);
@@ -399,42 +487,80 @@ class StreamWrapper
     $this->db = $url['host'];
   }
   
+  /**
+   * Loads resource info.
+   * 
+   * @throws BaseX\Error If mode is 'r' and resource does not exist.
+   */
   protected function loadInfo()
   {
-    $xql = sprintf("db:exists('%s')", $this->db);
-    if('false' === self::$session->query($xql)->execute())
-    {
-      throw new \Exception('Database not found.');
-    }
-    
-    $xql = sprintf("db:list-details('%s', '%s')", $this->db, $this->path);
+    $xql = <<<XQL
+      <data>
+        <db>{db:exists('$this->db')}</db>
+        {db:list-details('$this->db', '$this->path')}
+      </data>
+XQL;
     
     $data = self::$session->query($xql)->execute();
     
-    if($data)
+    $xml = @simplexml_load_string($data);
+    
+    if('false' === (string)$xml->db )
     {
-      $this->info = new ResourceInfo($data);
+      throw new Error('Database not found.');
+    }
+    
+    if(isset($xml->resource))
+    {
+      if('true' === (string)$xml->resource['raw'])
+      {
+        $this->info = new Raw(self::$session, $this->db, $this->path, $xml->resource);
+      }
+      else
+      {
+        $this->info = new Document(self::$session, $this->db, $this->path, $xml->resource);
+      }
     }
     elseif('r' === $this->mode)
     {
-      throw new \Exception('Resource not found.');
+      throw new Error('Resource not found.');
     }
   }
   
-  protected function error($e)
+  /**
+   * Handle errors.
+   * 
+   * @param string $msg Error message
+   */
+  protected function error($msg)
   {
     if($this->errors & STREAM_REPORT_ERRORS)
     {
-      trigger_error($e, E_USER_WARNING);
+      trigger_error($msg, E_USER_WARNING);
     }
   }
   
+  /**
+   * Registers stream wrapper to handle basex:// urls.
+   * 
+   * @uses stream_wrapper_register()
+   * 
+   * @param Session $session
+   * @return bool true on success false on failure.
+   */
   static public function register(Session $session)
   {
     self::$session = $session;
     return stream_wrapper_register(self::NAME, get_called_class());
   }
   
+  /**
+   * Unregisters stream wrapper from handling of basex:// urls.
+   * 
+   * @uses stream_wrapper_register()
+   * 
+   * @return bool 
+   */
   static public function unregister()
   {
     return stream_wrapper_unregister(self::NAME);

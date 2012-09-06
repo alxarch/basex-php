@@ -1,17 +1,22 @@
 <?php
+/**
+ * @package BaseX
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
 
 namespace BaseX;
 
-use BaseX\Exception;
 use BaseX\Session;
 
-/*
- * PHP client for BaseX.
- * Works with BaseX 7.0 and later
- *
- * Documentation: http://docs.basex.org/wiki/Clients
+/** 
+ * Query object for a BaseX session.
  * 
- * (C) BaseX Team 2005-12, BSD License
+ * @author BaseX Team
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * 
+ * @package BaseX
  */
 class Query
 {

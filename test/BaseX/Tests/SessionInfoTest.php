@@ -2,7 +2,7 @@
 
 namespace BaseX\Tests;
 
-use BaseX\Session\Info;
+use BaseX\Session\SessionInfo;
 use BaseX\PHPUnit\TestCaseSession;
 
 
@@ -15,14 +15,14 @@ class SessionInfoTest extends TestCaseSession
 {
   function testConstruct() 
   {
-    return new Info($this->session);
+    return new SessionInfo($this->session);
   }
   
   /**
    */
   function testGet() 
   {
-    $info = new Info($this->session);
+    $info = new SessionInfo($this->session);
     
     $data = $this->session->query("db:system()")->execute();
     $xml = simplexml_load_string($data);
@@ -37,7 +37,7 @@ class SessionInfoTest extends TestCaseSession
   
   function testOption()
   {
-    $info = new Info($this->session);
+    $info = new SessionInfo($this->session);
     $data = $this->session->query("db:system()")->execute();
     $xml = simplexml_load_string($data);
     foreach ($xml->options->children() as $opt)
@@ -50,13 +50,13 @@ class SessionInfoTest extends TestCaseSession
   
   function testVersion()
   {
-    $info = new Info($this->session);
+    $info = new SessionInfo($this->session);
     $this->assertNotEmpty($info->version());
   }
   
   function testReload()
   {
-    $info = new Info($this->session);
+    $info = new SessionInfo($this->session);
     
     $old = $info->option('serializer');
     

@@ -1,11 +1,26 @@
 <?php
-
+/**
+ * @package BaseX
+ * @subpackage Tests
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
 namespace BaseX\PHPUnit;
 
 use BaseX\PHPUnit\TestCaseSession;
 
 use BaseX\Database;
 
+/**
+ * TestCase for tests that require a BaseX database.
+ * 
+ * It builds/destroys a BaseX database before/after each test.
+ * 
+ * @package BaseX
+ * @subpackage Tests
+ */
 class TestCaseDb extends TestCaseSession
 {
   /**
@@ -66,6 +81,7 @@ class TestCaseDb extends TestCaseSession
   public function tearDown()
   {
     // Truncate db.
+    $this->session->execute("CLOSE");
     $this->session->execute("DROP DB $this->dbname");
   }
 }

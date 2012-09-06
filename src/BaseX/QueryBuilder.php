@@ -1,14 +1,23 @@
 <?php
+/**
+ * @package BaseX
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
 
-namespace BaseX\Query;
+namespace BaseX;
 
 use BaseX\Session;
 use BaseX\Helpers as B;
 
 /**
  * Helper class to facilitate xquery writting. 
+ * 
+ * @package BaseX
  */
-class Writer
+class QueryBuilder
 {
   /**
    * Options to declare in the prologue.

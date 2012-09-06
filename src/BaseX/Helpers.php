@@ -1,4 +1,11 @@
 <?php
+/**
+ * @package BaseX
+ *  
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
 
 namespace BaseX;
 
@@ -7,6 +14,11 @@ use BaseX\StreamWrapper;
 use BaseX\Resource;
 use BaseX\Database;
 
+/**
+ * Helper functions
+ * 
+ * @package BaseX 
+ */
 class Helpers
 {
 
@@ -54,7 +66,7 @@ class Helpers
   /**
    * Restores NUL and \xFF characters in received strings.
    * 
-   * @see http://docs.basex.org/wiki/Server_Protocol#Transfer_Protocol
+   * @link http://docs.basex.org/wiki/Server_Protocol#Transfer_Protocol
    * 
    * @param string $data
    * @return string 
@@ -69,7 +81,7 @@ class Helpers
   /**
    * Scrubs NUL characters off a string.
    * 
-   * @see http://docs.basex.org/wiki/Server_Protocol#Transfer_Protocol
+   * @link http://docs.basex.org/wiki/Server_Protocol#Transfer_Protocol
    * 
    * @param string $data
    * @return string 

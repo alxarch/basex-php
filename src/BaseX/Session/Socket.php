@@ -1,10 +1,25 @@
 <?php
+/**
+ * @package BaseX 
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
 
 namespace BaseX\Session;
 
-use BaseX\Exception;
+use BaseX\Error\SocketError;
 use BaseX\Helpers as B;
 
+/**
+ * Socket wrapper for communicationg with a BaseX server.
+ * 
+ * A lot of effort has been put into correct handling of binary data as per 
+ * BaseX Server Protocol specification.
+ * 
+ * @package BaseX 
+ */
 class Socket
 {
   const BUFFER_SIZE = 4096;
@@ -27,7 +42,7 @@ class Socket
     
     if(false === $this->socket) 
     {
-      throw new Exception("Can't communicate with server.");
+      throw new SocketError("Can't communicate with server.");
     }
   }
     

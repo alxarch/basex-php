@@ -1,27 +1,28 @@
 <?php
+/**
+ * @package BaseX
+ * 
+ * @copyright Copyright (c) 2005-12, BaseX Team
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * 
+ * @author BaseX Team
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * 
+ * @license BSD License
+ */
 
 namespace BaseX;
 
 use BaseX\Query;
 use BaseX\Session\Socket;
 use BaseX\Helpers as B;
-use BaseX\Session\Exception;
-use BaseX\Session\Info as SessionInfo;
+use BaseX\Error\SessionError;
+use BaseX\Session\SessionInfo;
 
 /** 
- * @file PHP client for BaseX.
- * Works with BaseX 7.0 and later
- *
- * Documentation: http://docs.basex.org/wiki/Clients
+ * Session for communicating with a BaseX server.
  * 
- * (C) BaseX Team 2005-12, BSD License
- */
-
-/**
- * Session communicating with BaseX Server.
- *
- * Socket-based implementation.
- *
+ * @package BaseX
  */ 
 class Session 
 {
@@ -32,28 +33,28 @@ class Session
   const STORE = 13;
   
   /**
-   *
+   * Socket wrapper
+   * 
    * @var BaseX\Session\Socket
    */
   protected $socket;
   
   /**
-   *
-   * @var string
-   */
-  protected $version;
-  
-  /**
+   * Session information & options
+   * 
    * @var \BaseX\Session\Info
    */
    protected $info = null;
    
   /**
+   * Last operation's status message.
+   * 
    * @var string
    */
    protected $status = null;
 
    /**
+    * Output redirection
     * 
     * @var resource
     */
@@ -61,6 +62,7 @@ class Session
    
    /**
     * Locks the curent session.
+    * 
     * @var boolean
     */
    protected $locked = false;
@@ -72,8 +74,9 @@ class Session
     * @param string $host Server hostname
     * @param string $port Port to use
     * @param string $user Username
-    * @param type $pass   Password
-    * @throws \Exception 
+    * @param string $pass Password
+    * 
+    * @throws BaseX\Error\SessionError
     */
   function __construct($host, $port, $user, $pass) 
   {
@@ -83,6 +86,7 @@ class Session
   }
   
   /**
+   * Gets the socket wrapper.
    *
    * @return \BaseX\Session\Socket
    */
@@ -92,9 +96,10 @@ class Session
   }
   
   /**
-   *
+   * Redirect content output to a stream.
+   * 
    * @param resource $to
-   * @return \BaseX\Session $this 
+   * @return BaseX\Session $this 
    */
   public function redirectOutput($to)
   {
@@ -103,7 +108,8 @@ class Session
   }
   
   /**
-   *
+   * Resource at wich session's output is redirected
+   * 
    * @return resource 
    */
   public function redirectsTo()
@@ -111,6 +117,11 @@ class Session
     return $this->out;
   }
   
+  /**
+   * Gets session information & options wrapper.
+   * 
+   * @return BaseX\Session\Info
+   */
   public function getInfo()
   {
     if(null === $this->info)
@@ -121,11 +132,24 @@ class Session
     return $this->info;
   }
   
+  /**
+   * Gets last operation's status message.
+   * 
+   * @return string
+   */
   public function getStatus()
   {
     return (string)$this->status;
   }
   
+  /**
+   * Authenticate a newly opened session according to BaseX Server Protocol
+   *  
+   * @param string $user
+   * @param string  $pass
+   * 
+   * @throws BaseX\Error\SessionError On failure
+   */
   protected function authenticate($user, $pass)
   {
     // receive timestamp
@@ -142,7 +166,7 @@ class Session
     // receives success flag
     if(!$this->ok()) 
     {
-      throw new Exception("Access denied.");
+      throw new SessionError("Access denied.");
     }
   }
 
@@ -150,7 +174,8 @@ class Session
    * Executes a database command.
    * 
    * @param string $com The command to execute
-   * @return string|int 
+   * 
+   * @return mixed
    */
   public function execute($command) 
   {
@@ -173,12 +198,20 @@ class Session
     
     if(!$this->ok())
     {
-      throw new Exception($this->getStatus());
+      throw new SessionError($this->getStatus());
     }
     
     return $result;
   }
   
+  /**
+   * Executes a command script.
+   * 
+   * Requires BaseX version >= 7.4 
+   * 
+   * @param string $script
+   * @return mixed 
+   */
   public function script($script)
   {
 //    $this->requireVersion('7.4');
@@ -189,7 +222,7 @@ class Session
    * Creates a new Query that uses this session.
    * 
    * @param string $q XQuery code
-   * @return \BaseX\Query $q
+   * @return BaseX\Query $q
    */
   public function query($q) 
   {
@@ -198,9 +231,9 @@ class Session
   }
   
   /**
-   * Creates the database [name] with an optional [input] and opens it.
+   * Creates a database.
    * 
-   * @see http://docs.basex.org/wiki/Commands#CREATE_DB
+   * @link http://docs.basex.org/wiki/Commands#CREATE_DB
    * 
    * @param string $name name of the new database
    * @param string|resource $input initial document
@@ -211,10 +244,9 @@ class Session
   }
   
   /**
-   * Adds the files, directory or XML string specified by [input] 
-   * to the currently opened database at the specified [path].
+   * Adds documents to the the currently opened database.
    * 
-   * @see http://docs.basex.org/wiki/Commands#ADD
+   * @link http://docs.basex.org/wiki/Commands#ADD
    * 
    * @param string $path path to add
    * @param string|resource $input document contents
@@ -237,9 +269,9 @@ class Session
   }
 
   /**
-   * Stores a raw file in the opened database to the specified [path].
+   * Stores a raw file in the opened database.
    * 
-   * @see http://docs.basex.org/wiki/Commands#STORE
+   * @link http://docs.basex.org/wiki/Commands#STORE
    * 
    * @param string $path
    * @param string|resource $input 
@@ -250,7 +282,8 @@ class Session
   }
   
   /**
-   * Closes the connection to the server 
+   * Closes the connection to the server.
+   * 
    */
   public function close()
   {
@@ -258,8 +291,19 @@ class Session
     $this->socket->send("EXIT".Socket::NUL);
     $this->socket->close();
   }
-
-  private function sendCommand($code, $arg, $input) 
+  
+  /**
+   * Send a command and receive answer using Command Protocol
+   *
+   * @link http://docs.basex.org/wiki/Server_Protocol#Command_Protocol
+   * 
+   * @param int $code
+   * @param string $arg
+   * @param string|resource $input
+   * 
+   * @throws BaseX\Error\SessionError
+   */
+  public function sendCommand($code, $arg, $input) 
   {
     $this->checkLock();
  
@@ -281,7 +325,7 @@ class Session
     $this->status = $this->socket->read();
     
     if(!$this->ok())
-      throw new Exception($this->getStatus());
+      throw new SessionError($this->getStatus());
   }
   
   
@@ -291,12 +335,16 @@ class Session
   }
 
   /**
-   *
+   * Send a command and receive answer using Query Command Protocol
+   * 
+   * @link http://docs.basex.org/wiki/Server_Protocol#Query_Command_Protocol
+   * 
    * @param int $code
    * @param string $arg
    * @param boolean $noredirects Don't redirect output.
    * @return mixed
-   * @throws Exception 
+   * 
+   * @throws BaseX\Error\SessionError
    */
   public function sendQueryCommand($code, $arg, $noredirects = false)
   {
@@ -318,7 +366,7 @@ class Session
     }
     if(!$this->ok())
     {
-      throw new Exception($this->socket->read());
+      throw new SessionError($this->socket->read());
     }
     
     $this->socket->clearBuffer();
@@ -329,31 +377,65 @@ class Session
   {
     if($this->isLocked())
     {
-      throw new Exception("Session is locked.");
+      throw new SessionError("Session is locked.");
     }
   }
   
-  
+  /**
+   * Checks whether session is flagged as locked.
+   * 
+   * @return boolean
+   */
   public function isLocked()
   {
     return $this->locked;
   }
   
+  /**
+   * Flags session as locked.
+   * 
+   * @return BaseX\Session $this
+   */
   public function lock()
   {
     $this->locked = true;
+    return $this;
   }
   
+  /**
+   * Flags session as unlocked.
+   * 
+   * @return BaseX\Session $this
+   *  
+   */
   public function unlock()
   {
     $this->locked = false;
+    return $this;
   }
   
+  /**
+   * Gets a session option.
+   * 
+   * @link http://docs.basex.org/wiki/Options
+   * 
+   * @param string $name
+   * @return string
+   */
   public function getOption($name)
   {
     return $this->getInfo()->option($name);
   }
   
+  /**
+   * Sets an option.
+   * 
+   * @link http://docs.basex.org/wiki/Options
+   * 
+   * @param string $name
+   * @param mixed $value
+   * @return \BaseX\Session  $this
+   */
   public function setOption($name, $value)
   {
     if($value instanceof SessionInfo)
@@ -363,17 +445,16 @@ class Session
     return $this;
   }
   
+  /**
+   * Resets an option
+   * 
+   * @param string $name
+   * @return \BaseX\Session $this
+   */
   public function resetOption($name)
   {
     $this->execute("SET $name");
     return $this;
   }
   
-//  protected function requireVersion($ver)
-//  {
-//    if($this->version < $ver)
-//    {
-//      throw new Exception('Not available in this version.');
-//    }
-//  }
 }

@@ -1,19 +1,25 @@
 <?php
+/**
+ * @package BaseX
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
 
 namespace BaseX;
 
 use BaseX\Session;
-use BaseX\Document;
-use BaseX\Resource;
-use BaseX\Query\Writer as XQueryWriter;
-use BaseX\Resource\Info as ResourceInfo;
-use BaseX\Exception;
+use BaseX\QueryBuilder;
+use BaseX\Resource\Raw;
+use BaseX\Resource\Document;
+use BaseX\Error;
 use BaseX\Helpers as B;
 use \InvalidArgumentException;
 
 /**
- * BaseX Session Wrapper that operates within a database.
- *  
+ * BaseX Database object.
+ * @package BaseX
  */
 class Database
 {
@@ -64,7 +70,7 @@ class Database
   /**
    * Adds a document to the database.
    * 
-   * @see http://docs.basex.org/wiki/Commands#ADD
+   * @link http://docs.basex.org/wiki/Commands#ADD
    *
    * @param string $path
    * @param string|resource $input
@@ -78,7 +84,7 @@ class Database
   /**
    * Replaces a document.
    * 
-   * @see http://docs.basex.org/wiki/Commands#REPLACE
+   * @link http://docs.basex.org/wiki/Commands#REPLACE
    * 
    * @param string $path
    * @param string|resource $input
@@ -92,7 +98,7 @@ class Database
   /**
    * Stores a non-xml document to the database at the specified path.
    * 
-   * @see http://docs.basex.org/wiki/Commands#STORE
+   * @link http://docs.basex.org/wiki/Commands#STORE
    * 
    * @param string $path
    * @param string|resource $input
@@ -106,7 +112,7 @@ class Database
   /**
    * Executes a command after opening the database.
    * 
-   * @see http://docs.basex.org/wiki/Commands
+   * @link http://docs.basex.org/wiki/Commands
    * 
    * @param string $command
    * @return string 
@@ -122,7 +128,7 @@ class Database
    * @param string          $path
    * @param string|object   $class A BaseX\Document subclass to use.
    * @return \Basex\Resource or null if file not found
-   * @throws \InvalidArgumentException 
+   * @throws BaseX\Error
    */
   public function resource($path, $class=null)
   {
@@ -131,20 +137,23 @@ class Database
     
     if(null === $class)
     {
-      $class = 'BaseX\Resource';
-    }
-    else if(!is_subclass_of($class, 'BaseX\Resource'))
-    {
-      throw new \InvalidArgumentException('Invalid class for resource.');
+      $db = $this->getName();
+      $raw = $this->getSession()->query("db:is-raw('$db', '$path')")->execute() === 'true';
+      $class = $raw ? 'BaseX\Resource\Raw' : 'BaseX\Resource\Document';
     }
     
-    return new $class($this, $path);
+    if(!in_array('BaseX\Resource\ResourceInterface', class_implements($class)))
+    {
+      throw new Error('Invalid class for resource.');
+    }
+    
+    return new $class($this->getSession(), $this->getName(), $path);
   }
   
   /**
    * Deletes a document.
    * 
-   * @see http://docs.basex.org/wiki/Commands#DELETE
+   * @link http://docs.basex.org/wiki/Commands#DELETE
    * 
    * @param string $path 
    */
@@ -158,7 +167,7 @@ class Database
   /**
    * Renames a document.
    * 
-   * @see http://docs.basex.org/wiki/Commands#RENAME
+   * @link http://docs.basex.org/wiki/Commands#RENAME
    * 
    * @param string $path 
    */
@@ -182,25 +191,9 @@ class Database
     $xql = "<resources>{ db:list-details('$db', '$path')$filter }</resources>";
     
     $data = $this->session->query($xql)->execute();
-    return simplexml_load_string($data)->resource;
+    return @simplexml_load_string($data)->resource;
   }
     
-  /**
-   * Lists all database resources.
-   * 
-   * @param string $path 
-   * @return array 
-   */
-  public function getResourceInfo($path = null)
-  {
-    $result = array();
-    foreach ($this->resources($path) as $resource)
-    {
-      $result[] = new ResourceInfo($resource);
-    }
-    return $result;
-  }
-  
   /**
    * Lists all database resources.
    * 
@@ -212,8 +205,8 @@ class Database
     $resources = array();
     foreach ($this->resources($path) as $resource)
     {
-      $info = new ResourceInfo($resource);
-      $resources[] = new Resource($this, $info->path(), $info) ;
+      $class = ('true' === (string)$resource['raw']) ? 'BaseX\Resource\Raw' : 'BaseX\Resource\Document';
+      $resources[] = new $class($this->getSession(), $this->getName(), (string)$resource, $resource) ;
     }
     
     return $resources;
@@ -234,10 +227,10 @@ class Database
   /**
    * Adds a document using the xml parser.
    * 
-   * @see http://docs.basex.org/wiki/Parsers#XML_Parser
+   * @link http://docs.basex.org/wiki/Parsers#XML_Parser
    * 
-   * @param type $path
-   * @param type $input
+   * @param string $path
+   * @param mixed $input
    * @param string $filter Filter added files wildcard.
    * 
    */
@@ -250,9 +243,9 @@ class Database
    * 
    * Adds a document using the html parser.
    * 
-   * @see http://docs.basex.org/wiki/Parsers#HTML_Parser
-   * @see http://home.ccil.org/~cowan/XML/tagsoup/#program
-   * @see http://docs.basex.org/wiki/Options#CREATEFILTER
+   * @link http://docs.basex.org/wiki/Parsers#HTML_Parser
+   * @link http://home.ccil.org/~cowan/XML/tagsoup/#program
+   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
    * 
    * @param type $path
    * @param type $input
@@ -274,9 +267,9 @@ class Database
    * 
    * Adds a document using the JSON parser.
    * 
-   * @see http://docs.basex.org/wiki/Parsers#HTML_Parser
+   * @link http://docs.basex.org/wiki/Parsers#HTML_Parser
    * 
-   * @see http://docs.basex.org/wiki/Options#CREATEFILTER
+   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
    * 
    * @param type $path
    * @param type $input
@@ -298,9 +291,9 @@ class Database
    * 
    * Adds a document using the CSV parser.
    * 
-   * @see http://docs.basex.org/wiki/Parsers#CSV_Parser
+   * @link http://docs.basex.org/wiki/Parsers#CSV_Parser
    * 
-   * @see http://docs.basex.org/wiki/Options#CREATEFILTER
+   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
    * 
    * @param type $path
    * @param type $input
@@ -324,9 +317,9 @@ class Database
    * 
    * Adds a document using the Text parser.
    * 
-   * @see http://docs.basex.org/wiki/Parsers#Text_Parser
+   * @link http://docs.basex.org/wiki/Parsers#Text_Parser
    * 
-   * @see http://docs.basex.org/wiki/Options#CREATEFILTER
+   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
    * 
    * @param type $path
    * @param type $input
@@ -395,7 +388,7 @@ class Database
   {
     $db =  $this->getName();
     
-    $q = new XQueryWriter();
+    $q = new QueryBuilder();
     
     if($raw)
     {
@@ -454,6 +447,8 @@ class Database
    * all subcollections are returned as <collection/>
    * @param string $path 
    * @return \SimpleXmlElement
+   * 
+   * @throws \BaseX\Error
    */
   public function getContents($path=null)
   {
@@ -484,7 +479,7 @@ XQL;
     $data = $this->getSession()->query($xql)->execute();
     $xml = simplexml_load_string($data);
     if(false === $xml)
-      throw new Exception('Failed to get contents.');
+      throw new Error('Failed to get contents.');
     return $xml;
   }
   

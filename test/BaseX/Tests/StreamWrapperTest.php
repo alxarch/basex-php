@@ -231,6 +231,79 @@ class StreamWrapperTest extends TestCaseDb
     $this->assertEquals(file_get_contents($filename), $contents);
   }
   
+  public function testEOF()
+  {
+    $tmp = fopen('php://temp', 'r+');
+    
+    $this->db->store('test.txt', 'test');
+    
+    $basex = fopen("basex://$this->dbname/test.txt", 'r');
+    
+    $total = 0;
+    $times = 0;
+    while(!feof($basex))
+    {
+      $total += fwrite($tmp, fread($basex, Socket::BUFFER_SIZE));
+      $times++;
+    }
+    
+    $this->assertEquals(1, $times);
+    $this->assertTrue($total > 0);
+    
+    rewind($tmp);
+    $this->assertEquals('test', stream_get_contents($tmp));
+    
+    fclose($basex);
+    fclose($tmp);
+    
+  }
+  
+  public function testStat()
+  {
+    $this->db->add('test.xml', '<test/>');
+    
+    $url = "basex://$this->dbname/test.xml";
+    
+    $handle = fopen($url, 'r');
+    
+    $result = fstat($handle);
+    
+    $this->assertTrue(is_array($result));
+ 
+    $keys = array(
+      'dev',
+      'ino',
+      'mode' ,
+      'nlink',
+      'uid' ,
+      'gid' ,
+      'rdev' ,
+      'size' ,
+      'atime' ,
+      'mtime' ,
+      'ctime' ,
+      'blksize' ,
+      'blocks'
+    );
+    foreach ($keys as $key)
+    {
+      $this->assertTrue(array_key_exists($key, $result));
+    }
+    
+    $this->assertEquals(0100000+0444, $result['mode']);
+    
+    fclose($handle);
+    $handle = fopen($url, 'w');
+    $result = fstat($handle);
+    $this->assertTrue(is_array($result));
+    foreach ($keys as $key)
+    {
+      $this->assertTrue(array_key_exists($key, $result));
+    }
+    $this->assertEquals(0100000+0666, $result['mode']);
+    
+  }
+  
   protected function assertOpenFails($url, $mode='r', $msg='Resource did not fail on open.')
   {
     try
