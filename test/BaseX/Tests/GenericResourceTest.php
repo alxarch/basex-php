@@ -90,11 +90,10 @@ class GenericResourceTest extends TestCaseDb
     $doc = new GenericResource($this->session, $this->dbname, $path);
     $info = $doc->getInfo();
     
-    $this->assertEquals('stdClass', get_class($info));
-    $this->assertTrue(isset($info->type));
-    $this->assertTrue(isset($info->size));
-    $this->assertTrue(isset($info->raw));
-    $this->assertTrue(isset($info->modified));
+    $this->assertEquals('SimpleXMLElement', get_class($info));
+    $this->assertTrue(isset($info['content-type']));
+    $this->assertTrue(isset($info['raw']));
+    $this->assertTrue(isset($info['modified-date']));
   }
   
   public function testFromUri()

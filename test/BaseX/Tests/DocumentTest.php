@@ -62,7 +62,7 @@ class DocumentTest extends TestCaseDb
     
     $xml = simplexml_load_string("<root>$result</root>");
     
-    $this->assertInstanceOf('\SimpleXmlElement', $xml);
+    $this->assertInstanceOf('\SimpleXMLElement', $xml);
     
     $this->assertEquals(2, count($xml->test));
     

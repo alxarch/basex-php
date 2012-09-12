@@ -147,7 +147,7 @@ class Database
       throw new Error('Invalid class for resource.');
     }
     
-    return new $class($this->getSession(), $this->getName(), $path);
+    return new $class($this->getSession(), $this->getName(), $path, null);
   }
   
   /**
@@ -182,7 +182,7 @@ class Database
   /**
    *
    * @param string $path
-   * @return \SimpleXmlElement
+   * @return \SimpleXMLElement
    */
   protected function resources($path=null)
   {
@@ -446,7 +446,7 @@ class Database
    * 
    * all subcollections are returned as <collection/>
    * @param string $path 
-   * @return \SimpleXmlElement
+   * @return \SimpleXMLElement
    * 
    * @throws \BaseX\Error
    */

@@ -20,7 +20,7 @@ class SessionInfo
 {
   /**
    *
-   * @var \SimpleXmlElement
+   * @var \SimpleXMLElement
    */
   protected $info;
   

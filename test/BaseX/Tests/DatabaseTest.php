@@ -410,7 +410,7 @@ HTML;
     
     $xml = simplexml_load_string("<root>$result</root>");
     
-    $this->assertInstanceOf('\SimpleXmlElement', $xml);
+    $this->assertInstanceOf('\SimpleXMLElement', $xml);
     
     $this->assertEquals(3, count($xml->test));
     
@@ -420,7 +420,7 @@ HTML;
     
     $xml = simplexml_load_string("<root>$result</root>");
     
-    $this->assertInstanceOf('\SimpleXmlElement', $xml);
+    $this->assertInstanceOf('\SimpleXMLElement', $xml);
     
     $this->assertEquals(2, count($xml->test));
     
@@ -442,7 +442,7 @@ HTML;
     
     $contents = $this->db->getContents();
     
-    $this->assertInstanceOf('\SimpleXmlElement', $contents);
+    $this->assertInstanceOf('\SimpleXMLElement', $contents);
     
     $this->assertEquals(3, count($contents->resource));
     $this->assertEquals(1, count($contents->collection));
