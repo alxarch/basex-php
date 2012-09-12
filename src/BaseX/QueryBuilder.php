@@ -60,10 +60,9 @@ class QueryBuilder
    */
   protected $body;
   
-  public function __construct($xquery='', $variables=array())
+  protected function __construct()
   {
-    $this->setBody($xquery);
-    $this->setVariables($variables);
+   
   }
   
   public function getParameters()
@@ -138,7 +137,8 @@ class QueryBuilder
   
   public function setOption($name, $value)
   {
-    $this->options[$name] = $value;
+    if(is_string($name))
+      $this->options[$name] = $value;
     return $this;
   }
   
@@ -146,6 +146,7 @@ class QueryBuilder
   {
     foreach($options as $key => $value)
     {
+      
       $this->setOption($key, $value);
     }
     return $this;
@@ -227,6 +228,9 @@ class QueryBuilder
   
   public function setModule($alias, $uri)
   {
+    if(!preg_match('/^[a-zA-Z0-9\-_.]+$/', $alias))
+      throw new \InvalidArgumentException('Invalid module alias: '.$alias);
+    
     $this->modules[$alias] = $uri;
     return $this;
   }
@@ -248,6 +252,8 @@ class QueryBuilder
   
   public function setNamespace($alias, $uri)
   {
+    if(!preg_match('/^[a-zA-Z0-9\-_.]+$/', $alias))
+      throw new \InvalidArgumentException('Invalid namespace alias: '.$alias);
     $this->namespaces[$alias] = $uri;
     return $this;
   }
@@ -267,7 +273,7 @@ class QueryBuilder
   
   public static function begin()
   {
-    return new Writer('', array());
+    return new QueryBuilder();
   }
   
 }

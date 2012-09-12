@@ -388,7 +388,7 @@ class Database
   {
     $db =  $this->getName();
     
-    $q = new QueryBuilder();
+    $q = QueryBuilder::begin();
     
     if($raw)
     {
