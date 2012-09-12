@@ -102,18 +102,32 @@ class QueryBuilder
     return isset($this->variables[$name]) ? $this->variables[$name] : null;
   }
   
-  public function setVariable($name, $value)
+  public function addExternalVariable($name, $defaultValue=null)
   {
-    $this->variables[$name] = $value;
+    $this->variables[$name] = $defaultValue;
     return $this;
   }
   
-  public function setVariables($variables)
+  /**
+   * Add external variable definitions to the query.
+   * 
+   * @param array $variables
+   * @return \BaseX\QueryBuilder
+   */
+  public function addExternalVariables($variables)
   {
     foreach($variables as $key => $value)
     {
-      $this->setVariable($key, $value);
+      if(!is_string($key))
+      {
+        $key = (string)$value;
+        $value = null;
+      }
+      
+      if($key != '')
+        $this->addExternalVariable($key, $value);
     }
+    
     return $this;
   }
   
@@ -160,7 +174,14 @@ class QueryBuilder
     
     foreach ($this->variables as $name => $value)
     {
-      $xq[] = sprintf("declare variable $%s external;", $name);
+      if(null === $value)
+      {
+        $xq[] = sprintf("declare variable $%s external;", $name);
+      }
+      else
+      {
+        $xq[] = sprintf("declare variable $%s external := '%s';", $name, $value);
+      }
     }
     
     foreach ($this->namespaces as $alias => $uri)
@@ -240,11 +261,6 @@ class QueryBuilder
   {
     
     $q = $session->query($this->build());
-    
-    foreach ($this->variables as $name => $value)
-    {
-      $q->bind($name, $value);
-    }
     
     return $q;
   }
