@@ -9,8 +9,6 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Database;
-
 /**
  * Interface for resources
  * 
@@ -18,7 +16,6 @@ use BaseX\Database;
  */
 interface ResourceInterface 
 {
-  
   public function copy($path);
   
   public function move($path);
@@ -46,5 +43,3 @@ interface ResourceInterface
   public function refresh();
   
 }
-
-?>

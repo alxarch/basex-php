@@ -13,6 +13,7 @@ use BaseX\Session;
 use BaseX\QueryBuilder;
 use BaseX\Resource\Raw;
 use BaseX\Resource\Document;
+use BaseX\Resource\ResourceInfo;
 use BaseX\Error;
 use BaseX\Helpers as B;
 use \InvalidArgumentException;
@@ -123,34 +124,6 @@ class Database
   }
   
   /**
-   * Fetches a resource as a BaseX\Document.
-   * 
-   * @param string          $path
-   * @param string|object   $class A BaseX\Document subclass to use.
-   * @return \Basex\Resource or null if file not found
-   * @throws BaseX\Error
-   */
-  public function resource($path, $class=null)
-  {
-    if(!$this->exists($path))
-      return null;
-    
-    if(null === $class)
-    {
-      $db = $this->getName();
-      $raw = $this->getSession()->query("db:is-raw('$db', '$path')")->execute() === 'true';
-      $class = $raw ? 'BaseX\Resource\Raw' : 'BaseX\Resource\Document';
-    }
-    
-    if(!in_array('BaseX\Resource\ResourceInterface', class_implements($class)))
-    {
-      throw new Error('Invalid class for resource.');
-    }
-    
-    return new $class($this->getSession(), $this->getName(), $path, null);
-  }
-  
-  /**
    * Deletes a document.
    * 
    * @link http://docs.basex.org/wiki/Commands#DELETE
@@ -180,21 +153,6 @@ class Database
   }
   
   /**
-   *
-   * @param string $path
-   * @return \SimpleXMLElement
-   */
-  protected function resources($path=null)
-  {
-    $filter = $this->getResourceFilter();
-    $db = $this->getName();
-    $xql = "<resources>{ db:list-details('$db', '$path')$filter }</resources>";
-    
-    $data = $this->session->query($xql)->execute();
-    return @simplexml_load_string($data)->resource;
-  }
-    
-  /**
    * Lists all database resources.
    * 
    * @param string $path 
@@ -202,26 +160,35 @@ class Database
    */
   public function getResources($path = null)
   {
-    $resources = array();
-    foreach ($this->resources($path) as $resource)
+    $resources = ResourceInfoProvider::get($this->getSession(), array(
+      'db' => $this->getName(),
+      'path' => $path
+    ));
+    
+    if(null === $resources)
     {
-      $class = ('true' === (string)$resource['raw']) ? 'BaseX\Resource\Raw' : 'BaseX\Resource\Document';
-      $resources[] = new $class($this->getSession(), $this->getName(), (string)$resource, $resource) ;
+      throw new Error('Could not load resource info.');
     }
     
-    return $resources;
-  }
-  
-  /**
-   * XPath expression to limit index results.
-   * 
-   * Used by getResourceInfo / getResource.
-   * 
-   * @return string 
-   */
-  protected function getResourceFilter()
-  {
-    return "";
+    if(!is_array($resources))
+    {
+      $resources = array($resources);
+    }
+    
+    $result = array();
+    foreach ($resources as $resource)
+    {
+      if($resource->isRaw())
+      {
+        $result[] = new Raw($this->getSession(), $this->getName(), $resource->getPath());
+      }
+      else
+      {
+        $result[] = new Document($this->getSession(), $this->getName(), $resource->getPath());
+      }
+    }
+
+    return $result;
   }
     
   /**

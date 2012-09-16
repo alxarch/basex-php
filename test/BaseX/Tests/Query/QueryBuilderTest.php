@@ -1,11 +1,11 @@
 <?php
 
-namespace BaseX\Tests;
+namespace BaseX\Tests\Query;
 
 use \PHPUnit_Framework_TestCase as TestCase;
 
 use BaseX\Session;
-use BaseX\QueryBuilder;
+use BaseX\Query\QueryBuilder;
 
 class QueryBuilderTest extends TestCase
 {

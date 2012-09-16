@@ -15,7 +15,8 @@ use BaseX\Helpers as B;
 use BaseX\Error;
 use BaseX\Database;
 
-use \SimpleXMLElement;
+use BaseX\Resource\ResourceInfo;
+use BaseX\Query\QueryBuilder;
 
 /**
  * Resource abstraction for BaseX resources.
@@ -44,7 +45,7 @@ abstract class Generic implements ResourceInterface
    * 
    * size, type, raw, modified
    * 
-   * @var \SimpleXMLElement
+   * @var BaseX\Resource\ResourceInfo
    */
   protected $info;
   
@@ -62,14 +63,13 @@ abstract class Generic implements ResourceInterface
    * @param string $db
    * @param string $path 
    */
-  public function __construct(Session $session, $db, $path, $info=null)
+  public function __construct(Session $session, $db, $path, ResourceInfo $info=null)
   {
     $this->session = $session;
     $this->db = $db;
     $this->path = $path;
     
-    $this->setInfo($info);
-  
+    $this->info = $info;
     
     $this->init();
   }
@@ -104,47 +104,10 @@ abstract class Generic implements ResourceInterface
    * @return \BaseX\Resource\Generic $this
    * @throws Error 
    */
-  public function setInfo($info)
+  public function setInfo(ResourceInfo $info)
   {
-    
-    if(null === $info)
-    {
-      $this->info = null;
-      return $this;
-    }
-    
-    if(is_string($info))
-    {
-      $info = @simplexml_load_string($info);
-    }
-    
-    if($info instanceof SimpleXMLElement && $this->validateInfo($info))
-    {
-      $this->info = $info;
-    }
-    else
-    {
-      throw new Error('Invalid info data provided');
-    }
-    
-    return $this;
+    $this->info = $info;
   }
-  
-  /**
-   * The query to execute to retrieve info data.
-   * 
-   * @return \BaseX\Query
-   */
-  protected function getInfoQuery()
-  {
-    $db = $this->getDatabase();
-    $path = $this->getPath();
-    
-    $xql = "db:list-details('$db', '$path')";
-    
-    return $this->getSession()->query($xql);
-  }
-  
   
   /**
    * Copy this document to another location.
@@ -281,8 +244,7 @@ XQL;
    */
   public function isRaw()
   {
-    $info = $this->getInfo();
-    return 'true' === (string) $info['raw'];
+    return $this->getInfo()->isRaw();
   }
   
   /**
@@ -292,8 +254,7 @@ XQL;
    */
   public function getSize()
   {
-    $info = $this->getInfo();
-    return isset($info['size']) ? (int)$info['size'] : 0;
+    return $this->getInfo()->getSize();
   }
   
   /**
@@ -303,14 +264,13 @@ XQL;
    */
   public function getType()
   {
-    $info = $this->getInfo();
-    return (string)$info['content-type'];
+    return $this->getInfo()->getContentType();
   }
   
   /**
    * Resource info.
    * 
-   * @return \SimpleXMLElement
+   * @return \BaseX\Resource\ResourceInfo
    */
   public function getInfo()
   {
@@ -325,22 +285,17 @@ XQL;
   /**
    * Reload resource info from the database.
    * 
-   * @return \BaseX\Resource\GenericResource $this
+   * @return \BaseX\Resource\Generic $this
    * @throws \BaseX\Error
    */
   public function refresh()
   {
-    $data = $this->getInfoQuery()->execute();
+    $info = ResourceInfo::get($this->getSession(), array(
+      'db' => $this->getDatabase(), 
+      'path' => $this->getPath()
+    ));
     
-    if($data)
-    {
-      $this->setInfo($data);
-    }
-    else
-    {
-      throw new Error("Failed to load resource info.");
-    }
-    
+    $this->info = is_array($info) ? $info[0] : $info;
     
     return $this;
   }
@@ -353,8 +308,7 @@ XQL;
    */
   public function getModified()
   {
-    $info = $this->getInfo();
-    return (string)$info['modified-date'];
+    return $this->getInfo()->getModifiedDate();
   }
   
   /**

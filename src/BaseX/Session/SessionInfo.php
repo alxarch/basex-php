@@ -9,42 +9,16 @@
 
 namespace BaseX\Session;
 
-use BaseX\Session;
+use BaseX\Query\SimpleXMLResult;
+
 
 /**
  * Session information and orptions.
  * 
  * @package BaseX
  */
-class SessionInfo
+class SessionInfo extends SimpleXMLResult
 {
-  /**
-   *
-   * @var \SimpleXMLElement
-   */
-  protected $info;
-  
-  /**
-   *
-   * @var \BaseX\Session
-   */
-  protected $session;
-  
-  /**
-   * Constructor
-   * 
-   * Info is loaded from the database if initial info is not provided.
-   * 
-   * @param Session $session
-   * @param \SimpleXMLElement $info 
-   */
-  public function __construct(Session $session, \SimpleXMLElement $info = null)
-  {
-    $this->session = $session;
-    if(null === $info)
-      $this->reload();
-  }
-  
   /**
    * Get the version of the server.
    * 
@@ -52,7 +26,7 @@ class SessionInfo
    */
   public function version() 
   {
-    return (string)$this->info->generalinformation->version;
+    return (string) $this->data->generalinformation->version;
   }
   
   /**
@@ -63,8 +37,10 @@ class SessionInfo
    */
   public function __get($name)
   {
-    if(isset($this->info->mainoptions->{$name}))
-      return (string) $this->info->mainoptions->{$name};
+    if(isset($this->data->mainoptions->{$name}))
+    {
+      return (string) $this->data->mainoptions->{$name};
+    }
     return null;
   }
   
@@ -76,17 +52,10 @@ class SessionInfo
    */
   public function option($name)
   {
-    if(isset($this->info->options->{$name}))
-      return (string) $this->info->options->{$name};
+    if(isset($this->data->options->{$name}))
+    {
+      return (string) $this->data->options->{$name};
+    }
     return null;
-  }
-  
-  /**
-   * Reloads session info. 
-   */
-  public function reload()
-  {
-    $data = $this->session->query("declare option output:omit-xml-declaration 'false'; db:system()")->execute();
-    $this->info = new \SimpleXMLElement($data);
   }
 }

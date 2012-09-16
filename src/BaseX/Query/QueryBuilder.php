@@ -7,7 +7,7 @@
  * @license BSD License
  */
 
-namespace BaseX;
+namespace BaseX\Query;
 
 use BaseX\Session;
 use BaseX\Helpers as B;

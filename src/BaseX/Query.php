@@ -9,6 +9,9 @@
 namespace BaseX;
 
 use BaseX\Session;
+use BaseX\Session\Socket;
+use BaseX\Query\QueryResult;
+use BaseX\Query\QueryResultInterface;
 
 /** 
  * Query object for a BaseX session.
@@ -59,7 +62,7 @@ class Query
   public function __construct(Session $session, $xquery)
   {
     $this->session = $session;
-    $this->id = (int) $this->session->sendQueryCommand(self::INIT, $xquery, true);
+    $this->id = (int) $this->getSession()->sendQueryCommand(self::INIT, $xquery, true);
   }
   
   /**
@@ -73,7 +76,7 @@ class Query
    */
   public function bind($name, $value, $type = "")
   {
-    $this->session->sendQueryCommand(self::BIND, array($this->id, $name, $value, $type), true);
+    $this->getSession()->sendQueryCommand(self::BIND, array($this->id, $name, $value, $type), true);
     
     return $this;
   }
@@ -88,7 +91,7 @@ class Query
    */
   public function context($value, $type = "") 
   {
-    $this->session->sendQueryCommand(self::CONTEXT, array($this->id, $value, $type), true);
+    $this->getSession()->sendQueryCommand(self::CONTEXT, array($this->id, $value, $type), true);
     
     return $this;
   }
@@ -101,7 +104,7 @@ class Query
    */
   public function execute()
   {
-    return $this->session->sendQueryCommand(self::EXECUTE, $this->id);
+    return $this->getSession()->sendQueryCommand(self::EXECUTE, $this->id);
   }
   
   /**
@@ -110,7 +113,7 @@ class Query
    */
   public function info() 
   {
-    return $this->session->sendQueryCommand(self::INFO, $this->id, true);
+    return $this->getSession()->sendQueryCommand(self::INFO, $this->id, true);
   }
   
   /**
@@ -119,7 +122,7 @@ class Query
    */
   public function options()
   {
-    return $this->session->sendQueryCommand(self::OPTIONS, $this->id, true);
+    return $this->getSession()->sendQueryCommand(self::OPTIONS, $this->id, true);
   }
    
   /**
@@ -141,5 +144,71 @@ class Query
   {
     return $this->id;
   }
+  
+  public function unregister()
+  {
+    return $this->getSession()->sendQueryCommand(self::CLOSE, $this->id);
+  }
  
+  public function getResults($class=null)
+  {
+    $sock = $this->getSession()->getSocket();
+    
+    $msg = sprintf('%c%d%s', self::RESULTS, $this->id, Socket::NUL);
+    $sock->send($msg);
+    $sock->clearBuffer();
+    
+    
+    if(null === $class)
+    {
+      $class = get_class(new QueryResult());
+    }
+    
+    if(is_object($class))
+    {
+      $class = get_class($class);
+    }
+    
+    $results = array();
+    while(true)
+    {
+      $result = $this->bindResult(new $class());
+      
+      if(false === $result)
+      {
+        break;
+      }
+      
+      if(null === $result)
+      {
+        continue;
+      }
+      
+      $results[] = $result;
+    }
+    
+    return $results;
+  }
+  
+  protected function bindResult(QueryResultInterface $result)
+  {
+    $sock = $this->getSession()->getSocket();
+    
+    $type = $sock->readSingle();
+    
+    if(Socket::NUL === $type)
+    {
+      return false;
+    }
+    try
+    {
+      $result->setType(ord($type))->setData($sock->read());
+    }
+    catch (InvalidArgumentException $e)
+    {
+      return null;
+    }
+    
+    return $result;
+  }
 }

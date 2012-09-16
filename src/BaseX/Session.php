@@ -14,6 +14,7 @@
 namespace BaseX;
 
 use BaseX\Query;
+use BaseX\Query\QueryBuilder;
 use BaseX\Session\Socket;
 use BaseX\Helpers as B;
 use BaseX\Error\SessionError;
@@ -67,7 +68,7 @@ class Session
     */
    protected $locked = false;
 
-   
+
    /**
     * Creates a new Session
     * 
@@ -120,13 +121,24 @@ class Session
   /**
    * Gets session information & options wrapper.
    * 
-   * @return BaseX\Session\Info
+   * @return BaseX\Session\SessionInfo
    */
   public function getInfo()
   {
     if(null === $this->info)
     {
-      $this->info = new SessionInfo($this);
+      $results = QueryBuilder::begin()
+                  ->setParameter('omit-xml-declaration', false)
+                  ->setBody('db:system()')
+                  ->getQuery($this)
+                  ->getResults('BaseX\Session\SessionInfo');
+      
+      if(null === $results)
+      {
+        throw new SessionError('Could not load session info.');
+      }
+      
+      $this->info = $results;
     }
     
     return $this->info;
@@ -439,7 +451,9 @@ class Session
   public function setOption($name, $value)
   {
     if($value instanceof SessionInfo)
+    {
       $value = $value->option($name);
+    }
     
     $this->execute("SET $name \"$value\"");
     return $this;
