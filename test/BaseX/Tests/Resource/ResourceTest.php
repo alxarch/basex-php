@@ -4,24 +4,30 @@ namespace BaseX\Tests;
 
 
 use BaseX\PHPUnit\TestCaseDb;
-use BaseX\Resource\Generic;
+use BaseX\Resource;
+use BaseX\Resource\ResourceInfo;
 use BaseX\StreamWrapper;
 
-class GenericResource extends Generic
+class GenericResource extends Resource
 {}
 
-class GenericResourceTest extends TestCaseDb
+class ResourceTest extends TestCaseDb
 {
-  protected $raw = '<resource raw="true" content-type="image/jpeg" modified-date="2012-05-27T12:36:48.000Z" size="60751">image.jpg</resource>';
+  protected $rawInfo = '<resource raw="true" content-type="image/jpeg" modified-date="2012-05-27T12:36:48.000Z" size="60751">image.jpg</resource>';
+  protected $xmlInfo = '<resource raw="false" content-type="application/xml" modified-date="2012-05-27T13:38:33.988Z">collection/doc.xml</resource>';
+  protected $raw;
+  protected $xml;
   
-  protected $xml = '<resource raw="false" content-type="application/xml" modified-date="2012-05-27T13:38:33.988Z">collection/doc.xml</resource>';
   
   public function setUp()
   {
     parent::setUp();
     StreamWrapper::register($this->session);
-    $this->raw = new GenericResource($this->session, $this->dbname, 'image.jpg',  $this->raw);
-    $this->xml = new GenericResource($this->session, $this->dbname, 'collection/doc.xml', $this->xml);
+    $this->raw = new GenericResource($this->session, $this->dbname, 'image.jpg');
+    $this->raw->setInfo($this->rawInfo);
+    
+    $this->xml = new GenericResource($this->session, $this->dbname, 'collection/doc.xml');
+    $this->xml->setInfo($this->xmlInfo);
   }
   
   public function tearDown()
@@ -34,7 +40,7 @@ class GenericResourceTest extends TestCaseDb
   public function testSize()
   {
     $this->assertEquals(0, $this->xml->getSize());
-    $this->assertEquals('60751', $this->raw->getSize());
+    $this->assertEquals(60751, $this->raw->getSize());
   }
   
   public function testRaw()
@@ -90,10 +96,7 @@ class GenericResourceTest extends TestCaseDb
     $doc = new GenericResource($this->session, $this->dbname, $path);
     $info = $doc->getInfo();
     
-    $this->assertEquals('SimpleXMLElement', get_class($info));
-    $this->assertTrue(isset($info['content-type']));
-    $this->assertTrue(isset($info['raw']));
-    $this->assertTrue(isset($info['modified-date']));
+    $this->assertInstanceOf('BaseX\Resource\ResourceInfo', $info);
   }
   
   public function testFromUri()

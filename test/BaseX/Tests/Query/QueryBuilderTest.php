@@ -14,7 +14,7 @@ class QueryBuilderTest extends TestCase
   {
     $w = QueryBuilder::begin()->setBody('<test/>');
     $result = $w->setNamespace('tei', 'http://www.tei-c.org/ns/1.0');
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     return $w;
   }
@@ -28,7 +28,7 @@ class QueryBuilderTest extends TestCase
     );
     
     $result = $w->setNamespaces($namespaces);
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     
     return array($w, $namespaces);
@@ -52,7 +52,7 @@ class QueryBuilderTest extends TestCase
     $w = QueryBuilder::begin()->setBody('<test/>');
     $mods = array('functx'=> 'http://www.functx.com');
     $result = $w->setModules($mods);
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     
     return array($w, $mods);
@@ -73,7 +73,7 @@ class QueryBuilderTest extends TestCase
   {
     $w = QueryBuilder::begin()->setBody('<test/>');
     $result = $w->setModule('functx', 'http://www.functx.com');
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     return $w;
   }
@@ -83,7 +83,7 @@ class QueryBuilderTest extends TestCase
     $w = QueryBuilder::begin()->setBody('<test/>');
     $params = array('test' => 8, 'other' => 'something');
     $result = $w->setParameters($params);
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     
     return array($w, $params);
@@ -104,7 +104,7 @@ class QueryBuilderTest extends TestCase
   {
     $w = QueryBuilder::begin()->setBody('<test/>');
     $result = $w->setParameter('test', 3);
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     return $w;
   }
@@ -124,7 +124,7 @@ class QueryBuilderTest extends TestCase
     $w = QueryBuilder::begin()->setBody('<test/>');
     $opts = array('test' => 3, 'other' => 'voidsalt');
     $result = $w->setOptions($opts);
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     
     return array($w, $opts);
@@ -145,7 +145,7 @@ class QueryBuilderTest extends TestCase
   {
     $w = QueryBuilder::begin()->setBody('<test/>');
     $result = $w->setOption('test', 3);
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     
     return $w;
@@ -186,7 +186,7 @@ class QueryBuilderTest extends TestCase
     $w = QueryBuilder::begin()->setBody('<test/>')->addExternalVariables($vars);
     $extra = array('test'=>8, 'other' => 'voidsalt');
     $result = $w->addExternalVariables($extra);
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     $this->assertEquals($w->getVariables(), array('test' => 8, 'other' => 'voidsalt'));
   }
@@ -199,7 +199,7 @@ class QueryBuilderTest extends TestCase
     $vars = array('test' => 3);
     $w = QueryBuilder::begin()->setBody('<test/>')->addExternalVariables($vars);
     $result = $w->addExternalVariable('test', 8);
-    $this->assertInstanceOf('BaseX\QueryBuilder', $result);
+    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
     $this->assertTrue($result === $w);
     $this->assertEquals($w->getVariable('test'), 8);
   }

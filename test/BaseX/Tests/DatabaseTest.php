@@ -187,57 +187,6 @@ class DatabaseTest extends TestCaseDb
   
   /**
    * @depends testDelete
-   * 
-   */
-  public function testResource()
-  {
-    
-    $this->db->add('test.xml', '<root/>');
-    
-    $doc = $this->db->resource('test.xml');
-    $this->assertInstanceOf('BaseX\Resource\Document', $doc);
-    $this->assertTrue($doc->getDatabase() === $this->dbname);
-    
-    $this->db->store('test.txt', 'root');
-    
-    $doc = $this->db->resource('test.txt');
-    $this->assertInstanceOf('BaseX\Resource\Raw', $doc);
-    $this->assertTrue($doc->getDatabase() === $this->dbname);
-    
-    $doc = $this->db->resource('test.xml', 'BaseX\Resource\Document');
-    $this->assertInstanceOf('BaseX\Resource\Document', $doc);
-    $this->assertTrue($doc->getDatabase() === $this->dbname);
-    
-    $this->db->delete('test.xml');
-    
-    $this->assertNull($this->db->resource('test.xml'));
-    
-    
-  }
-  
-  /**
-   * @depends testResource
-   * @expectedException BaseX\Error
-   * @expectedExceptionMessage Invalid class for resource.
-   * 
-   */
-  public function testResourceException()
-  {
-    $this->db->add('test.xml', '<root/>');
-    try{
-      $doc = $this->db->resource('test.xml', 'StdClass');
-    }
-    catch (\InvalidArgumentException $e)
-    {
-      $this->db->delete('test.xml');
-      throw $e;
-    }
-    $this->db->delete('test.xml');
-    
-  }
-  
-  /**
-   * @depends testDelete
    */
   public function testGetResources()
   {
@@ -245,7 +194,6 @@ class DatabaseTest extends TestCaseDb
     $this->db->add('dir/test-2.xml', '<test2/>');
     $this->db->add('dir/test-3.xml', '<test3/>');
     $this->db->store('test.txt', 'test');
-    
      
     $resources = $this->db->getResources();
     
@@ -254,7 +202,7 @@ class DatabaseTest extends TestCaseDb
     
     foreach ($resources as $r)
     {
-      $this->assertInstanceOf('BaseX\Resource\Generic', $r);
+      $this->assertInstanceOf('BaseX\Resource', $r);
     }
     
     $resource = $resources[0];
@@ -272,7 +220,7 @@ class DatabaseTest extends TestCaseDb
     
     foreach ($resources as $r)
     {
-      $this->assertInstanceOf('BaseX\Resource\Generic', $r);
+      $this->assertInstanceOf('BaseX\Resource', $r);
     }
     
     $this->db->delete('test-1.xml');

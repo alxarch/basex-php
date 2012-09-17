@@ -9,7 +9,7 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Resource\Generic;
+use BaseX\Resource;
 use BaseX\Error;
 
 /**
@@ -17,7 +17,7 @@ use BaseX\Error;
  *
  * @package BaseX 
  */
-class Raw extends Generic
+class Raw extends Resource
 {
   protected function init()
   {

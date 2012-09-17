@@ -6,7 +6,9 @@
  */
 namespace BaseX\Resource;
 
+use BaseX\Session;
 use BaseX\Query\SimpleXMLResult;
+use BaseX\Query\QueryBuilder;
 
 /**
  * Description of ResourceInfo
@@ -47,7 +49,7 @@ class ResourceInfo extends SimpleXMLResult
   
   public function isRaw()
   {
-    return 'true' === $this->data['raw'];
+    return 'true' === (string)$this->data['raw'];
   }
   
   public function getPath()
@@ -55,6 +57,12 @@ class ResourceInfo extends SimpleXMLResult
     return (string)  $this->data;
   }
   
-  
+  static public function get(Session $session, $db, $path=null)
+  {
+    return QueryBuilder::begin()
+            ->setBody("db:list-details('$db', '$path')")
+            ->getQuery($session)
+            ->getResults(get_called_class());
+  }
 }
 

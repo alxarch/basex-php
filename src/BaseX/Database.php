@@ -10,7 +10,7 @@
 namespace BaseX;
 
 use BaseX\Session;
-use BaseX\QueryBuilder;
+use BaseX\Query\QueryBuilder;
 use BaseX\Resource\Raw;
 use BaseX\Resource\Document;
 use BaseX\Resource\ResourceInfo;
@@ -160,19 +160,11 @@ class Database
    */
   public function getResources($path = null)
   {
-    $resources = ResourceInfoProvider::get($this->getSession(), array(
-      'db' => $this->getName(),
-      'path' => $path
-    ));
+    $resources = ResourceInfo::get($this->getSession(), $this->getName(), $path);
     
-    if(null === $resources)
+    if(empty($resources))
     {
       throw new Error('Could not load resource info.');
-    }
-    
-    if(!is_array($resources))
-    {
-      $resources = array($resources);
     }
     
     $result = array();
@@ -422,13 +414,12 @@ class Database
     $path = (string) $path;
     $path = trim($path, '/');
     $db = $this->getName();
-    $filter = $this->getResourceFilter();
     //Frakking XQuery starts counting at 1 (+1 to trim leading '/')
     $start = '' === $path ? 1 : strlen($path) + 2; 
     $xql = <<<XQL
 <contents>
 {
-for \$r in db:list-details('$db', '$path')$filter
+for \$r in db:list-details('$db', '$path')
   let \$p := substring(\$r/string(), $start)
   let \$parts := tokenize(\$p, '/')
   let \$name := \$parts[1]

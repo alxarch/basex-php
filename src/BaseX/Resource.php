@@ -6,24 +6,23 @@
  * @license BSD License
  */
 
-namespace BaseX\Resource;
+namespace BaseX;
 
 use BaseX\Resource\ResourceInterface;
+use BaseX\Resource\ResourceInfo;
+use BaseX\Resource\ResourceInfoProvider;
 use BaseX\Session;
 use BaseX\Session\Socket;
 use BaseX\Helpers as B;
 use BaseX\Error;
 use BaseX\Database;
 
-use BaseX\Resource\ResourceInfo;
-use BaseX\Query\QueryBuilder;
-
 /**
  * Resource abstraction for BaseX resources.
  * 
  * @package BaseX
  */
-abstract class Generic implements ResourceInterface
+abstract class Resource implements ResourceInterface
 {
  /**
   * Path of this resource in the database
@@ -63,13 +62,13 @@ abstract class Generic implements ResourceInterface
    * @param string $db
    * @param string $path 
    */
-  public function __construct(Session $session, $db, $path, ResourceInfo $info=null)
+  public function __construct(Session $session, $db, $path, $info=null)
   {
     $this->session = $session;
     $this->db = $db;
     $this->path = $path;
+    $this->setInfo($info);
     
-    $this->info = $info;
     
     $this->init();
   }
@@ -101,12 +100,22 @@ abstract class Generic implements ResourceInterface
    * Set Resource info for current resource.
    * 
    * @param mixed $info
-   * @return \BaseX\Resource\Generic $this
+   * @return \BaseX\Resource $this
    * @throws Error 
    */
-  public function setInfo(ResourceInfo $info)
+  public function setInfo($info)
   {
-    $this->info = $info;
+    if(null === $info || $info instanceof ResourceInfo)
+    {
+      $this->info = $info;
+    }
+    else
+    {
+      $this->info = new ResourceInfo();
+      $this->info->setData($info);
+    }
+    
+    return $this;
   }
   
   /**
@@ -276,7 +285,7 @@ XQL;
   {
     if(null == $this->info)
     {
-      $this->refresh();
+      $this->reloadInfo();
     }
     
     return $this->info;
@@ -288,14 +297,11 @@ XQL;
    * @return \BaseX\Resource\Generic $this
    * @throws \BaseX\Error
    */
-  public function refresh()
+  public function reloadInfo() 
   {
-    $info = ResourceInfo::get($this->getSession(), array(
-      'db' => $this->getDatabase(), 
-      'path' => $this->getPath()
-    ));
+    $info = ResourceInfo::get($this->getSession(), $this->getDatabase(), $this->getPath());
     
-    $this->info = is_array($info) ? $info[0] : $info;
+    $this->info = empty($info) ? null : $info[0];
     
     return $this;
   }

@@ -118,11 +118,33 @@ class Query
   
   /**
    * Gets query options
-   * @return string
+   * @return array
    */
   public function options()
   {
-    return $this->getSession()->sendQueryCommand(self::OPTIONS, $this->id, true);
+    $data = $this->getSession()->sendQueryCommand(self::OPTIONS, $this->id, true);
+    
+    $options = array();
+    
+    foreach(explode(',', $data) as $opt)
+    {
+      $pos = strpos($opt, '=');
+      $key = substr($opt, 0, $pos);
+      $value = substr($opt, $pos+1);
+      if('true' === $value)
+      {
+        $value = true;
+      }
+      if('false' === $value)
+      {
+        $value = false;
+      }
+      
+      $options[$key] = $value;
+      
+    }
+    
+    return $options;
   }
    
   /**
@@ -152,63 +174,71 @@ class Query
  
   public function getResults($class=null)
   {
-    $sock = $this->getSession()->getSocket();
-    
-    $msg = sprintf('%c%d%s', self::RESULTS, $this->id, Socket::NUL);
-    $sock->send($msg);
-    $sock->clearBuffer();
-    
-    
-    if(null === $class)
-    {
-      $class = get_class(new QueryResult());
-    }
-    
-    if(is_object($class))
-    {
-      $class = get_class($class);
-    }
+    $options = $this->options();
     
     $results = array();
-    while(true)
-    {
-      $result = $this->bindResult(new $class());
-      
-      if(false === $result)
-      {
-        break;
-      }
-      
-      if(null === $result)
-      {
-        continue;
-      }
-      
-      $results[] = $result;
-    }
     
+    if($options['method'] === 'xml' && $options['omit-xml-declaration'])
+    {
+      $sock = $this->getSession()->getSocket();
+      $msg = sprintf('%c%d%s', self::RESULTS, $this->id, Socket::NUL);
+      $sock->send($msg);
+      $sock->clearBuffer();
+
+
+      if(null === $class)
+      {
+        $class = 'BaseX\Query\QueryResult';
+      }
+
+      if(is_object($class))
+      {
+        $class = get_class($class);
+      }
+      
+      while(true)
+      {
+    
+        $type = $sock->readSingle();
+        if(Socket::NUL === $type)
+        {
+          break;
+        }
+        
+        $data = $sock->read();
+        
+        $result = $this->bindResult(new $class(), $data, ord($type));
+
+        if(null === $result)
+        {
+          continue;
+        }
+
+        $results[] = $result;
+      }
+
+    }
+    else 
+    {
+      $results[] = $this->bindResult(new $class(), $this->execute());
+    }
     return $results;
   }
   
-  protected function bindResult(QueryResultInterface $result)
+  protected function bindResult(QueryResultInterface $result, $data, $type = null)
   {
-    $sock = $this->getSession()->getSocket();
-    
-    $type = $sock->readSingle();
-    
-    if(Socket::NUL === $type)
+    if(null === $type)
     {
-      return false;
+      return $result->setData($data);
     }
     try
     {
-      $result->setType(ord($type))->setData($sock->read());
+      return $result->setType($type)->setData($data);
     }
     catch (InvalidArgumentException $e)
     {
       return null;
     }
     
-    return $result;
   }
 }

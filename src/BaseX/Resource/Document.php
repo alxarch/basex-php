@@ -11,7 +11,7 @@
 namespace BaseX\Resource;
 
 use BaseX\Database;
-use BaseX\Resource\Generic;
+use BaseX\Resource;
 use \DOMDocument as XML;
 use BaseX\Error;
 
@@ -20,7 +20,7 @@ use BaseX\Error;
  * 
  * @package BaseX 
  */
-class Document extends Generic
+class Document extends Resource
 {
   /**
    * The contents of the resource as a DOMDocument

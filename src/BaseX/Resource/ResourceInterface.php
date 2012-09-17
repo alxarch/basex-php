@@ -40,6 +40,6 @@ interface ResourceInterface
   
   public function getEtag();
   
-  public function refresh();
+  public function reloadInfo();
   
 }

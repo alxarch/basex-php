@@ -12,16 +12,15 @@ use BaseX\PHPUnit\TestCaseSession;
  */
 class SessionInfoTest extends TestCaseSession {
 
-  function testConstruct() {
-    return new SessionInfo($this->session);
-  }
-
   /**
    */
   function testGet() {
-    $info = new SessionInfo($this->session);
+    $info = new SessionInfo();
 
     $data = $this->session->query("db:system()")->execute();
+    
+    $info->setData($data);
+    
     $xml = simplexml_load_string($data);
 
     foreach ($xml->mainoptions->children() as $opt) {
@@ -31,9 +30,11 @@ class SessionInfoTest extends TestCaseSession {
     $this->assertNull($info->{'option_' . time()});
   }
 
-  function testOption() {
-    $info = new SessionInfo($this->session);
+  function testOption() 
+  {
+    $info = new SessionInfo();
     $data = $this->session->query("db:system()")->execute();
+    $info->setData($data);
     $xml = simplexml_load_string($data);
     foreach ($xml->options->children() as $opt) {
       $this->assertEquals((string) $opt, $info->option($opt->getName()));
@@ -43,21 +44,10 @@ class SessionInfoTest extends TestCaseSession {
   }
 
   function testVersion() {
-    $info = new SessionInfo($this->session);
+    $info = new SessionInfo();
+    $data = $this->session->query("db:system()")->execute();
+    $info->setData($data);
     $this->assertNotEmpty($info->version());
-  }
-
-  function testReload() {
-    $info = new SessionInfo($this->session);
-
-    $old = $info->option('serializer');
-
-    $this->session->execute('SET SERIALIZER html');
-
-    $info->reload();
-    $new = $info->option('serializer');
-
-    $this->assertNotEquals($new, $old);
   }
 
 }

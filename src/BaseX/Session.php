@@ -68,6 +68,7 @@ class Session
     */
    protected $locked = false;
 
+   protected $providers = array();
 
    /**
     * Creates a new Session
@@ -128,7 +129,7 @@ class Session
     if(null === $this->info)
     {
       $results = QueryBuilder::begin()
-                  ->setParameter('omit-xml-declaration', false)
+//                  ->setParameter('omit-xml-declaration', false)
                   ->setBody('db:system()')
                   ->getQuery($this)
                   ->getResults('BaseX\Session\SessionInfo');
@@ -137,8 +138,7 @@ class Session
       {
         throw new SessionError('Could not load session info.');
       }
-      
-      $this->info = $results;
+      $this->info = $results[0];
     }
     
     return $this->info;

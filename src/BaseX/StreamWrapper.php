@@ -12,9 +12,9 @@ namespace BaseX;
 use BaseX\Helpers as B;
 use BaseX\Session;
 use BaseX\Session\Socket;
-use BaseX\Database;
 use BaseX\Resource\Raw;
 use BaseX\Resource\Document;
+use BaseX\Resource\ResourceInfo;
 
 /**
  * Stream wrapper for BaseX resources
@@ -176,7 +176,7 @@ class StreamWrapper
   {
     $mode = 0100000 + (($this->mode === 'w') ? 0666 : 0444);
     $size = $this->info ? $this->info->getSize() : 0;
-    $mtime = $this->info ? $this->info->getModified() : 0;
+    $mtime = $this->info ? $this->info->getModifiedDate() : 0;
     
     $values = array(
       0  => 0 ,
@@ -494,37 +494,14 @@ class StreamWrapper
    */
   protected function loadInfo()
   {
-    $xql = <<<XQL
-      <data>
-        <db>{db:exists('$this->db')}</db>
-        {db:list-details('$this->db', '$this->path')}
-      </data>
-XQL;
+    $info = ResourceInfo::get(self::$session, $this->db, $this->path);
     
-    $data = self::$session->query($xql)->execute();
-    
-    $xml = @simplexml_load_string($data);
-    
-    if('false' === (string)$xml->db )
-    {
-      throw new Error('Database not found.');
-    }
-    
-    if(isset($xml->resource))
-    {
-      if('true' === (string)$xml->resource['raw'])
-      {
-        $this->info = new Raw(self::$session, $this->db, $this->path, $xml->resource);
-      }
-      else
-      {
-        $this->info = new Document(self::$session, $this->db, $this->path, $xml->resource);
-      }
-    }
-    elseif('r' === $this->mode)
+    if(empty($info) && 'r' === $this->mode)
     {
       throw new Error('Resource not found.');
     }
+    
+    $this->info = empty($info) ? null : $info[0];
   }
   
   /**
