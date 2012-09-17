@@ -10,7 +10,6 @@ namespace BaseX;
 
 use BaseX\Resource\ResourceInterface;
 use BaseX\Resource\ResourceInfo;
-use BaseX\Resource\ResourceInfoProvider;
 use BaseX\Session;
 use BaseX\Session\Socket;
 use BaseX\Helpers as B;

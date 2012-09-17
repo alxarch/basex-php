@@ -11,12 +11,8 @@ namespace BaseX;
 
 use BaseX\Session;
 use BaseX\Query\QueryBuilder;
-use BaseX\Resource\Raw;
-use BaseX\Resource\Document;
-use BaseX\Resource\ResourceInfo;
 use BaseX\Error;
 use BaseX\Helpers as B;
-use \InvalidArgumentException;
 
 /**
  * BaseX Database object.
@@ -160,27 +156,8 @@ class Database
    */
   public function getResources($path = null)
   {
-    $resources = ResourceInfo::get($this->getSession(), $this->getName(), $path);
-    
-    if(empty($resources))
-    {
-      throw new Error('Could not load resource info.');
-    }
-    
-    $result = array();
-    foreach ($resources as $resource)
-    {
-      if($resource->isRaw())
-      {
-        $result[] = new Raw($this->getSession(), $this->getName(), $resource->getPath());
-      }
-      else
-      {
-        $result[] = new Document($this->getSession(), $this->getName(), $resource->getPath());
-      }
-    }
-
-    return $result;
+    $col = new Collection($this->getSession(), $this->getName(), $path);
+    return $col->getResources();
   }
     
   /**
@@ -323,11 +300,7 @@ class Database
         ->setOption('parser', $restore)
         ->setOption('htmlopt', $restore)
         ->setOption('createfilter', $restore);
-//        ->setOption('parser', $restore->option('parser'))
-//        ->setOption('parseropt', $restore->option('parseropt'))
-//        ->setOption('parser', $restore->option('parser'))
-//        ->setOption('htmlopt', $restore->option('htmlopt'))
-//        ->setOption('createfilter', $restore->option('createfilter'));
+
   }
 
   protected function open()
