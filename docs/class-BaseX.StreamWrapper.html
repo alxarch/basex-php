@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class BaseX\StreamWrapper | basex-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?3580346170"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Error.html">Error</a>
+						</li>
+				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
+						</li>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+						</li>
+				<li><a href="namespace-BaseX.Session.html">Session</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.html">Tests<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Tests.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Resource.html">Resource</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-BaseX.Collection.html">Collection</a></li>
+				<li><a href="class-BaseX.Database.html">Database</a></li>
+				<li><a href="class-BaseX.Helpers.html">Helpers</a></li>
+				<li><a href="class-BaseX.Query.html">Query</a></li>
+				<li><a href="class-BaseX.Resource.html">Resource</a></li>
+				<li><a href="class-BaseX.Session.html">Session</a></li>
+				<li class="active"><a href="class-BaseX.StreamWrapper.html">StreamWrapper</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-BaseX.Error.html">Error</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-BaseX.html" title="Summary of BaseX"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class StreamWrapper</h1>
+
+
+	<div class="description">
+	
+<p>Stream wrapper for BaseX resources</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a><br />
+		<b>Package:</b> BaseX<br />
+
+		<b>Located at</b> <a href="source-class-BaseX.StreamWrapper.html#19-545" title="Go to source code">src/BaseX/StreamWrapper.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="stream_open" id="_stream_open">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stream_open">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#75-113" title="Go to source code">stream_open</a>( <span>string <var>$path</var></span>, <span>string <var>$mode</var></span>, <span>integer <var>$options</var></span>, <span>string <var>&amp; $opath</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Opens a resource on BaseX server as a stream</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Opens a resource on BaseX server as a stream</p>
+
+<p>In write mode any options (ie CHOP, HTMLOPT etc) can be passed via query
+string in the url.</p>
+
+<p>If a specific parser is required it can be specified through hash value.</p>
+
+<p>For example:<br />
+basex://database/path/to/file.xml?chop=true
+basex://database/path/to/file.json#json
+basex://database/path/to/file.json?parseropt=jsonml%3Dtrue#json</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path Use basex://{db}/{path}</dd>
+					<dt><var>$mode</var></dt>
+					<dd><code>string</code><br>$mode Supported modes: r, w</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>integer</code><br>$options If STREAM_REPORT_ERRORS is set it will trigger errors.</dd>
+					<dt><var>$opath</var></dt>
+					<dd><code>string</code><br>$opath Ignored</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Successfully created handler<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unlink" id="_unlink">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unlink">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#115-134" title="Go to source code">unlink</a>( <span>string <var>$path</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Deletes a resource on basex.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Deletes a resource on basex.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="stream_eof" id="_stream_eof">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stream_eof">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#136-144" title="Go to source code">stream_eof</a>( )</code>
+
+		<div class="description short">
+			
+<p>Tests for end-of-file.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Tests for end-of-file.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="stream_write" id="_stream_write">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stream_write">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#146-173" title="Go to source code">stream_write</a>( <span>string <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Write to a resource.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Write to a resource.</p>
+
+<p>This method is called in response to fwrite().</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd><code>string</code><br>$data</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="stream_stat" id="_stream_stat">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stream_stat">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#175-213" title="Go to source code">stream_stat</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="stream_read" id="_stream_read">
+
+		<td class="attributes"><code>
+			 public 
+			string|boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stream_read">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#215-248" title="Go to source code">stream_read</a>( <span>integer <var>$count</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Read from stream.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Read from stream.</p>
+
+<p>This method is called in response to fread() and fgets().</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$count</var></dt>
+					<dd><code>integer</code><br>$count</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string|boolean</code><br>If there are less than $count bytes available, return as many as are available.
+If no more data is available, return either FALSE or an empty string.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="stream_close" id="_stream_close">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stream_close">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#250-261" title="Go to source code">stream_close</a>( )</code>
+
+		<div class="description short">
+			
+<p>Close this resource.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Close this resource.</p>
+
+<p>This method is called in response to fclose().</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="stopReceiving" id="_stopReceiving">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stopReceiving">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#263-290" title="Go to source code">stopReceiving</a>( )</code>
+
+		<div class="description short">
+			
+<p>Stop receiving data and unlock all resources.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Stop receiving data and unlock all resources.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="startSending" id="_startSending">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_startSending">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#292-323" title="Go to source code">startSending</a>( )</code>
+
+		<div class="description short">
+			
+<p>Locks session and starts receiving data.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Locks session and starts receiving data.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="stopSending" id="_stopSending">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stopSending">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#325-364" title="Go to source code">stopSending</a>( )</code>
+
+		<div class="description short">
+			
+<p>Stops sendong data and unlocks session.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Stops sendong data and unlocks session.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="detectMethod" id="_detectMethod">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_detectMethod">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#366-389" title="Go to source code">detectMethod</a>( )</code>
+
+		<div class="description short">
+			
+<p>Auto-detect method to use for storing a document.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Auto-detect method to use for storing a document.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="startReceiving" id="_startReceiving">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_startReceiving">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#391-437" title="Go to source code">startReceiving</a>( )</code>
+
+		<div class="description short">
+			
+<p>Lock session and start receiving data.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Lock session and start receiving data.</p>
+
+<p>Session is locked because buffer contents affect to current transmission.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setMode" id="_setMode">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setMode">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#439-454" title="Go to source code">setMode</a>( <span>string <var>$mode</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set stream mode.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set stream mode.</p>
+
+<p>Valid modes: r, w</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mode</var></dt>
+					<dd><code>string</code><br>$mode</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parsePath" id="_parsePath">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parsePath">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#456-488" title="Go to source code">parsePath</a>( <span>string <var>$path</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Parses a uri.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Parses a uri.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code></code><br>If no database and/or document is specified in the url<br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="loadInfo" id="_loadInfo">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_loadInfo">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#490-505" title="Go to source code">loadInfo</a>( )</code>
+
+		<div class="description short">
+			
+<p>Loads resource info.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Loads resource info.</p>
+
+
+
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Error.html">BaseX\Error</a></code></code><br>If mode is 'r' and resource does not exist.<br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="error" id="_error">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_error">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#507-518" title="Go to source code">error</a>( <span>string <var>$msg</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Handle errors.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$msg</var></dt>
+					<dd><code>string</code><br>$msg Error message</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="register" id="_register">
+
+		<td class="attributes"><code>
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_register">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#520-532" title="Go to source code">register</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Registers stream wrapper to handle basex:// urls.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Registers stream wrapper to handle basex:// urls.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$session</var></dt>
+					<dd><code><code><a href="class-BaseX.Session.html">BaseX\Session</a></code></code><br>$session</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true on success false on failure.<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						stream_wrapper_register()<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unregister" id="_unregister">
+
+		<td class="attributes"><code>
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unregister">#</a>
+		<code><a href="source-class-BaseX.StreamWrapper.html#534-544" title="Go to source code">unregister</a>( )</code>
+
+		<div class="description short">
+			
+<p>Unregisters stream wrapper from handling of basex:// urls.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unregisters stream wrapper from handling of basex:// urls.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						stream_wrapper_register()<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="NAME" id="NAME">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.StreamWrapper.html#26-31" title="Go to source code"><b>NAME</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">'basex'</span></code></td>
+		<td class="description"><div>
+			<a href="#NAME" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Used for the scheme part of the url.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Used for the scheme part of the url.</p>
+
+<p>ie basex://database/example.xml</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="context" id="$context">
+		<td class="attributes"><code>
+			public  
+			resource
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#33-40" title="Go to source code"><var>$context</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$context" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Stream context</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Stream context</p>
+
+<p>Not currently used.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="session" id="$session">
+		<td class="attributes"><code>
+			protected static 
+			<code><a href="class-BaseX.Session.html">BaseX\Session</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#42-47" title="Go to source code"><var>$session</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$session" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>The session to use for all requests.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>The session to use for all requests.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="path" id="$path">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#49" title="Go to source code"><var>$path</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$path" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="db" id="$db">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#51" title="Go to source code"><var>$db</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$db" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="info" id="$info">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#53" title="Go to source code"><var>$info</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">null</span></code></td>
+		<td class="description"><div>
+			<a href="#$info" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="eof" id="$eof">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#55" title="Go to source code"><var>$eof</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$eof" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mode" id="$mode">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#57" title="Go to source code"><var>$mode</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$mode" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="receiving" id="$receiving">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#59" title="Go to source code"><var>$receiving</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$receiving" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="sending" id="$sending">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#61" title="Go to source code"><var>$sending</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$sending" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="buffer" id="$buffer">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#63" title="Go to source code"><var>$buffer</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">''</span></code></td>
+		<td class="description"><div>
+			<a href="#$buffer" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="parser" id="$parser">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#65" title="Go to source code"><var>$parser</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">null</span></code></td>
+		<td class="description"><div>
+			<a href="#$parser" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="options" id="$options">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#67" title="Go to source code"><var>$options</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+		<td class="description"><div>
+			<a href="#$options" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="errors" id="$errors">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#69" title="Go to source code"><var>$errors</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$errors" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="replace" id="$replace">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#71" title="Go to source code"><var>$replace</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$replace" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="restore" id="$restore">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.StreamWrapper.html#73" title="Go to source code"><var>$restore</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">null</span></code></td>
+		<td class="description"><div>
+			<a href="#$restore" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

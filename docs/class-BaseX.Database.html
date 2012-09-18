@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class BaseX\Database | basex-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?3580346170"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Error.html">Error</a>
+						</li>
+				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
+						</li>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+						</li>
+				<li><a href="namespace-BaseX.Session.html">Session</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.html">Tests<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Tests.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Resource.html">Resource</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-BaseX.Collection.html">Collection</a></li>
+				<li class="active"><a href="class-BaseX.Database.html">Database</a></li>
+				<li><a href="class-BaseX.Helpers.html">Helpers</a></li>
+				<li><a href="class-BaseX.Query.html">Query</a></li>
+				<li><a href="class-BaseX.Resource.html">Resource</a></li>
+				<li><a href="class-BaseX.Session.html">Session</a></li>
+				<li><a href="class-BaseX.StreamWrapper.html">StreamWrapper</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-BaseX.Error.html">Error</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-BaseX.html" title="Summary of BaseX"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Database</h1>
+
+
+	<div class="description">
+	
+<p>BaseX Database object.</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a><br />
+		<b>Package:</b> BaseX<br />
+
+		<b>Located at</b> <a href="source-class-BaseX.Database.html#17-421" title="Go to source code">src/BaseX/Database.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-BaseX.Database.html#36-55" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Constructor.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Constructor.</p>
+
+<p>If the database does not exist (and the session user has the required
+privileges) it will be created.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$session</var></dt>
+					<dd><code><code><a href="class-BaseX.Session.html">BaseX\Session</a></code></code><br>$session a BaseX\Session to use</dd>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name database name</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getName" id="_getName">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getName">#</a>
+		<code><a href="source-class-BaseX.Database.html#57-65" title="Go to source code">getName</a>( )</code>
+
+		<div class="description short">
+			
+<p>The name of the database.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>The name of the database.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="add" id="_add">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add">#</a>
+		<code><a href="source-class-BaseX.Database.html#67-79" title="Go to source code">add</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds a document to the database.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a document to the database.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+					<dt><var>$input</var></dt>
+					<dd><code>string|resource</code><br>$input</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Commands#ADD">http://docs.basex.org/wiki/Commands#ADD</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="replace" id="_replace">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_replace">#</a>
+		<code><a href="source-class-BaseX.Database.html#81-93" title="Go to source code">replace</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Replaces a document.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Replaces a document.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+					<dt><var>$input</var></dt>
+					<dd><code>string|resource</code><br>$input</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Commands#REPLACE">http://docs.basex.org/wiki/Commands#REPLACE</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="store" id="_store">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_store">#</a>
+		<code><a href="source-class-BaseX.Database.html#95-107" title="Go to source code">store</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Stores a non-xml document to the database at the specified path.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Stores a non-xml document to the database at the specified path.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+					<dt><var>$input</var></dt>
+					<dd><code>string|resource</code><br>$input</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Commands#STORE">http://docs.basex.org/wiki/Commands#STORE</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="execute" id="_execute">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_execute">#</a>
+		<code><a href="source-class-BaseX.Database.html#109-120" title="Go to source code">execute</a>( <span>string <var>$command</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Executes a command after opening the database.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Executes a command after opening the database.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$command</var></dt>
+					<dd><code>string</code><br>$command</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Commands">http://docs.basex.org/wiki/Commands</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="source-class-BaseX.Database.html#122-134" title="Go to source code">delete</a>( <span>string <var>$path</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Deletes a document.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Deletes a document.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Commands#DELETE">http://docs.basex.org/wiki/Commands#DELETE</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="rename" id="_rename">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_rename">#</a>
+		<code><a href="source-class-BaseX.Database.html#136-149" title="Go to source code">rename</a>( <span>string <var>$old</var></span>, <span>mixed <var>$new</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Renames a document.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Renames a document.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$old</var></dt>
+					<dd><code>string</code><br>$path</dd>
+					<dt><var>$new</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Commands#RENAME">http://docs.basex.org/wiki/Commands#RENAME</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResources" id="_getResources">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResources">#</a>
+		<code><a href="source-class-BaseX.Database.html#151-161" title="Go to source code">getResources</a>( <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Lists all database resources.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Lists all database resources.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addXML" id="_addXML">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addXML">#</a>
+		<code><a href="source-class-BaseX.Database.html#163-176" title="Go to source code">addXML</a>( <span>string <var>$path</var></span>, <span>mixed <var>$input</var></span>, <span>string <var>$filter</var> = <span class="php-quote">&quot;*.xml&quot;</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds a document using the xml parser.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a document using the xml parser.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+					<dt><var>$input</var></dt>
+					<dd><code>mixed</code><br>$input</dd>
+					<dt><var>$filter</var></dt>
+					<dd><code>string</code><br>$filter Filter added files wildcard.</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Parsers#XML_Parser">http://docs.basex.org/wiki/Parsers#XML_Parser</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addHTML" id="_addHTML">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addHTML">#</a>
+		<code><a href="source-class-BaseX.Database.html#178-200" title="Go to source code">addHTML</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.html'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a document using the html parser.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>type</code><br>$path</dd>
+					<dt><var>$input</var></dt>
+					<dd><code>type</code><br>$input</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options to pass to TagSoup.</dd>
+					<dt><var>$filter</var></dt>
+					<dd><code>string</code><br>$filter Filter added files wildcard.</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Parsers#HTML_Parser">http://docs.basex.org/wiki/Parsers#HTML_Parser</a><br />
+						<a href="http://home.ccil.org/~cowan/XML/tagsoup/#program">http://home.ccil.org/~cowan/XML/tagsoup/#program</a><br />
+						<a href="http://docs.basex.org/wiki/Options#CREATEFILTER">http://docs.basex.org/wiki/Options#CREATEFILTER</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addJSON" id="_addJSON">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addJSON">#</a>
+		<code><a href="source-class-BaseX.Database.html#202-224" title="Go to source code">addJSON</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.json'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a document using the JSON parser.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>type</code><br>$path</dd>
+					<dt><var>$input</var></dt>
+					<dd><code>type</code><br>$input</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options to pass to JSON parser</dd>
+					<dt><var>$filter</var></dt>
+					<dd><code>string</code><br>$filter Filter added files wildcard.</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Parsers#HTML_Parser">http://docs.basex.org/wiki/Parsers#HTML_Parser</a><br />
+						<a href="http://docs.basex.org/wiki/Options#CREATEFILTER">http://docs.basex.org/wiki/Options#CREATEFILTER</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addCSV" id="_addCSV">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addCSV">#</a>
+		<code><a href="source-class-BaseX.Database.html#226-250" title="Go to source code">addCSV</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.csv'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a document using the CSV parser.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>type</code><br>$path</dd>
+					<dt><var>$input</var></dt>
+					<dd><code>type</code><br>$input</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options to pass to CSV parser</dd>
+					<dt><var>$filter</var></dt>
+					<dd><code>string</code><br>$filter Filter added files wildcard.</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Parsers#CSV_Parser">http://docs.basex.org/wiki/Parsers#CSV_Parser</a><br />
+						<a href="http://docs.basex.org/wiki/Options#CREATEFILTER">http://docs.basex.org/wiki/Options#CREATEFILTER</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addText" id="_addText">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addText">#</a>
+		<code><a href="source-class-BaseX.Database.html#252-274" title="Go to source code">addText</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a document using the Text parser.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>type</code><br>$path</dd>
+					<dt><var>$input</var></dt>
+					<dd><code>type</code><br>$input</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options to pass to Text parser</dd>
+					<dt><var>$filter</var></dt>
+					<dd><code>string</code><br>$filter Filter added files wildcard.</dd>
+				</dl></div>
+
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Parsers#Text_Parser">http://docs.basex.org/wiki/Parsers#Text_Parser</a><br />
+						<a href="http://docs.basex.org/wiki/Options#CREATEFILTER">http://docs.basex.org/wiki/Options#CREATEFILTER</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="doAdd" id="_doAdd">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_doAdd">#</a>
+		<code><a href="source-class-BaseX.Database.html#276-304" title="Go to source code">doAdd</a>( <span>mixed <var>$path</var></span>, <span>mixed <var>$input</var></span>, <span>mixed <var>$parser</var></span>, <span>mixed <var>$options</var></span>, <span>mixed <var>$filter</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="open" id="_open">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_open">#</a>
+		<code><a href="source-class-BaseX.Database.html#306-310" title="Go to source code">open</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="fetch" id="_fetch">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fetch">#</a>
+		<code><a href="source-class-BaseX.Database.html#312-337" title="Go to source code">fetch</a>( <span>string <var>$path</var></span>, <span>boolean <var>$raw</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Fetches contents of a resource at specified path.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Fetches contents of a resource at specified path.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+					<dt><var>$raw</var></dt>
+					<dd><code>boolean</code><br>$raw</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="exists" id="_exists">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_exists">#</a>
+		<code><a href="source-class-BaseX.Database.html#339-348" title="Go to source code">exists</a>( <span>type <var>$path</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks to see if $path exists.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks to see if $path exists.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>type</code><br>$path</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="xpath" id="_xpath">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_xpath">#</a>
+		<code><a href="source-class-BaseX.Database.html#350-365" title="Go to source code">xpath</a>( <span>string <var>$xpath</var></span>, <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Retrieves contents of a database filtered by an XPath expression.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Retrieves contents of a database filtered by an XPath expression.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$xpath</var></dt>
+					<dd><code>string</code><br>$xpath An XPath expression to apply to the contents.</dd>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path An path to limit scope of contents.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>$result<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSession" id="_getSession">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Session.html">BaseX\Session</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSession">#</a>
+		<code><a href="source-class-BaseX.Database.html#367-374" title="Go to source code">getSession</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Session.html">BaseX\Session</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getContents" id="_getContents">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getContents">#</a>
+		<code><a href="source-class-BaseX.Database.html#376-415" title="Go to source code">getContents</a>( <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Lists database resources/collections at $path.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Lists database resources/collections at $path.</p>
+
+<p>all subcollections are returned as &lt;collection/&gt;</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code></code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Error.html">BaseX\Error</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-BaseX.Database.html#417-420" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="session" id="$session">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-BaseX.Session.html">BaseX\Session</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Database.html#24-28" title="Go to source code"><var>$session</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$session" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="name" id="$name">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Database.html#30-34" title="Go to source code"><var>$name</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$name" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

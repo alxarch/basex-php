@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class BaseX\Query | basex-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?3580346170"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Error.html">Error</a>
+						</li>
+				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
+						</li>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+						</li>
+				<li><a href="namespace-BaseX.Session.html">Session</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.html">Tests<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Tests.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Resource.html">Resource</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-BaseX.Collection.html">Collection</a></li>
+				<li><a href="class-BaseX.Database.html">Database</a></li>
+				<li><a href="class-BaseX.Helpers.html">Helpers</a></li>
+				<li class="active"><a href="class-BaseX.Query.html">Query</a></li>
+				<li><a href="class-BaseX.Resource.html">Resource</a></li>
+				<li><a href="class-BaseX.Session.html">Session</a></li>
+				<li><a href="class-BaseX.StreamWrapper.html">StreamWrapper</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-BaseX.Error.html">Error</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-BaseX.html" title="Summary of BaseX"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Query</h1>
+
+
+	<div class="description">
+	
+<p>Query object for a BaseX session.</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a><br />
+		<b>Package:</b> BaseX<br />
+
+				<b>Author:</b>
+				BaseX Team<br />
+				<b>Author:</b>
+				Alexandros Sigalas &lt;<a
+href="mailto:alxarch&#64;gmail.com">alxarch&#64;<!---->gmail.com</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-BaseX.Query.html#16-244" title="Go to source code">src/BaseX/Query.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-BaseX.Query.html#56-66" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>string <var>$xquery</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$session</var></dt>
+					<dd><code><code><a href="class-BaseX.Session.html">BaseX\Session</a></code></code><br>$session The session to use</dd>
+					<dt><var>$xquery</var></dt>
+					<dd><code>string</code><br>$xquery The query to execute</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="bind" id="_bind">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Query.html">BaseX\Query</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_bind">#</a>
+		<code><a href="source-class-BaseX.Query.html#68-82" title="Go to source code">bind</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span>, <span>string <var>$type</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Binds an external variable to a value.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Binds an external variable to a value.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name The name of the variable (without '$')</dd>
+					<dt><var>$value</var></dt>
+					<dd><code>mixed</code><br>$value The value to assign to the variable</dd>
+					<dt><var>$type</var></dt>
+					<dd><code>string</code><br>$type A type to cast the value to</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Query.html">BaseX\Query</a></code></code><br>$this<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="context" id="_context">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Query.html">BaseX\Query</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_context">#</a>
+		<code><a href="source-class-BaseX.Query.html#84-97" title="Go to source code">context</a>( <span>string <var>$value</var></span>, <span>string <var>$type</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Sets context for the query.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sets context for the query.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd><code>string</code><br>$value</dd>
+					<dt><var>$type</var></dt>
+					<dd><code>string</code><br>$type</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Query.html">BaseX\Query</a></code></code><br>$this<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="execute" id="_execute">
+
+		<td class="attributes"><code>
+			 public 
+			string|integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_execute">#</a>
+		<code><a href="source-class-BaseX.Query.html#99-108" title="Go to source code">execute</a>( )</code>
+
+		<div class="description short">
+			
+<p>Executes the query.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Executes the query.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string|integer</code><br>Results of the query. If session redirects it returns size of bytes writen to
+output.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="info" id="_info">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_info">#</a>
+		<code><a href="source-class-BaseX.Query.html#110-117" title="Go to source code">info</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets query info</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets query info</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="options" id="_options">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_options">#</a>
+		<code><a href="source-class-BaseX.Query.html#119-148" title="Go to source code">options</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets query options</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets query options</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSession" id="_getSession">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Session.html">BaseX\Session</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSession">#</a>
+		<code><a href="source-class-BaseX.Query.html#150-158" title="Go to source code">getSession</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the session for this query.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the session for this query.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Session.html">BaseX\Session</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getId" id="_getId">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getId">#</a>
+		<code><a href="source-class-BaseX.Query.html#160-168" title="Go to source code">getId</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets this query id.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets this query id.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unregister" id="_unregister">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unregister">#</a>
+		<code><a href="source-class-BaseX.Query.html#170-173" title="Go to source code">unregister</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResults" id="_getResults">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResults">#</a>
+		<code><a href="source-class-BaseX.Query.html#175-226" title="Go to source code">getResults</a>( <span>mixed <var>$class</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="bindResult" id="_bindResult">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_bindResult">#</a>
+		<code><a href="source-class-BaseX.Query.html#228-243" title="Go to source code">bindResult</a>( <span><code><a href="class-BaseX.Query.QueryResultInterface.html">BaseX\Query\QueryResultInterface</a></code> <var>$result</var></span>, <span>mixed <var>$data</var></span>, <span>mixed <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="INIT" id="INIT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#27" title="Go to source code"><b>INIT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">0</span></code></td>
+		<td class="description"><div>
+			<a href="#INIT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="CLOSE" id="CLOSE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#28" title="Go to source code"><b>CLOSE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">2</span></code></td>
+		<td class="description"><div>
+			<a href="#CLOSE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="BIND" id="BIND">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#29" title="Go to source code"><b>BIND</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">3</span></code></td>
+		<td class="description"><div>
+			<a href="#BIND" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="RESULTS" id="RESULTS">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#30" title="Go to source code"><b>RESULTS</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">4</span></code></td>
+		<td class="description"><div>
+			<a href="#RESULTS" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="EXECUTE" id="EXECUTE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#31" title="Go to source code"><b>EXECUTE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">5</span></code></td>
+		<td class="description"><div>
+			<a href="#EXECUTE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="INFO" id="INFO">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#32" title="Go to source code"><b>INFO</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">6</span></code></td>
+		<td class="description"><div>
+			<a href="#INFO" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="OPTIONS" id="OPTIONS">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#33" title="Go to source code"><b>OPTIONS</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">7</span></code></td>
+		<td class="description"><div>
+			<a href="#OPTIONS" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="CONTEXT" id="CONTEXT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#34" title="Go to source code"><b>CONTEXT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">14</span></code></td>
+		<td class="description"><div>
+			<a href="#CONTEXT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="UPDATING" id="UPDATING">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#35" title="Go to source code"><b>UPDATING</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">30</span></code></td>
+		<td class="description"><div>
+			<a href="#UPDATING" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="FULL" id="FULL">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#36" title="Go to source code"><b>FULL</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">31</span></code></td>
+		<td class="description"><div>
+			<a href="#FULL" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="session" id="$session">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-BaseX.Session.html">BaseX\Session</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Query.html#38-43" title="Go to source code"><var>$session</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$session" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="id" id="$id">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Query.html#45-49" title="Go to source code"><var>$id</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$id" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="open" id="$open">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Query.html#51-54" title="Go to source code"><var>$open</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$open" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

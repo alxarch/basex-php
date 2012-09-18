@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class BaseX\Tests\DatabaseTest | basex-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?3580346170"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Error.html">Error</a>
+						</li>
+				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
+						</li>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+						</li>
+				<li><a href="namespace-BaseX.Session.html">Session</a>
+						</li>
+				<li class="active"><a href="namespace-BaseX.Tests.html">Tests<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Tests.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Resource.html">Resource</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-BaseX.Tests.DatabaseTest.html">DatabaseTest</a></li>
+				<li><a href="class-BaseX.Tests.DocumentTest.html">DocumentTest</a></li>
+				<li><a href="class-BaseX.Tests.GenericResource.html">GenericResource</a></li>
+				<li><a href="class-BaseX.Tests.HelpersTest.html">HelpersTest</a></li>
+				<li><a href="class-BaseX.Tests.RawResourceTest.html">RawResourceTest</a></li>
+				<li><a href="class-BaseX.Tests.ResourceTest.html">ResourceTest</a></li>
+				<li><a href="class-BaseX.Tests.SessionInfoTest.html">SessionInfoTest</a></li>
+				<li><a href="class-BaseX.Tests.SessionTest.html">SessionTest</a></li>
+				<li><a href="class-BaseX.Tests.SocketTest.html">SocketTest</a></li>
+				<li><a href="class-BaseX.Tests.StreamWrapperTest.html">StreamWrapperTest</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-BaseX.Tests.html" title="Summary of BaseX\Tests"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class DatabaseTest</h1>
+
+
+	<div class="description">
+	
+<p>TestCase for tests that require a BaseX database.</p>
+
+<p>It builds/destroys a BaseX database before/after each test.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+PHPUnit_Framework_TestCase
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-BaseX.PHPUnit.TestCaseSession.html"><span>BaseX\PHPUnit\TestCaseSession</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-BaseX.PHPUnit.TestCaseDb.html"><span>BaseX\PHPUnit\TestCaseDb</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>BaseX\Tests\DatabaseTest</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Tests.html">Tests</a><br />
+		<b>Package:</b> BaseX\Tests<br />
+
+		<b>Located at</b> <a href="source-class-BaseX.Tests.DatabaseTest.html#12-412" title="Go to source code">test/BaseX/Tests/DatabaseTest.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="test__construct" id="_test__construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_test__construct">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#14-27" title="Go to source code">test__construct</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>ExpectedException</h4>
+				<div class="list">
+						InvalidArgumentException<br />
+				</div>
+				<h4>ExpectedExceptionMessage</h4>
+				<div class="list">
+						Invalid database name.<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testInit" id="_testInit">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testInit">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#29-32" title="Go to source code">testInit</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testGetName" id="_testGetName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testGetName">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#34-37" title="Go to source code">testGetName</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testAdd" id="_testAdd">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testAdd">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#39-54" title="Go to source code">testAdd</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testInit<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testStore" id="_testStore">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testStore">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#56-73" title="Go to source code">testStore</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testInit<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testDelete" id="_testDelete">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testDelete">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#76-90" title="Go to source code">testDelete</a>( <span>mixed <var>$doc</var></span>, <span>mixed <var>$raw</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testAdd<br />
+						testStore<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testFetch" id="_testFetch">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testFetch">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#92-121" title="Go to source code">testFetch</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testRename" id="_testRename">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testRename">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#123-144" title="Go to source code">testRename</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testReplace" id="_testReplace">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testReplace">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#146-172" title="Go to source code">testReplace</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testExecute" id="_testExecute">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testExecute">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#174-186" title="Go to source code">testExecute</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testGetResources" id="_testGetResources">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testGetResources">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#188-230" title="Go to source code">testGetResources</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testAddXML" id="_testAddXML">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testAddXML">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#232-256" title="Go to source code">testAddXML</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testAddHTML" id="_testAddHTML">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testAddHTML">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#258-285" title="Go to source code">testAddHTML</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testAddJSON" id="_testAddJSON">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testAddJSON">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#287-301" title="Go to source code">testAddJSON</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testAddCSV" id="_testAddCSV">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testAddCSV">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#303-319" title="Go to source code">testAddCSV</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="assertResetAfterAdd" id="_assertResetAfterAdd">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_assertResetAfterAdd">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#321-334" title="Go to source code">assertResetAfterAdd</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testXpath" id="_testXpath">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testXpath">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#347-377" title="Go to source code">testXpath</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="testGetContents" id="_testGetContents">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_testGetContents">#</a>
+		<code><a href="source-class-BaseX.Tests.DatabaseTest.html#379-411" title="Go to source code">testGetContents</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Depends</h4>
+				<div class="list">
+						testDelete<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-BaseX.PHPUnit.TestCaseDb.html#methods">BaseX\PHPUnit\TestCaseDb</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.PHPUnit.TestCaseDb.html#_doc">doc()</a>, 
+			<a href="class-BaseX.PHPUnit.TestCaseDb.html#_ls">ls()</a>, 
+			<a href="class-BaseX.PHPUnit.TestCaseDb.html#_raw">raw()</a>, 
+			<a href="class-BaseX.PHPUnit.TestCaseDb.html#_setUp">setUp()</a>, 
+			<a href="class-BaseX.PHPUnit.TestCaseDb.html#_tearDown">tearDown()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-BaseX.PHPUnit.TestCaseDb.html#properties">BaseX\PHPUnit\TestCaseDb</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.PHPUnit.TestCaseDb.html#$db"><var>$db</var></a>, 
+			<a href="class-BaseX.PHPUnit.TestCaseDb.html#$dbname"><var>$dbname</var></a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-BaseX.PHPUnit.TestCaseSession.html#properties">BaseX\PHPUnit\TestCaseSession</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.PHPUnit.TestCaseSession.html#$session"><var>$session</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

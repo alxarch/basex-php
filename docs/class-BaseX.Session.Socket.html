@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class BaseX\Session\Socket | basex-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?3580346170"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Error.html">Error</a>
+						</li>
+				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
+						</li>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+						</li>
+				<li class="active"><a href="namespace-BaseX.Session.html">Session</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.html">Tests<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Tests.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Tests.Resource.html">Resource</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-BaseX.Session.SessionInfo.html">SessionInfo</a></li>
+				<li class="active"><a href="class-BaseX.Session.Socket.html">Socket</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-BaseX.Session.html" title="Summary of BaseX\Session"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Socket</h1>
+
+
+	<div class="description">
+	
+<p>Socket wrapper for communicationg with a BaseX server.</p>
+
+<p>A lot of effort has been put into correct handling of binary data as per
+BaseX Server Protocol specification.</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Session.html">Session</a><br />
+		<b>Package:</b> BaseX<br />
+
+		<b>Located at</b> <a href="source-class-BaseX.Session.Socket.html#15-330" title="Go to source code">src/BaseX/Session/Socket.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#37-47" title="Go to source code">__construct</a>( <span>mixed <var>$host</var></span>, <span>mixed <var>$port</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="readInto" id="_readInto">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_readInto">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#50-81" title="Go to source code">readInto</a>( <span>resource <var>$stream</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Reads socket from current position until next NUL character into a
+stream.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reads socket from current position until next NUL character into a
+stream.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$stream</var></dt>
+					<dd><code>resource</code><br>$stream</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="read" id="_read">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_read">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#83-114" title="Go to source code">read</a>( )</code>
+
+		<div class="description short">
+			
+<p>Reads socket from current position until next NUL character.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reads socket from current position until next NUL character.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="readSingle" id="_readSingle">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_readSingle">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#116-127" title="Go to source code">readSingle</a>( )</code>
+
+		<div class="description short">
+			
+<p>Reads a single byte from socket.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reads a single byte from socket.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clearBuffer" id="_clearBuffer">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clearBuffer">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#129-136" title="Go to source code">clearBuffer</a>( )</code>
+
+		<div class="description short">
+			
+<p>Makes sure following operations use a fresh buffer.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Makes sure following operations use a fresh buffer.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_fill" id="__fill">
+
+		<td class="attributes"><code>
+			 protected 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__fill">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#138-167" title="Go to source code">_fill</a>( )</code>
+
+		<div class="description short">
+			
+<p>Makes sure the buffer is full.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Makes sure the buffer is full.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>Number of bytes remaining in the buffer.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="send" id="_send">
+
+		<td class="attributes"><code>
+			 public 
+			integer|false
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_send">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#169-199" title="Go to source code">send</a>( <span>string|resource <var>$msg</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Send a message via the socket.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Send a message via the socket.</p>
+
+<p>If $msg is a resource it will be piped to the socket.</p>
+
+<p>Using a resource is preferred in cases of large data.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$msg</var></dt>
+					<dd><code>string|resource</code><br>$msg</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer|false</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="close" id="_close">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_close">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#203-211" title="Go to source code">close</a>( )</code>
+
+		<div class="description short">
+			
+<p>Closes the socket.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Closes the socket.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>False on failure<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="stream" id="_stream">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_stream">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#213-265" title="Go to source code">stream</a>( <span>integer <var>$size</var></span>, <span>boolean <var>&amp; $data</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Reads $size data from socket.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reads $size data from socket.</p>
+
+<p>This is similar to read() but is restricted by size.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$size</var></dt>
+					<dd><code>integer</code><br>$size How many bytes to read</dd>
+					<dt><var>$data</var></dt>
+					<dd><code>boolean</code><br>&amp;$data A variable to store the data into</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>How many bytes read<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTimeout" id="_setTimeout">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTimeout">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#267-270" title="Go to source code">setTimeout</a>( <span>mixed <var>$seconds</var></span>, <span>mixed <var>$miliseconds</var> = <span class="php-num">0</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="padded" id="_padded">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_padded">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#272-282" title="Go to source code">padded</a>( <span>mixed <var>$pos</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="readChunk" id="_readChunk">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_readChunk">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#284-289" title="Go to source code">readChunk</a>( <span>mixed <var>$size</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getBuffer" id="_getBuffer">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBuffer">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#291-300" title="Go to source code">getBuffer</a>( )</code>
+
+		<div class="description short">
+			
+<p>Peeks into the current contents of the buffer.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Peeks into the current contents of the buffer.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="detectError" id="_detectError">
+
+		<td class="attributes"><code>
+			 public 
+			boolean|string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_detectError">#</a>
+		<code><a href="source-class-BaseX.Session.Socket.html#302-329" title="Go to source code">detectError</a>( )</code>
+
+		<div class="description short">
+			
+<p>Checks current buffer contents for error response.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks current buffer contents for error response.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean|string</code><br>The error message, false if no error exists.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="BUFFER_SIZE" id="BUFFER_SIZE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Session.Socket.html#25" title="Go to source code"><b>BUFFER_SIZE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">4096</span></code></td>
+		<td class="description"><div>
+			<a href="#BUFFER_SIZE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TIMEOUT" id="TIMEOUT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Session.Socket.html#26" title="Go to source code"><b>TIMEOUT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">8</span></code></td>
+		<td class="description"><div>
+			<a href="#TIMEOUT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="NUL" id="NUL">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Session.Socket.html#27" title="Go to source code"><b>NUL</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">&quot;\x00&quot;</span></code></td>
+		<td class="description"><div>
+			<a href="#NUL" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="PAD" id="PAD">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Session.Socket.html#28" title="Go to source code"><b>PAD</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">&quot;\xff&quot;</span></code></td>
+		<td class="description"><div>
+			<a href="#PAD" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="PADDED_NUL" id="PADDED_NUL">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Session.Socket.html#29" title="Go to source code"><b>PADDED_NUL</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">&quot;\xff\x00&quot;</span></code></td>
+		<td class="description"><div>
+			<a href="#PADDED_NUL" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="PADDED_PAD" id="PADDED_PAD">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Session.Socket.html#30" title="Go to source code"><b>PADDED_PAD</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-quote">&quot;\xff\xff&quot;</span></code></td>
+		<td class="description"><div>
+			<a href="#PADDED_PAD" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="socket" id="$socket">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Session.Socket.html#32" title="Go to source code"><var>$socket</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">null</span></code></td>
+		<td class="description"><div>
+			<a href="#$socket" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="buffer" id="$buffer">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Session.Socket.html#33" title="Go to source code"><var>$buffer</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">''</span></code></td>
+		<td class="description"><div>
+			<a href="#$buffer" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="pos" id="$pos">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Session.Socket.html#34" title="Go to source code"><var>$pos</var></a>
+		</td>
+		<td class="value"><code><span class="php-num">0</span></code></td>
+		<td class="description"><div>
+			<a href="#$pos" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="size" id="$size">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Session.Socket.html#35" title="Go to source code"><var>$size</var></a>
+		</td>
+		<td class="value"><code><span class="php-num">0</span></code></td>
+		<td class="description"><div>
+			<a href="#$size" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
