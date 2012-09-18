@@ -3,12 +3,18 @@
 namespace BaseX\Tests;
 
 use BaseX\PHPUnit\TestCaseDb;
-use BaseX\Session;
-use BaseX\Database;
 use BaseX\Resource\Document;
+use BaseX\StreamWrapper;
 
 class DocumentTest extends TestCaseDb
 {
+  
+  function setUp()
+  {
+    parent::setUp();
+    StreamWrapper::register($this->session);
+  }
+  
   /**
    * @expectedException BaseX\Error
    * @expectedExceptionMessage Specified resource is not a document. 
@@ -68,5 +74,60 @@ class DocumentTest extends TestCaseDb
     
     $this->db->delete('test-1.xml');
     $this->db->delete('test-2.xml');
+  }
+    
+  public function testGetContents()
+  {
+    $this->db->add('original.xml', '<test/>');
+    
+    $original = new Document($this->session, $this->dbname, 'original.xml');
+    
+    $this->assertXmlStringEqualsXmlString('<test/>', $original->getContents());
+  }
+  
+  public function testGetContentsInto()
+  {
+    $into = fopen('php://temp', 'r+');
+    
+    $this->db->add('original.xml', '<test/>');
+    
+    $original = new Document($this->session, $this->dbname, 'original.xml');
+    
+    $result = $original->getContents($into);
+    
+    $this->assertFalse(false === $result);
+    $this->assertTrue(is_int($result));
+    $this->assertTrue($result > 0);
+    
+    rewind($into);
+    
+    $contents = stream_get_contents($into);
+    
+    $this->assertXmlStringEqualsXmlString('<test/>', $contents);
+    
+    fclose($into);
+  }
+    
+  public function testCopy()
+  {
+    $this->db->add('original.xml', '<test/>');
+    
+    $original = new Document($this->session, $this->dbname, 'original.xml');
+    
+    $copy = $original->copy('copy.xml');
+    
+    $this->assertInstanceOf('BaseX\Resource\Document', $copy);
+    $this->assertEquals('copy.xml', $copy->getPath());
+    
+    $this->assertContains('copy.xml', $this->ls());
+    $this->assertContains('original.xml', $this->ls());
+    
+    $this->assertEquals('<test/>', $this->doc('copy.xml'));
+  }
+  
+  function tearDown()
+  {
+    StreamWrapper::unregister();
+    parent::tearDown();
   }
 }

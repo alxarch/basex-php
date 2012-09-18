@@ -11,10 +11,8 @@ namespace BaseX;
 use BaseX\Resource\ResourceInterface;
 use BaseX\Resource\ResourceInfo;
 use BaseX\Session;
-use BaseX\Session\Socket;
 use BaseX\Helpers as B;
 use BaseX\Error;
-use BaseX\Database;
 
 /**
  * Resource abstraction for BaseX resources.
@@ -83,19 +81,6 @@ abstract class Resource implements ResourceInterface
   }
   
   /**
-   * Checks if info data is valid.
-   * 
-   * @param \SimpleXMLElement $info
-   * @return boolean
-   */
-  public function validateInfo(\SimpleXMLElement $info)
-  {
-      return isset($info['raw']) && 
-             isset($info['content-type']) && 
-             isset($info['modified-date']);
-  }
-  
-  /**
    * Set Resource info for current resource.
    * 
    * @param mixed $info
@@ -130,24 +115,7 @@ abstract class Resource implements ResourceInterface
   public function copy($dest)
   {
     
-    $db = $this->getDatabase();
-    $source = $this->getPath();
-
-    $xql = <<<XQL
-      let \$raw := db:is-raw('$db', '$source')
-      let \$contents := if(\$raw) 
-        then db:retrieve('$db', '$source')
-        else db:open('$db', '$source')
-      return 
-      (
-        db:output('ok'),
-        if(\$raw)
-          then db:store('$db', '$dest', \$contents)
-          else db:replace('$db', '$dest', \$contents)
-      )
-XQL;
-
-    $this->getSession()->query($xql)->execute();
+    $this->getCopyQuery($dest)->execute();
     
     $class = get_called_class();
     
@@ -163,12 +131,8 @@ XQL;
    */
   public function move($dest)
   {
-    $db = $this->getDatabase();
-    $source = $this->getPath();
-    
-    $xql = "db:rename('$db', '$source', '$dest')";
-    
-    $this->getSession()->query($xql)->execute();
+
+    $this->getMoveQuery($dest)->execute();
   
     $class = get_called_class();
     
@@ -182,12 +146,7 @@ XQL;
    */
   public function delete()
   {
-    $db = $this->getDatabase();
-    $path = $this->getPath();
-    
-    $xql = "db:delete('$db', '$path')";
-    
-    $this->session->query($xql)->execute();
+    $this->getDeleteQuery()->execute();
     
     $this->setPath(null);
   }
@@ -354,61 +313,6 @@ XQL;
     return $stream;
   }
   
-  
-  /**
-   * Set contents for this resource.
-   * 
-   * @param resource|string $data
-   * @return mixed 
-   */
-  public function setContents($data)
-  {
-    $stream = $this->getStream('w');
-    
-    if(is_resource($data))
-    {
-      return stream_copy_to_stream($data, $stream);
-    }
-    else 
-    {
-      return fwrite($stream, $data);
-    }
-    
-    fclose($stream);
-  }
-  
-  /**
-   * Get contents of this resource.
-   * 
-   * @param resource $into If provided contents will be piped into this stream.
-   * @return string|int Contents of the resource or number of bytes piped.
-   */
-  public function getContents($into=null)
-  {
-    if(is_resource($into))
-    {
-      $stream = $this->getStream('r');
-      
-      $total = 0;
-      while(!feof($stream))
-      {
-        $total += fwrite($into, fread ($stream, Socket::BUFFER_SIZE));
-      }
-      
-      fclose($stream);
-      
-      return $total;
-    }
-    else 
-    {
-      $db = new Database($this->session, $this->getDatabase());
-      
-      return $db->fetch($this->getPath(), $this->isRaw());
-    }
-    
-    
-  }
-  
   /**
    * Returns resource path.
    * 
@@ -442,4 +346,9 @@ XQL;
     
     return new $class($session, $parts['host'], substr($parts['path'], 1));
   }
+  
+  abstract protected function getContentsQuery();
+  abstract protected function getMoveQuery($dest);
+  abstract protected function getCopyQuery($dest);
+  abstract protected function getDeleteQuery();
 }

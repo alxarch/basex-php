@@ -81,7 +81,7 @@ class TestCaseDb extends TestCaseSession
   public function tearDown()
   {
     // Truncate db.
-    $this->session->execute("CLOSE");
     $this->session->execute("DROP DB $this->dbname");
+    $this->session->execute("CLOSE");
   }
 }

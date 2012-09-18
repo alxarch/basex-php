@@ -35,4 +35,18 @@ class CollectionTest extends TestCaseDb
     $this->assertEmpty($col->listContents());
   }
   
+  function testListContents()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $this->db->add('test/test.xml', '<test/>');
+    
+    $col = new Collection($this->session, $this->dbname, '');
+    
+    $contents = $col->listContents();
+    $this->assertTrue(is_array($contents));
+    $this->assertEquals(2, count($contents));
+    $this->assertInstanceOf('BaseX\Collection', $contents[0]);
+    $this->assertInstanceOf('BaseX\Resource\Document', $contents[1]);
+  }
+  
 }

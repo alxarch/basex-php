@@ -21,8 +21,7 @@ class CollectionInfo extends SimpleXMLResult
   public function setData($data) 
   {
     parent::setData($data);
-  
-    if(isset($data['modified-date']) && isset($data['path']) && isset($data->contents))
+    if(isset($this->data['modified-date']) && isset($this->data['path']) && isset($this->data->contents))
     {
       return $this;
     }

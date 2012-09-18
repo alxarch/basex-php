@@ -127,4 +127,24 @@ class Collection extends Resource implements CollectionInterface
     return $result;
   }
 
+  protected function getContentsQuery() 
+  {
+    throw new Error('Not implemented.');
+  }
+
+
+  protected function getDeleteQuery()
+  {
+    throw new Error('Not implemented.');
+  }
+  
+  protected function getCopyQuery($path) 
+  {
+    throw new Error('Not implemented.');
+  }
+  
+  protected function getMoveQuery($dest) 
+  {
+    throw new Error('Not implemented.');
+  }
 }

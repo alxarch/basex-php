@@ -5,11 +5,26 @@ namespace BaseX\Tests;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Resource;
-use BaseX\Resource\ResourceInfo;
 use BaseX\StreamWrapper;
 
 class GenericResource extends Resource
-{}
+{
+  protected function getCopyQuery($dest) {
+    ;
+  }
+  
+  protected function getMoveQuery($dest) {
+    ;
+  }
+  
+  protected function getDeleteQuery() {
+    ;
+  }
+  
+  protected function getContentsQuery() {
+    ;
+  }
+}
 
 class ResourceTest extends TestCaseDb
 {
@@ -108,161 +123,7 @@ class ResourceTest extends TestCaseDb
     $this->assertFalse($res->isRaw());
   }
   
-  public function testCopy()
-  {
-    $this->db->add('original.xml', '<test/>');
-    
-    $original = new GenericResource($this->session, $this->dbname, 'original.xml');
-    
-    $copy = $original->copy('copy.xml');
-    
-    $this->assertInstanceOf('BaseX\Tests\GenericResource', $copy);
-    $this->assertEquals('copy.xml', $copy->getPath());
-    
-    $this->assertContains('copy.xml', $this->ls());
-    $this->assertContains('original.xml', $this->ls());
-    
-    $this->assertEquals('<test/>', $this->doc('copy.xml'));
-  }
-  
-  public function testCopyRaw()
-  {
-    $contents = md5(time());
-    $this->db->store('original.txt', $contents);
-    
-    $original = new GenericResource($this->session, $this->dbname, 'original.txt');
-    
-    $copy = $original->copy('copy.txt');
-    
-    $this->assertInstanceOf('BaseX\Tests\GenericResource', $copy);
-    $this->assertEquals('copy.txt', $copy->getPath());
-    
-    $this->assertContains('copy.txt', $this->ls());
-    $this->assertContains('original.txt', $this->ls());
-    
-    $this->assertEquals($contents, $this->raw('copy.txt'));
-  }
-  
-  public function testMove()
-  {
-    $this->db->add('original.xml', '<test/>');
-    
-    $original = new GenericResource($this->session, $this->dbname, 'original.xml');
-    
-    $copy = $original->move('moved.xml');
-    
-    $this->assertInstanceOf('BaseX\Tests\GenericResource', $copy);
-    $this->assertEquals('moved.xml', $copy->getPath());
-    
-    $this->assertContains('moved.xml', $this->ls());
-    $this->assertNotContains('original.xml', $this->ls());
-    
-    $this->assertEquals('<test/>', $this->doc('moved.xml'));
-  }
-  
-  public function testMoveSameDest()
-  {
-    $this->db->add('original.xml', '<test/>');
-    
-    $original = new GenericResource($this->session, $this->dbname, 'original.xml');
-    
-    $original_time = $original->getModified();
-    
-    $moved = $original->move('original.xml');
-    
-    $moved_time = $moved->getModified();
-    
-    $this->assertNotEquals($moved_time, $original_time);
-    
-    $this->assertInstanceOf('BaseX\Tests\GenericResource', $moved);
-    
-    $this->assertEquals('original.xml', $moved->getPath());
-    
-    $this->assertContains('original.xml', $this->ls());
-    
-    $this->assertEquals('<test/>', $this->doc('original.xml'));
-  }
-  
-  public function testDelete()
-  {
-    $this->db->add('original.xml', '<test/>');
-    
-    $original = new GenericResource($this->session, $this->dbname, 'original.xml');
-    
-    $original->delete();
-    
-    $this->assertNull($original->getPath());
-    
-    $this->assertNotContains('original.xml', $this->ls());
-    
-  }
-  
-  public function testGetContents()
-  {
-    $this->db->add('original.xml', '<test/>');
-    
-    $original = new GenericResource($this->session, $this->dbname, 'original.xml');
-    
-    $this->assertXmlStringEqualsXmlString('<test/>', $original->getContents());
-  }
-  
-  public function testGetContentsInto()
-  {
-    $into = fopen('php://temp', 'r+');
-    
-    $this->db->add('original.xml', '<test/>');
-    
-    $original = new GenericResource($this->session, $this->dbname, 'original.xml');
-    
-    $result = $original->getContents($into);
-    
-    $this->assertFalse(false === $result);
-    $this->assertTrue(is_int($result));
-    $this->assertTrue($result > 0);
-    
-    rewind($into);
-    
-    $contents = stream_get_contents($into);
-    
-    $this->assertXmlStringEqualsXmlString('<test/>', $contents);
-    
-    fclose($into);
-  }
-  
-  public function testGetContentsRawInto()
-  {
-    $into = fopen('php://temp', 'r+');
-    
-    $contents = md5(time());
-    $this->db->store('test.txt', $contents);
-    
-    $original = new GenericResource($this->session, $this->dbname, 'test.txt');
-    
-    $result = $original->getContents($into);
-    
-    $this->assertFalse(false === $result);
-    $this->assertTrue(is_int($result));
-    $this->assertTrue($result > 0);
-    
-    rewind($into);
-    
-    $actual = stream_get_contents($into);
-    
-    $this->assertEquals($contents, $actual);
-    
-    fclose($into);
-    
-  }
-  public function testGetContentsRaw()
-  {
-    $contents = md5(time());
-    
-    $this->db->store('test.txt', $contents);
-   
-    $original = new GenericResource($this->session, $this->dbname, 'test.txt');
-    
-    $this->assertEquals($contents, $original->getContents());
-  }
+ 
   
   
 

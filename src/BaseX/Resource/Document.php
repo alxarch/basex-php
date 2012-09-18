@@ -11,7 +11,8 @@
 namespace BaseX\Resource;
 
 use BaseX\Database;
-use BaseX\Resource;
+use BaseX\Resource\Raw;
+use BaseX\Query\QueryBuilder;
 use \DOMDocument as XML;
 use BaseX\Error;
 
@@ -20,7 +21,7 @@ use BaseX\Error;
  * 
  * @package BaseX 
  */
-class Document extends Resource
+class Document extends Raw
 {
   /**
    * The contents of the resource as a DOMDocument
@@ -72,4 +73,24 @@ class Document extends Resource
     $db = new Database($this->getSession(), $this->getDatabase());
     return $db->xpath($xpath, $this->getPath());
   }
+  
+  protected function getContentsQuery() 
+  {
+    $xql = sprintf("db:open('%s', '%s')", $this->getDatabase(), $this->getPath());
+    return QueryBuilder::begin()
+            ->setParameter('omit-xml-declaration', false)
+            ->setBody($xql)
+            ->getQuery($this->getSession());
+  }
+  
+  protected function getCopyQuery($dest) 
+  {
+    $xql = sprintf(
+        "(db:output('OK'),db:replace('%s', '%s', db:open('%s', '%s')))", 
+        $this->getDatabase(), $dest, $this->getDatabase(), $this->getPath());
+    
+    return $this->getSession()->query($xql);
+    
+  }
+          
 }
