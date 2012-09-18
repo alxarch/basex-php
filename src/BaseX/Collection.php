@@ -69,6 +69,11 @@ class Collection extends Resource implements CollectionInterface
     return false;
   }
   
+  /**
+   * Lists all collections & resources for this collection.
+   * 
+   * @return array
+   */
   public function listContents()
   {
     $info = $this->getInfo();
@@ -102,14 +107,24 @@ class Collection extends Resource implements CollectionInterface
     return $result;
   }
   
-  public function getResources() 
+  /**
+   * Gets all resources for this collection.
+   * 
+   * @param string $path list resources from this subpath
+   * @return array A BaseX\Resource array
+   */
+  public function getResources($path=null)
   {
-    $resources = ResourceInfo::get($this->getSession(), $this->getDatabase(), $this->getPath());
-    
-    if(empty($resources))
+    if(null === $path)
     {
-      throw new Error('Could not load resource info.');
+      $path = $this->getPath();
     }
+    else
+    {
+      $path = rtrim($this->getPath().'/'.trim($path, '/'), '/');
+    }
+    
+    $resources = ResourceInfo::get($this->getSession(), $this->getDatabase(), $path);
     
     $result = array();
     foreach ($resources as $resource)
@@ -131,7 +146,6 @@ class Collection extends Resource implements CollectionInterface
   {
     throw new Error('Not implemented.');
   }
-
 
   protected function getDeleteQuery()
   {

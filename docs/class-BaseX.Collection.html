@@ -151,7 +151,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Collection.html#20-150" title="Go to source code">src/BaseX/Collection.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Collection.html#20-164" title="Go to source code">src/BaseX/Collection.php</a><br />
 	</div>
 
 
@@ -378,24 +378,32 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_listContents">#</a>
-		<code><a href="source-class-BaseX.Collection.html#72-103" title="Go to source code">listContents</a>( )</code>
+		<code><a href="source-class-BaseX.Collection.html#72-108" title="Go to source code">listContents</a>( )</code>
 
 		<div class="description short">
 			
+<p>Lists all collections &amp; resources for this collection.</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Lists all collections &amp; resources for this collection.</p>
 
 
 
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
 
 
 
@@ -409,24 +417,37 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getResources">#</a>
-		<code><a href="source-class-BaseX.Collection.html#105-128" title="Go to source code">getResources</a>( )</code>
+		<code><a href="source-class-BaseX.Collection.html#110-143" title="Go to source code">getResources</a>( <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
+<p>Gets all resources for this collection.</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Gets all resources for this collection.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path list resources from this subpath</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>A BaseX\Resource array<br />
+				</div>
 
 
 
@@ -447,7 +468,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContentsQuery">#</a>
-		<code><a href="source-class-BaseX.Collection.html#130-133" title="Go to source code">getContentsQuery</a>( )</code>
+		<code><a href="source-class-BaseX.Collection.html#145-148" title="Go to source code">getContentsQuery</a>( )</code>
 
 		<div class="description short">
 			
@@ -476,7 +497,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDeleteQuery">#</a>
-		<code><a href="source-class-BaseX.Collection.html#136-139" title="Go to source code">getDeleteQuery</a>( )</code>
+		<code><a href="source-class-BaseX.Collection.html#150-153" title="Go to source code">getDeleteQuery</a>( )</code>
 
 		<div class="description short">
 			
@@ -505,7 +526,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCopyQuery">#</a>
-		<code><a href="source-class-BaseX.Collection.html#141-144" title="Go to source code">getCopyQuery</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Collection.html#155-158" title="Go to source code">getCopyQuery</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -534,7 +555,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMoveQuery">#</a>
-		<code><a href="source-class-BaseX.Collection.html#146-149" title="Go to source code">getMoveQuery</a>( <span>mixed <var>$dest</var></span> )</code>
+		<code><a href="source-class-BaseX.Collection.html#160-163" title="Go to source code">getMoveQuery</a>( <span>mixed <var>$dest</var></span> )</code>
 
 		<div class="description short">
 			

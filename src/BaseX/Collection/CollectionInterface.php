@@ -16,5 +16,5 @@ use BaseX\Resource\ResourceInterface;
 interface CollectionInterface extends ResourceInterface
 {
   public function listContents();
-  public function getResources();
+  public function getResources($path=null);
 }
