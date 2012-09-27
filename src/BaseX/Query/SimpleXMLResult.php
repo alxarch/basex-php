@@ -9,12 +9,16 @@ namespace BaseX\Query;
 
 use BaseX\Query\QueryResult;
 use \SimpleXMLElement;
+use \SimpleXMLIterator;
+use \ArrayAccess;
+use BaseX\Helpers as B;
+
 /**
  * Description of SimpleXMLResult
  *
  * @author alxarch
  */
-class SimpleXMLResult extends QueryResult
+class SimpleXMLResult extends QueryResult implements ArrayAccess
 {
   /**
    *
@@ -84,6 +88,56 @@ class SimpleXMLResult extends QueryResult
   public function xpath($path)
   {
     return $this->data->xpath($path);
+  }
+  
+  public function offsetSet($offset, $value) {
+    throw new \Exception('Not implemented.');
+  }
+
+  public function offsetExists($offset) {
+    return isset($this->data[$offset]);
+  }
+  
+  public function offsetUnset($offset) {
+    throw new \Exception('Not implemented.');
+  }
+
+  public function offsetGet($offset) 
+  {
+    return isset($this->data[$offset]) ? (string) $this->data[$offset] : null;
+  }
+  
+  public function __get($name) 
+  {
+    $method = 'get'.  B::camelize($name);
+    if(method_exists($this, $method))
+    {
+      return $this->{$method}();
+    }
+    
+    if(!isset($this->data->{$name}))
+    {
+      return null;
+    }
+    
+    $value = $this->data->{$name};
+    
+    if(count($value) > 1)
+    {
+      return $value;
+    }
+    
+    $children = $value->children();
+    if(empty($children))
+    {
+      return B::convert((string) $value);
+    }
+    else
+    {
+      return $value;
+    }
+    
+    
   }
 }
 

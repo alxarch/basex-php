@@ -70,6 +70,37 @@ class SimpleXMLResultTest extends TestCase
     $this->assertXmlStringEqualsXmlString($data, $test->getXML()->asXML());
   }
   
+  function test__get()
+  {
+    $data=<<<XML
+      <root attr="value">
+        <items>
+          <item/>
+          <item/>
+        </items>
+        <test>test</test>
+        <int>3</int>
+        <bool>true</bool>
+        <f>false</f>
+        <float>3.2</float>
+        <t/>
+        <t/>
+        <t/>
+      </root>
+XML;
+    
+    $result = new SimpleXMLResult();
+    
+    $result->setData($data);
+    
+    $this->assertEquals('value', $result['attr']);
+    $this->assertEquals(3, $result->int);
+    $this->assertTrue(3.2 === $result->float);
+    $this->assertTrue(false === $result->f);
+    $this->assertTrue(true === $result->bool);
+    $this->assertInstanceOf('\SimpleXMLElement', $result->items);
+    $this->assertInstanceOf('\SimpleXMLElement', $result->t);
+  }
   
 }
 

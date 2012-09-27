@@ -57,5 +57,12 @@ class HelpersTest  extends TestCase
     $this->assertEquals("basex://database/path.xml", B::uri('database', 'path.xml'));
   }
   
+  
+  public function testCamelize()
+  {
+    $this->assertEquals('GetMe', B::camelize('get_me'));
+    $this->assertEquals('GetMe', B::camelize('Get_Me'));
+    $this->assertEquals('GetMeIfYouCan', B::camelize('get_me_if_you_can'));
+  }
       
 }

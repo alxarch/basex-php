@@ -44,6 +44,12 @@ class Helpers
     return implode($glue, $result);
   }
   
+  /**
+   * Converts php value to string form for XQuery.
+   * 
+   * @param mixed $value
+   * @return string
+   */
   static public function value($value)
   {
     switch (true)
@@ -57,11 +63,34 @@ class Helpers
         break;
       
       default:
+        return (string) $value;
+        break;
+    }
+  }
+  
+  /**
+   * Converts XQuery string value to php type.
+   * @param string $value
+   * @return mixed
+   */
+  static public function convert($value)
+  {
+    switch (true)
+    {
+      case 'true' === $value:
+        return true;
+        break;
+      case 'false' === $value:
+        return false;
+        break;
+      case is_numeric($value):
+        return preg_match('/^\d+$/', $value) ? intval($value) : floatval($value);
+        break;
+      default:
         return $value;
         break;
     }
   }
- 
   
   /**
    * Restores NUL and \xFF characters in received strings.
@@ -157,5 +186,22 @@ class Helpers
         $items[] = sprintf("%s := %s", $key, $value);
     }
     return '{'.implode(', ', $items).'}';
+  }
+  
+  static public function camelize($string)
+  {
+    while (true)
+    {
+      $pos = strpos($string, '_');
+      if(false === $pos)
+      {
+        break;
+      }
+      $string = substr($string, 0, $pos) . ucfirst(substr($string, $pos+1));
+    }
+    
+    $string[0] = strtoupper($string[0]);
+    
+    return $string;
   }
 }
