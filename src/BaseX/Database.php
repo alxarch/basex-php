@@ -342,7 +342,7 @@ class Database
    */
   public function exists($path)
   {
-    $xql = sprintf("db:exists('%s', '%s')". $this->getName(), $path);
+    $xql = sprintf("db:exists('%s', '%s')", $this->getName(), $path);
     return 'true' === $this->session->query($xql)->execute();
   }
   
