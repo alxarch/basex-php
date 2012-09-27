@@ -140,4 +140,22 @@ class Helpers
     return implode($parts);
   }
   
+  /**
+   * Serializes an array into an XQuery map declaration.
+   * 
+   * @param array $map
+   * @return string
+   */
+  static public function map($map)
+  {
+    $items = array();
+    foreach ($map as $key => $value)
+    {
+        if(false === $value) $value = 'false';
+        if(true === $value) $value = 'true';
+        if(null === $value) $value = '()';
+        $items[] = sprintf("%s := %s", $key, $value);
+    }
+    return '{'.implode(', ', $items).'}';
+  }
 }
