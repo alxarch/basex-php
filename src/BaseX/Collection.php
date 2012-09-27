@@ -86,21 +86,22 @@ class Collection extends Resource implements CollectionInterface
     
     foreach ($info->getXML()->contents->collection as $col)
     {
-      $info = new CollectionInfo();
-      $info->setData($col);
-      $result[] = new Collection($this->getSession(), $this->getDatabase(), $info->getPath(), $info);
+      $inf = new CollectionInfo();
+      $inf->setData($col);
+      $result[] = new Collection($this->getSession(), $this->getDatabase(), $inf->getPath(), $inf);
     }
+    
     foreach ($info->getXML()->contents->resource as $resource)
     {
-      $info = new ResourceInfo();
-      $info->setData($resource);
-      if($info->isRaw())
+      $inf = new ResourceInfo();
+      $inf->setData($resource);
+      if($inf->isRaw())
       {
-        $result[] = new Raw($this->getSession(), $this->getDatabase(), $info->getPath(), $info);
+        $result[] = new Raw($this->getSession(), $this->getDatabase(), $inf->getPath(), $inf);
       }
       else 
       {
-        $result[] = new Document($this->getSession(), $this->getDatabase(), $info->getPath(), $info);
+        $result[] = new Document($this->getSession(), $this->getDatabase(), $inf->getPath(), $inf);
       }
     }
     
