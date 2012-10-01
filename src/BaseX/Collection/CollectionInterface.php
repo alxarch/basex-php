@@ -17,4 +17,7 @@ interface CollectionInterface extends ResourceInterface
 {
   public function listContents();
   public function getResources($path=null);
+  public function hasChild($name);
+  public function addChild($name, $data, $raw=false);
+  public function rename($name);
 }

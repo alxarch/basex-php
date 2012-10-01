@@ -24,7 +24,11 @@ use BaseX\Resource\Document;
  */
 class Collection extends Resource implements CollectionInterface
 {
-  
+  /**
+   * Reloads collection info.
+   * 
+   * @return \BaseX\Collection $this
+   */
   public function reloadInfo() 
   {
     $info = CollectionInfo::get($this->getSession(), $this->getDatabase(), $this->getPath());
@@ -34,6 +38,12 @@ class Collection extends Resource implements CollectionInterface
     return $this;
   }
 
+  /**
+   * Set collection info.
+   * 
+   * @param \BaseX\Collection\CollectionInfo $info
+   * @return \BaseX\Collection $this
+   */
   public function setInfo($info)
   {
     if(null === $info)
@@ -161,5 +171,67 @@ class Collection extends Resource implements CollectionInterface
   protected function getMoveQuery($dest) 
   {
     throw new Error('Not implemented.');
+  }
+  
+  /**
+   * Checks collection contents for a child.
+   * 
+   * @param string $name
+   */
+  public function hasChild($name)
+  {
+    $exists = $this->getPath().'/'.addcslashes($name, '/');
+    $db = $this->getDatabase();
+    
+    return 'true' === $this->getSession()
+            ->query("db:exists('$db', '$exists')")
+            ->execute();
+  }
+  
+  public function addChild($name, $data, $raw = false) 
+  {
+    
+    $path = $this->getPath().'/'.$name;
+    
+    $this->getSession()->execute('OPEN '. $this->getDatabase());
+    
+    if($raw)
+    {
+      $this->getSession()->store($path, $data);
+    }
+    else
+    {
+      $this->getSession()->replace($path, $data);
+    }
+    
+    return $this;
+  }
+  
+  public function rename($name)
+  {
+    $db = $this->getDatabase();
+    $from = $this->getPath();
+    $to = dirname($this->getPath()) . '/' . $name;
+    $this->getSession()->query("db:rename('$db', '$from', '$to')")->execute();
+    $info = CollectionInfo::get($this->getSession(), $db, $to);
+    if(!empty($info))
+    {
+      $this->setInfo($info[0]);
+    }
+    else
+    {
+      $this->setInfo(null);
+    }
+    
+    return $this;
+  }
+  
+  public function delete() 
+  {
+    $db = $this->getDatabase();
+    $path = $this->getPath();
+    $this->getSession()->query("db:delete('$db', '$path')")->execute();
+    $this->setInfo(null);
+    $this->setPath(null);
   }
 }
