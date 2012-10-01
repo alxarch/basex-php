@@ -173,7 +173,7 @@ class QueryBuilder
   {
     $xq = array();
     
-    foreach ($this->variables as $name => $value)
+    foreach ($this->getVariables() as $name => $value)
     {
       if(null === $value)
       {
@@ -185,22 +185,22 @@ class QueryBuilder
       }
     }
     
-    foreach ($this->namespaces as $alias => $uri)
+    foreach ($this->getNamespaces() as $alias => $uri)
     {
       $xq[] = sprintf("declare namespace %s = '%s';", $alias, $uri);
     }
     
-    foreach ($this->modules as $alias => $uri)
+    foreach ($this->getModules() as $alias => $uri)
     {
       $xq[] = sprintf("import module namespace %s = '%s';", $alias, $uri);
     }
     
-    foreach ($this->parameters as $name => $value)
+    foreach ($this->getParameters() as $name => $value)
     {
       $xq[] = sprintf("declare option output:%s '%s';", $name, B::value($value));
     }
     
-    foreach ($this->options as $name => $value)
+    foreach ($this->getOptions() as $name => $value)
     {
       $xq[] = sprintf("declare option db:%s '%s';", $name, B::value($value));
     }
