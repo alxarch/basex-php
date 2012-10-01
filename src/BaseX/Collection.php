@@ -179,14 +179,15 @@ class Collection extends Resource implements CollectionInterface
    * Checks collection contents for a child.
    * 
    * @param string $name
+   * @return boolean
    */
   public function hasChild($name)
   {
     $exists = $this->getPath().'/'.addcslashes($name, '/');
     $db = $this->getDatabase();
     
-    return 'true' === $this->getSession()
-            ->query("db:exists('$db', '$exists')")
+    return 'false' === $this->getSession()
+            ->query("empty(db:list('$db', '$exists'))")
             ->execute();
   }
   
