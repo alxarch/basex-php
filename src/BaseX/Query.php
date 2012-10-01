@@ -10,7 +10,6 @@ namespace BaseX;
 
 use BaseX\Session;
 use BaseX\Session\Socket;
-use BaseX\Query\QueryResult;
 use BaseX\Query\QueryResultInterface;
 
 /** 
@@ -38,7 +37,7 @@ class Query
   /**
    * 
    *
-   * @var BaseX\Session
+   * @var \BaseX\Session
    */
   protected $session;
   
@@ -55,7 +54,7 @@ class Query
   
   /**
    *
-   * @param BaseX\Session $session The session to use
+   * @param \BaseX\Session $session The session to use
    * @param string $xquery The query to execute
    * 
    */
@@ -150,7 +149,7 @@ class Query
   /**
    * Gets the session for this query.
    * 
-   * @return BaseX\Session
+   * @return \BaseX\Session
    */
   public function getSession()
   {

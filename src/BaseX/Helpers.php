@@ -11,8 +11,6 @@ namespace BaseX;
 
 use BaseX\Session\Socket;
 use BaseX\StreamWrapper;
-use BaseX\Resource;
-use BaseX\Database;
 
 /**
  * Helper functions

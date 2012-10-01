@@ -31,7 +31,7 @@ class TestCaseDb extends TestCaseSession
   
   /**
    *
-   * @var BaseX\Database
+   * @var \BaseX\Database
    */
   protected $db = null;
   

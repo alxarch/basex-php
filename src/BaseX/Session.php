@@ -36,7 +36,7 @@ class Session
   /**
    * Socket wrapper
    * 
-   * @var BaseX\Session\Socket
+   * @var \BaseX\Session\Socket
    */
   protected $socket;
   
@@ -78,7 +78,7 @@ class Session
     * @param string $user Username
     * @param string $pass Password
     * 
-    * @throws BaseX\Error\SessionError
+    * @throws \BaseX\Error\SessionError
     */
   function __construct($host, $port, $user, $pass) 
   {
@@ -101,7 +101,7 @@ class Session
    * Redirect content output to a stream.
    * 
    * @param resource $to
-   * @return BaseX\Session $this 
+   * @return \BaseX\Session $this 
    */
   public function redirectOutput($to)
   {
@@ -122,7 +122,7 @@ class Session
   /**
    * Gets session information & options wrapper.
    * 
-   * @return BaseX\Session\SessionInfo
+   * @return \BaseX\Session\SessionInfo
    */
   public function getInfo()
   {
@@ -160,7 +160,7 @@ class Session
    * @param string $user
    * @param string  $pass
    * 
-   * @throws BaseX\Error\SessionError On failure
+   * @throws \BaseX\Error\SessionError On failure
    */
   protected function authenticate($user, $pass)
   {
@@ -313,7 +313,7 @@ class Session
    * @param string $arg
    * @param string|resource $input
    * 
-   * @throws BaseX\Error\SessionError
+   * @throws \BaseX\Error\SessionError
    */
   public function sendCommand($code, $arg, $input) 
   {
@@ -406,7 +406,7 @@ class Session
   /**
    * Flags session as locked.
    * 
-   * @return BaseX\Session $this
+   * @return \BaseX\Session $this
    */
   public function lock()
   {
@@ -417,7 +417,7 @@ class Session
   /**
    * Flags session as unlocked.
    * 
-   * @return BaseX\Session $this
+   * @return \BaseX\Session $this
    *  
    */
   public function unlock()

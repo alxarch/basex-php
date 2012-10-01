@@ -1,28 +1,31 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @package BaseX
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
  */
 
 namespace BaseX\Query;
 
 use BaseX\Query\QueryResult;
 use \SimpleXMLElement;
-use \SimpleXMLIterator;
 use \ArrayAccess;
 use BaseX\Helpers as B;
 
 /**
- * Description of SimpleXMLResult
- *
+ * Query result wrapper for xml results.
+ * 
+ * Uses SimpleXMLElement to 'magically' access values.
+ * 
  * @author alxarch
  */
 class SimpleXMLResult extends QueryResult implements ArrayAccess
 {
   /**
    *
-   * @var SimpleXMLElement
+   * @var \SimpleXMLElement
    */
   protected $data;
 
@@ -72,7 +75,7 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
   
   /**
    * 
-   * @return SimpleXMLElement
+   * @return \SimpleXMLElement
    */
   public function getXML()
   {

@@ -8,7 +8,7 @@
 	<title>File src/BaseX/Session.php | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?3580346170"></script>
+	<script type="text/javascript" src="elementlist.js?640651884"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -36,15 +36,7 @@
 						</li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
-				<li><a href="namespace-BaseX.Tests.html">Tests<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Tests.Collection.html">Collection</a>
-						</li>
-				<li><a href="namespace-BaseX.Tests.Query.html">Query</a>
-						</li>
-				<li><a href="namespace-BaseX.Tests.Resource.html">Resource</a>
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -104,6 +96,9 @@
 			<li>
 				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
 			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
 		</ul>
 		<ul>
 		</ul>
@@ -147,7 +142,7 @@
 </span><span id="36" class="l"><a class="l" href="#36"> 36: </a>  <span class="php-comment">/**
 </span></span><span id="37" class="l"><a class="l" href="#37"> 37: </a><span class="php-comment">   * Socket wrapper
 </span></span><span id="38" class="l"><a class="l" href="#38"> 38: </a><span class="php-comment">   * 
-</span></span><span id="39" class="l"><a class="l" href="#39"> 39: </a><span class="php-comment">   * @var BaseX\Session\Socket
+</span></span><span id="39" class="l"><a class="l" href="#39"> 39: </a><span class="php-comment">   * @var \BaseX\Session\Socket
 </span></span><span id="40" class="l"><a class="l" href="#40"> 40: </a><span class="php-comment">   */</span>
 </span><span id="41" class="l"><a class="l" href="#41"> 41: </a>  <span class="php-keyword1">protected</span> <span class="php-var"><a id="$socket" href="#$socket">$socket</a></span>;
 </span><span id="42" class="l"><a class="l" href="#42"> 42: </a>  
@@ -189,7 +184,7 @@
 </span></span><span id="78" class="l"><a class="l" href="#78"> 78: </a><span class="php-comment">    * @param string $user Username
 </span></span><span id="79" class="l"><a class="l" href="#79"> 79: </a><span class="php-comment">    * @param string $pass Password
 </span></span><span id="80" class="l"><a class="l" href="#80"> 80: </a><span class="php-comment">    * 
-</span></span><span id="81" class="l"><a class="l" href="#81"> 81: </a><span class="php-comment">    * @throws BaseX\Error\SessionError
+</span></span><span id="81" class="l"><a class="l" href="#81"> 81: </a><span class="php-comment">    * @throws \BaseX\Error\SessionError
 </span></span><span id="82" class="l"><a class="l" href="#82"> 82: </a><span class="php-comment">    */</span>
 </span><span id="83" class="l"><a class="l" href="#83"> 83: </a>  <span class="php-keyword1">function</span> <a id="___construct" href="#___construct">__construct</a>(<span class="php-var">$host</span>, <span class="php-var">$port</span>, <span class="php-var">$user</span>, <span class="php-var">$pass</span>) 
 </span><span id="84" class="l"><a class="l" href="#84"> 84: </a>  {
@@ -212,7 +207,7 @@
 </span></span><span id="101" class="l"><a class="l" href="#101">101: </a><span class="php-comment">   * Redirect content output to a stream.
 </span></span><span id="102" class="l"><a class="l" href="#102">102: </a><span class="php-comment">   * 
 </span></span><span id="103" class="l"><a class="l" href="#103">103: </a><span class="php-comment">   * @param resource $to
-</span></span><span id="104" class="l"><a class="l" href="#104">104: </a><span class="php-comment">   * @return BaseX\Session $this 
+</span></span><span id="104" class="l"><a class="l" href="#104">104: </a><span class="php-comment">   * @return \BaseX\Session $this 
 </span></span><span id="105" class="l"><a class="l" href="#105">105: </a><span class="php-comment">   */</span>
 </span><span id="106" class="l"><a class="l" href="#106">106: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_redirectOutput" href="#_redirectOutput">redirectOutput</a>(<span class="php-var">$to</span>)
 </span><span id="107" class="l"><a class="l" href="#107">107: </a>  {
@@ -233,7 +228,7 @@
 </span><span id="122" class="l"><a class="l" href="#122">122: </a>  <span class="php-comment">/**
 </span></span><span id="123" class="l"><a class="l" href="#123">123: </a><span class="php-comment">   * Gets session information &amp; options wrapper.
 </span></span><span id="124" class="l"><a class="l" href="#124">124: </a><span class="php-comment">   * 
-</span></span><span id="125" class="l"><a class="l" href="#125">125: </a><span class="php-comment">   * @return BaseX\Session\SessionInfo
+</span></span><span id="125" class="l"><a class="l" href="#125">125: </a><span class="php-comment">   * @return \BaseX\Session\SessionInfo
 </span></span><span id="126" class="l"><a class="l" href="#126">126: </a><span class="php-comment">   */</span>
 </span><span id="127" class="l"><a class="l" href="#127">127: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getInfo" href="#_getInfo">getInfo</a>()
 </span><span id="128" class="l"><a class="l" href="#128">128: </a>  {
@@ -271,7 +266,7 @@
 </span></span><span id="160" class="l"><a class="l" href="#160">160: </a><span class="php-comment">   * @param string $user
 </span></span><span id="161" class="l"><a class="l" href="#161">161: </a><span class="php-comment">   * @param string  $pass
 </span></span><span id="162" class="l"><a class="l" href="#162">162: </a><span class="php-comment">   * 
-</span></span><span id="163" class="l"><a class="l" href="#163">163: </a><span class="php-comment">   * @throws BaseX\Error\SessionError On failure
+</span></span><span id="163" class="l"><a class="l" href="#163">163: </a><span class="php-comment">   * @throws \BaseX\Error\SessionError On failure
 </span></span><span id="164" class="l"><a class="l" href="#164">164: </a><span class="php-comment">   */</span>
 </span><span id="165" class="l"><a class="l" href="#165">165: </a>  <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> <a id="_authenticate" href="#_authenticate">authenticate</a>(<span class="php-var">$user</span>, <span class="php-var">$pass</span>)
 </span><span id="166" class="l"><a class="l" href="#166">166: </a>  {
@@ -424,7 +419,7 @@
 </span></span><span id="313" class="l"><a class="l" href="#313">313: </a><span class="php-comment">   * @param string $arg
 </span></span><span id="314" class="l"><a class="l" href="#314">314: </a><span class="php-comment">   * @param string|resource $input
 </span></span><span id="315" class="l"><a class="l" href="#315">315: </a><span class="php-comment">   * 
-</span></span><span id="316" class="l"><a class="l" href="#316">316: </a><span class="php-comment">   * @throws BaseX\Error\SessionError
+</span></span><span id="316" class="l"><a class="l" href="#316">316: </a><span class="php-comment">   * @throws \BaseX\Error\SessionError
 </span></span><span id="317" class="l"><a class="l" href="#317">317: </a><span class="php-comment">   */</span>
 </span><span id="318" class="l"><a class="l" href="#318">318: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_sendCommand" href="#_sendCommand">sendCommand</a>(<span class="php-var">$code</span>, <span class="php-var">$arg</span>, <span class="php-var">$input</span>) 
 </span><span id="319" class="l"><a class="l" href="#319">319: </a>  {
@@ -517,7 +512,7 @@
 </span><span id="406" class="l"><a class="l" href="#406">406: </a>  <span class="php-comment">/**
 </span></span><span id="407" class="l"><a class="l" href="#407">407: </a><span class="php-comment">   * Flags session as locked.
 </span></span><span id="408" class="l"><a class="l" href="#408">408: </a><span class="php-comment">   * 
-</span></span><span id="409" class="l"><a class="l" href="#409">409: </a><span class="php-comment">   * @return BaseX\Session $this
+</span></span><span id="409" class="l"><a class="l" href="#409">409: </a><span class="php-comment">   * @return \BaseX\Session $this
 </span></span><span id="410" class="l"><a class="l" href="#410">410: </a><span class="php-comment">   */</span>
 </span><span id="411" class="l"><a class="l" href="#411">411: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_lock" href="#_lock">lock</a>()
 </span><span id="412" class="l"><a class="l" href="#412">412: </a>  {
@@ -528,7 +523,7 @@
 </span><span id="417" class="l"><a class="l" href="#417">417: </a>  <span class="php-comment">/**
 </span></span><span id="418" class="l"><a class="l" href="#418">418: </a><span class="php-comment">   * Flags session as unlocked.
 </span></span><span id="419" class="l"><a class="l" href="#419">419: </a><span class="php-comment">   * 
-</span></span><span id="420" class="l"><a class="l" href="#420">420: </a><span class="php-comment">   * @return BaseX\Session $this
+</span></span><span id="420" class="l"><a class="l" href="#420">420: </a><span class="php-comment">   * @return \BaseX\Session $this
 </span></span><span id="421" class="l"><a class="l" href="#421">421: </a><span class="php-comment">   *  
 </span></span><span id="422" class="l"><a class="l" href="#422">422: </a><span class="php-comment">   */</span>
 </span><span id="423" class="l"><a class="l" href="#423">423: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_unlock" href="#_unlock">unlock</a>()

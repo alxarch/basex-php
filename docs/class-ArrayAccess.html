@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Interface BaseX\Query\QueryResultInterface | basex-php</title>
+	<title>Interface ArrayAccess | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
 	<script type="text/javascript" src="elementlist.js?640651884"></script>
@@ -21,7 +21,7 @@
 		<div id="groups">
 			<h3>Namespaces</h3>
 			<ul>
-				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
+				<li><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Collection.html">Collection</a>
 						</li>
@@ -29,14 +29,14 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li class="active"><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
 				<li><a href="namespace-BaseX.Resource.html">Resource</a>
 						</li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-PHP.html">PHP</a>
+				<li class="active"><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
 		</div>
@@ -47,17 +47,24 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-BaseX.Query.QueryBuilder.html">QueryBuilder</a></li>
-				<li><a href="class-BaseX.Query.QueryResult.html">QueryResult</a></li>
-				<li><a href="class-BaseX.Query.SimpleXMLResult.html">SimpleXMLResult</a></li>
+				<li><a href="class-DOMDocument.html">DOMDocument</a></li>
+				<li><a href="class-DOMNode.html">DOMNode</a></li>
+				<li><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
 			<ul>
-				<li class="active"><a href="class-BaseX.Query.QueryResultInterface.html">QueryResultInterface</a></li>
+				<li class="active"><a href="class-ArrayAccess.html">ArrayAccess</a></li>
+				<li><a href="class-Traversable.html">Traversable</a></li>
 			</ul>
 
 
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Exception.html">Exception</a></li>
+				<li><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></li>
+				<li><a href="class-LogicException.html">LogicException</a></li>
+			</ul>
 
 
 		</div>
@@ -81,7 +88,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-BaseX.Query.html" title="Summary of BaseX\Query"><span>Namespace</span></a>
+				<a href="namespace-PHP.html" title="Summary of PHP"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -99,14 +106,9 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Interface QueryResultInterface</h1>
+	<h1>Interface ArrayAccess</h1>
 
 
-	<div class="description">
-	
-<p>Interface for query result wrappers.</p>
-
-	</div>
 
 
 
@@ -114,13 +116,12 @@
 
 	<div>
 		<h4>Direct known implementers</h4>
-			<a href="class-BaseX.Query.QueryResult.html">BaseX\Query\QueryResult</a>
+			<a href="class-BaseX.Query.SimpleXMLResult.html">BaseX\Query\SimpleXMLResult</a>
 	</div>
 
 	<div>
 		<h4>Indirect known implementers</h4>
 			<a href="class-BaseX.Collection.CollectionInfo.html">BaseX\Collection\CollectionInfo</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html">BaseX\Query\SimpleXMLResult</a>, 
 			<a href="class-BaseX.Resource.ResourceInfo.html">BaseX\Resource\ResourceInfo</a>, 
 			<a href="class-BaseX.Session.SessionInfo.html">BaseX\Session\SessionInfo</a>
 	</div>
@@ -129,20 +130,18 @@
 
 	<div class="info">
 		
+		<b>PHP Extension:</b> <a href="http://php.net/manual" title="Go to PHP documentation">Core</a><br />
 		
-		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Query.html">Query</a><br />
 		
 
-				<b>Author:</b>
-				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Query.QueryResultInterface.html#12-25" title="Go to source code">src/BaseX/Query/QueryResultInterface.php</a><br />
+		<b>Documented at</b> <a href="http://php.net/manual/class.arrayaccess.php" title="Go to PHP documentation">php.net</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="getData" id="_getData">
+	<tr data-order="offsetExists" id="_offsetExists">
 
 		<td class="attributes"><code>
 			 public 
@@ -152,8 +151,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getData">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResultInterface.html#19" title="Go to source code">getData</a>( )</code>
+		<a class="anchor" href="#_offsetExists">#</a>
+		<code><a href="http://php.net/manual/arrayaccess.offsetexists.php" title="Go to PHP documentation">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
 
 		<div class="description short">
 			
@@ -171,7 +170,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setData" id="_setData">
+	<tr data-order="offsetGet" id="_offsetGet">
 
 		<td class="attributes"><code>
 			 public 
@@ -181,8 +180,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setData">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResultInterface.html#20" title="Go to source code">setData</a>( <span>mixed <var>$data</var></span> )</code>
+		<a class="anchor" href="#_offsetGet">#</a>
+		<code><a href="http://php.net/manual/arrayaccess.offsetget.php" title="Go to PHP documentation">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
 
 		<div class="description short">
 			
@@ -200,7 +199,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getType" id="_getType">
+	<tr data-order="offsetSet" id="_offsetSet">
 
 		<td class="attributes"><code>
 			 public 
@@ -210,8 +209,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getType">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResultInterface.html#21" title="Go to source code">getType</a>( )</code>
+		<a class="anchor" href="#_offsetSet">#</a>
+		<code><a href="http://php.net/manual/arrayaccess.offsetset.php" title="Go to PHP documentation">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
@@ -229,7 +228,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="setType" id="_setType">
+	<tr data-order="offsetUnset" id="_offsetUnset">
 
 		<td class="attributes"><code>
 			 public 
@@ -239,37 +238,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setType">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResultInterface.html#22" title="Go to source code">setType</a>( <span>mixed <var>$type</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getSupportedTypes" id="_getSupportedTypes">
-
-		<td class="attributes"><code>
-			 public static
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getSupportedTypes">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResultInterface.html#24" title="Go to source code">getSupportedTypes</a>( )</code>
+		<a class="anchor" href="#_offsetUnset">#</a>
+		<code><a href="http://php.net/manual/arrayaccess.offsetunset.php" title="Go to PHP documentation">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
 
 		<div class="description short">
 			

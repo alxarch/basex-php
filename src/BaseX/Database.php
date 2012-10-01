@@ -16,7 +16,12 @@ use BaseX\Helpers as B;
 
 /**
  * BaseX Database object.
+ * 
  * @package BaseX
+ * 
+ * @todo Isolate only database-specific functionality in this class, 
+ * move everything else (add, delete, rename etc) to Collection
+ * 
  */
 class Database
 {
@@ -39,7 +44,7 @@ class Database
    * If the database does not exist (and the session user has the required 
    * privileges) it will be created.
    * 
-   * @param Session $session a BaseX\Session to use
+   * @param \BaseX\Session $session a BaseX\Session to use
    * @param string $name database name
    */
   public function __construct(Session $session, $name)

@@ -7,7 +7,7 @@
 	<title>Class BaseX\Collection\CollectionInfo | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?3580346170"></script>
+	<script type="text/javascript" src="elementlist.js?640651884"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -35,15 +35,7 @@
 						</li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
-				<li><a href="namespace-BaseX.Tests.html">Tests<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Tests.Collection.html">Collection</a>
-						</li>
-				<li><a href="namespace-BaseX.Tests.Query.html">Query</a>
-						</li>
-				<li><a href="namespace-BaseX.Tests.Resource.html">Resource</a>
-						</li>
-							</ul></li></ul></li>
+							</ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -96,6 +88,9 @@
 			<li>
 				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
 			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
 		</ul>
 		<ul>
 		</ul>
@@ -107,7 +102,7 @@
 
 	<div class="description">
 	
-<p>Description of CollectionInfo</p>
+<p>Query result wrapper for Collection Info</p>
 
 	</div>
 
@@ -124,6 +119,8 @@
 			<img src="resources/inherit.png" alt="Extended by" />
 			<a href="class-BaseX.Query.SimpleXMLResult.html"><span>BaseX\Query\SimpleXMLResult</span></a>
 			
+			 implements 
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>
 			
 			
 		</dd>
@@ -150,7 +147,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Collection.CollectionInfo.html#13-78" title="Go to source code">src/BaseX/Collection/CollectionInfo.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Collection.CollectionInfo.html#16-81" title="Go to source code">src/BaseX/Collection/CollectionInfo.php</a><br />
 	</div>
 
 
@@ -168,7 +165,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setData">#</a>
-		<code><a href="source-class-BaseX.Collection.CollectionInfo.html#21-30" title="Go to source code">setData</a>( <span>mixed <var>$data</var></span> )</code>
+		<code><a href="source-class-BaseX.Collection.CollectionInfo.html#24-33" title="Go to source code">setData</a>( <span>mixed <var>$data</var></span> )</code>
 
 		<div class="description short">
 			
@@ -212,7 +209,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-BaseX.Collection.CollectionInfo.html#32-67" title="Go to source code">get</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>mixed <var>$db</var></span>, <span>mixed <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Collection.CollectionInfo.html#35-70" title="Go to source code">get</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>mixed <var>$db</var></span>, <span>mixed <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -241,7 +238,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPath">#</a>
-		<code><a href="source-class-BaseX.Collection.CollectionInfo.html#69-72" title="Go to source code">getPath</a>( )</code>
+		<code><a href="source-class-BaseX.Collection.CollectionInfo.html#72-75" title="Go to source code">getPath</a>( )</code>
 
 		<div class="description short">
 			
@@ -270,7 +267,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getModifiedDate">#</a>
-		<code><a href="source-class-BaseX.Collection.CollectionInfo.html#74-77" title="Go to source code">getModifiedDate</a>( )</code>
+		<code><a href="source-class-BaseX.Collection.CollectionInfo.html#77-80" title="Go to source code">getModifiedDate</a>( )</code>
 
 		<div class="description short">
 			
@@ -294,9 +291,14 @@
 	<caption>Methods inherited from <a href="class-BaseX.Query.SimpleXMLResult.html#methods">BaseX\Query\SimpleXMLResult</a></caption>
 	<tr>
 		<td><code>
+			<a href="class-BaseX.Query.SimpleXMLResult.html#___get">__get()</a>, 
 			<a href="class-BaseX.Query.SimpleXMLResult.html#_getData">getData()</a>, 
 			<a href="class-BaseX.Query.SimpleXMLResult.html#_getSupportedTypes">getSupportedTypes()</a>, 
 			<a href="class-BaseX.Query.SimpleXMLResult.html#_getXML">getXML()</a>, 
+			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetExists">offsetExists()</a>, 
+			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetGet">offsetGet()</a>, 
+			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetSet">offsetSet()</a>, 
+			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetUnset">offsetUnset()</a>, 
 			<a href="class-BaseX.Query.SimpleXMLResult.html#_xpath">xpath()</a>
 		</code></td>
 	</tr>

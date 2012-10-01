@@ -31,10 +31,7 @@ class Document extends Raw
   protected $xml = null;
   
   /**
-   * Constructor
-   * 
-   * @param Database $db
-   * @param string $path 
+   * Check to see if resource is a valid document.
    */
   protected function init()
   {

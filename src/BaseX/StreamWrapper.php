@@ -12,8 +12,6 @@ namespace BaseX;
 use BaseX\Helpers as B;
 use BaseX\Session;
 use BaseX\Session\Socket;
-use BaseX\Resource\Raw;
-use BaseX\Resource\Document;
 use BaseX\Resource\ResourceInfo;
 
 /**

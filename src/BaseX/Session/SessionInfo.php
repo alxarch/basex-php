@@ -13,7 +13,7 @@ use BaseX\Query\SimpleXMLResult;
 
 
 /**
- * Session information and orptions.
+ * Session information and options.
  * 
  * @package BaseX
  */

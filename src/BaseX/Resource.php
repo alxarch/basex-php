@@ -154,7 +154,7 @@ abstract class Resource implements ResourceInterface
   /**
    * The name of the database this document belongs to.
    * 
-   * @return BaseX\Session
+   * @return \BaseX\Session
    */
   public function getSession()
   {

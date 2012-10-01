@@ -10,7 +10,7 @@
 namespace BaseX\Resource;
 
 /**
- * Interface for resources
+ * Interface for BaseX Resources
  * 
  * @package BaseX
  */
