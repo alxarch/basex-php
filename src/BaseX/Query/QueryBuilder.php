@@ -273,7 +273,8 @@ class QueryBuilder
   
   public static function begin()
   {
-    return new QueryBuilder();
+    $class = get_called_class();
+    return new $class();
   }
   
 }
