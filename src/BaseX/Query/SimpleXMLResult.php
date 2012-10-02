@@ -110,6 +110,11 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
     return isset($this->data[$offset]) ? (string) $this->data[$offset] : null;
   }
   
+  public function __isset($name)
+  {
+    return isset($this->data->{$name});
+  }
+  
   public function __get($name) 
   {
     $method = 'get'.  B::camelize($name);
