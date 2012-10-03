@@ -113,6 +113,6 @@ class Raw extends Resource
   
   public function getFilePath()
   {
-    return $this->getSession()->dbpath . '/'.$this->getDatabase().'/raw/'.$this->getPath();
+    return $this->getSession()->getInfo()->dbpath . '/'.$this->getDatabase().'/raw/'.$this->getPath();
   }
 }
