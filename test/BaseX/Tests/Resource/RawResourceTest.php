@@ -174,6 +174,18 @@ class RawResourceTest extends TestCaseDb
     
     $this->assertEquals($contents, $original->getContents());
   }
+  
+  public function testGetFilePath()
+  {
+    $contents = md5(time());
+    $this->db->store('test.txt', $contents);
+    $raw = new Raw($this->session, $this->dbname, 'test.txt');
+    
+    $dbpath = $this->session->query('db:system()/mainoptions/dbpath/text()')->execute();
+    $file = $dbpath.'/'.$this->dbname.'/raw/test.txt';
+    $this->assertFileExists($file);
+    $this->assertEquals($file, $raw->getFilePath());
+  }
     
   function tearDown()
   {
