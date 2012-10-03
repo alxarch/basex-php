@@ -10,6 +10,10 @@
 namespace BaseX;
 
 use BaseX\Session;
+use BaseX\Collection;
+use BaseX\Resource\Raw;
+use BaseX\Resource\ResourceInfo;
+use BaseX\Resource\Document;
 use BaseX\Query\QueryBuilder;
 use BaseX\Error;
 use BaseX\Helpers as B;
@@ -76,25 +80,36 @@ class Database
    *
    * @param string $path
    * @param string|resource $input
+   * 
+   * @return BaseX\Resource\Document The created document
    */
   public function add($path, $input)
   {
-    $this->open();
-    $this->session->add($path, $input);
+    $this->open()->getSession()->add($path, $input);
+    return new Document($this->getSession(), $this->getName(), $path);
   }
   
   /**
-   * Replaces a document.
+   * Replaces a resource.
    * 
    * @link http://docs.basex.org/wiki/Commands#REPLACE
    * 
    * @param string $path
    * @param string|resource $input
+   * @return BaseX\Resource The replaced resource
    */
   public function replace($path, $input)
   {
-    $this->open();
-    $this->session->replace($path, $input);
+    $this->open()->getSession()->replace($path, $input);
+    $info = array_shift(ResourceInfo::get($this->getSession(), $this->getName(), $path));
+    if($info->isRaw())
+    {
+      return new Raw($this->getSession(), $this->getName(), $path, $info);
+    }
+    else
+    {
+      return new Document($this->getSession(), $this->getName(), $path, $info);
+    }
   }
   
   /**
@@ -104,11 +119,13 @@ class Database
    * 
    * @param string $path
    * @param string|resource $input
+   * 
+   * @return BaseX\Resource\Raw the created resource
    */
   public function store($path, $input)
   {
-    $this->open();
-    $this->session->store($path, $input);
+    $this->open()->getSession()->store($path, $input);
+    return new Raw($this->getSession(), $this->getName(), $path);
   }
   
   /**
@@ -421,5 +438,13 @@ XQL;
   public function __toString()
   {
     return $this->getName();
+  }
+  
+  /**
+   * @return \BaseX\Collection
+   */
+  public function getCollection($path='')
+  {
+    return new Collection($this->getSession(), $this->getName(), $path);
   }
 }

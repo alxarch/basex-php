@@ -129,7 +129,7 @@
 				<b>Todo:</b>
 				Isolate only database-specific functionality in this class, move everything else
 (add, delete, rename etc) to Collection<br />
-		<b>Located at</b> <a href="source-class-BaseX.Database.html#17-425" title="Go to source code">src/BaseX/Database.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Database.html#21-450" title="Go to source code">src/BaseX/Database.php</a><br />
 	</div>
 
 
@@ -147,7 +147,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-BaseX.Database.html#41-60" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#45-64" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -190,7 +190,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-BaseX.Database.html#62-70" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-BaseX.Database.html#66-74" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			
@@ -220,14 +220,14 @@ privileges) it will be created.</p>
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-BaseX.Resource.Document.html">BaseX\Resource\Document</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_add">#</a>
-		<code><a href="source-class-BaseX.Database.html#72-84" title="Go to source code">add</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#76-90" title="Go to source code">add</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
 
 		<div class="description short">
 			
@@ -249,6 +249,10 @@ privileges) it will be created.</p>
 					<dd><code>string|resource</code><br>$input</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Resource.Document.html">BaseX\Resource\Document</a></code></code><br>The created document<br />
+				</div>
 
 
 				<h4>Link</h4>
@@ -264,24 +268,24 @@ privileges) it will be created.</p>
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-BaseX.Resource.html">BaseX\Resource</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_replace">#</a>
-		<code><a href="source-class-BaseX.Database.html#86-98" title="Go to source code">replace</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#92-113" title="Go to source code">replace</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Replaces a document.</p>
+<p>Replaces a resource.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Replaces a document.</p>
+<p>Replaces a resource.</p>
 
 
 
@@ -293,6 +297,10 @@ privileges) it will be created.</p>
 					<dd><code>string|resource</code><br>$input</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Resource.html">BaseX\Resource</a></code></code><br>The replaced resource<br />
+				</div>
 
 
 				<h4>Link</h4>
@@ -308,14 +316,14 @@ privileges) it will be created.</p>
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-BaseX.Resource.Raw.html">BaseX\Resource\Raw</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_store">#</a>
-		<code><a href="source-class-BaseX.Database.html#100-112" title="Go to source code">store</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#115-129" title="Go to source code">store</a>( <span>string <var>$path</var></span>, <span>string|resource <var>$input</var></span> )</code>
 
 		<div class="description short">
 			
@@ -337,6 +345,10 @@ privileges) it will be created.</p>
 					<dd><code>string|resource</code><br>$input</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Resource.Raw.html">BaseX\Resource\Raw</a></code></code><br>the created resource<br />
+				</div>
 
 
 				<h4>Link</h4>
@@ -359,7 +371,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_execute">#</a>
-		<code><a href="source-class-BaseX.Database.html#114-125" title="Go to source code">execute</a>( <span>string <var>$command</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#131-142" title="Go to source code">execute</a>( <span>string <var>$command</var></span> )</code>
 
 		<div class="description short">
 			
@@ -405,7 +417,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-BaseX.Database.html#127-139" title="Go to source code">delete</a>( <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#144-156" title="Go to source code">delete</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -447,7 +459,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_rename">#</a>
-		<code><a href="source-class-BaseX.Database.html#141-154" title="Go to source code">rename</a>( <span>string <var>$old</var></span>, <span>mixed <var>$new</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#158-171" title="Go to source code">rename</a>( <span>string <var>$old</var></span>, <span>mixed <var>$new</var></span> )</code>
 
 		<div class="description short">
 			
@@ -491,7 +503,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getResources">#</a>
-		<code><a href="source-class-BaseX.Database.html#156-166" title="Go to source code">getResources</a>( <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#173-183" title="Go to source code">getResources</a>( <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -533,7 +545,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addXML">#</a>
-		<code><a href="source-class-BaseX.Database.html#168-181" title="Go to source code">addXML</a>( <span>string <var>$path</var></span>, <span>mixed <var>$input</var></span>, <span>string <var>$filter</var> = <span class="php-quote">&quot;*.xml&quot;</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#185-198" title="Go to source code">addXML</a>( <span>string <var>$path</var></span>, <span>mixed <var>$input</var></span>, <span>string <var>$filter</var> = <span class="php-quote">&quot;*.xml&quot;</span></span> )</code>
 
 		<div class="description short">
 			
@@ -579,7 +591,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addHTML">#</a>
-		<code><a href="source-class-BaseX.Database.html#183-205" title="Go to source code">addHTML</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.html'</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#200-222" title="Go to source code">addHTML</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.html'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -627,7 +639,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addJSON">#</a>
-		<code><a href="source-class-BaseX.Database.html#207-229" title="Go to source code">addJSON</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.json'</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#224-246" title="Go to source code">addJSON</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.json'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -674,7 +686,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addCSV">#</a>
-		<code><a href="source-class-BaseX.Database.html#231-255" title="Go to source code">addCSV</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.csv'</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#248-272" title="Go to source code">addCSV</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*.csv'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -721,7 +733,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addText">#</a>
-		<code><a href="source-class-BaseX.Database.html#257-279" title="Go to source code">addText</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*'</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#274-296" title="Go to source code">addText</a>( <span>type <var>$path</var></span>, <span>type <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$filter</var> = <span class="php-quote">'*'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -768,7 +780,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_doAdd">#</a>
-		<code><a href="source-class-BaseX.Database.html#281-309" title="Go to source code">doAdd</a>( <span>mixed <var>$path</var></span>, <span>mixed <var>$input</var></span>, <span>mixed <var>$parser</var></span>, <span>mixed <var>$options</var></span>, <span>mixed <var>$filter</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#298-326" title="Go to source code">doAdd</a>( <span>mixed <var>$path</var></span>, <span>mixed <var>$input</var></span>, <span>mixed <var>$parser</var></span>, <span>mixed <var>$options</var></span>, <span>mixed <var>$filter</var></span> )</code>
 
 		<div class="description short">
 			
@@ -797,7 +809,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_open">#</a>
-		<code><a href="source-class-BaseX.Database.html#311-315" title="Go to source code">open</a>( )</code>
+		<code><a href="source-class-BaseX.Database.html#328-332" title="Go to source code">open</a>( )</code>
 
 		<div class="description short">
 			
@@ -826,7 +838,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_fetch">#</a>
-		<code><a href="source-class-BaseX.Database.html#317-342" title="Go to source code">fetch</a>( <span>string <var>$path</var></span>, <span>boolean <var>$raw</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#334-359" title="Go to source code">fetch</a>( <span>string <var>$path</var></span>, <span>boolean <var>$raw</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -870,7 +882,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-BaseX.Database.html#344-352" title="Go to source code">exists</a>( <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#361-369" title="Go to source code">exists</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -908,7 +920,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_xpath">#</a>
-		<code><a href="source-class-BaseX.Database.html#354-369" title="Go to source code">xpath</a>( <span>string <var>$xpath</var></span>, <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#371-386" title="Go to source code">xpath</a>( <span>string <var>$xpath</var></span>, <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -952,7 +964,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSession">#</a>
-		<code><a href="source-class-BaseX.Database.html#371-378" title="Go to source code">getSession</a>( )</code>
+		<code><a href="source-class-BaseX.Database.html#388-395" title="Go to source code">getSession</a>( )</code>
 
 		<div class="description short">
 			
@@ -985,7 +997,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContents">#</a>
-		<code><a href="source-class-BaseX.Database.html#380-419" title="Go to source code">getContents</a>( <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#397-436" title="Go to source code">getContents</a>( <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1033,7 +1045,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-BaseX.Database.html#421-424" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-BaseX.Database.html#438-441" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			
@@ -1044,6 +1056,39 @@ privileges) it will be created.</p>
 
 
 
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCollection" id="_getCollection">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Collection.html">BaseX\Collection</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCollection">#</a>
+		<code><a href="source-class-BaseX.Database.html#443-449" title="Go to source code">getCollection</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Collection.html">BaseX\Collection</a></code></code><br />
+				</div>
 
 
 
@@ -1073,7 +1118,7 @@ privileges) it will be created.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Database.html#29-33" title="Go to source code"><var>$session</var></a>
+				<a href="source-class-BaseX.Database.html#33-37" title="Go to source code"><var>$session</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -1096,7 +1141,7 @@ privileges) it will be created.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Database.html#35-39" title="Go to source code"><var>$name</var></a>
+				<a href="source-class-BaseX.Database.html#39-43" title="Go to source code"><var>$name</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

@@ -110,4 +110,9 @@ class Raw extends Resource
     
     fclose($stream);
   }
+  
+  public function getFilePath()
+  {
+    return $this->getSession()->dbpath . '/'.$this->getDatabase().'/raw/'.$this->getPath();
+  }
 }
