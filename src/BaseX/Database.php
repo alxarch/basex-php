@@ -101,7 +101,8 @@ class Database
   public function replace($path, $input)
   {
     $this->open()->getSession()->replace($path, $input);
-    $info = array_shift(ResourceInfo::get($this->getSession(), $this->getName(), $path));
+    $results = ResourceInfo::get($this->getSession(), $this->getName(), $path);
+    $info = array_shift($results);
     if($info->isRaw())
     {
       return new Raw($this->getSession(), $this->getName(), $path, $info);

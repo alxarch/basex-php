@@ -105,7 +105,7 @@ class DatabaseTest extends TestCaseDb
     $this->assertEquals($input, $contents);
     
     // Make sure the serializer is set back to the default.
-    $this->assertEquals("SERIALIZER: \n", $this->session->execute('GET SERIALIZER'));
+    $this->assertRegExp('/^SERIALIZER:\s+/', $this->session->execute('GET SERIALIZER'));
     $this->db->delete($path);
     
     $path = 'test.xml';

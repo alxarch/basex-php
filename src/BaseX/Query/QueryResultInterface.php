@@ -9,6 +9,7 @@
 
 namespace BaseX\Query;
 
+use BaseX\Session;
 /**
  * Interface for query result wrappers.
  * 
@@ -16,6 +17,8 @@ namespace BaseX\Query;
  */
 interface QueryResultInterface 
 {
+  public function setSession(Session $session=null);
+  public function getSession();
   public function getData();
   public function setData($data);
   public function getType();

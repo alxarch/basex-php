@@ -10,6 +10,7 @@
 namespace BaseX\Query;
 
 use BaseX\Query\QueryResultInterface;
+use BaseX\Session;
 
 /**
  * Wrapper class for Query Results
@@ -20,7 +21,16 @@ class QueryResult implements QueryResultInterface
 {
   protected $type;
   protected $data;
+  protected $session;
   
+  public function getSession() {
+    return $this->session;
+  }
+  public function setSession(Session $session = null) {
+    $this->session = $session;
+    return $this;
+  }
+
   public static function getSupportedTypes() 
   {
     return array_merge(range(7, 15), range(32, 83));

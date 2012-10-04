@@ -222,7 +222,8 @@ class QueryBuilderTest extends TestCase
   public function testBuild()
   {
     $vars = array('contents' => "Hello World!");
-    $w = QueryBuilder::begin()->setBody('<body>{$contents}</body>')->addExternalVariables($vars);
+    $w = QueryBuilder::begin();
+    $w->setBody('<body>{$contents}</body>')->addExternalVariables($vars);
     
     $opts = array('chop' => 'false');
     $params = array('method' => 'xml');
@@ -234,14 +235,14 @@ class QueryBuilderTest extends TestCase
       ->setNamespaces($namespaces)
       ->setModules($modules);
     
-    $expect = <<<XQL
-declare variable \$contents external := 'Hello World!';
-declare namespace tei = 'http://www.tei-c.org/ns/1.0';
-import module namespace functx = 'http://www.functx.com';
-declare option output:method 'xml';
-declare option db:chop 'false';
-<body>{\$contents}</body>
-XQL;
+    $expect = implode("\n", array(
+      "declare variable \$contents external := 'Hello World!';",
+      "declare namespace tei = 'http://www.tei-c.org/ns/1.0';",
+      "import module namespace functx = 'http://www.functx.com';",
+      "declare option output:method 'xml';",
+      "declare option db:chop 'false';",
+      "<body>{\$contents}</body>",
+    ));
     
     $this->assertEquals($expect, $w->build());
   }

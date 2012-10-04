@@ -46,7 +46,9 @@ class Document extends Raw
    */
   public function getXML()
   {
-    return XML::loadXML($this->getContents());
+    $xml = new XML();
+    $xml->loadXML($this->getContents());
+    return $xml;
   }
   
   /**

@@ -226,6 +226,7 @@ class Query
   
   protected function bindResult(QueryResultInterface $result, $data, $type = null)
   {
+    $result->setSession($this->getSession());
     if(null === $type)
     {
       return $result->setData($data);
