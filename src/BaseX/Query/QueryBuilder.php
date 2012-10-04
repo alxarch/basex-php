@@ -181,7 +181,7 @@ class QueryBuilder
       }
       else
       {
-        $xq[] = sprintf("declare variable $%s external := '%s';", $name, $value);
+        $xq[] = sprintf("declare variable $%s external := %s;", $name, B::value($value));
       }
     }
     
@@ -197,12 +197,12 @@ class QueryBuilder
     
     foreach ($this->getParameters() as $name => $value)
     {
-      $xq[] = sprintf("declare option output:%s '%s';", $name, B::value($value));
+      $xq[] = sprintf("declare option output:%s %s;", $name, B::value($value));
     }
     
     foreach ($this->getOptions() as $name => $value)
     {
-      $xq[] = sprintf("declare option db:%s '%s';", $name, B::value($value));
+      $xq[] = sprintf("declare option db:%s %s;", $name, B::value($value));
     }
     
     

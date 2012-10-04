@@ -64,5 +64,25 @@ class HelpersTest  extends TestCase
     $this->assertEquals('GetMe', B::camelize('Get_Me'));
     $this->assertEquals('GetMeIfYouCan', B::camelize('get_me_if_you_can'));
   }
+  
+  public function testValue()
+  {
+    $this->assertEquals('()', B::value(null));
+    $this->assertEquals('(1,2)', B::value(array(1,2)));
+    $this->assertEquals("('a','b')", B::value(array('a','b')));
+    $this->assertEquals('true()', B::value(true));
+    $this->assertEquals('false()', B::value(false));
+    $this->assertEquals("'test'", B::value('test'));
+  }
+  
+  public function testMap()
+  {
+    $this->assertEquals("{}", B::map(array()));
+    $this->assertEquals("{'a' := 'banana', 'b' := 'test'}", B::map(array(
+        'a' => 'banana',
+        'b' => 'test'
+    )));
+    
+  }
       
 }

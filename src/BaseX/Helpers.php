@@ -52,16 +52,30 @@ class Helpers
   {
     switch (true)
     {
-      case true === $value:
-        return 'true';
-        break;
-      
       case false === $value:
-        return 'false';
+        return 'false()';
         break;
-      
+      case true === $value:
+        return 'true()';
+        break;
+      case null === $value:
+        return '()';
+        break;
+      case is_array($value):
+        $result = array();
+        foreach ($value as $v){
+          $result[] = self::value($v);
+        }
+        return '('.implode(',', $result).')';
+        break;
+      case is_string($value):
+        return "'$value'";
+        break;
+      case is_numeric($value):
+        return "$value";
+        break;
       default:
-        return (string) $value;
+        return sprintf("'%s'", $value);
         break;
     }
   }
@@ -178,11 +192,16 @@ class Helpers
     $items = array();
     foreach ($map as $key => $value)
     {
-        if(false === $value) $value = 'false';
-        if(true === $value) $value = 'true';
-        if(null === $value) $value = '()';
-        $items[] = sprintf("%s := %s", $key, $value);
+      if(is_int($key))
+      {
+        $items[] = sprintf("%d := %s", $key, self::value($value));
+      }
+      else
+      {
+        $items[] = sprintf("'%s' := %s", $key, self::value($value));
+      }
     }
+    
     return '{'.implode(', ', $items).'}';
   }
   

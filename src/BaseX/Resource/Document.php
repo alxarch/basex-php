@@ -77,7 +77,7 @@ class Document extends Raw
   {
     $xql = sprintf("db:open('%s', '%s')", $this->getDatabase(), $this->getPath());
     return QueryBuilder::begin()
-            ->setParameter('omit-xml-declaration', false)
+            ->setParameter('omit-xml-declaration', 'false')
             ->setBody($xql)
             ->getQuery($this->getSession());
   }

@@ -353,7 +353,7 @@ class Database
     else
     {
       $q->setBody("db:open('$db', '$path')")
-        ->setParameter('omit-xml-declaration', false);
+        ->setParameter('omit-xml-declaration', 'false');
     }
     
     return $q->getQuery($this->getSession())->execute();
