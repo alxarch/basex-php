@@ -107,6 +107,13 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
 
   public function offsetGet($offset) 
   {
+    $method = 'get'.  B::camelize($offset);
+    
+    if(method_exists($this, $method))
+    {
+      return $this->{$method}();
+    }
+    
     return isset($this->data[$offset]) ? (string) $this->data[$offset] : null;
   }
   
