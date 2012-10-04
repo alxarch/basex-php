@@ -73,6 +73,10 @@ class HelpersTest  extends TestCase
     $this->assertEquals('true()', B::value(true));
     $this->assertEquals('false()', B::value(false));
     $this->assertEquals("'test'", B::value('test'));
+    $this->assertEquals("map {'a' := 'banana', 'b' := 'test'}", B::value(array(
+        'a' => 'banana',
+        'b' => 'test'
+    )));
   }
   
   public function testMap()

@@ -62,6 +62,11 @@ class Helpers
         return '()';
         break;
       case is_array($value):
+        if((bool)count(array_filter(array_keys($value), 'is_string')))
+        {
+          //Array is associative.
+          return 'map '. self::map($value);
+        }
         $result = array();
         foreach ($value as $v){
           $result[] = self::value($v);
