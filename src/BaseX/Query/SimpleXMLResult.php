@@ -70,7 +70,7 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
    */
   public function getData() 
   {
-    return $this->data->asXML();
+    return substr($this->data->asXML(), strlen('<?xml version="1.0"?>'));
   }
   
   /**

@@ -59,6 +59,30 @@ class SimpleXMLResultTest extends TestCase
     $test->setType($type);
   }
   
+  function testGetData()
+  {
+    $data=<<<XML
+      <root attr="value">
+        <items>
+          <item/>
+          <item/>
+        </items>
+        <test>test</test>
+        <int>3</int>
+        <bool>true</bool>
+        <f>false</f>
+        <float>3.2</float>
+        <t/>
+        <t/>
+        <t/>
+      </root>
+XML;
+    $test = new SimpleXMLResult();
+    $test->setData($data);
+    $this->assertXmlStringEqualsXmlString($data, $test->getData());
+    $this->assertFalse(strpos($test->getData(), '<?xml version="1.0"?>') === 0);
+  }
+  
   function testGetXml()
   {
     $data = '<root/>';
