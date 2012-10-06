@@ -25,9 +25,14 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
 {
   /**
    *
-   * @var \SimpleXMLElement
+   * @var string
    */
   protected $data;
+  
+  /**
+   * @var \SimpleXMLElement
+   */
+  protected $xml;
 
   /**
    * 
@@ -47,6 +52,8 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
    */
   public function setData($data) 
   {
+    parent::setData($data);
+    
     if(is_string($data))
     {
       $data = @simplexml_load_string($data);
@@ -54,7 +61,7 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
     
     if($data instanceof SimpleXMLElement)
     {
-      $this->data = $data;
+      $this->xml = $data;
     }
     else
     {
@@ -66,20 +73,11 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
   
   /**
    * 
-   * @return string
-   */
-  public function getData() 
-  {
-    return substr($this->data->asXML(), strlen('<?xml version="1.0"?>'));
-  }
-  
-  /**
-   * 
    * @return \SimpleXMLElement
    */
   public function getXML()
   {
-    return $this->data;
+    return $this->xml;
   }
   
   /**
@@ -90,7 +88,7 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
    */
   public function xpath($path)
   {
-    return $this->data->xpath($path);
+    return $this->xml->xpath($path);
   }
   
   public function offsetSet($offset, $value) {
@@ -98,7 +96,7 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
   }
 
   public function offsetExists($offset) {
-    return isset($this->data[$offset]);
+    return isset($this->xml[$offset]);
   }
   
   public function offsetUnset($offset) {
@@ -114,12 +112,12 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
       return $this->{$method}();
     }
     
-    return isset($this->data[$offset]) ? (string) $this->data[$offset] : null;
+    return isset($this->xml[$offset]) ? (string) $this->xml[$offset] : null;
   }
   
   public function __isset($name)
   {
-    return isset($this->data->{$name});
+    return isset($this->xml->{$name});
   }
   
   public function __get($name) 
@@ -130,12 +128,12 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
       return $this->{$method}();
     }
     
-    if(!isset($this->data->{$name}))
+    if(!isset($this->xml->{$name}))
     {
       return null;
     }
     
-    $value = $this->data->{$name};
+    $value = $this->xml->{$name};
     
     if(count($value) > 1)
     {
@@ -151,8 +149,14 @@ class SimpleXMLResult extends QueryResult implements ArrayAccess
     {
       return $value;
     }
-    
-    
+  }
+  
+  public function __sleep() {
+    return array('data');
+  }
+  
+  public function __wakeup() {
+    $this->setData($this->data);
   }
 }
 

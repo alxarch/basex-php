@@ -26,7 +26,7 @@ class SessionInfo extends SimpleXMLResult
    */
   public function version() 
   {
-    return (string) $this->data->generalinformation->version;
+    return (string) $this->xml->generalinformation->version;
   }
   
   /**
@@ -37,9 +37,9 @@ class SessionInfo extends SimpleXMLResult
    */
   public function __get($name)
   {
-    if(isset($this->data->mainoptions->{$name}))
+    if(isset($this->xml->mainoptions->{$name}))
     {
-      return (string) $this->data->mainoptions->{$name};
+      return (string) $this->xml->mainoptions->{$name};
     }
     return null;
   }
@@ -52,9 +52,9 @@ class SessionInfo extends SimpleXMLResult
    */
   public function option($name)
   {
-    if(isset($this->data->options->{$name}))
+    if(isset($this->xml->options->{$name}))
     {
-      return (string) $this->data->options->{$name};
+      return (string) $this->xml->options->{$name};
     }
     return null;
   }

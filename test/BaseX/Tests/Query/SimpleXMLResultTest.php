@@ -126,5 +126,34 @@ XML;
     $this->assertInstanceOf('\SimpleXMLElement', $result->t);
   }
   
+  public function testSerialize()
+  {
+    $data=<<<XML
+      <root attr="value">
+        <items>
+          <item/>
+          <item/>
+        </items>
+        <test>test</test>
+        <int>3</int>
+        <bool>true</bool>
+        <f>false</f>
+        <float>3.2</float>
+        <t/>
+        <t/>
+        <t/>
+      </root>
+XML;
+    
+    $result = new SimpleXMLResult();
+    
+    $result->setData($data);
+    
+    $serialized = serialize($result);
+    $after = unserialize($serialized);
+    
+    $this->assertXmlStringEqualsXmlString($data, $after->getXML()->asXML());
+    
+  }
 }
 

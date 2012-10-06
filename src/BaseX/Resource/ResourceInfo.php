@@ -24,10 +24,10 @@ class ResourceInfo extends SimpleXMLResult
   {
     parent::setData($data);
     
-    if($this->data->getName() === 'resource' &&
-       isset($this->data['modified-date']) && 
-       isset($this->data['content-type']) && 
-       isset($this->data['raw']))
+    if($this->xml->getName() === 'resource' &&
+       isset($this->xml['modified-date']) && 
+       isset($this->xml['content-type']) && 
+       isset($this->xml['raw']))
     {
       return $this;
     }
@@ -38,26 +38,26 @@ class ResourceInfo extends SimpleXMLResult
   
   public function getSize()
   {
-    return isset($this->data['size']) ? (int) $this->data['size'] : 0;
+    return isset($this->xml['size']) ? (int) $this->xml['size'] : 0;
   }
   
   public function getModifiedDate()
   {
-    return (string)$this->data['modified-date'];
+    return (string)$this->xml['modified-date'];
   }
   
   public function getContentType() {
-    return (string)$this->data['content-type'];
+    return (string)$this->xml['content-type'];
   }
   
   public function isRaw()
   {
-    return 'true' === (string)$this->data['raw'];
+    return 'true' === (string)$this->xml['raw'];
   }
   
   public function getPath()
   {
-    return (string)  $this->data;
+    return (string)  $this->xml;
   }
   
   static public function get(Session $session, $db, $path=null)
