@@ -44,6 +44,7 @@ declare function local:trim-path(\$path){
 };
 
 declare function local:collection(\$db, \$path){
+  if (db:exists(\$db, \$path)) then () else
   let \$path := local:trim-path(\$path)
   let \$resources := db:list-details(\$db, \$path)
   return
