@@ -35,30 +35,38 @@ class CollectionInfo extends SimpleXMLResult
   public static function get(Session $session, $db, $path = null)
   {
     $xql = <<<XQL
-declare function local:collection(\$db, \$path){
-  let \$resources :=   db:list-details(\$db, \$path)
-  let \$start := if('' eq \$path) then 1 else string-length(\$path) + 2
-  let \$modified := max(\$resources/@modified-date/string())
-  return
-  <collection modified-date="{\$modified}" path="{substring(\$path, 2)}">
-    <contents>
-      {
-      for \$r in \$resources
-        let \$p := substring(\$r/text(), \$start)
-        let \$parts := tokenize(\$p, '/')
-        let \$name := \$parts[1]
-        let \$count := count(\$parts)
-        group by \$name
-        order by -sum(\$count), \$name
-        return if(\$count > 1)
-          then local:collection(\$db, \$path||'/'||\$name)
-          else \$r
-      }
-    </contents>
-  </collection>
+declare function local:relative-path(\$path, \$base){
+  if(\$base ne '') then substring(\$path, string-length(\$base) + 2) else \$path
 };
 
-local:collection(\$db, \$path)
+declare function local:trim-path(\$path){
+  if(starts-with(\$path, '/')) then substring(\$path, 2) else \$path
+};
+
+declare function local:collection(\$db, \$path){
+  let \$path := local:trim-path(\$path)
+  let \$resources := db:list-details(\$db, \$path)
+  return
+  if(empty(\$resources)) then () else
+    let \$modified := max(\$resources/@modified-date/string())
+    return 
+      <collection modified-date="{\$modified}" path="{ \$path }">
+        <contents>
+          {
+          for \$r in \$resources
+            let \$rel-path := local:relative-path(\$r/text(), \$path)
+            let \$name := substring-before(\$rel-path, '/')
+            group by \$name
+            order by \$name
+            return if(\$name)
+              then local:collection(\$db, \$path||'/'||\$name)
+              else \$r
+          }
+        </contents>
+      </collection>
+};
+
+local:collection('$db', '$path')
 XQL;
     
     return QueryBuilder::begin()

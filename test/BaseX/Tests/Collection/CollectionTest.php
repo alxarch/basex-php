@@ -39,6 +39,7 @@ class CollectionTest extends TestCaseDb
   {
     $this->db->add('test.xml', '<test/>');
     $this->db->add('test/test.xml', '<test/>');
+    $this->db->add('test/path/test.xml', '<test/>');
     
     $col = new Collection($this->session, $this->dbname, '');
     
@@ -53,8 +54,13 @@ class CollectionTest extends TestCaseDb
     
     $col->reloadInfo();
     $contents = $col->listContents();
-    $this->assertTrue(is_array($contents));
     $this->assertEquals(3, count($contents));
+    
+    $test = $contents[0]->listContents();
+    $this->assertEquals(3, count($test));
+    
+    $this->assertEquals(1, count($test[0]->listContents()));
+    $this->assertEquals('test/path', $test[0]->getPath());
   }
   
 }
