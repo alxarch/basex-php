@@ -47,24 +47,24 @@ declare function local:collection(\$db, \$path){
   if (db:exists(\$db, \$path)) then () else
   let \$path := local:trim-path(\$path)
   let \$resources := db:list-details(\$db, \$path)
-  return
-  if(empty(\$resources)) then () else
-    let \$modified := max(\$resources/@modified-date/string())
-    return 
-      <collection modified-date="{\$modified}" path="{ \$path }">
-        <contents>
-          {
-          for \$r in \$resources
-            let \$rel-path := local:relative-path(\$r/text(), \$path)
-            let \$name := substring-before(\$rel-path, '/')
-            group by \$name
-            order by \$name
-            return if(\$name)
-              then local:collection(\$db, \$path||'/'||\$name)
-              else \$r
-          }
-        </contents>
-      </collection>
+  let \$modified := max(\$resources/@modified-date/string())
+  return 
+    if(empty(\$resources) and \$path) then () else
+    <collection modified-date="{\$modified}" path="{ \$path }">
+      <contents>
+      {
+      if(empty(\$resources)) then () else
+        for \$r in \$resources
+          let \$rel-path := local:relative-path(\$r/text(), \$path)
+          let \$name := substring-before(\$rel-path, '/')
+          group by \$name
+          order by \$name
+          return if(\$name)
+            then local:collection(\$db, \$path||'/'||\$name)
+            else \$r
+      }
+      </contents>
+    </collection>
 };
 
 local:collection('$db', '$path')
