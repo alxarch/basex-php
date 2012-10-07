@@ -376,37 +376,4 @@ HTML;
     $this->db->delete('test-2.xml');
   }
   
-  /**
-   * @depends testDelete 
-   */
-  public function testGetContents()
-  {
-    $this->db->add('test-1.xml', '<test/>');
-    $this->db->add('test-2.xml', '<test/>');
-    $this->db->store('test.txt', 'test');
-    $this->db->add('sa/test-1.xml', '<test/>');
-    $this->db->add('sa/test-2.xml', '<test/>');
-    $this->db->add('sa/sa/test-1.xml', '<test/>');
-    
-    $contents = $this->db->getContents();
-    
-    $this->assertInstanceOf('\SimpleXMLElement', $contents);
-    
-    $this->assertEquals(3, count($contents->resource));
-    $this->assertEquals(1, count($contents->collection));
-    $this->assertEquals('test-1.xml', (string) $contents->resource[0]);
-    $this->assertEquals('sa', (string) $contents->collection[0]);
-    
-    $contents = $this->db->getContents('sa');
-    $this->assertEquals(2, count($contents->resource));
-    $this->assertEquals(1, count($contents->collection));
-    
-    $this->db->delete('test-1.xml');
-    $this->db->delete('test-2.xml');
-    $this->db->delete('test.txt');
-    $this->db->delete('sa/test-1.xml');
-    $this->db->delete('sa/test-2.xml');
-    $this->db->delete('sa/sa/test-1.xml');
-    
-  }
 }

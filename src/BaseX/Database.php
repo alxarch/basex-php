@@ -395,47 +395,6 @@ class Database
     return $this->session;
   }
   
-  /**
-   * Lists database resources/collections at $path.
-   * 
-   * all subcollections are returned as <collection/>
-   * @param string $path 
-   * @return \SimpleXMLElement
-   * 
-   * @throws \BaseX\Error
-   */
-  public function getContents($path=null)
-  {
-    $path = (string) $path;
-    $path = trim($path, '/');
-    $db = $this->getName();
-    //Frakking XQuery starts counting at 1 (+1 to trim leading '/')
-    $start = '' === $path ? 1 : strlen($path) + 2; 
-    $xql = <<<XQL
-<contents>
-{
-for \$r in db:list-details('$db', '$path')
-  let \$p := substring(\$r/string(), $start)
-  let \$parts := tokenize(\$p, '/')
-  let \$name := \$parts[1]
-  let \$count := count(\$parts)
-  let \$time :=  xs:dateTime(\$r/@modified-date/string())
-  group by \$name
-  order by -sum(\$count), \$name
-  return if(\$count > 1) 
-    then <collection modified-date="{max(\$time)}">{\$name}</collection>
-    else \$r
-}
-</contents>
-XQL;
-    
-    $data = $this->getSession()->query($xql)->execute();
-    $xml = simplexml_load_string($data);
-    if(false === $xml)
-      throw new Error('Failed to get contents.');
-    return $xml;
-  }
-  
   public function __toString()
   {
     return $this->getName();
