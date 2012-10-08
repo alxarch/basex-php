@@ -7,7 +7,7 @@
 	<title>Class BaseX\Database | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?640651884"></script>
+	<script type="text/javascript" src="elementlist.js?2694249659"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -25,6 +25,13 @@
 						<ul>
 				<li><a href="namespace-BaseX.Collection.html">Collection</a>
 						</li>
+				<li><a href="namespace-BaseX.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
+						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
@@ -35,7 +42,11 @@
 						</li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
+				<li><a href="namespace-BaseX.Silex.html">Silex</a>
+						</li>
 							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -129,7 +140,7 @@
 				<b>Todo:</b>
 				Isolate only database-specific functionality in this class, move everything else
 (add, delete, rename etc) to Collection<br />
-		<b>Located at</b> <a href="source-class-BaseX.Database.html#21-451" title="Go to source code">src/BaseX/Database.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Database.html#21-426" title="Go to source code">src/BaseX/Database.php</a><br />
 	</div>
 
 
@@ -986,54 +997,6 @@ privileges) it will be created.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getContents" id="_getContents">
-
-		<td class="attributes"><code>
-			 public 
-			<code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getContents">#</a>
-		<code><a href="source-class-BaseX.Database.html#398-437" title="Go to source code">getContents</a>( <span>string <var>$path</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			
-<p>Lists database resources/collections at $path.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Lists database resources/collections at $path.</p>
-
-<p>all subcollections are returned as &lt;collection/&gt;</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code></code><br />
-				</div>
-
-				<h4>Throws</h4>
-				<div class="list">
-					<code><code><a href="class-BaseX.Error.html">BaseX\Error</a></code></code><br />
-				</div>
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="__toString" id="___toString">
 
 		<td class="attributes"><code>
@@ -1045,7 +1008,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-BaseX.Database.html#439-442" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-BaseX.Database.html#398-401" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			
@@ -1074,7 +1037,7 @@ privileges) it will be created.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCollection">#</a>
-		<code><a href="source-class-BaseX.Database.html#444-450" title="Go to source code">getCollection</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
+		<code><a href="source-class-BaseX.Database.html#403-409" title="Go to source code">getCollection</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1089,6 +1052,64 @@ privileges) it will be created.</p>
 				<div class="list">
 					<code><code><a href="class-BaseX.Collection.html">BaseX\Collection</a></code></code><br />
 				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="backup" id="_backup">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_backup">#</a>
+		<code><a href="source-class-BaseX.Database.html#411-417" title="Go to source code">backup</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getBackups" id="_getBackups">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBackups">#</a>
+		<code><a href="source-class-BaseX.Database.html#419-425" title="Go to source code">getBackups</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
 
 
 

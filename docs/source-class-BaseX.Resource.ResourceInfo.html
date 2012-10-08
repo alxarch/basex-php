@@ -8,7 +8,7 @@
 	<title>File src/BaseX/Resource/ResourceInfo.php | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?640651884"></script>
+	<script type="text/javascript" src="elementlist.js?2694249659"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -26,6 +26,13 @@
 						<ul>
 				<li><a href="namespace-BaseX.Collection.html">Collection</a>
 						</li>
+				<li><a href="namespace-BaseX.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
+						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
@@ -36,7 +43,11 @@
 						</li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
+				<li><a href="namespace-BaseX.Silex.html">Silex</a>
+						</li>
 							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -126,10 +137,10 @@
 </span><span id="24" class="l"><a class="l" href="#24">24: </a>  {
 </span><span id="25" class="l"><a class="l" href="#25">25: </a>    parent::setData(<span class="php-var">$data</span>);
 </span><span id="26" class="l"><a class="l" href="#26">26: </a>    
-</span><span id="27" class="l"><a class="l" href="#27">27: </a>    <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;data-&gt;getName() === <span class="php-quote">'resource'</span> &amp;&amp;
-</span><span id="28" class="l"><a class="l" href="#28">28: </a>       <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;data[<span class="php-quote">'modified-date'</span>]) &amp;&amp; 
-</span><span id="29" class="l"><a class="l" href="#29">29: </a>       <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;data[<span class="php-quote">'content-type'</span>]) &amp;&amp; 
-</span><span id="30" class="l"><a class="l" href="#30">30: </a>       <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;data[<span class="php-quote">'raw'</span>]))
+</span><span id="27" class="l"><a class="l" href="#27">27: </a>    <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;xml-&gt;getName() === <span class="php-quote">'resource'</span> &amp;&amp;
+</span><span id="28" class="l"><a class="l" href="#28">28: </a>       <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;xml[<span class="php-quote">'modified-date'</span>]) &amp;&amp; 
+</span><span id="29" class="l"><a class="l" href="#29">29: </a>       <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;xml[<span class="php-quote">'content-type'</span>]) &amp;&amp; 
+</span><span id="30" class="l"><a class="l" href="#30">30: </a>       <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;xml[<span class="php-quote">'raw'</span>]))
 </span><span id="31" class="l"><a class="l" href="#31">31: </a>    {
 </span><span id="32" class="l"><a class="l" href="#32">32: </a>      <span class="php-keyword1">return</span> <span class="php-var">$this</span>;
 </span><span id="33" class="l"><a class="l" href="#33">33: </a>    }
@@ -140,26 +151,26 @@
 </span><span id="38" class="l"><a class="l" href="#38">38: </a>  
 </span><span id="39" class="l"><a class="l" href="#39">39: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getSize" href="#_getSize">getSize</a>()
 </span><span id="40" class="l"><a class="l" href="#40">40: </a>  {
-</span><span id="41" class="l"><a class="l" href="#41">41: </a>    <span class="php-keyword1">return</span> <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;data[<span class="php-quote">'size'</span>]) ? (int) <span class="php-var">$this</span>-&gt;data[<span class="php-quote">'size'</span>] : <span class="php-num">0</span>;
+</span><span id="41" class="l"><a class="l" href="#41">41: </a>    <span class="php-keyword1">return</span> <span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;xml[<span class="php-quote">'size'</span>]) ? (int) <span class="php-var">$this</span>-&gt;xml[<span class="php-quote">'size'</span>] : <span class="php-num">0</span>;
 </span><span id="42" class="l"><a class="l" href="#42">42: </a>  }
 </span><span id="43" class="l"><a class="l" href="#43">43: </a>  
 </span><span id="44" class="l"><a class="l" href="#44">44: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getModifiedDate" href="#_getModifiedDate">getModifiedDate</a>()
 </span><span id="45" class="l"><a class="l" href="#45">45: </a>  {
-</span><span id="46" class="l"><a class="l" href="#46">46: </a>    <span class="php-keyword1">return</span> (string)<span class="php-var">$this</span>-&gt;data[<span class="php-quote">'modified-date'</span>];
+</span><span id="46" class="l"><a class="l" href="#46">46: </a>    <span class="php-keyword1">return</span> (string)<span class="php-var">$this</span>-&gt;xml[<span class="php-quote">'modified-date'</span>];
 </span><span id="47" class="l"><a class="l" href="#47">47: </a>  }
 </span><span id="48" class="l"><a class="l" href="#48">48: </a>  
 </span><span id="49" class="l"><a class="l" href="#49">49: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContentType" href="#_getContentType">getContentType</a>() {
-</span><span id="50" class="l"><a class="l" href="#50">50: </a>    <span class="php-keyword1">return</span> (string)<span class="php-var">$this</span>-&gt;data[<span class="php-quote">'content-type'</span>];
+</span><span id="50" class="l"><a class="l" href="#50">50: </a>    <span class="php-keyword1">return</span> (string)<span class="php-var">$this</span>-&gt;xml[<span class="php-quote">'content-type'</span>];
 </span><span id="51" class="l"><a class="l" href="#51">51: </a>  }
 </span><span id="52" class="l"><a class="l" href="#52">52: </a>  
 </span><span id="53" class="l"><a class="l" href="#53">53: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_isRaw" href="#_isRaw">isRaw</a>()
 </span><span id="54" class="l"><a class="l" href="#54">54: </a>  {
-</span><span id="55" class="l"><a class="l" href="#55">55: </a>    <span class="php-keyword1">return</span> <span class="php-quote">'true'</span> === (string)<span class="php-var">$this</span>-&gt;data[<span class="php-quote">'raw'</span>];
+</span><span id="55" class="l"><a class="l" href="#55">55: </a>    <span class="php-keyword1">return</span> <span class="php-quote">'true'</span> === (string)<span class="php-var">$this</span>-&gt;xml[<span class="php-quote">'raw'</span>];
 </span><span id="56" class="l"><a class="l" href="#56">56: </a>  }
 </span><span id="57" class="l"><a class="l" href="#57">57: </a>  
 </span><span id="58" class="l"><a class="l" href="#58">58: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getPath" href="#_getPath">getPath</a>()
 </span><span id="59" class="l"><a class="l" href="#59">59: </a>  {
-</span><span id="60" class="l"><a class="l" href="#60">60: </a>    <span class="php-keyword1">return</span> (string)  <span class="php-var">$this</span>-&gt;data;
+</span><span id="60" class="l"><a class="l" href="#60">60: </a>    <span class="php-keyword1">return</span> (string)  <span class="php-var">$this</span>-&gt;xml;
 </span><span id="61" class="l"><a class="l" href="#61">61: </a>  }
 </span><span id="62" class="l"><a class="l" href="#62">62: </a>  
 </span><span id="63" class="l"><a class="l" href="#63">63: </a>  <span class="php-keyword1">static</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_get" href="#_get">get</a>(Session <span class="php-var">$session</span>, <span class="php-var">$db</span>, <span class="php-var">$path</span>=<span class="php-keyword1">null</span>)

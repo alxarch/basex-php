@@ -8,7 +8,7 @@
 	<title>File src/BaseX/Database.php | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?640651884"></script>
+	<script type="text/javascript" src="elementlist.js?2694249659"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -26,6 +26,13 @@
 						<ul>
 				<li><a href="namespace-BaseX.Collection.html">Collection</a>
 						</li>
+				<li><a href="namespace-BaseX.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
+						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
@@ -36,7 +43,11 @@
 						</li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
+				<li><a href="namespace-BaseX.Silex.html">Silex</a>
+						</li>
 							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -123,7 +134,7 @@
 </span><span id="17" class="l"><a class="l" href="#17"> 17: </a><span class="php-keyword1">use</span> BaseX\Query\QueryBuilder;
 </span><span id="18" class="l"><a class="l" href="#18"> 18: </a><span class="php-keyword1">use</span> BaseX\Error;
 </span><span id="19" class="l"><a class="l" href="#19"> 19: </a><span class="php-keyword1">use</span> BaseX\Helpers <span class="php-keyword1">as</span> B;
-</span><span id="20" class="l"><a class="l" href="#20"> 20: </a>
+</span><span id="20" class="l"><a class="l" href="#20"> 20: </a><span class="php-keyword1">use</span> BaseX\Database\Backup;
 </span><span id="21" class="l"><a class="l" href="#21"> 21: </a><span class="php-comment">/**
 </span></span><span id="22" class="l"><a class="l" href="#22"> 22: </a><span class="php-comment"> * BaseX Database object.
 </span></span><span id="23" class="l"><a class="l" href="#23"> 23: </a><span class="php-comment"> * 
@@ -459,7 +470,7 @@
 </span><span id="353" class="l"><a class="l" href="#353">353: </a>    <span class="php-keyword1">else</span>
 </span><span id="354" class="l"><a class="l" href="#354">354: </a>    {
 </span><span id="355" class="l"><a class="l" href="#355">355: </a>      <span class="php-var">$q</span>-&gt;setBody(<span class="php-quote">&quot;db:open('</span><span class="php-var">$db</span><span class="php-quote">', '</span><span class="php-var">$path</span><span class="php-quote">')&quot;</span>)
-</span><span id="356" class="l"><a class="l" href="#356">356: </a>        -&gt;setParameter(<span class="php-quote">'omit-xml-declaration'</span>, <span class="php-keyword1">false</span>);
+</span><span id="356" class="l"><a class="l" href="#356">356: </a>        -&gt;setParameter(<span class="php-quote">'omit-xml-declaration'</span>, <span class="php-quote">'false'</span>);
 </span><span id="357" class="l"><a class="l" href="#357">357: </a>    }
 </span><span id="358" class="l"><a class="l" href="#358">358: </a>    
 </span><span id="359" class="l"><a class="l" href="#359">359: </a>    <span class="php-keyword1">return</span> <span class="php-var">$q</span>-&gt;getQuery(<span class="php-var">$this</span>-&gt;getSession())-&gt;execute();
@@ -501,60 +512,35 @@
 </span><span id="395" class="l"><a class="l" href="#395">395: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;session;
 </span><span id="396" class="l"><a class="l" href="#396">396: </a>  }
 </span><span id="397" class="l"><a class="l" href="#397">397: </a>  
-</span><span id="398" class="l"><a class="l" href="#398">398: </a>  <span class="php-comment">/**
-</span></span><span id="399" class="l"><a class="l" href="#399">399: </a><span class="php-comment">   * Lists database resources/collections at $path.
-</span></span><span id="400" class="l"><a class="l" href="#400">400: </a><span class="php-comment">   * 
-</span></span><span id="401" class="l"><a class="l" href="#401">401: </a><span class="php-comment">   * all subcollections are returned as &lt;collection/&gt;
-</span></span><span id="402" class="l"><a class="l" href="#402">402: </a><span class="php-comment">   * @param string $path 
-</span></span><span id="403" class="l"><a class="l" href="#403">403: </a><span class="php-comment">   * @return \SimpleXMLElement
-</span></span><span id="404" class="l"><a class="l" href="#404">404: </a><span class="php-comment">   * 
-</span></span><span id="405" class="l"><a class="l" href="#405">405: </a><span class="php-comment">   * @throws \BaseX\Error
-</span></span><span id="406" class="l"><a class="l" href="#406">406: </a><span class="php-comment">   */</span>
-</span><span id="407" class="l"><a class="l" href="#407">407: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContents" href="#_getContents">getContents</a>(<span class="php-var">$path</span>=<span class="php-keyword1">null</span>)
-</span><span id="408" class="l"><a class="l" href="#408">408: </a>  {
-</span><span id="409" class="l"><a class="l" href="#409">409: </a>    <span class="php-var">$path</span> = (string) <span class="php-var">$path</span>;
-</span><span id="410" class="l"><a class="l" href="#410">410: </a>    <span class="php-var">$path</span> = <span class="php-keyword2">trim</span>(<span class="php-var">$path</span>, <span class="php-quote">'/'</span>);
-</span><span id="411" class="l"><a class="l" href="#411">411: </a>    <span class="php-var">$db</span> = <span class="php-var">$this</span>-&gt;getName();
-</span><span id="412" class="l"><a class="l" href="#412">412: </a>    <span class="php-comment">//Frakking XQuery starts counting at 1 (+1 to trim leading '/')</span>
-</span><span id="413" class="l"><a class="l" href="#413">413: </a>    <span class="php-var">$start</span> = <span class="php-quote">''</span> === <span class="php-var">$path</span> ? <span class="php-num">1</span> : <span class="php-keyword2">strlen</span>(<span class="php-var">$path</span>) + <span class="php-num">2</span>; 
-</span><span id="414" class="l"><a class="l" href="#414">414: </a>    <span class="php-var">$xql</span> = <span class="php-quote">&lt;&lt;&lt;XQL
-</span></span><span id="415" class="l"><a class="l" href="#415">415: </a><span class="php-quote">&lt;contents&gt;
-</span></span><span id="416" class="l"><a class="l" href="#416">416: </a><span class="php-quote">{
-</span></span><span id="417" class="l"><a class="l" href="#417">417: </a><span class="php-quote">for \$r in db:list-details('</span><span class="php-var">$db</span><span class="php-quote">', '</span><span class="php-var">$path</span><span class="php-quote">')
-</span></span><span id="418" class="l"><a class="l" href="#418">418: </a><span class="php-quote">  let \$p := substring(\$r/string(), </span><span class="php-var">$start</span><span class="php-quote">)
-</span></span><span id="419" class="l"><a class="l" href="#419">419: </a><span class="php-quote">  let \$parts := tokenize(\$p, '/')
-</span></span><span id="420" class="l"><a class="l" href="#420">420: </a><span class="php-quote">  let \$name := \$parts[1]
-</span></span><span id="421" class="l"><a class="l" href="#421">421: </a><span class="php-quote">  let \$count := count(\$parts)
-</span></span><span id="422" class="l"><a class="l" href="#422">422: </a><span class="php-quote">  let \$time :=  xs:dateTime(\$r/@modified-date/string())
-</span></span><span id="423" class="l"><a class="l" href="#423">423: </a><span class="php-quote">  group by \$name
-</span></span><span id="424" class="l"><a class="l" href="#424">424: </a><span class="php-quote">  order by -sum(\$count), \$name
-</span></span><span id="425" class="l"><a class="l" href="#425">425: </a><span class="php-quote">  return if(\$count &gt; 1) 
-</span></span><span id="426" class="l"><a class="l" href="#426">426: </a><span class="php-quote">    then &lt;collection modified-date=&quot;{max(\$time)}&quot;&gt;{\$name}&lt;/collection&gt;
-</span></span><span id="427" class="l"><a class="l" href="#427">427: </a><span class="php-quote">    else \$r
-</span></span><span id="428" class="l"><a class="l" href="#428">428: </a><span class="php-quote">}
-</span></span><span id="429" class="l"><a class="l" href="#429">429: </a><span class="php-quote">&lt;/contents&gt;
-</span></span><span id="430" class="l"><a class="l" href="#430">430: </a><span class="php-quote">XQL;
-</span></span><span id="431" class="l"><a class="l" href="#431">431: </a>    
-</span><span id="432" class="l"><a class="l" href="#432">432: </a>    <span class="php-var">$data</span> = <span class="php-var">$this</span>-&gt;getSession()-&gt;query(<span class="php-var">$xql</span>)-&gt;execute();
-</span><span id="433" class="l"><a class="l" href="#433">433: </a>    <span class="php-var">$xml</span> = <span class="php-keyword2">simplexml_load_string</span>(<span class="php-var">$data</span>);
-</span><span id="434" class="l"><a class="l" href="#434">434: </a>    <span class="php-keyword1">if</span>(<span class="php-keyword1">false</span> === <span class="php-var">$xml</span>)
-</span><span id="435" class="l"><a class="l" href="#435">435: </a>      <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Error(<span class="php-quote">'Failed to get contents.'</span>);
-</span><span id="436" class="l"><a class="l" href="#436">436: </a>    <span class="php-keyword1">return</span> <span class="php-var">$xml</span>;
-</span><span id="437" class="l"><a class="l" href="#437">437: </a>  }
-</span><span id="438" class="l"><a class="l" href="#438">438: </a>  
-</span><span id="439" class="l"><a class="l" href="#439">439: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="___toString" href="#___toString">__toString</a>()
-</span><span id="440" class="l"><a class="l" href="#440">440: </a>  {
-</span><span id="441" class="l"><a class="l" href="#441">441: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;getName();
-</span><span id="442" class="l"><a class="l" href="#442">442: </a>  }
-</span><span id="443" class="l"><a class="l" href="#443">443: </a>  
-</span><span id="444" class="l"><a class="l" href="#444">444: </a>  <span class="php-comment">/**
-</span></span><span id="445" class="l"><a class="l" href="#445">445: </a><span class="php-comment">   * @return \BaseX\Collection
-</span></span><span id="446" class="l"><a class="l" href="#446">446: </a><span class="php-comment">   */</span>
-</span><span id="447" class="l"><a class="l" href="#447">447: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getCollection" href="#_getCollection">getCollection</a>(<span class="php-var">$path</span>=<span class="php-quote">''</span>)
-</span><span id="448" class="l"><a class="l" href="#448">448: </a>  {
-</span><span id="449" class="l"><a class="l" href="#449">449: </a>    <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Collection(<span class="php-var">$this</span>-&gt;getSession(), <span class="php-var">$this</span>-&gt;getName(), <span class="php-var">$path</span>);
-</span><span id="450" class="l"><a class="l" href="#450">450: </a>  }
-</span><span id="451" class="l"><a class="l" href="#451">451: </a></span>}</code></pre>
+</span><span id="398" class="l"><a class="l" href="#398">398: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="___toString" href="#___toString">__toString</a>()
+</span><span id="399" class="l"><a class="l" href="#399">399: </a>  {
+</span><span id="400" class="l"><a class="l" href="#400">400: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;getName();
+</span><span id="401" class="l"><a class="l" href="#401">401: </a>  }
+</span><span id="402" class="l"><a class="l" href="#402">402: </a>  
+</span><span id="403" class="l"><a class="l" href="#403">403: </a>  <span class="php-comment">/**
+</span></span><span id="404" class="l"><a class="l" href="#404">404: </a><span class="php-comment">   * @return \BaseX\Collection
+</span></span><span id="405" class="l"><a class="l" href="#405">405: </a><span class="php-comment">   */</span>
+</span><span id="406" class="l"><a class="l" href="#406">406: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getCollection" href="#_getCollection">getCollection</a>(<span class="php-var">$path</span>=<span class="php-quote">''</span>)
+</span><span id="407" class="l"><a class="l" href="#407">407: </a>  {
+</span><span id="408" class="l"><a class="l" href="#408">408: </a>    <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Collection(<span class="php-var">$this</span>-&gt;getSession(), <span class="php-var">$this</span>-&gt;getName(), <span class="php-var">$path</span>);
+</span><span id="409" class="l"><a class="l" href="#409">409: </a>  }
+</span><span id="410" class="l"><a class="l" href="#410">410: </a>  
+</span><span id="411" class="l"><a class="l" href="#411">411: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_backup" href="#_backup">backup</a>()
+</span><span id="412" class="l"><a class="l" href="#412">412: </a>  {
+</span><span id="413" class="l"><a class="l" href="#413">413: </a>    <span class="php-var">$this</span>-&gt;getSession()-&gt;execute(<span class="php-quote">&quot;CREATE BACKUP </span><span class="php-var">$this</span><span class="php-quote">&quot;</span>);
+</span><span id="414" class="l"><a class="l" href="#414">414: </a>    <span class="php-var">$query</span> = <span class="php-var">$this</span>-&gt;getSession()-&gt;query(<span class="php-quote">&quot;db:backups('</span><span class="php-var">$this</span><span class="php-quote">')[1]&quot;</span>);
+</span><span id="415" class="l"><a class="l" href="#415">415: </a>    <span class="php-var">$results</span> = Backup::getForQuery(<span class="php-var">$query</span>);
+</span><span id="416" class="l"><a class="l" href="#416">416: </a>    <span class="php-keyword1">return</span> <span class="php-var">$results</span>[<span class="php-num">0</span>];
+</span><span id="417" class="l"><a class="l" href="#417">417: </a>  }
+</span><span id="418" class="l"><a class="l" href="#418">418: </a>  
+</span><span id="419" class="l"><a class="l" href="#419">419: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getBackups" href="#_getBackups">getBackups</a>()
+</span><span id="420" class="l"><a class="l" href="#420">420: </a>  {
+</span><span id="421" class="l"><a class="l" href="#421">421: </a>    <span class="php-var">$query</span> = <span class="php-var">$this</span>-&gt;getSession()-&gt;query(<span class="php-quote">&quot;db:backups('</span><span class="php-var">$this</span><span class="php-quote">')&quot;</span>);
+</span><span id="422" class="l"><a class="l" href="#422">422: </a>    
+</span><span id="423" class="l"><a class="l" href="#423">423: </a>    <span class="php-keyword1">return</span> Backup::getForQuery(<span class="php-var">$query</span>);
+</span><span id="424" class="l"><a class="l" href="#424">424: </a>    
+</span><span id="425" class="l"><a class="l" href="#425">425: </a>  }
+</span><span id="426" class="l"><a class="l" href="#426">426: </a></span>}</code></pre>
 
 	<div id="footer">
 		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

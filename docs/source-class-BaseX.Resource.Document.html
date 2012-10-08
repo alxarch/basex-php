@@ -8,7 +8,7 @@
 	<title>File src/BaseX/Resource/Document.php | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?640651884"></script>
+	<script type="text/javascript" src="elementlist.js?2694249659"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -26,6 +26,13 @@
 						<ul>
 				<li><a href="namespace-BaseX.Collection.html">Collection</a>
 						</li>
+				<li><a href="namespace-BaseX.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
+						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
@@ -36,7 +43,11 @@
 						</li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
+				<li><a href="namespace-BaseX.Silex.html">Silex</a>
+						</li>
 							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -179,7 +190,7 @@
 </span><span id="77" class="l"><a class="l" href="#77">77: </a>  {
 </span><span id="78" class="l"><a class="l" href="#78">78: </a>    <span class="php-var">$xql</span> = <span class="php-keyword2">sprintf</span>(<span class="php-quote">&quot;db:open('%s', '%s')&quot;</span>, <span class="php-var">$this</span>-&gt;getDatabase(), <span class="php-var">$this</span>-&gt;getPath());
 </span><span id="79" class="l"><a class="l" href="#79">79: </a>    <span class="php-keyword1">return</span> QueryBuilder::begin()
-</span><span id="80" class="l"><a class="l" href="#80">80: </a>            -&gt;setParameter(<span class="php-quote">'omit-xml-declaration'</span>, <span class="php-keyword1">false</span>)
+</span><span id="80" class="l"><a class="l" href="#80">80: </a>            -&gt;setParameter(<span class="php-quote">'omit-xml-declaration'</span>, <span class="php-quote">'false'</span>)
 </span><span id="81" class="l"><a class="l" href="#81">81: </a>            -&gt;setBody(<span class="php-var">$xql</span>)
 </span><span id="82" class="l"><a class="l" href="#82">82: </a>            -&gt;getQuery(<span class="php-var">$this</span>-&gt;getSession());
 </span><span id="83" class="l"><a class="l" href="#83">83: </a>  }

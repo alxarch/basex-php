@@ -7,7 +7,7 @@
 	<title>Class BaseX\Session\SessionInfo | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?640651884"></script>
+	<script type="text/javascript" src="elementlist.js?2694249659"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -25,6 +25,13 @@
 						<ul>
 				<li><a href="namespace-BaseX.Collection.html">Collection</a>
 						</li>
+				<li><a href="namespace-BaseX.Database.html">Database</a>
+						</li>
+				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
+						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
@@ -35,7 +42,11 @@
 						</li>
 				<li class="active"><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
+				<li><a href="namespace-BaseX.Silex.html">Silex</a>
+						</li>
 							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -142,7 +153,7 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Session.html">Session</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Session.SessionInfo.html#15-61" title="Go to source code">src/BaseX/Session/SessionInfo.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Session.SessionInfo.html#15-66" title="Go to source code">src/BaseX/Session/SessionInfo.php</a><br />
 	</div>
 
 
@@ -230,6 +241,37 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="__isset" id="___isset">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___isset">#</a>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#47-49" title="Go to source code">__isset</a>( <span>mixed <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-BaseX.Query.SimpleXMLResult.html#___isset">BaseX\Query\SimpleXMLResult::__isset()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="option" id="_option">
 
 		<td class="attributes"><code>
@@ -241,7 +283,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_option">#</a>
-		<code><a href="source-class-BaseX.Session.SessionInfo.html#47-60" title="Go to source code">option</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#52-65" title="Go to source code">option</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -278,8 +320,8 @@
 	<caption>Methods inherited from <a href="class-BaseX.Query.SimpleXMLResult.html#methods">BaseX\Query\SimpleXMLResult</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-BaseX.Query.SimpleXMLResult.html#___isset">__isset()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_getData">getData()</a>, 
+			<a href="class-BaseX.Query.SimpleXMLResult.html#___sleep">__sleep()</a>, 
+			<a href="class-BaseX.Query.SimpleXMLResult.html#___wakeup">__wakeup()</a>, 
 			<a href="class-BaseX.Query.SimpleXMLResult.html#_getSupportedTypes">getSupportedTypes()</a>, 
 			<a href="class-BaseX.Query.SimpleXMLResult.html#_getXML">getXML()</a>, 
 			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetExists">offsetExists()</a>, 
@@ -295,9 +337,11 @@
 	<caption>Methods inherited from <a href="class-BaseX.Query.QueryResult.html#methods">BaseX\Query\QueryResult</a></caption>
 	<tr>
 		<td><code>
+			<a href="class-BaseX.Query.QueryResult.html#___construct">__construct()</a>, 
+			<a href="class-BaseX.Query.QueryResult.html#_getData">getData()</a>, 
+			<a href="class-BaseX.Query.QueryResult.html#_getForQuery">getForQuery()</a>, 
 			<a href="class-BaseX.Query.QueryResult.html#_getSession">getSession()</a>, 
 			<a href="class-BaseX.Query.QueryResult.html#_getType">getType()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_setSession">setSession()</a>, 
 			<a href="class-BaseX.Query.QueryResult.html#_setType">setType()</a>
 		</code></td>
 	</tr>
@@ -318,7 +362,8 @@
 	<caption>Properties inherited from <a href="class-BaseX.Query.SimpleXMLResult.html#properties">BaseX\Query\SimpleXMLResult</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-BaseX.Query.SimpleXMLResult.html#$data"><var>$data</var></a>
+			<a href="class-BaseX.Query.SimpleXMLResult.html#$data"><var>$data</var></a>, 
+			<a href="class-BaseX.Query.SimpleXMLResult.html#$xml"><var>$xml</var></a>
 		</code></td>
 	</tr>
 	</table>

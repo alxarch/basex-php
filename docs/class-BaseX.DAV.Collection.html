@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class BaseX\DAV\Collection | basex-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+						</li>
+				<li><a href="namespace-BaseX.Database.html">Database</a>
+						</li>
+				<li class="active"><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-BaseX.Error.html">Error</a>
+						</li>
+				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
+						</li>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+						</li>
+				<li><a href="namespace-BaseX.Session.html">Session</a>
+						</li>
+				<li><a href="namespace-BaseX.Silex.html">Silex</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-BaseX.DAV.Collection.html">Collection</a></li>
+				<li><a href="class-BaseX.DAV.Resource.html">Resource</a></li>
+				<li><a href="class-BaseX.DAV.Tree.html">Tree</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-BaseX.DAV.html" title="Summary of BaseX\DAV"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Collection</h1>
+
+
+	<div class="description">
+	
+<p>WebDAV collection node representing a collection in a BaseX database.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Sabre_DAV_Collection
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>BaseX\DAV\Collection</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.DAV.html">DAV</a><br />
+		<b>Package:</b> SabreDAV-BaseX<br />
+
+		<b>Located at</b> <a href="source-class-BaseX.DAV.Collection.html#20-201" title="Go to source code">src/BaseX/DAV/Collection.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#39-51" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.DAV.Tree.html">BaseX\DAV\Tree</a></code> <var>$tree</var></span>, <span><code><a href="class-BaseX.Collection.CollectionInterface.html">BaseX\Collection\CollectionInterface</a></code> <var>$collection</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Constructor</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Constructor</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$tree</var></dt>
+					<dd><code><code><a href="class-BaseX.Database.html">BaseX\Database</a></code></code><br>$db</dd>
+					<dt><var>$collection</var></dt>
+					<dd><code>string</code><br>$path</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getChildren" id="_getChildren">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getChildren">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#53-56" title="Go to source code">getChildren</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getName" id="_getName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getName">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#58-61" title="Go to source code">getName</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPath" id="_getPath">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPath">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#63-78" title="Go to source code">getPath</a>( <span>mixed <var>$name</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getChild" id="_getChild">
+
+		<td class="attributes"><code>
+			 public 
+			Sabre_DAV_INode
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getChild">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#80-93" title="Go to source code">getChild</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns a child object, by its name.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns a child object, by its name.</p>
+
+<p>This method makes use of the getChildren method to grab all the child nodes,
+and compares the name. Generally its wise to override this, as this can usually
+be optimized</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Sabre_DAV_INode</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>Sabre_DAV_Exception_NotFound</code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="childExists" id="_childExists">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_childExists">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#95-106" title="Go to source code">childExists</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks is a child-node exists.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks is a child-node exists.</p>
+
+<p>It is generally a good idea to try and override this. Usually it can be
+optimized.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createFile" id="_createFile">
+
+		<td class="attributes"><code>
+			 public 
+			null|string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createFile">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#108-137" title="Go to source code">createFile</a>( <span>string <var>$name</var></span>, <span>resource|string <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a new file in the directory</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a new file in the directory</p>
+
+<p>Data will either be supplied as a stream resource, or in certain cases as a
+string. Keep in mind that you may have to support either.</p>
+
+<p>After succesful creation of the file, you may choose to return the ETag of
+the new file here.</p>
+
+<p>The returned ETag must be surrounded by double-quotes (The quotes should be
+part of the actual string).</p>
+
+<p>If you cannot accurately determine the ETag, you should not return it. If you
+don't store the file exactly as-is (you're transforming it somehow) you should
+also not return an ETag.</p>
+
+<p>This means that if a subsequent GET to this new file does not exactly return
+the same contents of what was submitted here, you are strongly recommended to
+omit the ETag.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Name of the file</dd>
+					<dt><var>$data</var></dt>
+					<dd><code>resource|string</code><br>$data Initial payload</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>null|string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createDirectory" id="_createDirectory">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createDirectory">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#139-151" title="Go to source code">createDirectory</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a new subdirectory</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a new subdirectory</p>
+
+<p>In order to achieve this an empty file with name '.empty' is created</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLastModified" id="_getLastModified">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLastModified">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#153-161" title="Go to source code">getLastModified</a>( )</code>
+
+		<div class="description short">
+			
+<p>Returns the last modification time</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns the last modification time</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#163-172" title="Go to source code">delete</a>( )</code>
+
+		<div class="description short">
+			
+<p>Deleted the current node</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Deleted the current node</p>
+
+
+
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>Sabre_DAV_Exception_NotImplemented</code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setName" id="_setName">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setName">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#174-184" title="Go to source code">setName</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Renames the node</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Renames the node</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name The new name</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>Sabre_DAV_Exception_NotImplemented</code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="excludeResource" id="_excludeResource">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_excludeResource">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#186-189" title="Go to source code">excludeResource</a>( <span><code><a href="class-BaseX.Resource.ResourceInterface.html">BaseX\Resource\ResourceInterface</a></code> <var>$resource</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFullPath" id="_getFullPath">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFullPath">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#191-194" title="Go to source code">getFullPath</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCollection" id="_getCollection">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCollection">#</a>
+		<code><a href="source-class-BaseX.DAV.Collection.html#196-199" title="Go to source code">getCollection</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="collection" id="$collection">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-BaseX.Collection.html">BaseX\Collection</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.DAV.Collection.html#28-32" title="Go to source code"><var>$collection</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$collection" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="tree" id="$tree">
+		<td class="attributes"><code>
+			protected  
+			Sabre\DAV\BaseX\Tree
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.DAV.Collection.html#34-37" title="Go to source code"><var>$tree</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$tree" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
