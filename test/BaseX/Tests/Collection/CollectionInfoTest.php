@@ -17,6 +17,19 @@ use BaseX\Collection\CollectionInfo;
  */
 class CollectionInfoTest extends TestCaseDb{
   
+  function testGetPath()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $this->db->add('test/test.xml', '<test/>');
+    $this->db->add('test/path/test.xml', '<test/>');
+    
+    $results = CollectionInfo::get($this->session, $this->dbname, 'test');
+    
+    $info = $results[0];
+    
+    $this->assertEquals('test', $info->getPath());
+  }
+  
   public function testGet()
   {
     $this->db->add('test.xml', '<test/>');

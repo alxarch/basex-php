@@ -61,11 +61,20 @@ abstract class Resource implements ResourceInterface
    */
   public function __construct(Session $session, $db, $path, $info=null)
   {
-    $this->session = $session;
-    $this->db = $db;
-    $this->path = $path;
-    $this->setInfo($info);
+    if($db instanceof Database)
+    {
+      $this->db = $db->getName();
+    }
     
+    if(is_object($path) && method_exists($path, 'getPath'))
+    {
+      $path = $path->getPath();
+    }
+    
+    $this->session = $session;
+    $this->db = (string)$db;
+    $this->path = (string)$path;
+    $this->setInfo($info);
     
     $this->init();
   }
