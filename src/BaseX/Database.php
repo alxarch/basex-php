@@ -17,7 +17,7 @@ use BaseX\Resource\Document;
 use BaseX\Query\QueryBuilder;
 use BaseX\Error;
 use BaseX\Helpers as B;
-
+use BaseX\Database\Backup;
 /**
  * BaseX Database object.
  * 
@@ -406,5 +406,21 @@ class Database
   public function getCollection($path='')
   {
     return new Collection($this->getSession(), $this->getName(), $path);
+  }
+  
+  public function backup()
+  {
+    $this->getSession()->execute("CREATE BACKUP $this");
+    $query = $this->getSession()->query("db:backups('$this')[1]");
+    $results = Backup::getForQuery($query);
+    return $results[0];
+  }
+  
+  public function getBackups()
+  {
+    $query = $this->getSession()->query("db:backups('$this')");
+    
+    return Backup::getForQuery($query);
+    
   }
 }

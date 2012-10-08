@@ -128,16 +128,13 @@ class Session
   {
     if(null === $this->info)
     {
-      $results = QueryBuilder::begin()
-//                  ->setParameter('omit-xml-declaration', false)
-                  ->setBody('db:system()')
-                  ->getQuery($this)
-                  ->getResults('BaseX\Session\SessionInfo');
+      $results = SessionInfo::getForQuery($this->query('db:system()'));
       
-      if(null === $results)
+      if(empty($results))
       {
         throw new SessionError('Could not load session info.');
       }
+      
       $this->info = $results[0];
     }
     

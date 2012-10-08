@@ -58,7 +58,7 @@ class Collection extends Resource implements CollectionInterface
     }
     else
     {
-      $this->info = new CollectionInfo();
+      $this->info = new CollectionInfo($this->session);
       $this->info->setData($info);
     }
     
@@ -98,14 +98,14 @@ class Collection extends Resource implements CollectionInterface
     
     foreach ($info->getXML()->contents->collection as $col)
     {
-      $inf = new CollectionInfo();
+      $inf = new CollectionInfo($this->session);
       $inf->setData($col);
       $result[] = new Collection($this->getSession(), $this->getDatabase(), $inf->getPath(), $inf);
     }
     
     foreach ($info->getXML()->contents->resource as $resource)
     {
-      $inf = new ResourceInfo();
+      $inf = new ResourceInfo($this->session);
       $inf->setData($resource);
       if($inf->isRaw())
       {

@@ -206,7 +206,7 @@ class Query
         
         $data = $sock->read();
         
-        $result = $this->bindResult(new $class(), $data, ord($type));
+        $result = $this->bindResult(new $class($this->getSession()), $data, ord($type));
 
         if(null === $result)
         {
@@ -226,7 +226,6 @@ class Query
   
   protected function bindResult(QueryResultInterface $result, $data, $type = null)
   {
-    $result->setSession($this->getSession());
     if(null === $type)
     {
       return $result->setData($data);

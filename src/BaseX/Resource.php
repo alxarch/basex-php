@@ -104,8 +104,8 @@ abstract class Resource implements ResourceInterface
     }
     else
     {
-      $this->info = new ResourceInfo();
-      $this->info->setData($info)->setSession($this->getSession());
+      $this->info = new ResourceInfo($this->session);
+      $this->info->setData($info);
     }
     
     return $this;

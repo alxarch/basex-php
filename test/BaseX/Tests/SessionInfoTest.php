@@ -15,7 +15,7 @@ class SessionInfoTest extends TestCaseSession {
   /**
    */
   function testGet() {
-    $info = new SessionInfo();
+    $info = new SessionInfo($this->session);
 
     $data = $this->session->query("db:system()")->execute();
     
@@ -32,7 +32,7 @@ class SessionInfoTest extends TestCaseSession {
 
   function testOption() 
   {
-    $info = new SessionInfo();
+    $info = new SessionInfo($this->session);
     $data = $this->session->query("db:system()")->execute();
     $info->setData($data);
     $xml = simplexml_load_string($data);
@@ -44,7 +44,7 @@ class SessionInfoTest extends TestCaseSession {
   }
 
   function testVersion() {
-    $info = new SessionInfo();
+    $info = new SessionInfo($this->session);
     $data = $this->session->query("db:system()")->execute();
     $info->setData($data);
     $this->assertNotEmpty($info->version());

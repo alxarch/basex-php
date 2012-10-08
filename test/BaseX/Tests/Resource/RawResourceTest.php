@@ -59,8 +59,8 @@ class RawResourceTest extends TestCaseDb
     $this->db->store('test.txt', 'yadayada');
     $info = '<resource raw="true" content-type="image/jpeg" modified-date="2012-05-27T12:36:48.000Z" size="60751">image.jpg</resource>';
     
-    $r = new \BaseX\Resource\ResourceInfo();
-    $r->setSession($this->session)->setData($info);
+    $r = new \BaseX\Resource\ResourceInfo($this->session);
+    $r->setData($info);
     $raw = new Raw($this->session, $this->dbname, 'test.txt', $r);
     
     $info = '<resource raw="false" content-type="application/xml" modified-date="2012-05-27T13:38:33.988Z">collection/doc.xml</resource>';

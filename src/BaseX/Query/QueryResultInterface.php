@@ -17,7 +17,7 @@ use BaseX\Session;
  */
 interface QueryResultInterface 
 {
-  public function setSession(Session $session=null);
+  public function __construct(Session $session);
   public function getSession();
   public function getData();
   public function setData($data);

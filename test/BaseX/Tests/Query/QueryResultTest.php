@@ -7,7 +7,7 @@
 
 namespace BaseX\Tests\Query;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use BaseX\PHPUnit\TestCaseSession as TestCase;
 
 use BaseX\Query\QueryResult;
 
@@ -38,7 +38,7 @@ class QueryResultTest extends TestCase
    */
   function testGetType()
   {
-    $test = new QueryResult();
+    $test = new QueryResult($this->session);
     $test->setType(100);
   }
 }

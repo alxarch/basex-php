@@ -44,6 +44,11 @@ class SessionInfo extends SimpleXMLResult
     return null;
   }
   
+  public function __isset($name) {
+    return isset($this->xml->mainoptions->{$name});
+  }
+
+
   /**
    * Get some option of the server.
    * 

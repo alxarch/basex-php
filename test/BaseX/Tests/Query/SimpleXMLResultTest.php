@@ -7,7 +7,7 @@
 
 namespace BaseX\Tests\Query;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use BaseX\PHPUnit\TestCaseSession as TestCase;
 use BaseX\Query\SimpleXMLResult;
 
 /**
@@ -22,7 +22,7 @@ class SimpleXMLResultTest extends TestCase
   {
     $data = '<root/>';
     
-    $test = new SimpleXMLResult();
+    $test = new SimpleXMLResult($this->session);
     $this->assertInstanceOf('BaseX\Query\SimpleXMLResult', $test->setData($data));
     
     $this->assertXmlStringEqualsXmlString($data, $test->getData());
@@ -35,7 +35,7 @@ class SimpleXMLResultTest extends TestCase
   {
     $data = 'error';
     
-    $test = new SimpleXMLResult();
+    $test = new SimpleXMLResult($this->session);
     $test->setData($data);
   }
   
@@ -43,7 +43,7 @@ class SimpleXMLResultTest extends TestCase
   {
     $data = '<root/>';
     
-    $test = new SimpleXMLResult();
+    $test = new SimpleXMLResult($this->session);
     $test->setData($data);
     $this->assertInstanceOf('BaseX\Query\SimpleXMLResult', $test->setType(11));
   }
@@ -55,7 +55,7 @@ class SimpleXMLResultTest extends TestCase
   {
     $type = 100;
     
-    $test = new SimpleXMLResult();
+    $test = new SimpleXMLResult($this->session);
     $test->setType($type);
   }
   
@@ -77,7 +77,7 @@ class SimpleXMLResultTest extends TestCase
         <t/>
       </root>
 XML;
-    $test = new SimpleXMLResult();
+    $test = new SimpleXMLResult($this->session);
     $test->setData($data);
     $this->assertXmlStringEqualsXmlString($data, $test->getData());
     $this->assertFalse(strpos($test->getData(), '<?xml version="1.0"?>') === 0);
@@ -87,7 +87,7 @@ XML;
   {
     $data = '<root/>';
     
-    $test = new SimpleXMLResult();
+    $test = new SimpleXMLResult($this->session);
     $test->setData($data);
     
     $this->assertInstanceOf('SimpleXMLElement', $test->getXML());
@@ -113,7 +113,7 @@ XML;
       </root>
 XML;
     
-    $result = new SimpleXMLResult();
+    $result = new SimpleXMLResult($this->session);
     
     $result->setData($data);
     
@@ -145,7 +145,7 @@ XML;
       </root>
 XML;
     
-    $result = new SimpleXMLResult();
+    $result = new SimpleXMLResult($this->session);
     
     $result->setData($data);
     
