@@ -62,4 +62,10 @@ class QueryResult implements QueryResultInterface
     $this->data = $data;
     return $this;
   }
+  
+  public static function getForQuery(Query $query)
+  {
+    return $query->getResults(get_called_class());
+  }
+  
 }
