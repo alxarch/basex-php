@@ -1,3 +1,6 @@
 /nbproject
 *~
 *.swp
+.directory
+.composer.phar
+vendor

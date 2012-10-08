@@ -1,5 +1,9 @@
 {
   "name": "alxarch/basex-php",
+  "require-dev": {
+    "sabre/dav": "1.6.4",
+    "silex/silex": "dev-master"
+  },
   "autoload": {
     "psr-0": {"BaseX": "src/"}
   }

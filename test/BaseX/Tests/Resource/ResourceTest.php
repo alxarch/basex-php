@@ -123,9 +123,4 @@ class ResourceTest extends TestCaseDb
     $this->assertFalse($res->isRaw());
   }
   
- 
-  
-  
-
-  
 }
