@@ -162,17 +162,59 @@ class Collection extends Resource implements CollectionInterface
 
   protected function getDeleteQuery()
   {
-    throw new Error('Not implemented.');
+    $db = $this->getDatabase();
+    $src = $this->getPath();
+    
+    $xql = <<<XQL
+      for \$resource in db:list('$db', '$src')
+        return db:delete('$db', \$resource)
+XQL;
+    
+    return $this->getSession()->query($xql);
   }
   
-  protected function getCopyQuery($path) 
+  protected function getCopyQuery($dest) 
   {
-    throw new Error('Not implemented.');
+    $db = $this->getDatabase();
+    $src = $this->getPath();
+    
+    $xql = <<<XQL
+      for \$resource in db:list-details('$db', '$src')
+        let \$src := \$resource/text()
+        let \$dest := replace(\$src, '^$src', '$dest')
+        return 
+        if(\$resource/@raw = 'true') 
+        then 
+          db:store('$db', \$dest, db:retrieve('$db', \$src))
+        else
+          db:replace('$db', \$dest, db:open('$db', \$src))
+XQL;
+    
+    return $this->getSession()->query($xql);
+   
   }
   
   protected function getMoveQuery($dest) 
   {
-    throw new Error('Not implemented.');
+    $db = $this->getDatabase();
+    $src = $this->getPath();
+    
+    $xql = <<<XQL
+      for \$resource in db:list-details('$db', '$src')
+        let \$src := \$resource/text()
+        let \$dest := replace(\$src, '^$src', '$dest')
+        return (
+          if(\$resource/@raw = 'true') 
+            then 
+              db:store('$db', \$dest, db:retrieve('$db', \$src))
+            else
+              db:replace('$db', \$dest, db:open('$db', \$src))
+          ,
+          db:delete('$db', \$src)
+        )
+XQL;
+    
+    return $this->getSession()->query($xql);
   }
   
   /**

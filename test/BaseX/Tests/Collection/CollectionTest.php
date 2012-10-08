@@ -63,4 +63,37 @@ class CollectionTest extends TestCaseDb
     $this->assertEquals('test/path', $test[0]->getPath());
   }
   
+  function testCopy()
+  {
+    $this->db->add('test/test.xml', '<test/>');
+    $this->db->store('test/raw/test.txt', 'test');
+    
+    $col = new Collection($this->session, $this->dbname, 'test');
+    $col->copy('copied');
+    
+    $this->assertContains('copied/test.xml', $this->ls());
+    $this->assertXmlStringEqualsXmlString('<test/>', $this->doc('copied/test.xml'));
+    
+    $this->assertContains('copied/raw/test.txt', $this->ls());
+    $this->assertEquals('test', $this->raw('copied/raw/test.txt'));
+    
+  }
+  function testMove()
+  {
+    $this->db->add('test/test.xml', '<test/>');
+    $this->db->store('test/raw/test.txt', 'test');
+    
+    $col = new Collection($this->session, $this->dbname, 'test');
+    $col->move('moved');
+    
+    $this->assertContains('moved/test.xml', $this->ls());
+    $this->assertXmlStringEqualsXmlString('<test/>', $this->doc('moved/test.xml'));
+    
+    $this->assertContains('moved/raw/test.txt', $this->ls());
+    $this->assertEquals('test', $this->raw('moved/raw/test.txt'));
+    
+    $this->assertNotContains('test/test.xml', $this->ls());
+    $this->assertNotContains('test/raw/test.txt', $this->ls());
+    
+  }
 }
