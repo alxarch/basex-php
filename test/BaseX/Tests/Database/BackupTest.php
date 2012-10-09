@@ -17,7 +17,7 @@ class BackupTest extends TestCaseDb
     $b->setData($data);
     
     $this->assertEquals(123, $b->getSize());
-    $this->assertEquals(date_parse('2000-01-01 00:12:43'), $b->getDate());
+    $this->assertEquals(new \DateTime('2000-01-01 00:12:43'), $b->getDate());
     $this->assertEquals('test', $b->getDatabase());
     $this->assertEquals('test-2000-01-01-00-12-43.zip', $b->getFile());
     $dbpath = $this->session->getInfo()->dbpath;

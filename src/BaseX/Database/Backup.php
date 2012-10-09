@@ -37,7 +37,7 @@ class Backup extends QueryResult
               $matches['min'],
               $matches['sec']);
       
-      $this->date = date_parse($d);
+      $this->date = new \DateTime($d);
       
     }
     else
