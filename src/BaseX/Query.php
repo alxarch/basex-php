@@ -228,11 +228,14 @@ class Query
   {
     if(null === $type)
     {
-      return $result->setData($data);
+      $result->setData($data);
+      return $result;
     }
     try
     {
-      return $result->setType($type)->setData($data);
+      $result->setType($type);
+      $result->setData($data);
+      return $result;
     }
     catch (InvalidArgumentException $e)
     {

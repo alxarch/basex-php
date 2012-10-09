@@ -3,14 +3,33 @@
 namespace BaseX\Tests;
 
 use BaseX\PHPUnit\TestCaseDb;
-use BaseX\Session;
 use BaseX\Database;
-use BaseX\Resource\Document;
-use BaseX\Resource\Raw;
-use \InvalidArgumentException;
+use BaseX\Database\Backup;
 
 class DatabaseTest extends TestCaseDb
 {
+  
+  public function testBackup()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $b = $this->db->backup();
+    $this->assertTrue($b instanceof Backup);
+    $this->assertNotEmpty($this->session->query("db:backups('$this->dbname')")->execute());
+  }
+  
+  public function testBackups()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $this->db->backup();
+    sleep(1);
+    $this->db->backup();
+    $backups = $this->db->getBackups();
+    
+    $this->assertEquals(2, count($backups));
+    $this->assertTrue($backups[0] instanceof Backup);
+    $this->assertTrue($backups[1] instanceof Backup);
+  }
+  
   /**
    * @expectedException InvalidArgumentException
    * @expectedExceptionMessage Invalid database name.

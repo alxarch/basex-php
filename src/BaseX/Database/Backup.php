@@ -8,7 +8,6 @@ class Backup extends QueryResult
 {
   protected $db,$size,$file,$date;
 
-
   public function setData($data) {
     parent::setData($data);
     $pattern = 
@@ -45,6 +44,8 @@ class Backup extends QueryResult
     {
       throw new \InvalidArgumentException('Invalid backup data.');
     }
+    
+    return $this;
     
   }
   
