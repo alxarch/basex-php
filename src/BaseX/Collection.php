@@ -66,18 +66,15 @@ class Collection extends Resource implements CollectionInterface
     
   }
 
-  public function getSize()
-  {
+  public function getSize(){
     return 0;
   }
   
-  public function getType()
-  {
+  public function getType(){
     return 'collection';
   }
   
-  public function isRaw()
-  {
+  public function isRaw(){
     return false;
   }
   
@@ -96,39 +93,54 @@ class Collection extends Resource implements CollectionInterface
     
     $result = array();
     
-    foreach ($info->getXML()->contents->collection as $col)
+    foreach ($info->getXML()->contents->collection as $data)
     {
       $inf = new CollectionInfo($this->session);
-      $inf->setData($col);
-      $result[] = new Collection($this->getSession(), $this->getDatabase(), $inf->getPath(), $inf);
+      $inf->setData($data);
+      $collection = $this->getCollection($inf);
+      if($collection)
+      {
+        $result[] = $collection;
+      }
     }
     
-    foreach ($info->getXML()->contents->resource as $resource)
+    foreach ($info->getXML()->contents->resource as $data)
     {
       $inf = new ResourceInfo($this->session);
-      $inf->setData($resource);
-      if($inf->isRaw())
+      $inf->setData($data);
+
+      $resource = $this->getResource($inf);
+      if($resource)
       {
-        $result[] = new Raw($this->getSession(), $this->getDatabase(), $inf->getPath(), $inf);
-      }
-      else 
-      {
-        $result[] = new Document($this->getSession(), $this->getDatabase(), $inf->getPath(), $inf);
+        $result[] = $resource;
       }
     }
     
     return $result;
   }
   
-  /**
-   * Gets all resources for this collection.
-   * 
-   * @param string $path list resources from this subpath
-   * @return array A BaseX\Resource array
-   */
-  public function getResources($path=null)
+  protected function getCollection(CollectionInfo $info)
   {
-    if(null === $path)
+    $class = get_class($this);
+    return new $class($this->getSession(), $this->getDatabase(), $info->getPath(), $info);
+  }
+
+  protected function getResource(ResourceInfo $info)
+  {
+    if($info->isRaw())
+    {
+      return new Raw($this->getSession(), $this->getDatabase(), $info->getPath(), $info);
+    }
+    else 
+    {
+      return new Document($this->getSession(), $this->getDatabase(), $info->getPath(), $info);
+    }
+  }
+ 
+  public function getResourcesQuery($path=null)
+  {
+    $db = $this->getDatabase();
+     if(null === $path)
     {
       $path = $this->getPath();
     }
@@ -137,27 +149,32 @@ class Collection extends Resource implements CollectionInterface
       $path = rtrim($this->getPath().'/'.trim($path, '/'), '/');
     }
     
-    $resources = ResourceInfo::get($this->getSession(), $this->getDatabase(), $path);
+    $xql = "db:list-details('$db', '$path')";
+    return $this->getSession()->query($xql);
+  }
+          
+  /**
+   * Gets all resources for this collection.
+   * 
+   * @param string $path list resources from this subpath
+   * @return array A BaseX\Resource array
+   */
+  public function getResources($path=null)
+  {
+    $resources = ResourceInfo::getForQuery($this->getResourcesQuery($path));
     
     $result = array();
-    foreach ($resources as $resource)
+    
+    foreach ($resources as $info)
     {
-      if($resource->isRaw())
+      $resource = $this->getResource($info);
+      if($resource)
       {
-        $result[] = new Raw($this->getSession(), $this->getDatabase(), $resource->getPath());
-      }
-      else
-      {
-        $result[] = new Document($this->getSession(), $this->getDatabase(), $resource->getPath());
+        $result[] = $resource;
       }
     }
 
     return $result;
-  }
-
-  protected function getContentsQuery() 
-  {
-    throw new Error('Not implemented.');
   }
 
   protected function getDeleteQuery()
@@ -279,4 +296,10 @@ XQL;
     $this->setInfo(null);
     $this->setPath(null);
   }
+   
+  public function getContentsQuery()
+  {
+    return $this->getResourcesQuery();
+  }
+  
 }
