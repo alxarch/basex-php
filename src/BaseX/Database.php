@@ -411,14 +411,24 @@ class Database
   public function backup()
   {
     $this->getSession()->execute("CREATE BACKUP $this");
-    $query = $this->getSession()->query("db:backups('$this')[1]");
-    $results = Backup::getForQuery($query);
+    return $this->getLatestBackup();
+  }
+  
+  public function getLatestBackup()
+  {
+    $results = $this->getBackups();
     return $results[0];
   }
   
   public function getBackups()
   {
-    $query = $this->getSession()->query("db:backups('$this')");
+    $xql = <<<XQL
+      for \$b in db:backups('$this') 
+        order by \$b descending
+        return \$b
+XQL;
+      
+    $query = $this->getSession()->query($xql);
     
     return Backup::getForQuery($query);
     
