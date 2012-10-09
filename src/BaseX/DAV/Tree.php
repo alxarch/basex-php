@@ -274,7 +274,7 @@ class Tree extends Sabre_DAV_ObjectTree
     $this->contents = null;
   }
   
-  public function markDirty()
+  public function markDirty($path)
   {
     $this->contents = null;
   }

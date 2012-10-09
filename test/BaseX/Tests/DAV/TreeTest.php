@@ -32,7 +32,7 @@ class TreeTest extends TestCaseDb
     $tree = new Tree($this->db);
     
     $this->db->add('.protect/test.xml', '<root/>');
-    $tree->markDirty();
+    $tree->markDirty(1);
     
     $this->assertEmpty($tree->getChildren(''));
     $this->assertFalse($tree->nodeExists('.protect/test.xml'));
@@ -41,12 +41,12 @@ class TreeTest extends TestCaseDb
     
     $this->db->add('sazam/test.xml', '<root/>');
     $this->db->store('sazam/.empty', '');
-    $tree->markDirty();
+    $tree->markDirty(1);
     $this->assertFalse($tree->nodeExists('sazam/.empty'));
     
     
     $this->db->store('sazam/.protect/protected', '');
-    $tree->markDirty();
+    $tree->markDirty(1);
     
     $this->assertFalse($tree->nodeExists('sazam/.protect/protected'));
     
