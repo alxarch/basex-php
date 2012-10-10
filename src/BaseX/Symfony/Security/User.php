@@ -33,12 +33,7 @@ class User extends QueryResult implements UserInterface
          ->setPassword((string) $xml->password)
          ->setLastLogin(strtotime((string) $xml->{'last-login'}));
          
-    $this->roles = array();
-    foreach ($xml->roles->role as $r)
-    {
-       $this->roles[] = new Role((string)$r);
-    }
-    
+    $this->setRoles($xml->roles->role);
     return $this;
     
   }
@@ -66,7 +61,7 @@ class User extends QueryResult implements UserInterface
     
     foreach ($roles as $r)
     {
-      $this->roles[] = new Role((string)$r);
+      $this->roles[] = (string)$r;
     }
     
     return $this;
@@ -116,7 +111,7 @@ class User extends QueryResult implements UserInterface
     $xml->addChild('roles');
     foreach ($this->getRoles() as $role)
     {
-      $xml->roles->addChild('role', $role->getRole());
+      $xml->roles->addChild('role', $role);
     }
     
     return substr($xml->asXML(), strlen('<?xml version="1.0"?>'));
