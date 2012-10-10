@@ -9,6 +9,7 @@ namespace BaseX\Symfony\Security;
 
 use BaseX\Query\QueryResult;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Role\Role;
 
 /**
  * Description of User
@@ -32,14 +33,11 @@ class User extends QueryResult implements UserInterface
          ->setPassword((string) $xml->password)
          ->setLastLogin(strtotime((string) $xml->{'last-login'}));
          
-    $roles = array();
-    
+    $this->roles = array();
     foreach ($xml->roles->role as $r)
     {
-      $roles[] = (string)$r;
+       $this->roles[] = new Role((string)$r);
     }
-    
-    $this->setRoles($roles);
     
     return $this;
     
@@ -64,7 +62,13 @@ class User extends QueryResult implements UserInterface
   }
   
   public function setRoles($roles) {
-    $this->roles = (array)$roles;
+    $this->roles = array();
+    
+    foreach ($roles as $r)
+    {
+      $this->roles[] = new Role((string)$r);
+    }
+    
     return $this;
   }
   
@@ -105,14 +109,14 @@ class User extends QueryResult implements UserInterface
   
   public function getXML()
   {
-    $xml = simplexml_load_string('<user/>');
+    $xml = simplexml_load_string('<user xmlns=""/>');
     $xml->addChild('username', $this->getUsername());
     $xml->addChild('last-login', $this->getLastLogin());
     $xml->addChild('password', $this->getPassword());
     $xml->addChild('roles');
     foreach ($this->getRoles() as $role)
     {
-      $xml->roles->addChild('role', $role);
+      $xml->roles->addChild('role', $role->getRole());
     }
     
     return substr($xml->asXML(), strlen('<?xml version="1.0"?>'));
