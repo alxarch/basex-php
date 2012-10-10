@@ -2,7 +2,8 @@
   "name": "alxarch/basex-php",
   "require-dev": {
     "sabre/dav": "1.6.4",
-    "silex/silex": "dev-master"
+    "silex/silex": "dev-master",
+    "symfony/security": "2.1.x"
   },
   "autoload": {
     "psr-0": {"BaseX": "src/"}
