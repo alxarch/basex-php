@@ -10,14 +10,9 @@
 namespace BaseX;
 
 use BaseX\Session;
-use BaseX\Collection;
-use BaseX\Resource\Raw;
-use BaseX\Resource\ResourceInfo;
-use BaseX\Resource\Document;
-use BaseX\Query\QueryBuilder;
-use BaseX\Error;
-use BaseX\Helpers as B;
-use BaseX\Database\Backup;
+use BaseX\Query\Result\MapperInterface;
+use BaseX\Resource\Tree;
+
 /**
  * BaseX Database object.
  * 
@@ -53,14 +48,30 @@ class Database
    */
   public function __construct(Session $session, $name)
   {
+    $this->session = $session;
+    $this->setName($name);
+  }
+  
+  public function setName($name)
+  {
     if(!preg_match('/^[\-_a-zA-Z0-9]{1,128}$/', $name))
       throw new \InvalidArgumentException('Invalid database name.');
     
-    $this->session = $session;
     $this->name = $name;
-    
-    // Creates the database if it does not exist.
-    $this->session->execute("CHECK $name");
+    return $this;
+  }
+
+
+  /**
+   * Creates the database if it does not exist.
+   * 
+   * @return \BaseX\Database
+   */
+  public function create()
+  {
+    $name = $this->getName();
+    $this->getSession()->execute("CHECK $name");
+    return $this;
   }
   
   /**
@@ -68,8 +79,7 @@ class Database
    * 
    * @return string
    */
-  public function getName()
-  {
+  public function getName(){
     return $this->name;
   }
   
@@ -81,12 +91,13 @@ class Database
    * @param string $path
    * @param string|resource $input
    * 
-   * @return BaseX\Resource\Document The created document
+   * @return \BaseX\Database
    */
   public function add($path, $input)
   {
-    $this->open()->getSession()->add($path, $input);
-    return new Document($this->getSession(), $this->getName(), $path);
+    $this->open();
+    $this->getSession()->add($path, $input);
+    return $this;
   }
   
   /**
@@ -96,21 +107,14 @@ class Database
    * 
    * @param string $path
    * @param string|resource $input
-   * @return BaseX\Resource The replaced resource
+   * 
+   * @return \BaseX\Database
    */
   public function replace($path, $input)
   {
-    $this->open()->getSession()->replace($path, $input);
-    $results = ResourceInfo::get($this->getSession(), $this->getName(), $path);
-    $info = array_shift($results);
-    if($info->isRaw())
-    {
-      return new Raw($this->getSession(), $this->getName(), $path, $info);
-    }
-    else
-    {
-      return new Document($this->getSession(), $this->getName(), $path, $info);
-    }
+    $this->open();
+    $this->getSession()->replace($path, $input);
+    return $this;
   }
   
   /**
@@ -121,12 +125,12 @@ class Database
    * @param string $path
    * @param string|resource $input
    * 
-   * @return BaseX\Resource\Raw the created resource
+   * @return BaseX\Database
    */
   public function store($path, $input)
   {
     $this->open()->getSession()->store($path, $input);
-    return new Raw($this->getSession(), $this->getName(), $path);
+    return $this;
   }
   
   /**
@@ -148,12 +152,13 @@ class Database
    * @link http://docs.basex.org/wiki/Commands#DELETE
    * 
    * @param string $path 
+   * 
+   * @return BaseX\Database
    */
   public function delete($path)
   {
-    $path = B::escape($path);
-    $command = sprintf('DELETE "%s"', $path);
-    $this->execute($command);
+    $this->execute("DELETE \"$path\"");
+    return $this;
   }
   
   /**
@@ -161,14 +166,28 @@ class Database
    * 
    * @link http://docs.basex.org/wiki/Commands#RENAME
    * 
-   * @param string $path 
+   * @param string $old 
+   * @param string $new 
+   * 
+   * @return BaseX\Database
    */
   public function rename($old, $new)
   {
-    $old = B::escape($old);
-    $new = B::escape($new);
-    $command = sprintf('RENAME "%s" "%s"', $old, $new);
-    $this->execute($command);
+    $this->execute("RENAME \"$old\" \"$new\"");
+    return $this;
+  }
+  
+  /**
+   * 
+   * @param string $path
+   * @param \BaseX\Query\Result\MapperInterface $mapper
+   * @return mixed
+   */
+  public function getResource($path, MapperInterface $mapper = null)
+  {
+    return $this->getSession()
+            ->query("db:list-details('$this', '$path')")
+            ->getSingleResult($mapper);
   }
   
   /**
@@ -177,196 +196,28 @@ class Database
    * @param string $path 
    * @return array 
    */
-  public function getResources($path = null)
+  public function getResources($path = null, MapperInterface $mapper = null)
   {
-    $col = new Collection($this->getSession(), $this->getName(), $path);
-    return $col->getResources();
-  }
-    
-  /**
-   * Adds a document using the xml parser.
-   * 
-   * @link http://docs.basex.org/wiki/Parsers#XML_Parser
-   * 
-   * @param string $path
-   * @param mixed $input
-   * @param string $filter Filter added files wildcard.
-   * 
-   */
-  public function addXML($path, $input, $filter = "*.xml")
-  {
-    $this->doAdd($path, $input, 'xml', array(), $filter);
-  }
-  
-  /**
-   * 
-   * Adds a document using the html parser.
-   * 
-   * @link http://docs.basex.org/wiki/Parsers#HTML_Parser
-   * @link http://home.ccil.org/~cowan/XML/tagsoup/#program
-   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
-   * 
-   * @param type $path
-   * @param type $input
-   * @param array $options Options to pass to TagSoup.
-   * @param string $filter Filter added files wildcard.
-   * 
-   */
-  public function addHTML($path, $input, $options=array(), $filter = '*.html')
-  {
-    $options = $options + array(
-      'method' => 'xml', 
-    );
-    
-    $this->doAdd($path, $input, 'html', $options, $filter);
-    
-  }
-  
-  /**
-   * 
-   * Adds a document using the JSON parser.
-   * 
-   * @link http://docs.basex.org/wiki/Parsers#HTML_Parser
-   * 
-   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
-   * 
-   * @param type $path
-   * @param type $input
-   * @param array $options Options to pass to JSON parser
-   * @param string $filter Filter added files wildcard.
-   * 
-   */
-  public function addJSON($path, $input, $options=array(), $filter = '*.json')
-  {
-    $options = $options + array(
-      'encoding' => 'utf-8', 
-      'jsonml'   => false
-    );
- 
-    $this->doAdd($path, $input, 'json', $options, $filter);
-  }
-  
-  /**
-   * 
-   * Adds a document using the CSV parser.
-   * 
-   * @link http://docs.basex.org/wiki/Parsers#CSV_Parser
-   * 
-   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
-   * 
-   * @param type $path
-   * @param type $input
-   * @param array $options Options to pass to CSV parser
-   * @param string $filter Filter added files wildcard.
-   * 
-   */
-  public function addCSV($path, $input, $options=array(), $filter = '*.csv')
-  {
-    $options = $options + array(
-      'encoding'  => 'utf-8', 
-      'separator' => 'comma', 
-      'format'    => 'simple',
-      'header'    => true
-    );
-   
-    $this->doAdd($path, $input, 'csv', $options, $filter);
-  }
-
-  /**
-   * 
-   * Adds a document using the Text parser.
-   * 
-   * @link http://docs.basex.org/wiki/Parsers#Text_Parser
-   * 
-   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
-   * 
-   * @param type $path
-   * @param type $input
-   * @param array $options Options to pass to Text parser
-   * @param string $filter Filter added files wildcard.
-   * 
-   */
-  public function addText($path, $input, $options=array(), $filter = '*')
-  {
-    $options = $options + array(
-      'encoding' => 'utf-8', 
-      'lines'    => true
-    );
-    
-    $this->doAdd($path, $input, 'text', $options, $filter);
-  }
-  
-  protected function doAdd($path, $input, $parser, $options, $filter)
-  {
-    $options = B::options($options);
-    
-    $parseropt = ('html' === $parser) ? 'HTMLOPT' : 'PARSEROPT';
-    
-    $restore = $this->getSession()->getInfo();
-    
-    $this->getSession()
-        ->setOption('parser', $parser)
-        ->setOption($parseropt, $options)
-        ->setOption('createfilter', $filter)
-        ->execute('open '.$this->getName());
-    
-    $add = is_array($path) ? $path : array($path => $input);
-    
-    foreach ($add as $path => $input)
-    {
-      $this->getSession()->add($path, $input);
-    }
-    
-    $this->getSession()
-        ->setOption('parser', $restore)
-        ->setOption('parseropt', $restore)
-        ->setOption('parser', $restore)
-        ->setOption('htmlopt', $restore)
-        ->setOption('createfilter', $restore);
-
+    return $this->getSession()
+            ->query("db:list-details('$this', '$path')")
+            ->getResults($mapper);
   }
 
   protected function open()
   {
-    $this->session->execute('OPEN '.$this->getName());
+    $this->getSession()->execute("OPEN $this");
     return $this;
   }
-  
-  /**
-   * Fetches contents of a resource at specified path.
-   * 
-   * @param string $path
-   * @param boolean $raw
-   * @return string 
-   */
-  public function fetch($path, $raw=false)
-  {
-    $db =  $this->getName();
-    
-    $q = QueryBuilder::begin();
-    
-    if($raw)
-    {
-      $q->setBody("db:retrieve('$db', '$path')")
-        ->setParameter('method', 'raw');
-    }
-    else
-    {
-      $q->setBody("db:open('$db', '$path')")
-        ->setParameter('omit-xml-declaration', 'false');
-    }
-    
-    return $q->getQuery($this->getSession())->execute();
-  }
-  
+
   /**
    * Checks to see if $path exists.
+   * 
    * @param string $path 
    */
   public function exists($path)
   {
-    $xql = sprintf("db:exists('%s', '%s')", $this->getName(), $path);
-    return 'true' === $this->session->query($xql)->execute();
+    $xql = "count(db:list('$this', '$path')) ne 0";
+    return 'true' === $this->getSession()->query($xql)->execute();
   }
   
   /**
@@ -374,16 +225,22 @@ class Database
    * 
    * @param string $xpath An XPath expression to apply to the contents.
    * @param string $path An path to limit scope of contents.
+   * @param \BaseX\Query\Result\MapperInterface $mapper A mapper to use for
+   * the results.
    * @return string $result
    */
-  public function xpath($xpath, $path=null)
+  public function xpath($xpath, $path=null, MapperInterface $mapper = null)
   {
     if(null === $path)
+    {
       $xq = sprintf("db:open('%s')%s", $this->getName(), $xpath);
+    }
     else
+    {
       $xq = sprintf("db:open('%s', '%s')%s", $this->getName(), $path, $xpath);
+    }
     
-    return $this->getSession()->query($xq)->execute();
+    return $this->getSession()->query($xq)->getResults($mapper);
   }
   
   /**
@@ -395,42 +252,52 @@ class Database
     return $this->session;
   }
   
+  /**
+   * 
+   * @return string
+   */
   public function __toString()
   {
     return $this->getName();
   }
   
   /**
-   * @return \BaseX\Collection
+   * Copies contents form source path to destination path.
+   * 
+   * @param string $src
+   * @param string $dest
+   * @return \BaseX\Database
    */
-  public function getCollection($path='')
-  {
-    return new Collection($this->getSession(), $this->getName(), $path);
-  }
-  
-  public function backup()
-  {
-    $this->getSession()->execute("CREATE BACKUP $this");
-    return $this->getLatestBackup();
-  }
-  
-  public function getLatestBackup()
-  {
-    $results = $this->getBackups();
-    return $results[0];
-  }
-  
-  public function getBackups()
+  public function copy($src, $dest)
   {
     $xql = <<<XQL
-      for \$b in db:backups('$this') 
-        order by \$b descending
-        return \$b
+      for \$resource in db:list-details('$this', '$src')
+        let \$src := \$resource/text()
+        let \$dest := replace(\$src, '^$src', '$dest')
+        return 
+        if(\$resource/@raw = 'true') 
+        then 
+          db:store('$this', \$dest, db:retrieve('$this', \$src))
+        else
+          db:replace('$this', \$dest, db:open('$this', \$src))
 XQL;
-      
-    $query = $this->getSession()->query($xql);
     
-    return Backup::getForQuery($query);
+    $this->getSession()->query($xql)->execute();
     
+    return $this;
+  }
+  
+  /**
+   * Gets a resource tree for this database.
+   * 
+   * @param string $root
+   * @param int $depth
+   * @return \BaseX\Resource\Tree
+   */
+  public function getTree($root='', $depth=-1)
+  {
+    $tree = new Tree();
+    $tree->load($this, $root, $depth);
+    return $tree;
   }
 }

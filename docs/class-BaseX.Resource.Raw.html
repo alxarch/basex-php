@@ -6,8 +6,8 @@
 
 	<title>Class BaseX\Resource\Raw | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,10 +23,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -36,17 +37,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li class="active"><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -58,15 +67,14 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
 				<li class="active"><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
-				<li><a href="class-BaseX.Resource.ResourceInfo.html">ResourceInfo</a></li>
+				<li><a href="class-BaseX.Resource.ResourceMapper.html">ResourceMapper</a></li>
+				<li><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
+				<li><a href="class-BaseX.Resource.Tree.html">Tree</a></li>
 			</ul>
 
-			<h3>Interfaces</h3>
-			<ul>
-				<li><a href="class-BaseX.Resource.ResourceInterface.html">ResourceInterface</a></li>
-			</ul>
 
 
 
@@ -124,11 +132,20 @@
 			<a href="class-BaseX.Resource.html"><span>BaseX\Resource</span></a>
 			
 			 implements 
-				<a href="class-BaseX.Resource.ResourceInterface.html"><span>BaseX\Resource\ResourceInterface</span></a>
+				<a href="class-BaseX.Resource.Interfaces.ResourceInterface.html"><span>BaseX\Resource\Interfaces\ResourceInterface</span></a>
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-BaseX.Resource.Streamable.html"><span>BaseX\Resource\Streamable</span></a>
+			
+			 implements 
+				<a href="class-BaseX.Resource.Interfaces.StreamableResource.html"><span>BaseX\Resource\Interfaces\StreamableResource</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by" />
 <b><span>BaseX\Resource\Raw</span></b>			
 			
@@ -137,10 +154,6 @@
 	</dl>
 
 
-	<div>
-		<h4>Direct known subclasses</h4>
-			<a href="class-BaseX.Resource.Document.html">BaseX\Resource\Document</a>
-	</div>
 
 
 
@@ -153,111 +166,36 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Resource.html">Resource</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Resource.Raw.html#17-118" title="Go to source code">src/BaseX/Resource/Raw.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.Raw.html#14-53" title="Go to source code">src/BaseX/Resource/Raw.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="init" id="_init">
-
-		<td class="attributes"><code>
-			 protected 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_init">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#24-30" title="Go to source code">init</a>( )</code>
-
-		<div class="description short">
-			
-<p>To be overriden by subclasses.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>To be overriden by subclasses.</p>
-
-<p>Runs at the end of the constructor.</p>
-
-
-
-
-
-
-
-				<h4>Overrides</h4>
-				<div class="list"><code><a href="class-BaseX.Resource.html#_init">BaseX\Resource::init()</a></code></div>
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getContents" id="_getContents">
+	<tr data-order="isRaw" id="_isRaw">
 
 		<td class="attributes"><code>
 			 public 
-			string|integer
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getContents">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#32-58" title="Go to source code">getContents</a>( <span>resource <var>$into</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			
-<p>Get contents of this resource.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Get contents of this resource.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$into</var></dt>
-					<dd><code>resource</code><br>$into If provided contents will be piped into this stream.</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string|integer</code><br>Contents of the resource or number of bytes piped.<br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getContentsQuery" id="_getContentsQuery">
-
-		<td class="attributes"><code>
-			 protected 
 			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getContentsQuery">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#60-67" title="Go to source code">getContentsQuery</a>( )</code>
+		<a class="anchor" href="#_isRaw">#</a>
+		<code><a href="source-class-BaseX.Resource.Raw.html#23-25" title="Go to source code">isRaw</a>( )</code>
 
 		<div class="description short">
 			
+<p>Whether this resource is raw.</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Whether this resource is raw.</p>
+
 
 
 
@@ -268,136 +206,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getCopyQuery" id="_getCopyQuery">
-
-		<td class="attributes"><code>
-			 protected 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getCopyQuery">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#69-76" title="Go to source code">getCopyQuery</a>( <span>mixed <var>$dest</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getMoveQuery" id="_getMoveQuery">
-
-		<td class="attributes"><code>
-			 protected 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getMoveQuery">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#78-83" title="Go to source code">getMoveQuery</a>( <span>mixed <var>$dest</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getDeleteQuery" id="_getDeleteQuery">
-
-		<td class="attributes"><code>
-			 protected 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getDeleteQuery">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#85-90" title="Go to source code">getDeleteQuery</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setContents" id="_setContents">
-
-		<td class="attributes"><code>
-			 public 
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setContents">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#92-112" title="Go to source code">setContents</a>( <span>resource|string <var>$data</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Set contents for this resource.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Set contents for this resource.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$data</var></dt>
-					<dd><code>resource|string</code><br>$data</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getFilePath" id="_getFilePath">
+	<tr data-order="setSize" id="_setSize">
 
 		<td class="attributes"><code>
 			 public 
@@ -407,8 +216,124 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getFilePath">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#114-117" title="Go to source code">getFilePath</a>( )</code>
+		<a class="anchor" href="#_setSize">#</a>
+		<code><a href="source-class-BaseX.Resource.Raw.html#27-30" title="Go to source code">setSize</a>( <span>mixed <var>$size</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSize" id="_getSize">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSize">#</a>
+		<code><a href="source-class-BaseX.Resource.Raw.html#32-34" title="Go to source code">getSize</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFilepath" id="_getFilepath">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFilepath">#</a>
+		<code><a href="source-class-BaseX.Resource.Raw.html#36-42" title="Go to source code">getFilepath</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLocalStream" id="_getLocalStream">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLocalStream">#</a>
+		<code><a href="source-class-BaseX.Resource.Raw.html#44-47" title="Go to source code">getLocalStream</a>( <span>mixed <var>$mode</var> = <span class="php-quote">'r'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="creationMethod" id="_creationMethod">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_creationMethod">#</a>
+		<code><a href="source-class-BaseX.Resource.Raw.html#49-51" title="Go to source code">creationMethod</a>( )</code>
 
 		<div class="description short">
 			
@@ -428,6 +353,20 @@
 	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-BaseX.Resource.Streamable.html#methods">BaseX\Resource\Streamable</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Resource.Streamable.html#_getContentType">getContentType()</a>, 
+			<a href="class-BaseX.Resource.Streamable.html#_getStream">getStream()</a>, 
+			<a href="class-BaseX.Resource.Streamable.html#_getUri">getUri()</a>, 
+			<a href="class-BaseX.Resource.Streamable.html#_read">read()</a>, 
+			<a href="class-BaseX.Resource.Streamable.html#_refresh">refresh()</a>, 
+			<a href="class-BaseX.Resource.Streamable.html#_setContentType">setContentType()</a>, 
+			<a href="class-BaseX.Resource.Streamable.html#_write">write()</a>
+		</code></td>
+	</tr>
+	</table>
 	<table class="summary inherited">
 	<caption>Methods inherited from <a href="class-BaseX.Resource.html#methods">BaseX\Resource</a></caption>
 	<tr>
@@ -436,31 +375,22 @@
 			<a href="class-BaseX.Resource.html#___toString">__toString()</a>, 
 			<a href="class-BaseX.Resource.html#_copy">copy()</a>, 
 			<a href="class-BaseX.Resource.html#_delete">delete()</a>, 
-			<a href="class-BaseX.Resource.html#_fromURI">fromURI()</a>, 
+			<a href="class-BaseX.Resource.html#_exists">exists()</a>, 
 			<a href="class-BaseX.Resource.html#_getDatabase">getDatabase()</a>, 
 			<a href="class-BaseX.Resource.html#_getEtag">getEtag()</a>, 
-			<a href="class-BaseX.Resource.html#_getInfo">getInfo()</a>, 
 			<a href="class-BaseX.Resource.html#_getModified">getModified()</a>, 
 			<a href="class-BaseX.Resource.html#_getName">getName()</a>, 
 			<a href="class-BaseX.Resource.html#_getPath">getPath()</a>, 
-			<a href="class-BaseX.Resource.html#_getSession">getSession()</a>, 
-			<a href="class-BaseX.Resource.html#_getSize">getSize()</a>, 
-			<a href="class-BaseX.Resource.html#_getStream">getStream()</a>, 
-			<a href="class-BaseX.Resource.html#_getType">getType()</a>, 
-			<a href="class-BaseX.Resource.html#_getUri">getUri()</a>, 
-			<a href="class-BaseX.Resource.html#_isRaw">isRaw()</a>, 
 			<a href="class-BaseX.Resource.html#_move">move()</a>, 
-			<a href="class-BaseX.Resource.html#_reloadInfo">reloadInfo()</a>, 
-			<a href="class-BaseX.Resource.html#_setInfo">setInfo()</a>, 
-			<a href="class-BaseX.Resource.html#_setPath">setPath()</a>
+			<a href="class-BaseX.Resource.html#_rename">rename()</a>
 		</code></td>
 	</tr>
 	</table>
 	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-BaseX.Resource.ResourceInterface.html#methods">BaseX\Resource\ResourceInterface</a></caption>
+	<caption>Methods inherited from <a href="class-BaseX.Resource.Interfaces.StreamableResource.html#methods">BaseX\Resource\Interfaces\StreamableResource</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-BaseX.Resource.ResourceInterface.html#_getURI">getURI()</a>
+			<a href="class-BaseX.Resource.Interfaces.StreamableResource.html#_getURI">getURI()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -475,15 +405,49 @@
 
 
 
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="size" id="$size">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
 
+		<td class="name">
+				<a href="source-class-BaseX.Resource.Raw.html#21" title="Go to source code"><var>$size</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$size" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-BaseX.Resource.Streamable.html#properties">BaseX\Resource\Streamable</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Resource.Streamable.html#$mime"><var>$mime</var></a>
+		</code></td>
+	</tr>
+	</table>
 	<table class="summary inherited">
 	<caption>Properties inherited from <a href="class-BaseX.Resource.html#properties">BaseX\Resource</a></caption>
 	<tr>
 		<td><code>
 			<a href="class-BaseX.Resource.html#$db"><var>$db</var></a>, 
-			<a href="class-BaseX.Resource.html#$info"><var>$info</var></a>, 
-			<a href="class-BaseX.Resource.html#$path"><var>$path</var></a>, 
-			<a href="class-BaseX.Resource.html#$session"><var>$session</var></a>
+			<a href="class-BaseX.Resource.html#$exists"><var>$exists</var></a>, 
+			<a href="class-BaseX.Resource.html#$modified"><var>$modified</var></a>, 
+			<a href="class-BaseX.Resource.html#$path"><var>$path</var></a>
 		</code></td>
 	</tr>
 	</table>

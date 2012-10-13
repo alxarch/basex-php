@@ -6,8 +6,8 @@
 
 	<title>Class BaseX\Query | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,10 +23,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -36,17 +37,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -58,7 +67,6 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-BaseX.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Database.html">Database</a></li>
 				<li><a href="class-BaseX.Helpers.html">Helpers</a></li>
 				<li class="active"><a href="class-BaseX.Query.html">Query</a></li>
@@ -142,7 +150,7 @@
 				<b>Author:</b>
 				Alexandros Sigalas &lt;<a
 href="mailto:alxarch&#64;gmail.com">alxarch&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-BaseX.Query.html#15-243" title="Go to source code">src/BaseX/Query.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Query.html#16-315" title="Go to source code">src/BaseX/Query.php</a><br />
 	</div>
 
 
@@ -160,7 +168,7 @@ href="mailto:alxarch&#64;gmail.com">alxarch&#64;<!---->gmail.com</a>&gt;<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-BaseX.Query.html#55-65" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>string <var>$xquery</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.html#120-130" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>string <var>$xquery</var></span> )</code>
 
 		<div class="description short">
 			
@@ -196,7 +204,7 @@ href="mailto:alxarch&#64;gmail.com">alxarch&#64;<!---->gmail.com</a>&gt;<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_bind">#</a>
-		<code><a href="source-class-BaseX.Query.html#67-81" title="Go to source code">bind</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span>, <span>string <var>$type</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+		<code><a href="source-class-BaseX.Query.html#132-146" title="Go to source code">bind</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span>, <span>string <var>$type</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
 
 		<div class="description short">
 			
@@ -242,7 +250,7 @@ href="mailto:alxarch&#64;gmail.com">alxarch&#64;<!---->gmail.com</a>&gt;<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_context">#</a>
-		<code><a href="source-class-BaseX.Query.html#83-96" title="Go to source code">context</a>( <span>string <var>$value</var></span>, <span>string <var>$type</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+		<code><a href="source-class-BaseX.Query.html#148-161" title="Go to source code">context</a>( <span>string <var>$value</var></span>, <span>string <var>$type</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
 
 		<div class="description short">
 			
@@ -286,7 +294,7 @@ href="mailto:alxarch&#64;gmail.com">alxarch&#64;<!---->gmail.com</a>&gt;<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_execute">#</a>
-		<code><a href="source-class-BaseX.Query.html#98-107" title="Go to source code">execute</a>( )</code>
+		<code><a href="source-class-BaseX.Query.html#163-172" title="Go to source code">execute</a>( )</code>
 
 		<div class="description short">
 			
@@ -324,7 +332,7 @@ output.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_info">#</a>
-		<code><a href="source-class-BaseX.Query.html#109-116" title="Go to source code">info</a>( )</code>
+		<code><a href="source-class-BaseX.Query.html#174-181" title="Go to source code">info</a>( )</code>
 
 		<div class="description short">
 			
@@ -361,7 +369,7 @@ output.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_options">#</a>
-		<code><a href="source-class-BaseX.Query.html#118-147" title="Go to source code">options</a>( )</code>
+		<code><a href="source-class-BaseX.Query.html#183-212" title="Go to source code">options</a>( )</code>
 
 		<div class="description short">
 			
@@ -398,7 +406,7 @@ output.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSession">#</a>
-		<code><a href="source-class-BaseX.Query.html#149-157" title="Go to source code">getSession</a>( )</code>
+		<code><a href="source-class-BaseX.Query.html#214-222" title="Go to source code">getSession</a>( )</code>
 
 		<div class="description short">
 			
@@ -435,7 +443,7 @@ output.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getId">#</a>
-		<code><a href="source-class-BaseX.Query.html#159-167" title="Go to source code">getId</a>( )</code>
+		<code><a href="source-class-BaseX.Query.html#224-232" title="Go to source code">getId</a>( )</code>
 
 		<div class="description short">
 			
@@ -472,7 +480,65 @@ output.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_unregister">#</a>
-		<code><a href="source-class-BaseX.Query.html#169-172" title="Go to source code">unregister</a>( )</code>
+		<code><a href="source-class-BaseX.Query.html#234-237" title="Go to source code">unregister</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFirstResult" id="_getFirstResult">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFirstResult">#</a>
+		<code><a href="source-class-BaseX.Query.html#239-243" title="Go to source code">getFirstResult</a>( <span><code><a href="class-BaseX.Query.Result.MapperInterface.html">BaseX\Query\Result\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSingleResult" id="_getSingleResult">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSingleResult">#</a>
+		<code><a href="source-class-BaseX.Query.html#245-249" title="Go to source code">getSingleResult</a>( <span><code><a href="class-BaseX.Query.Result.MapperInterface.html">BaseX\Query\Result\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -501,36 +567,7 @@ output.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getResults">#</a>
-		<code><a href="source-class-BaseX.Query.html#174-225" title="Go to source code">getResults</a>( <span>mixed <var>$class</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="bindResult" id="_bindResult">
-
-		<td class="attributes"><code>
-			 protected 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_bindResult">#</a>
-		<code><a href="source-class-BaseX.Query.html#227-242" title="Go to source code">bindResult</a>( <span><code><a href="class-BaseX.Query.QueryResultInterface.html">BaseX\Query\QueryResultInterface</a></code> <var>$result</var></span>, <span>mixed <var>$data</var></span>, <span>mixed <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Query.html#251-313" title="Go to source code">getResults</a>( <span><code><a href="class-BaseX.Query.Result.MapperInterface.html">BaseX\Query\Result\MapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -563,7 +600,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#26" title="Go to source code"><b>INIT</b></a>
+				<a href="source-class-BaseX.Query.html#27" title="Go to source code"><b>INIT</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">0</span></code></td>
 		<td class="description"><div>
@@ -583,7 +620,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#27" title="Go to source code"><b>CLOSE</b></a>
+				<a href="source-class-BaseX.Query.html#28" title="Go to source code"><b>CLOSE</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">2</span></code></td>
 		<td class="description"><div>
@@ -603,7 +640,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#28" title="Go to source code"><b>BIND</b></a>
+				<a href="source-class-BaseX.Query.html#29" title="Go to source code"><b>BIND</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">3</span></code></td>
 		<td class="description"><div>
@@ -623,7 +660,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#29" title="Go to source code"><b>RESULTS</b></a>
+				<a href="source-class-BaseX.Query.html#30" title="Go to source code"><b>RESULTS</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">4</span></code></td>
 		<td class="description"><div>
@@ -643,7 +680,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#30" title="Go to source code"><b>EXECUTE</b></a>
+				<a href="source-class-BaseX.Query.html#31" title="Go to source code"><b>EXECUTE</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">5</span></code></td>
 		<td class="description"><div>
@@ -663,7 +700,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#31" title="Go to source code"><b>INFO</b></a>
+				<a href="source-class-BaseX.Query.html#32" title="Go to source code"><b>INFO</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">6</span></code></td>
 		<td class="description"><div>
@@ -683,7 +720,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#32" title="Go to source code"><b>OPTIONS</b></a>
+				<a href="source-class-BaseX.Query.html#33" title="Go to source code"><b>OPTIONS</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">7</span></code></td>
 		<td class="description"><div>
@@ -703,7 +740,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#33" title="Go to source code"><b>CONTEXT</b></a>
+				<a href="source-class-BaseX.Query.html#34" title="Go to source code"><b>CONTEXT</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">14</span></code></td>
 		<td class="description"><div>
@@ -723,7 +760,7 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#34" title="Go to source code"><b>UPDATING</b></a>
+				<a href="source-class-BaseX.Query.html#35" title="Go to source code"><b>UPDATING</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">30</span></code></td>
 		<td class="description"><div>
@@ -743,11 +780,1231 @@ output.<br />
 
 		<td class="attributes"><code>integer</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Query.html#35" title="Go to source code"><b>FULL</b></a>
+				<a href="source-class-BaseX.Query.html#36" title="Go to source code"><b>FULL</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-num">31</span></code></td>
 		<td class="description"><div>
 			<a href="#FULL" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_FUNCTION" id="TYPE_FUNCTION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#38" title="Go to source code"><b>TYPE_FUNCTION</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">7</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_FUNCTION" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NODE" id="TYPE_NODE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#39" title="Go to source code"><b>TYPE_NODE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">8</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NODE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_TEXT" id="TYPE_TEXT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#40" title="Go to source code"><b>TYPE_TEXT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">9</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_TEXT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_INSTRUCTION" id="TYPE_INSTRUCTION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#41" title="Go to source code"><b>TYPE_INSTRUCTION</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">10</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_INSTRUCTION" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ELEMENT" id="TYPE_ELEMENT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#42" title="Go to source code"><b>TYPE_ELEMENT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">11</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ELEMENT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DOCUMENT" id="TYPE_DOCUMENT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#43" title="Go to source code"><b>TYPE_DOCUMENT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">12</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DOCUMENT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DOCUMENT_ELEMENT" id="TYPE_DOCUMENT_ELEMENT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#44" title="Go to source code"><b>TYPE_DOCUMENT_ELEMENT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">13</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DOCUMENT_ELEMENT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ATTRIBUTE" id="TYPE_ATTRIBUTE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#45" title="Go to source code"><b>TYPE_ATTRIBUTE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">14</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ATTRIBUTE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_COMMENT" id="TYPE_COMMENT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#46" title="Go to source code"><b>TYPE_COMMENT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">15</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_COMMENT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ITEM" id="TYPE_ITEM">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#48" title="Go to source code"><b>TYPE_ITEM</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">32</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ITEM" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_UNTYPED" id="TYPE_UNTYPED">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#49" title="Go to source code"><b>TYPE_UNTYPED</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">33</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_UNTYPED" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ANYTYPE" id="TYPE_ANYTYPE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#50" title="Go to source code"><b>TYPE_ANYTYPE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">34</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ANYTYPE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ANYSIMPLETYPE" id="TYPE_ANYSIMPLETYPE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#51" title="Go to source code"><b>TYPE_ANYSIMPLETYPE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">35</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ANYSIMPLETYPE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ANYATOMICTYPE" id="TYPE_ANYATOMICTYPE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#52" title="Go to source code"><b>TYPE_ANYATOMICTYPE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">36</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ANYATOMICTYPE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_UNTYPEDATOMIC" id="TYPE_UNTYPEDATOMIC">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#53" title="Go to source code"><b>TYPE_UNTYPEDATOMIC</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">37</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_UNTYPEDATOMIC" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_STRING" id="TYPE_STRING">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#54" title="Go to source code"><b>TYPE_STRING</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">38</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_STRING" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NORMALIZEDSTRING" id="TYPE_NORMALIZEDSTRING">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#55" title="Go to source code"><b>TYPE_NORMALIZEDSTRING</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">39</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NORMALIZEDSTRING" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_TOKEN" id="TYPE_TOKEN">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#56" title="Go to source code"><b>TYPE_TOKEN</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">40</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_TOKEN" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_LANGUAGE" id="TYPE_LANGUAGE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#57" title="Go to source code"><b>TYPE_LANGUAGE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">41</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_LANGUAGE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NMTOKEN" id="TYPE_NMTOKEN">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#58" title="Go to source code"><b>TYPE_NMTOKEN</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">42</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NMTOKEN" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NAME" id="TYPE_NAME">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#59" title="Go to source code"><b>TYPE_NAME</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">43</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NAME" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NCNAME" id="TYPE_NCNAME">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#60" title="Go to source code"><b>TYPE_NCNAME</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">44</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NCNAME" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ID" id="TYPE_ID">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#61" title="Go to source code"><b>TYPE_ID</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">45</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ID" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_IDREF" id="TYPE_IDREF">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#62" title="Go to source code"><b>TYPE_IDREF</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">46</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_IDREF" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ENTITY" id="TYPE_ENTITY">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#63" title="Go to source code"><b>TYPE_ENTITY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">47</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ENTITY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_FLOAT" id="TYPE_FLOAT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#64" title="Go to source code"><b>TYPE_FLOAT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">48</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_FLOAT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DOUBLE" id="TYPE_DOUBLE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#65" title="Go to source code"><b>TYPE_DOUBLE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">49</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DOUBLE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DECIMAL" id="TYPE_DECIMAL">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#66" title="Go to source code"><b>TYPE_DECIMAL</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">50</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DECIMAL" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_PRECISIONDECIMAL" id="TYPE_PRECISIONDECIMAL">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#67" title="Go to source code"><b>TYPE_PRECISIONDECIMAL</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">51</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_PRECISIONDECIMAL" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_INTEGER" id="TYPE_INTEGER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#68" title="Go to source code"><b>TYPE_INTEGER</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">52</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_INTEGER" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NONPOSITIVEINTEGER" id="TYPE_NONPOSITIVEINTEGER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#69" title="Go to source code"><b>TYPE_NONPOSITIVEINTEGER</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">53</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NONPOSITIVEINTEGER" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NEGATIVEINTEGER" id="TYPE_NEGATIVEINTEGER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#70" title="Go to source code"><b>TYPE_NEGATIVEINTEGER</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">54</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NEGATIVEINTEGER" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_LONG" id="TYPE_LONG">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#71" title="Go to source code"><b>TYPE_LONG</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">55</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_LONG" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_INT" id="TYPE_INT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#72" title="Go to source code"><b>TYPE_INT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">56</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_INT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_SHORT" id="TYPE_SHORT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#73" title="Go to source code"><b>TYPE_SHORT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">57</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_SHORT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_BYTE" id="TYPE_BYTE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#74" title="Go to source code"><b>TYPE_BYTE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">58</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_BYTE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NONNEGATIVEINTEGER" id="TYPE_NONNEGATIVEINTEGER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#75" title="Go to source code"><b>TYPE_NONNEGATIVEINTEGER</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">59</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NONNEGATIVEINTEGER" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_UNSIGNEDLONG" id="TYPE_UNSIGNEDLONG">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#76" title="Go to source code"><b>TYPE_UNSIGNEDLONG</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">60</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_UNSIGNEDLONG" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_UNSIGNEDINT" id="TYPE_UNSIGNEDINT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#77" title="Go to source code"><b>TYPE_UNSIGNEDINT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">61</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_UNSIGNEDINT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_UNSIGNEDSHORT" id="TYPE_UNSIGNEDSHORT">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#78" title="Go to source code"><b>TYPE_UNSIGNEDSHORT</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">62</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_UNSIGNEDSHORT" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_UNSIGNEDBYTE" id="TYPE_UNSIGNEDBYTE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#79" title="Go to source code"><b>TYPE_UNSIGNEDBYTE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">63</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_UNSIGNEDBYTE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_POSITIVEINTEGER" id="TYPE_POSITIVEINTEGER">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#80" title="Go to source code"><b>TYPE_POSITIVEINTEGER</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">64</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_POSITIVEINTEGER" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DURATION" id="TYPE_DURATION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#81" title="Go to source code"><b>TYPE_DURATION</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">65</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DURATION" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_YEARMONTHDURATION" id="TYPE_YEARMONTHDURATION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#82" title="Go to source code"><b>TYPE_YEARMONTHDURATION</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">66</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_YEARMONTHDURATION" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DAYTIMEDURATION" id="TYPE_DAYTIMEDURATION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#83" title="Go to source code"><b>TYPE_DAYTIMEDURATION</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">67</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DAYTIMEDURATION" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DATETIME" id="TYPE_DATETIME">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#84" title="Go to source code"><b>TYPE_DATETIME</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">68</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DATETIME" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DATETIMESTAMP" id="TYPE_DATETIMESTAMP">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#85" title="Go to source code"><b>TYPE_DATETIMESTAMP</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">69</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DATETIMESTAMP" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_DATE" id="TYPE_DATE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#86" title="Go to source code"><b>TYPE_DATE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">70</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_DATE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_TIME" id="TYPE_TIME">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#87" title="Go to source code"><b>TYPE_TIME</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">71</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_TIME" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_GYEARMONTH" id="TYPE_GYEARMONTH">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#88" title="Go to source code"><b>TYPE_GYEARMONTH</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">72</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_GYEARMONTH" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_GYEAR" id="TYPE_GYEAR">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#89" title="Go to source code"><b>TYPE_GYEAR</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">73</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_GYEAR" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_GMONTHDAY" id="TYPE_GMONTHDAY">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#90" title="Go to source code"><b>TYPE_GMONTHDAY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">74</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_GMONTHDAY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_GDAY" id="TYPE_GDAY">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#91" title="Go to source code"><b>TYPE_GDAY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">75</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_GDAY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_GMONTH" id="TYPE_GMONTH">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#92" title="Go to source code"><b>TYPE_GMONTH</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">76</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_GMONTH" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_BOOLEAN" id="TYPE_BOOLEAN">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#93" title="Go to source code"><b>TYPE_BOOLEAN</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">77</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_BOOLEAN" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_BINARY" id="TYPE_BINARY">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#94" title="Go to source code"><b>TYPE_BINARY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">78</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_BINARY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_BASE64BINARY" id="TYPE_BASE64BINARY">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#95" title="Go to source code"><b>TYPE_BASE64BINARY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">79</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_BASE64BINARY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_HEXBINARY" id="TYPE_HEXBINARY">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#96" title="Go to source code"><b>TYPE_HEXBINARY</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">80</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_HEXBINARY" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_ANYURI" id="TYPE_ANYURI">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#97" title="Go to source code"><b>TYPE_ANYURI</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">81</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_ANYURI" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_QNAME" id="TYPE_QNAME">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#98" title="Go to source code"><b>TYPE_QNAME</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">82</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_QNAME" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="TYPE_NOTATION" id="TYPE_NOTATION">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-BaseX.Query.html#99" title="Go to source code"><b>TYPE_NOTATION</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">83</span></code></td>
+		<td class="description"><div>
+			<a href="#TYPE_NOTATION" class="anchor">#</a>
 
 			<div class="description short">
 				
@@ -773,7 +2030,7 @@ output.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.html#37-42" title="Go to source code"><var>$session</var></a>
+				<a href="source-class-BaseX.Query.html#102-107" title="Go to source code"><var>$session</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -796,7 +2053,7 @@ output.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.html#44-48" title="Go to source code"><var>$id</var></a>
+				<a href="source-class-BaseX.Query.html#109-113" title="Go to source code"><var>$id</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -819,7 +2076,7 @@ output.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.html#50-53" title="Go to source code"><var>$open</var></a>
+				<a href="source-class-BaseX.Query.html#115-118" title="Go to source code"><var>$open</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

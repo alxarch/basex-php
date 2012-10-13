@@ -6,8 +6,8 @@
 
 	<title>Class BaseX\Database\Backup | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,10 +23,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li class="active"><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li class="active"><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -36,17 +37,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -59,6 +68,8 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-BaseX.Database.Backup.html">Backup</a></li>
+				<li><a href="class-BaseX.Database.BackupProvider.html">BackupProvider</a></li>
+				<li><a href="class-BaseX.Database.Importer.html">Importer</a></li>
 			</ul>
 
 
@@ -109,22 +120,15 @@
 
 	<div class="description">
 	
-<p>Wrapper class for Query Results</p>
+<p>BaseX Database Backup.</p>
 
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-			<a href="class-BaseX.Query.QueryResult.html"><span>BaseX\Query\QueryResult</span></a>
-			
-			 implements 
-				<a href="class-BaseX.Query.QueryResultInterface.html"><span>BaseX\Query\QueryResultInterface</span></a>
-			
-			
-		</dd>
-		<dd style="padding-left:30px">
-			<img src="resources/inherit.png" alt="Extended by" />
 <b><span>BaseX\Database\Backup</span></b>			
+			 implements 
+				<a href="class-Serializable.html"><span>Serializable</span></a>
 			
 			
 		</dd>
@@ -141,70 +145,45 @@
 		
 		
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Database.html">Database</a><br />
-		
+		<b>Package:</b> BaseX<br />
 
-				<b>Author:</b>
-				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Database.Backup.html#7-66" title="Go to source code">src/BaseX/Database/Backup.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Database.Backup.html#18-164" title="Go to source code">src/BaseX/Database/Backup.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="setData" id="_setData">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setData">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#12-49" title="Go to source code">setData</a>( <span>mixed <var>$data</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-				<h4>Overrides</h4>
-				<div class="list"><code><a href="class-BaseX.Query.QueryResult.html#_setData">BaseX\Query\QueryResult::setData()</a></code></div>
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="getDatabase" id="_getDatabase">
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-BaseX.Database.html">BaseX\Database</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDatabase">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#51-53" title="Go to source code">getDatabase</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#46-53" title="Go to source code">getDatabase</a>( )</code>
 
 		<div class="description short">
 			
+<p>The database this backup belongs to.</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>The database this backup belongs to.</p>
 
 
 
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Database.html">BaseX\Database</a></code></code><br />
+				</div>
 
 
 
@@ -216,24 +195,32 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			integer
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSize">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#54-56" title="Go to source code">getSize</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#55-62" title="Go to source code">getSize</a>( )</code>
 
 		<div class="description short">
 			
+<p>Size of the backup in bytes.</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>Size of the backup in bytes.</p>
 
 
 
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br />
+				</div>
 
 
 
@@ -245,24 +232,32 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			<code><a href="class-DateTime.html">DateTime</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDate">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#57-59" title="Go to source code">getDate</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#64-71" title="Go to source code">getDate</a>( )</code>
 
 		<div class="description short">
 			
+<p>When this backup was taken.</p>
+
 		</div>
 
 		<div class="description detailed hidden">
 			
+<p>When this backup was taken.</p>
 
 
 
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-DateTime.html">DateTime</a></code></code><br />
+				</div>
 
 
 
@@ -274,14 +269,51 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFile">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#60-62" title="Go to source code">getFile</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#73-80" title="Go to source code">getFile</a>( )</code>
+
+		<div class="description short">
+			
+<p>Filename for this backup.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Filename for this backup.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDate" id="_setDate">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDate">#</a>
+		<code><a href="source-class-BaseX.Database.Backup.html#82-85" title="Go to source code">setDate</a>( <span>mixed <var>$date</var></span> )</code>
 
 		<div class="description short">
 			
@@ -303,14 +335,184 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFilepath">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#63-65" title="Go to source code">getFilepath</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#87-95" title="Go to source code">getFilepath</a>( <span>mixed <var>$dbpath</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Location on the disk for this backup.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Location on the disk for this backup.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-BaseX.Database.Backup.html">BaseX\Database\Backup</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code><a href="source-class-BaseX.Database.Backup.html#97-106" title="Go to source code">create</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a new backup for a Database.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a new backup for a Database.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$db</var></dt>
+					<dd><code><code><a href="class-BaseX.Database.html">BaseX\Database</a></code></code><br>$db</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Database.Backup.html">BaseX\Database\Backup</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="serialize" id="_serialize">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_serialize">#</a>
+		<code><a href="source-class-BaseX.Database.Backup.html#108-110" title="Go to source code">serialize</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Serializable.html#_serialize">Serializable::serialize()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unserialize" id="_unserialize">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unserialize">#</a>
+		<code><a href="source-class-BaseX.Database.Backup.html#112-146" title="Go to source code">unserialize</a>( <span>mixed <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Serializable.html#_unserialize">Serializable::unserialize()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLatestBackup" id="_getLatestBackup">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLatestBackup">#</a>
+		<code><a href="source-class-BaseX.Database.Backup.html#148-152" title="Go to source code">getLatestBackup</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getBackups" id="_getBackups">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBackups">#</a>
+		<code><a href="source-class-BaseX.Database.Backup.html#154-163" title="Go to source code">getBackups</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span> )</code>
 
 		<div class="description short">
 			
@@ -330,20 +532,6 @@
 	</tr>
 	</table>
 
-	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-BaseX.Query.QueryResult.html#methods">BaseX\Query\QueryResult</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-BaseX.Query.QueryResult.html#___construct">__construct()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getData">getData()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getForQuery">getForQuery()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getSession">getSession()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getSupportedTypes">getSupportedTypes()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getType">getType()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_setType">setType()</a>
-		</code></td>
-	</tr>
-	</table>
 
 
 
@@ -360,11 +548,11 @@
 	<tr data-order="db" id="$db">
 		<td class="attributes"><code>
 			protected  
-			mixed
+			<code><a href="class-BaseX.Database.html">BaseX\Database</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Database.Backup.html#9" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-BaseX.Database.Backup.html#25-30" title="Go to source code"><var>$db</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -372,10 +560,14 @@
 
 			<div class="description short">
 				
+<p>The database this backup belongs to.</p>
+
 			</div>
 
 			<div class="description detailed hidden">
 				
+<p>The database this backup belongs to.</p>
+
 
 			</div>
 		</div></td>
@@ -383,11 +575,11 @@
 	<tr data-order="size" id="$size">
 		<td class="attributes"><code>
 			protected  
-			mixed
+			integer
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Database.Backup.html#9" title="Go to source code"><var>$size</var></a>
+				<a href="source-class-BaseX.Database.Backup.html#32-37" title="Go to source code"><var>$size</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -395,33 +587,14 @@
 
 			<div class="description short">
 				
+<p>Size of the backup in bytes.</p>
+
 			</div>
 
 			<div class="description detailed hidden">
 				
+<p>Size of the backup in bytes.</p>
 
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="file" id="$file">
-		<td class="attributes"><code>
-			protected  
-			mixed
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-BaseX.Database.Backup.html#9" title="Go to source code"><var>$file</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$file" class="anchor">#</a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
 
 			</div>
 		</div></td>
@@ -429,11 +602,11 @@
 	<tr data-order="date" id="$date">
 		<td class="attributes"><code>
 			protected  
-			mixed
+			<code><a href="class-DateTime.html">DateTime</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Database.Backup.html#9" title="Go to source code"><var>$date</var></a>
+				<a href="source-class-BaseX.Database.Backup.html#39-44" title="Go to source code"><var>$date</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -441,26 +614,20 @@
 
 			<div class="description short">
 				
+<p>When this backup was taken.</p>
+
 			</div>
 
 			<div class="description detailed hidden">
 				
+<p>When this backup was taken.</p>
+
 
 			</div>
 		</div></td>
 	</tr>
 	</table>
 
-	<table class="summary inherited">
-	<caption>Properties inherited from <a href="class-BaseX.Query.QueryResult.html#properties">BaseX\Query\QueryResult</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-BaseX.Query.QueryResult.html#$data"><var>$data</var></a>, 
-			<a href="class-BaseX.Query.QueryResult.html#$session"><var>$session</var></a>, 
-			<a href="class-BaseX.Query.QueryResult.html#$type"><var>$type</var></a>
-		</code></td>
-	</tr>
-	</table>
 
 
 

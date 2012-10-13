@@ -12,7 +12,8 @@ namespace BaseX;
 use BaseX\Helpers as B;
 use BaseX\Session;
 use BaseX\Session\Socket;
-use BaseX\Resource\ResourceInfo;
+use BaseX\Resource\Streamable;
+use BaseX\Resource\ResourceMapper;
 
 /**
  * Stream wrapper for BaseX resources
@@ -48,7 +49,11 @@ class StreamWrapper
   
   protected $db;
   
-  protected $info = null;
+  /**
+   *
+   * @var \BaseX\Resource\Interfaces\StreamableResource
+   */
+  protected $resource = null;
   
   protected $eof = false;
   
@@ -94,12 +99,14 @@ class StreamWrapper
   public function stream_open($path, $mode, $options, &$opath)
   {
     $this->errors = $options & STREAM_REPORT_ERRORS;
+    if(self::$session->isLocked())
+      $this->error('Session is locked.');
     
     try
     {
       $this->setMode($mode);
       $this->parsePath($path);
-      $this->loadInfo();
+      $this->loadResource();
     }
     catch(\Exception $e) 
     {
@@ -120,7 +127,7 @@ class StreamWrapper
     try
     {
       $this->parsePath($path);
-      self::$session->query("db:delete('$this->db', '$this->path')")->execute();
+      $this->db->delete($this->path);
     }
     catch(\Exception $e)
     {
@@ -173,8 +180,8 @@ class StreamWrapper
   public function stream_stat()
   {
     $mode = 0100000 + (($this->mode === 'w') ? 0666 : 0444);
-    $size = $this->info ? $this->info->getSize() : 0;
-    $mtime = $this->info ? $this->info->getModifiedDate() : 0;
+    $size = $this->resource !== null && method_exists($this->resource, 'getSize') ? $this->resource->getSize() : 0;
+    $mtime = $this->resource !== null ? (int)$this->resource->getModified()->format('U') : 0;
     
     $values = array(
       0  => 0 ,
@@ -262,7 +269,7 @@ class StreamWrapper
    * Stop receiving data and unlock all resources.
    * 
    */
-  protected function stopReceiving()
+  public function stopReceiving()
   {
     if($this->receiving)
     {
@@ -290,40 +297,39 @@ class StreamWrapper
   /**
    * Locks session and starts receiving data.
    */
-  protected function startSending()
+  public function startSending()
   {
-    if(!$this->sending)
+    if(true === $this->sending) return;
+    
+    self::$session->execute("OPEN $this->db");
+
+    if(count($this->options) || $this->parser)
     {
-      self::$session->execute("OPEN $this->db");
-      
-      if(count($this->options) || $this->parser)
-      {
-        $this->restore = self::$session->getInfo();
-      }
-      
-      foreach ($this->options as $name => $value)
-      {
-        self::$session->execute("SET $name '$value'");
-      }
-      
-      $method = $this->detectMethod();
-      
-      if($this->parser && Session::ADD === $method)
-      {
-        self::$session->execute("SET PARSER $this->parser");
-      }
-      self::$session->lock();
-      $sock = self::$session->getSocket();
-      $msg = sprintf('%c%s%s', $method, $this->path, Socket::NUL);
-      $sock->send($msg);
-      $this->sending = true;
+      $this->restore = self::$session->getInfo();
     }
+
+    foreach ($this->options as $name => $value)
+    {
+      self::$session->execute("SET $name '$value'");
+    }
+
+    $method = $this->detectMethod();
+
+    if($this->parser && Session::ADD === $method)
+    {
+      self::$session->execute("SET PARSER $this->parser");
+    }
+    self::$session->lock();
+    $sock = self::$session->getSocket();
+    $msg = sprintf('%c%s%s', $method, $this->path, Socket::NUL);
+    $sock->send($msg);
+    $this->sending = true;
   }
   
   /**
    * Stops sendong data and unlocks session.
    */
-  protected function stopSending()
+  public function stopSending()
   {
     if($this->sending)
     {
@@ -366,19 +372,17 @@ class StreamWrapper
    */
   protected function detectMethod()
   {
-    if(null === $this->info)
+    if(null === $this->resource)
     {
-      $patterns = explode(',', self::$session->getInfo()->option('createfilter'));
-
-      foreach ($patterns as $pattern)
+      $name = basename($this->path);
+      
+      $info = self::$session->getInfo();
+      if($info->refresh()->matchesCreatefilter($name))
       {
-        if(fnmatch($pattern, $this->path))
-        {
-          return Session::ADD;
-        }
+        return Session::REPLACE;
       }
     }
-    elseif(!$this->info->isRaw())
+    elseif('replace' === $this->resource->creationMethod())
     {
       return Session::REPLACE;
     }
@@ -391,12 +395,12 @@ class StreamWrapper
    * 
    * Session is locked because buffer contents affect to current transmission.
    */
-  protected function startReceiving()
+  public function startReceiving()
   {
     if(!$this->receiving)
     {
       $sock = self::$session->getSocket();
-      if($this->info->isRaw())
+      if($this->resource->isRaw())
       {
         self::$session->execute("OPEN $this->db");
         self::$session->execute("SET SERIALIZER raw");
@@ -482,7 +486,7 @@ class StreamWrapper
     }
     
     $this->path = substr($url['path'], 1);
-    $this->db = $url['host'];
+    $this->db = new Database(self::$session, $url['host']);
   }
   
   /**
@@ -490,16 +494,22 @@ class StreamWrapper
    * 
    * @throws BaseX\Error If mode is 'r' and resource does not exist.
    */
-  protected function loadInfo()
+  protected function loadResource()
   {
-    $info = ResourceInfo::get(self::$session, $this->db, $this->path);
     
-    if(empty($info) && 'r' === $this->mode)
+    $resource = $this->db->getResource($this->path, new ResourceMapper($this->db));
+    
+    if(null === $resource)
     {
-      throw new Error('Resource not found.');
+      if('r' === $this->mode)
+      {
+        throw new Error('Resource not found.');
+      }
     }
-    
-    $this->info = empty($info) ? null : $info[0];
+    else
+    {
+      $this->setResource($resource);
+    }
   }
   
   /**
@@ -539,5 +549,10 @@ class StreamWrapper
   static public function unregister()
   {
     return stream_wrapper_unregister(self::NAME);
+  }
+  
+  protected function setResource(Streamable $resource)
+  {
+    $this->resource = $resource;
   }
 }

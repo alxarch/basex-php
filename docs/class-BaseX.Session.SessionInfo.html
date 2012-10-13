@@ -6,8 +6,8 @@
 
 	<title>Class BaseX\Session\SessionInfo | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,10 +23,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -36,17 +37,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li class="active"><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -116,25 +125,9 @@
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-			<a href="class-BaseX.Query.QueryResult.html"><span>BaseX\Query\QueryResult</span></a>
-			
-			 implements 
-				<a href="class-BaseX.Query.QueryResultInterface.html"><span>BaseX\Query\QueryResultInterface</span></a>
-			
-			
-		</dd>
-		<dd style="padding-left:30px">
-			<img src="resources/inherit.png" alt="Extended by" />
-			<a href="class-BaseX.Query.SimpleXMLResult.html"><span>BaseX\Query\SimpleXMLResult</span></a>
-			
-			 implements 
-				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>
-			
-			
-		</dd>
-		<dd style="padding-left:60px">
-			<img src="resources/inherit.png" alt="Extended by" />
 <b><span>BaseX\Session\SessionInfo</span></b>			
+			 implements 
+				<a href="class-Serializable.html"><span>Serializable</span></a>
 			
 			
 		</dd>
@@ -153,13 +146,166 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Session.html">Session</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Session.SessionInfo.html#15-66" title="Go to source code">src/BaseX/Session/SessionInfo.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Session.SessionInfo.html#16-146" title="Go to source code">src/BaseX/Session/SessionInfo.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#36-38" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="refresh" id="_refresh">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Session.SessionInfo.html">BaseX\Session\SessionInfo</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_refresh">#</a>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#40-48" title="Go to source code">refresh</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Session.SessionInfo.html">BaseX\Session\SessionInfo</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getXML" id="_getXML">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getXML">#</a>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#50-58" title="Go to source code">getXML</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="serialize" id="_serialize">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_serialize">#</a>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#60-62" title="Go to source code">serialize</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Serializable.html#_serialize">Serializable::serialize()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unserialize" id="_unserialize">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unserialize">#</a>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#64-78" title="Go to source code">unserialize</a>( <span>mixed <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Serializable.html#_unserialize">Serializable::unserialize()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="version" id="_version">
 
 		<td class="attributes"><code>
@@ -171,7 +317,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_version">#</a>
-		<code><a href="source-class-BaseX.Session.SessionInfo.html#22-30" title="Go to source code">version</a>( )</code>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#80-88" title="Go to source code">version</a>( )</code>
 
 		<div class="description short">
 			
@@ -208,7 +354,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-BaseX.Session.SessionInfo.html#32-45" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#90-103" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -235,8 +381,6 @@
 
 
 
-				<h4>Overrides</h4>
-				<div class="list"><code><a href="class-BaseX.Query.SimpleXMLResult.html#___get">BaseX\Query\SimpleXMLResult::__get()</a></code></div>
 
 		</div>
 		</div></td>
@@ -252,7 +396,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___isset">#</a>
-		<code><a href="source-class-BaseX.Session.SessionInfo.html#47-49" title="Go to source code">__isset</a>( <span>mixed <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#105-107" title="Go to source code">__isset</a>( <span>mixed <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -266,8 +410,6 @@
 
 
 
-				<h4>Overrides</h4>
-				<div class="list"><code><a href="class-BaseX.Query.SimpleXMLResult.html#___isset">BaseX\Query\SimpleXMLResult::__isset()</a></code></div>
 
 		</div>
 		</div></td>
@@ -283,7 +425,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_option">#</a>
-		<code><a href="source-class-BaseX.Session.SessionInfo.html#52-65" title="Go to source code">option</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#109-122" title="Go to source code">option</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -314,68 +456,115 @@
 		</div>
 		</div></td>
 	</tr>
-	</table>
+	<tr data-order="matchesCreatefilter" id="_matchesCreatefilter">
 
-	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-BaseX.Query.SimpleXMLResult.html#methods">BaseX\Query\SimpleXMLResult</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-BaseX.Query.SimpleXMLResult.html#___sleep">__sleep()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#___wakeup">__wakeup()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_getSupportedTypes">getSupportedTypes()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_getXML">getXML()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetExists">offsetExists()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetGet">offsetGet()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetSet">offsetSet()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_offsetUnset">offsetUnset()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_setData">setData()</a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#_xpath">xpath()</a>
-		</code></td>
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_matchesCreatefilter">#</a>
+		<code><a href="source-class-BaseX.Session.SessionInfo.html#124-145" title="Go to source code">matchesCreatefilter</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Whether a name matches the current createfilter patterns.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Whether a name matches the current createfilter patterns.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+				<h4>Link</h4>
+				<div class="list">
+						<a href="http://docs.basex.org/wiki/Options#CREATEFILTER">http://docs.basex.org/wiki/Options#CREATEFILTER</a><br />
+				</div>
+
+
+		</div>
+		</div></td>
 	</tr>
 	</table>
-	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-BaseX.Query.QueryResult.html#methods">BaseX\Query\QueryResult</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-BaseX.Query.QueryResult.html#___construct">__construct()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getData">getData()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getForQuery">getForQuery()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getSession">getSession()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_getType">getType()</a>, 
-			<a href="class-BaseX.Query.QueryResult.html#_setType">setType()</a>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="xml" id="$xml">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code>
 		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Session.SessionInfo.html#23-27" title="Go to source code"><var>$xml</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$xml" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="session" id="$session">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-BaseX.Session.html">BaseX\Session</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Session.SessionInfo.html#29-33" title="Go to source code"><var>$session</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$session" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
 	</tr>
 	</table>
 
-
-
-
-
-
-
-
-
-
-
-
-	<table class="summary inherited">
-	<caption>Properties inherited from <a href="class-BaseX.Query.SimpleXMLResult.html#properties">BaseX\Query\SimpleXMLResult</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-BaseX.Query.SimpleXMLResult.html#$data"><var>$data</var></a>, 
-			<a href="class-BaseX.Query.SimpleXMLResult.html#$xml"><var>$xml</var></a>
-		</code></td>
-	</tr>
-	</table>
-	<table class="summary inherited">
-	<caption>Properties inherited from <a href="class-BaseX.Query.QueryResult.html#properties">BaseX\Query\QueryResult</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-BaseX.Query.QueryResult.html#$session"><var>$session</var></a>, 
-			<a href="class-BaseX.Query.QueryResult.html#$type"><var>$type</var></a>
-		</code></td>
-	</tr>
-	</table>
 
 
 

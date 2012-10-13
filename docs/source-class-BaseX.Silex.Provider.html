@@ -7,8 +7,8 @@
 
 	<title>File src/BaseX/Silex/Provider.php | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -24,10 +24,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -37,17 +38,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li class="active"><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -60,6 +69,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-BaseX.Silex.Provider.html">Provider</a></li>
+				<li><a href="class-BaseX.Silex.WebDAV.html">WebDAV</a></li>
 			</ul>
 
 
@@ -106,39 +116,46 @@
 	</div>
 
 <pre><code><span id="1" class="l"><a class="l" href="#1"> 1: </a><span class="xlang">&lt;?php</span>
-</span><span id="2" class="l"><a class="l" href="#2"> 2: </a>
-</span><span id="3" class="l"><a class="l" href="#3"> 3: </a><span class="php-keyword1">namespace</span> BaseX\Silex;
-</span><span id="4" class="l"><a class="l" href="#4"> 4: </a>
-</span><span id="5" class="l"><a class="l" href="#5"> 5: </a><span class="php-keyword1">use</span> Silex\Application;
-</span><span id="6" class="l"><a class="l" href="#6"> 6: </a>
-</span><span id="7" class="l"><a class="l" href="#7"> 7: </a><span class="php-keyword1">use</span> Silex\ServiceProviderInterface;
-</span><span id="8" class="l"><a class="l" href="#8"> 8: </a>
-</span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-keyword1">use</span> BaseX\Session;
+</span><span id="2" class="l"><a class="l" href="#2"> 2: </a><span class="php-comment">/**
+</span></span><span id="3" class="l"><a class="l" href="#3"> 3: </a><span class="php-comment"> * @package BaseX 
+</span></span><span id="4" class="l"><a class="l" href="#4"> 4: </a><span class="php-comment"> * 
+</span></span><span id="5" class="l"><a class="l" href="#5"> 5: </a><span class="php-comment"> * @copyright Copyright (c) 2012, Alexandors Sigalas
+</span></span><span id="6" class="l"><a class="l" href="#6"> 6: </a><span class="php-comment"> * @author Alexandros Sigalas &lt;alxarch@gmail.com&gt;
+</span></span><span id="7" class="l"><a class="l" href="#7"> 7: </a><span class="php-comment"> * @license BSD License
+</span></span><span id="8" class="l"><a class="l" href="#8"> 8: </a><span class="php-comment"> */</span>
+</span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-keyword1">namespace</span> BaseX\Silex;
 </span><span id="10" class="l"><a class="l" href="#10">10: </a>
-</span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-keyword1">class</span> <a id="Provider" href="#Provider">Provider</a> <span class="php-keyword1">implements</span> ServiceProviderInterface
-</span><span id="12" class="l"><a class="l" href="#12">12: </a>{
-</span><span id="13" class="l"><a class="l" href="#13">13: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_register" href="#_register">register</a>(Application <span class="php-var">$app</span>)
-</span><span id="14" class="l"><a class="l" href="#14">14: </a>  {
-</span><span id="15" class="l"><a class="l" href="#15">15: </a>    <span class="php-var">$app</span>[<span class="php-quote">'basex'</span>] = <span class="php-var">$app</span>-&gt;share(<span class="php-keyword1">function</span>() <span class="php-keyword1">use</span> (<span class="php-var">$app</span>){
+</span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-keyword1">use</span> Silex\Application;
+</span><span id="12" class="l"><a class="l" href="#12">12: </a>
+</span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-keyword1">use</span> Silex\ServiceProviderInterface;
+</span><span id="14" class="l"><a class="l" href="#14">14: </a>
+</span><span id="15" class="l"><a class="l" href="#15">15: </a><span class="php-keyword1">use</span> BaseX\Session;
 </span><span id="16" class="l"><a class="l" href="#16">16: </a>
-</span><span id="17" class="l"><a class="l" href="#17">17: </a>      <span class="php-var">$host</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$app</span>[<span class="php-quote">'basex.host'</span>]) ? <span class="php-var">$app</span>[<span class="php-quote">'basex.host'</span>] : <span class="php-quote">'localhost'</span>;
-</span><span id="18" class="l"><a class="l" href="#18">18: </a>      <span class="php-var">$port</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$app</span>[<span class="php-quote">'basex.port'</span>]) ? <span class="php-var">$app</span>[<span class="php-quote">'basex.port'</span>] : <span class="php-num">1984</span>;
-</span><span id="19" class="l"><a class="l" href="#19">19: </a>      <span class="php-var">$user</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$app</span>[<span class="php-quote">'basex.user'</span>]) ? <span class="php-var">$app</span>[<span class="php-quote">'basex.user'</span>] : <span class="php-quote">'admin'</span>;
-</span><span id="20" class="l"><a class="l" href="#20">20: </a>      <span class="php-var">$pass</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$app</span>[<span class="php-quote">'basex.pass'</span>]) ? <span class="php-var">$app</span>[<span class="php-quote">'basex.pass'</span>] : <span class="php-quote">'admin'</span>;
-</span><span id="21" class="l"><a class="l" href="#21">21: </a>      
-</span><span id="22" class="l"><a class="l" href="#22">22: </a>      <span class="php-keyword1">try</span>{
-</span><span id="23" class="l"><a class="l" href="#23">23: </a>        <span class="php-var">$session</span> = <span class="php-keyword1">new</span> Session(<span class="php-var">$host</span>, <span class="php-var">$port</span>, <span class="php-var">$user</span>, <span class="php-var">$pass</span>);
-</span><span id="24" class="l"><a class="l" href="#24">24: </a>      }
-</span><span id="25" class="l"><a class="l" href="#25">25: </a>      <span class="php-keyword1">catch</span>(\Exception <span class="php-var">$e</span>){
-</span><span id="26" class="l"><a class="l" href="#26">26: </a>        <span class="php-keyword1">throw</span> <span class="php-var">$e</span>;
-</span><span id="27" class="l"><a class="l" href="#27">27: </a>      }
-</span><span id="28" class="l"><a class="l" href="#28">28: </a>      <span class="php-keyword1">return</span> <span class="php-var">$session</span>;
-</span><span id="29" class="l"><a class="l" href="#29">29: </a>    });
-</span><span id="30" class="l"><a class="l" href="#30">30: </a>  }
-</span><span id="31" class="l"><a class="l" href="#31">31: </a>  
-</span><span id="32" class="l"><a class="l" href="#32">32: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_boot" href="#_boot">boot</a>(Application <span class="php-var">$app</span>){
-</span><span id="33" class="l"><a class="l" href="#33">33: </a>  }
-</span><span id="34" class="l"><a class="l" href="#34">34: </a></span>}</code></pre>
+</span><span id="17" class="l"><a class="l" href="#17">17: </a><span class="php-comment">/**
+</span></span><span id="18" class="l"><a class="l" href="#18">18: </a><span class="php-comment"> * Silex service provider for a basex session.
+</span></span><span id="19" class="l"><a class="l" href="#19">19: </a><span class="php-comment"> * 
+</span></span><span id="20" class="l"><a class="l" href="#20">20: </a><span class="php-comment"> * @author alxarch
+</span></span><span id="21" class="l"><a class="l" href="#21">21: </a><span class="php-comment"> */</span>
+</span><span id="22" class="l"><a class="l" href="#22">22: </a><span class="php-keyword1">class</span> <a id="Provider" href="#Provider">Provider</a> <span class="php-keyword1">implements</span> ServiceProviderInterface
+</span><span id="23" class="l"><a class="l" href="#23">23: </a>{
+</span><span id="24" class="l"><a class="l" href="#24">24: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_register" href="#_register">register</a>(Application <span class="php-var">$app</span>)
+</span><span id="25" class="l"><a class="l" href="#25">25: </a>  {
+</span><span id="26" class="l"><a class="l" href="#26">26: </a>    <span class="php-var">$app</span>[<span class="php-quote">'basex'</span>] = <span class="php-var">$app</span>-&gt;share(<span class="php-keyword1">function</span>() <span class="php-keyword1">use</span> (<span class="php-var">$app</span>){
+</span><span id="27" class="l"><a class="l" href="#27">27: </a>
+</span><span id="28" class="l"><a class="l" href="#28">28: </a>      <span class="php-var">$host</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$app</span>[<span class="php-quote">'basex.host'</span>]) ? <span class="php-var">$app</span>[<span class="php-quote">'basex.host'</span>] : <span class="php-quote">'localhost'</span>;
+</span><span id="29" class="l"><a class="l" href="#29">29: </a>      <span class="php-var">$port</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$app</span>[<span class="php-quote">'basex.port'</span>]) ? <span class="php-var">$app</span>[<span class="php-quote">'basex.port'</span>] : <span class="php-num">1984</span>;
+</span><span id="30" class="l"><a class="l" href="#30">30: </a>      <span class="php-var">$user</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$app</span>[<span class="php-quote">'basex.user'</span>]) ? <span class="php-var">$app</span>[<span class="php-quote">'basex.user'</span>] : <span class="php-quote">'admin'</span>;
+</span><span id="31" class="l"><a class="l" href="#31">31: </a>      <span class="php-var">$pass</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$app</span>[<span class="php-quote">'basex.pass'</span>]) ? <span class="php-var">$app</span>[<span class="php-quote">'basex.pass'</span>] : <span class="php-quote">'admin'</span>;
+</span><span id="32" class="l"><a class="l" href="#32">32: </a>      
+</span><span id="33" class="l"><a class="l" href="#33">33: </a>      <span class="php-var">$session</span> = <span class="php-keyword1">new</span> Session(<span class="php-var">$host</span>, <span class="php-var">$port</span>, <span class="php-var">$user</span>, <span class="php-var">$pass</span>);
+</span><span id="34" class="l"><a class="l" href="#34">34: </a>
+</span><span id="35" class="l"><a class="l" href="#35">35: </a>      <span class="php-keyword1">return</span> <span class="php-var">$session</span>;
+</span><span id="36" class="l"><a class="l" href="#36">36: </a>    });
+</span><span id="37" class="l"><a class="l" href="#37">37: </a>  }
+</span><span id="38" class="l"><a class="l" href="#38">38: </a>  
+</span><span id="39" class="l"><a class="l" href="#39">39: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_boot" href="#_boot">boot</a>(Application <span class="php-var">$app</span>){
+</span><span id="40" class="l"><a class="l" href="#40">40: </a>  }
+</span><span id="41" class="l"><a class="l" href="#41">41: </a></span>}</code></pre>
 
 	<div id="footer">
 		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

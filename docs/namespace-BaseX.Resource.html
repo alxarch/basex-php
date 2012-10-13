@@ -6,8 +6,8 @@
 
 	<title>Namespace BaseX\Resource | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,10 +23,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -36,17 +37,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li class="active"><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -58,15 +67,14 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
 				<li><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
-				<li><a href="class-BaseX.Resource.ResourceInfo.html">ResourceInfo</a></li>
+				<li><a href="class-BaseX.Resource.ResourceMapper.html">ResourceMapper</a></li>
+				<li><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
+				<li><a href="class-BaseX.Resource.Tree.html">Tree</a></li>
 			</ul>
 
-			<h3>Interfaces</h3>
-			<ul>
-				<li><a href="class-BaseX.Resource.ResourceInterface.html">ResourceInterface</a></li>
-			</ul>
 
 
 
@@ -111,10 +119,20 @@
 <div id="content" class="namespace">
 	<h1>Namespace <a href="namespace-BaseX.html">BaseX</a>\Resource</h1>
 
+	<table class="summary" id="namespaces">
+	<caption>Namespaces summary</caption>
+	<tr>
+		<td class="name"><a href="namespace-BaseX.Resource.Interfaces.html">BaseX\Resource\Interfaces</a></td>
+	</tr>
+	</table>
 
 
 <table class="summary" id="classes">
 <caption>Classes summary</caption>
+<tr>
+	<td class="name"><a href="class-BaseX.Resource.Collection.html">Collection</a></td>
+	<td>BaseX Collection</td>
+</tr>
 <tr>
 	<td class="name"><a href="class-BaseX.Resource.Document.html">Document</a></td>
 	<td>BaseX Resource for xml documents.</td>
@@ -124,18 +142,19 @@
 	<td>BaseX Resource for non xml files.</td>
 </tr>
 <tr>
-	<td class="name"><a href="class-BaseX.Resource.ResourceInfo.html">ResourceInfo</a></td>
-	<td>Query Result wrapper for Resource Info</td>
+	<td class="name"><a href="class-BaseX.Resource.ResourceMapper.html">ResourceMapper</a></td>
+	<td>Description of ResourceResult</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-BaseX.Resource.Streamable.html">Streamable</a></td>
+	<td>Base class for streamable resources (raw/document).</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-BaseX.Resource.Tree.html">Tree</a></td>
+	<td>Resource tree for a BaseX\Database.</td>
 </tr>
 </table>
 
-<table class="summary" id="interfaces">
-<caption>Interfaces summary</caption>
-<tr>
-	<td class="name"><a href="class-BaseX.Resource.ResourceInterface.html">ResourceInterface</a></td>
-	<td>Interface for BaseX Resources</td>
-</tr>
-</table>
 
 
 

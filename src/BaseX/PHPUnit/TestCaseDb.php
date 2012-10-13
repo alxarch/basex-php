@@ -39,6 +39,7 @@ class TestCaseDb extends TestCaseSession
   {
     parent::setUp();
     $this->dbname = 'db_' . time();
+    $this->session->execute('CREATE DB '.$this->dbname);
     $this->db = new Database($this->session, $this->dbname);
   }
   

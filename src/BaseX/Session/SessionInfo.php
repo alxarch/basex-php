@@ -9,16 +9,74 @@
 
 namespace BaseX\Session;
 
-use BaseX\Query\SimpleXMLResult;
-
+use BaseX\Session;
+use BaseX\Error\UnserializationError;
+use Serializable;
 
 /**
  * Session information and options.
  * 
  * @package BaseX
  */
-class SessionInfo extends SimpleXMLResult
+class SessionInfo implements Serializable
 {
+  /**
+   *
+   * @var \SimpleXMLElement
+   */
+  protected $xml;
+  
+  /**
+   *
+   * @var \BaseX\Session
+   */
+  protected $session;
+
+
+  public function __construct(Session $session) {
+    $this->session = $session;
+  }
+
+  /**
+   * 
+   * @return \BaseX\Session\SessionInfo
+   */
+  public function refresh()
+  {
+    $this->unserialize($this->session->query('db:system()')->execute());
+    return $this;
+  }
+
+  public function getXML()
+  {
+    if($this->xml instanceof \SimpleXMLElement)
+    {
+      return $this->xml;
+    }
+    
+    throw new Error('Session information not loaded.');
+  }
+  
+  public function serialize() {
+    return null;
+  }
+  
+  public function unserialize($data) 
+  {
+    $xml = @simplexml_load_string($data);
+    if($xml instanceof \SimpleXMLElement && 
+            isset($xml->mainoptions) && 
+            isset($xml->generalinformation) &&
+            isset($xml->options))
+    {
+      $this->xml = $xml;
+    }
+    else
+    {
+      throw new UnserializationError();
+    }
+  }
+
   /**
    * Get the version of the server.
    * 
@@ -26,7 +84,7 @@ class SessionInfo extends SimpleXMLResult
    */
   public function version() 
   {
-    return (string) $this->xml->generalinformation->version;
+    return (string) $this->getXML()->generalinformation->version;
   }
   
   /**
@@ -37,17 +95,16 @@ class SessionInfo extends SimpleXMLResult
    */
   public function __get($name)
   {
-    if(isset($this->xml->mainoptions->{$name}))
+    if(isset($this->getXML()->mainoptions->{$name}))
     {
-      return (string) $this->xml->mainoptions->{$name};
+      return (string) $this->getXML()->mainoptions->{$name};
     }
     return null;
   }
   
   public function __isset($name) {
-    return isset($this->xml->mainoptions->{$name});
+    return isset($this->getXML()->mainoptions->{$name});
   }
-
 
   /**
    * Get some option of the server.
@@ -57,10 +114,33 @@ class SessionInfo extends SimpleXMLResult
    */
   public function option($name)
   {
-    if(isset($this->xml->options->{$name}))
+    if(isset($this->getXML()->options->{$name}))
     {
-      return (string) $this->xml->options->{$name};
+      return (string) $this->getXML()->options->{$name};
     }
     return null;
+  }
+  
+  /**
+   * Whether a name matches the current createfilter patterns.
+   * 
+   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
+   * 
+   * @param string $name
+   * @return boolean
+   */
+  public function matchesCreatefilter($name)
+  {
+    $patterns = explode(',', $this->getXML()->options->createfilter);
+    
+    foreach ($patterns as $p)
+    {
+      if(fnmatch($p, $name))
+      {
+        return true;
+      }
+    }
+    
+    return false;
   }
 }

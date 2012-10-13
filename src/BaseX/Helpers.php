@@ -226,4 +226,49 @@ class Helpers
     
     return $string;
   }
+  
+  static public function dirname($path)
+  {
+    $parent = dirname($path);
+    return '.' === $parent ? '' : $parent;
+  }
+  
+  static public function relative($path, $base='')
+  {
+    if('' === $base)
+    {
+      return ltrim($path, '/');
+    }
+    
+    if(strpos($path, $base) === 0)
+    {
+      return substr($path, 0, strlen($base) + 1);
+    }
+    
+    return false;
+  }
+
+  static public function path($argN)
+  {
+    $parts = func_get_args();
+    $path = array();
+    foreach ($parts as $p)
+    {
+      $p = trim($p, '/');
+      if('' !== $p)
+        $path[] = $p;
+    }
+    return implode('/', $path);
+  }
+  
+  static public function rename($path, $name)
+  {
+    $parent = dirname($path);
+    return '.' === $parent ? $name : $parent . '/' . $name; 
+  }
+  
+  static public function stripXMLDeclaration($xml)
+  {
+    return substr($xml, strlen('<?xml version="1.0"?>'));
+  }
 }

@@ -9,110 +9,45 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Resource;
-use BaseX\Error;
-use BaseX\Query\QueryBuilder;
-use BaseX\Session\Socket;
+use BaseX\Resource\Streamable;
 
 /**
  * BaseX Resource for non xml files.
  *
  * @package BaseX 
  */
-class Raw extends Resource
+class Raw extends Streamable
 {
-  protected function init()
-  {
-    if(!$this->isRaw())
-    {
-      throw new Error('Resource is not a raw file.');
-    }
+  protected $size;
+
+  public function isRaw() {
+    return true;
   }
   
-   /**
-   * Get contents of this resource.
-   * 
-   * @param resource $into If provided contents will be piped into this stream.
-   * @return string|int Contents of the resource or number of bytes piped.
-   */
-  public function getContents($into=null)
+  public function setSize($size)
   {
-    if(is_resource($into))
-    {
-      $stream = $this->getStream('r');
-      
-      $total = 0;
-      while(!feof($stream))
-      {
-        $total += fwrite($into, fread ($stream, Socket::BUFFER_SIZE));
-      }
-      
-      fclose($stream);
-      
-      return $total;
-    }
-    else 
-    {
-      return $this->getContentsQuery()->execute();
-    }
-  }
-  
-  protected function getContentsQuery() 
-  {
-    $xql = sprintf("db:retrieve('%s', '%s')", $this->getDatabase(), $this->getPath());
-    return QueryBuilder::begin()
-            ->setParameter('method', 'raw')
-            ->setBody($xql)
-            ->getQuery($this->getSession());
+    $this->size = (int)$size;
   }
 
-  protected function getCopyQuery($dest)
-  {
-    $xql = sprintf(
-        "(db:output('ok'), db:store('%s', '%s', db:retrieve('%s', '%s')))", 
-        $this->getDatabase(), $dest, $this->getDatabase(), $this->getPath());
-    
-    return $this->getSession()->query($xql);
+  public function getSize() {
+    return $this->size;
   }
   
-  protected function getMoveQuery($dest) 
+  public function getFilepath()
   {
-    $xql = sprintf("db:rename('%s', '%s', '%s')", $this->getDatabase(), $this->getPath(), $dest);
-    
-    return $this->getSession()->query($xql);
+    $db = $this->getDatabase();
+    $dbpath = $db->getSession()->getInfo()->dbpath;
+    $path = $this->getPath();
+    return "$dbpath/$db/raw/$path";
   }
   
-  protected function getDeleteQuery() 
+  public function getLocalStream($mode='r')
   {
-    $xql = sprintf("db:delete('%s', '%s')", $this->getDatabase(), $this->getPath());
-    
-    return $this->getSession()->query($xql);
-  }
-
-  /**
-   * Set contents for this resource.
-   * 
-   * @param resource|string $data
-   * @return mixed 
-   */
-  public function setContents($data)
-  {
-    $stream = $this->getStream('w');
-    
-    if(is_resource($data))
-    {
-      return stream_copy_to_stream($data, $stream);
-    }
-    else 
-    {
-      return fwrite($stream, $data);
-    }
-    
-    fclose($stream);
+    return fopen($this->getFilePath(), $mode);
   }
   
-  public function getFilePath()
-  {
-    return $this->getSession()->getInfo()->dbpath . '/'.$this->getDatabase().'/raw/'.$this->getPath();
+  public function creationMethod() {
+    return 'store';
   }
+  
 }

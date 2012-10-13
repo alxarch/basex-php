@@ -7,8 +7,8 @@
 
 	<title>File src/BaseX/Helpers.php | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -24,10 +24,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -37,17 +38,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -59,7 +68,6 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-BaseX.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Database.html">Database</a></li>
 				<li class="active"><a href="class-BaseX.Helpers.html">Helpers</a></li>
 				<li><a href="class-BaseX.Query.html">Query</a></li>
@@ -343,8 +351,53 @@
 </span><span id="226" class="l"><a class="l" href="#226">226: </a>    
 </span><span id="227" class="l"><a class="l" href="#227">227: </a>    <span class="php-keyword1">return</span> <span class="php-var">$string</span>;
 </span><span id="228" class="l"><a class="l" href="#228">228: </a>  }
-</span><span id="229" class="l"><a class="l" href="#229">229: </a>}
-</span><span id="230" class="l"><a class="l" href="#230">230: </a></span></code></pre>
+</span><span id="229" class="l"><a class="l" href="#229">229: </a>  
+</span><span id="230" class="l"><a class="l" href="#230">230: </a>  <span class="php-keyword1">static</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <span class="php-keyword2">dirname</span>(<span class="php-var">$path</span>)
+</span><span id="231" class="l"><a class="l" href="#231">231: </a>  {
+</span><span id="232" class="l"><a class="l" href="#232">232: </a>    <span class="php-var">$parent</span> = <span class="php-keyword2">dirname</span>(<span class="php-var">$path</span>);
+</span><span id="233" class="l"><a class="l" href="#233">233: </a>    <span class="php-keyword1">return</span> <span class="php-quote">'.'</span> === <span class="php-var">$parent</span> ? <span class="php-quote">''</span> : <span class="php-var">$parent</span>;
+</span><span id="234" class="l"><a class="l" href="#234">234: </a>  }
+</span><span id="235" class="l"><a class="l" href="#235">235: </a>  
+</span><span id="236" class="l"><a class="l" href="#236">236: </a>  <span class="php-keyword1">static</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_relative" href="#_relative">relative</a>(<span class="php-var">$path</span>, <span class="php-var">$base</span>=<span class="php-quote">''</span>)
+</span><span id="237" class="l"><a class="l" href="#237">237: </a>  {
+</span><span id="238" class="l"><a class="l" href="#238">238: </a>    <span class="php-keyword1">if</span>(<span class="php-quote">''</span> === <span class="php-var">$base</span>)
+</span><span id="239" class="l"><a class="l" href="#239">239: </a>    {
+</span><span id="240" class="l"><a class="l" href="#240">240: </a>      <span class="php-keyword1">return</span> <span class="php-keyword2">ltrim</span>(<span class="php-var">$path</span>, <span class="php-quote">'/'</span>);
+</span><span id="241" class="l"><a class="l" href="#241">241: </a>    }
+</span><span id="242" class="l"><a class="l" href="#242">242: </a>    
+</span><span id="243" class="l"><a class="l" href="#243">243: </a>    <span class="php-keyword1">if</span>(<span class="php-keyword2">strpos</span>(<span class="php-var">$path</span>, <span class="php-var">$base</span>) === <span class="php-num">0</span>)
+</span><span id="244" class="l"><a class="l" href="#244">244: </a>    {
+</span><span id="245" class="l"><a class="l" href="#245">245: </a>      <span class="php-keyword1">return</span> <span class="php-keyword2">substr</span>(<span class="php-var">$path</span>, <span class="php-num">0</span>, <span class="php-keyword2">strlen</span>(<span class="php-var">$base</span>) + <span class="php-num">1</span>);
+</span><span id="246" class="l"><a class="l" href="#246">246: </a>    }
+</span><span id="247" class="l"><a class="l" href="#247">247: </a>    
+</span><span id="248" class="l"><a class="l" href="#248">248: </a>    <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
+</span><span id="249" class="l"><a class="l" href="#249">249: </a>  }
+</span><span id="250" class="l"><a class="l" href="#250">250: </a>
+</span><span id="251" class="l"><a class="l" href="#251">251: </a>  <span class="php-keyword1">static</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_path" href="#_path">path</a>(<span class="php-var">$argN</span>)
+</span><span id="252" class="l"><a class="l" href="#252">252: </a>  {
+</span><span id="253" class="l"><a class="l" href="#253">253: </a>    <span class="php-var">$parts</span> = <span class="php-keyword2">func_get_args</span>();
+</span><span id="254" class="l"><a class="l" href="#254">254: </a>    <span class="php-var">$path</span> = <span class="php-keyword1">array</span>();
+</span><span id="255" class="l"><a class="l" href="#255">255: </a>    <span class="php-keyword1">foreach</span> (<span class="php-var">$parts</span> <span class="php-keyword1">as</span> <span class="php-var">$p</span>)
+</span><span id="256" class="l"><a class="l" href="#256">256: </a>    {
+</span><span id="257" class="l"><a class="l" href="#257">257: </a>      <span class="php-var">$p</span> = <span class="php-keyword2">trim</span>(<span class="php-var">$p</span>, <span class="php-quote">'/'</span>);
+</span><span id="258" class="l"><a class="l" href="#258">258: </a>      <span class="php-keyword1">if</span>(<span class="php-quote">''</span> !== <span class="php-var">$p</span>)
+</span><span id="259" class="l"><a class="l" href="#259">259: </a>        <span class="php-var">$path</span>[] = <span class="php-var">$p</span>;
+</span><span id="260" class="l"><a class="l" href="#260">260: </a>    }
+</span><span id="261" class="l"><a class="l" href="#261">261: </a>    <span class="php-keyword1">return</span> <span class="php-keyword2">implode</span>(<span class="php-quote">'/'</span>, <span class="php-var">$path</span>);
+</span><span id="262" class="l"><a class="l" href="#262">262: </a>  }
+</span><span id="263" class="l"><a class="l" href="#263">263: </a>  
+</span><span id="264" class="l"><a class="l" href="#264">264: </a>  <span class="php-keyword1">static</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <span class="php-keyword2">rename</span>(<span class="php-var">$path</span>, <span class="php-var">$name</span>)
+</span><span id="265" class="l"><a class="l" href="#265">265: </a>  {
+</span><span id="266" class="l"><a class="l" href="#266">266: </a>    <span class="php-var">$parent</span> = <span class="php-keyword2">dirname</span>(<span class="php-var">$path</span>);
+</span><span id="267" class="l"><a class="l" href="#267">267: </a>    <span class="php-keyword1">return</span> <span class="php-quote">'.'</span> === <span class="php-var">$parent</span> ? <span class="php-var">$name</span> : <span class="php-var">$parent</span> . <span class="php-quote">'/'</span> . <span class="php-var">$name</span>; 
+</span><span id="268" class="l"><a class="l" href="#268">268: </a>  }
+</span><span id="269" class="l"><a class="l" href="#269">269: </a>  
+</span><span id="270" class="l"><a class="l" href="#270">270: </a>  <span class="php-keyword1">static</span> <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_stripXMLDeclaration" href="#_stripXMLDeclaration">stripXMLDeclaration</a>(<span class="php-var">$xml</span>)
+</span><span id="271" class="l"><a class="l" href="#271">271: </a>  {
+</span><span id="272" class="l"><a class="l" href="#272">272: </a>    <span class="php-keyword1">return</span> <span class="php-keyword2">substr</span>(<span class="php-var">$xml</span>, <span class="php-keyword2">strlen</span>(<span class="php-quote">'&lt;?xml version=&quot;1.0&quot;?&gt;'</span>));
+</span><span id="273" class="l"><a class="l" href="#273">273: </a>  }
+</span><span id="274" class="l"><a class="l" href="#274">274: </a>}
+</span><span id="275" class="l"><a class="l" href="#275">275: </a></span></code></pre>
 
 	<div id="footer">
 		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

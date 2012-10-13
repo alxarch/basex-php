@@ -6,8 +6,8 @@
 
 	<title>Class BaseX\Silex\Provider | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,10 +23,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -36,17 +37,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li class="active"><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -59,6 +68,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-BaseX.Silex.Provider.html">Provider</a></li>
+				<li><a href="class-BaseX.Silex.WebDAV.html">WebDAV</a></li>
 			</ul>
 
 
@@ -107,6 +117,11 @@
 	<h1>Class Provider</h1>
 
 
+	<div class="description">
+	
+<p>Silex service provider for a basex session.</p>
+
+	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
@@ -131,7 +146,9 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Silex.html">Silex</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-BaseX.Silex.Provider.html#11-34" title="Go to source code">src/BaseX/Silex/Provider.php</a><br />
+				<b>Author:</b>
+				alxarch<br />
+		<b>Located at</b> <a href="source-class-BaseX.Silex.Provider.html#17-41" title="Go to source code">src/BaseX/Silex/Provider.php</a><br />
 	</div>
 
 
@@ -149,7 +166,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_register">#</a>
-		<code><a href="source-class-BaseX.Silex.Provider.html#13-30" title="Go to source code">register</a>( <span>Silex\Application <var>$app</var></span> )</code>
+		<code><a href="source-class-BaseX.Silex.Provider.html#24-37" title="Go to source code">register</a>( <span>Silex\Application <var>$app</var></span> )</code>
 
 		<div class="description short">
 			
@@ -178,7 +195,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_boot">#</a>
-		<code><a href="source-class-BaseX.Silex.Provider.html#32-33" title="Go to source code">boot</a>( <span>Silex\Application <var>$app</var></span> )</code>
+		<code><a href="source-class-BaseX.Silex.Provider.html#39-40" title="Go to source code">boot</a>( <span>Silex\Application <var>$app</var></span> )</code>
 
 		<div class="description short">
 			

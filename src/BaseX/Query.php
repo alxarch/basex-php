@@ -10,7 +10,8 @@ namespace BaseX;
 
 use BaseX\Session;
 use BaseX\Session\Socket;
-use BaseX\Query\QueryResultInterface;
+use BaseX\Error\UnserializationError;
+use BaseX\Query\Result\MapperInterface;
 
 /** 
  * Query object for a BaseX session.
@@ -34,6 +35,70 @@ class Query
   const UPDATING = 30;
   const FULL = 31;
 
+  const TYPE_FUNCTION = 7;
+  const TYPE_NODE = 8;
+  const TYPE_TEXT = 9;
+  const TYPE_INSTRUCTION = 10;
+  const TYPE_ELEMENT = 11;
+  const TYPE_DOCUMENT = 12;
+  const TYPE_DOCUMENT_ELEMENT = 13;
+  const TYPE_ATTRIBUTE = 14;
+  const TYPE_COMMENT = 15;
+  
+  const  TYPE_ITEM = 32;
+  const  TYPE_UNTYPED = 33;
+  const  TYPE_ANYTYPE = 34;
+  const  TYPE_ANYSIMPLETYPE = 35;
+  const  TYPE_ANYATOMICTYPE = 36;
+  const  TYPE_UNTYPEDATOMIC = 37;
+  const  TYPE_STRING = 38;
+  const  TYPE_NORMALIZEDSTRING = 39;
+  const  TYPE_TOKEN = 40;
+  const  TYPE_LANGUAGE = 41;
+  const  TYPE_NMTOKEN = 42;
+  const  TYPE_NAME = 43;
+  const  TYPE_NCNAME = 44;
+  const  TYPE_ID = 45;
+  const  TYPE_IDREF = 46;
+  const  TYPE_ENTITY = 47;
+  const  TYPE_FLOAT = 48;
+  const  TYPE_DOUBLE = 49;
+  const  TYPE_DECIMAL = 50;
+  const  TYPE_PRECISIONDECIMAL = 51;
+  const  TYPE_INTEGER = 52;
+  const  TYPE_NONPOSITIVEINTEGER = 53;
+  const  TYPE_NEGATIVEINTEGER = 54;
+  const  TYPE_LONG = 55;
+  const  TYPE_INT = 56;
+  const  TYPE_SHORT = 57;
+  const  TYPE_BYTE = 58;
+  const  TYPE_NONNEGATIVEINTEGER = 59;
+  const  TYPE_UNSIGNEDLONG = 60;
+  const  TYPE_UNSIGNEDINT = 61;
+  const  TYPE_UNSIGNEDSHORT = 62;
+  const  TYPE_UNSIGNEDBYTE = 63;
+  const  TYPE_POSITIVEINTEGER = 64;
+  const  TYPE_DURATION = 65;
+  const  TYPE_YEARMONTHDURATION = 66;
+  const  TYPE_DAYTIMEDURATION = 67;
+  const  TYPE_DATETIME = 68;
+  const  TYPE_DATETIMESTAMP = 69;
+  const  TYPE_DATE = 70;
+  const  TYPE_TIME = 71;
+  const  TYPE_GYEARMONTH = 72;
+  const  TYPE_GYEAR = 73;
+  const  TYPE_GMONTHDAY = 74;
+  const  TYPE_GDAY = 75;
+  const  TYPE_GMONTH = 76;
+  const  TYPE_BOOLEAN = 77;
+  const  TYPE_BINARY = 78;
+  const  TYPE_BASE64BINARY = 79;
+  const  TYPE_HEXBINARY = 80;
+  const  TYPE_ANYURI = 81;
+  const  TYPE_QNAME = 82;
+  const  TYPE_NOTATION = 83;
+
+  
   /**
    * 
    *
@@ -170,77 +235,81 @@ class Query
   {
     return $this->getSession()->sendQueryCommand(self::CLOSE, $this->id);
   }
- 
-  public function getResults($class=null)
+  
+  public function getFirstResult(MapperInterface $mapper=null)
   {
-    $options = $this->options();
+    $results = $this->getResults($mapper);
+    return (count($results) > 0) ? $results[0] : null;
+  }
+  
+  public function getSingleResult(MapperInterface $mapper=null)
+  {
+    $results = $this->getResults($mapper);
+    return (count($results) === 1) ? $results[0] : null;
+  }
+ 
+  public function getResults(MapperInterface $mapper=null)
+  {
+//    $options = $this->options();
     
     $results = array();
     
-    if($options['method'] === 'xml' && $options['omit-xml-declaration'])
-    {
+//    if($options['method'] === 'xml' && $options['omit-xml-declaration'])
+//    {
       $sock = $this->getSession()->getSocket();
       $msg = sprintf('%c%d%s', self::RESULTS, $this->id, Socket::NUL);
       $sock->send($msg);
       $sock->clearBuffer();
 
-
-      if(null === $class)
-      {
-        $class = 'BaseX\Query\QueryResult';
-      }
-
-      if(is_object($class))
-      {
-        $class = get_class($class);
-      }
-      
       while(true)
       {
     
-        $type = $sock->readSingle();
-        if(Socket::NUL === $type)
+        $byte = $sock->readSingle();
+        
+        if(Socket::NUL === $byte)
         {
           break;
         }
         
         $data = $sock->read();
+        $type = ord($byte);
         
-        $result = $this->bindResult(new $class($this->getSession()), $data, ord($type));
-
-        if(null === $result)
+        if(null === $mapper)
         {
-          continue;
+          $results[] = $data;
         }
-
-        $results[] = $result;
+        elseif($mapper->supportsType($type))
+        {
+          try
+          {
+            $results[] = $mapper->getResult($data, $type);
+          }
+          catch (UnserializationError $e)
+          {
+            continue;
+          }
+        }
       }
+          
+      return $results;
 
-    }
-    else 
-    {
-      $results[] = $this->bindResult(new $class(), $this->execute());
-    }
-    return $results;
-  }
-  
-  protected function bindResult(QueryResultInterface $result, $data, $type = null)
-  {
-    if(null === $type)
-    {
-      $result->setData($data);
-      return $result;
-    }
-    try
-    {
-      $result->setType($type);
-      $result->setData($data);
-      return $result;
-    }
-    catch (InvalidArgumentException $e)
-    {
-      return null;
-    }
+//    }
+    
+//    // Result is single item (full xml document, raw data, etc).
+//    if(null === $mapper)
+//    {
+//      return $this->execute();
+//    }
+//    
+//    try
+//    {
+//      return $mapper->getResult($this->execute(), null);
+//    }
+//    catch (ResultMapperError $e)
+//    {
+//      return null;
+//    }
     
   }
+  
 }

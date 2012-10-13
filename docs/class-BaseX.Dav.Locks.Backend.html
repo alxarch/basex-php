@@ -6,8 +6,8 @@
 
 	<title>Class BaseX\Dav\Locks\Backend | basex-php</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2694249659"></script>
+	<script type="text/javascript" src="resources/combined.js?1791125516"></script>
+	<script type="text/javascript" src="elementlist.js?2720448136"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,10 +23,11 @@
 			<ul>
 				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Collection.html">Collection</a>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
-				<li><a href="namespace-BaseX.Database.html">Database</a>
-						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
 						<ul>
 				<li class="active"><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
@@ -36,17 +37,25 @@
 						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query</a>
+				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
 						</li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+							</ul></li>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
 						</li>
-							</ul></li>
-				<li><a href="namespace-None.html">None</a>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
+							</ul></li></ul></li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -59,6 +68,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-BaseX.Dav.Locks.Backend.html">Backend</a></li>
+				<li><a href="class-BaseX.Dav.Locks.LockInfo.html">LockInfo</a></li>
 			</ul>
 
 
@@ -140,7 +150,7 @@ Sabre_DAV_Locks_Backend_Abstract
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Dav.html">Dav</a>\<a href="namespace-BaseX.Dav.Locks.html">Locks</a><br />
 		<b>Package:</b> SabreDAV-BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Dav.Locks.Backend.html#16-182" title="Go to source code">src/BaseX/DAV/Locks/Backend.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Dav.Locks.Backend.html#17-134" title="Go to source code">src/BaseX/DAV/Locks/Backend.php</a><br />
 	</div>
 
 
@@ -158,7 +168,7 @@ Sabre_DAV_Locks_Backend_Abstract
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-BaseX.Dav.Locks.Backend.html#41-55" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span>, <span>string <var>$db</var></span>, <span>mixed <var>$locks</var></span> )</code>
+		<code><a href="source-class-BaseX.Dav.Locks.Backend.html#38-48" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -174,12 +184,10 @@ Sabre_DAV_Locks_Backend_Abstract
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$session</var></dt>
-					<dd><code><code><a href="class-BaseX.Database.html">BaseX\Database</a></code></code><br>$db</dd>
 					<dt><var>$db</var></dt>
+					<dd><code><code><a href="class-BaseX.Database.html">BaseX\Database</a></code></code><br>$db</dd>
+					<dt><var>$path</var></dt>
 					<dd><code>string</code><br>$resource</dd>
-					<dt><var>$locks</var></dt>
-					<dd></dd>
 				</dl></div>
 
 
@@ -200,7 +208,7 @@ Sabre_DAV_Locks_Backend_Abstract
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLocks">#</a>
-		<code><a href="source-class-BaseX.Dav.Locks.Backend.html#57-112" title="Go to source code">getLocks</a>( <span>string <var>$uri</var></span>, <span>boolean <var>$returnChildLocks</var></span> )</code>
+		<code><a href="source-class-BaseX.Dav.Locks.Backend.html#50-93" title="Go to source code">getLocks</a>( <span>string <var>$uri</var></span>, <span>boolean <var>$returnChildLocks</var></span> )</code>
 
 		<div class="description short">
 			
@@ -250,7 +258,7 @@ locks in the subtree of the uri for locks.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_lock">#</a>
-		<code><a href="source-class-BaseX.Dav.Locks.Backend.html#114-156" title="Go to source code">lock</a>( <span>string <var>$uri</var></span>, <span>Sabre_DAV_Locks_LockInfo <var>$lock</var></span> )</code>
+		<code><a href="source-class-BaseX.Dav.Locks.Backend.html#95-114" title="Go to source code">lock</a>( <span>string <var>$uri</var></span>, <span>Sabre_DAV_Locks_LockInfo <var>$lock</var></span> )</code>
 
 		<div class="description short">
 			
@@ -294,7 +302,7 @@ locks in the subtree of the uri for locks.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_unlock">#</a>
-		<code><a href="source-class-BaseX.Dav.Locks.Backend.html#158-180" title="Go to source code">unlock</a>( <span>string <var>$uri</var></span>, <span>Sabre_DAV_Locks_LockInfo <var>$lock</var></span> )</code>
+		<code><a href="source-class-BaseX.Dav.Locks.Backend.html#116-132" title="Go to source code">unlock</a>( <span>string <var>$uri</var></span>, <span>Sabre_DAV_Locks_LockInfo <var>$lock</var></span> )</code>
 
 		<div class="description short">
 			
@@ -342,37 +350,14 @@ locks in the subtree of the uri for locks.</p>
 
 	<table class="summary" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="session" id="$session">
-		<td class="attributes"><code>
-			protected  
-			<code><a href="class-BaseX.Session.html">BaseX\Session</a></code>
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-BaseX.Dav.Locks.Backend.html#23-26" title="Go to source code"><var>$session</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$session" class="anchor">#</a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</div></td>
-	</tr>
 	<tr data-order="db" id="$db">
 		<td class="attributes"><code>
 			protected  
-			string
+			<code><a href="class-BaseX.Database.html">BaseX\Database</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Dav.Locks.Backend.html#28-31" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-BaseX.Dav.Locks.Backend.html#25-28" title="Go to source code"><var>$db</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -395,7 +380,7 @@ locks in the subtree of the uri for locks.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Dav.Locks.Backend.html#33-38" title="Go to source code"><var>$locks</var></a>
+				<a href="source-class-BaseX.Dav.Locks.Backend.html#30-35" title="Go to source code"><var>$locks</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

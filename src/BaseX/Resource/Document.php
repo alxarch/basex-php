@@ -10,33 +10,24 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Database;
-use BaseX\Resource\Raw;
-use BaseX\Query\QueryBuilder;
+use BaseX\Resource\Streamable;
+use BaseX\Query\Result\MapperInterface;
 use \DOMDocument as XML;
-use BaseX\Error;
+
 
 /**
  * BaseX Resource for xml documents.
  * 
  * @package BaseX 
  */
-class Document extends Raw
+class Document extends Streamable
 {
-  /**
-   * The contents of the resource as a DOMDocument
-   * 
-   * @var \DOMDocument
-   */
-  protected $xml = null;
+  public function isRaw() {
+    return false;
+  }
   
-  /**
-   * Check to see if resource is a valid document.
-   */
-  protected function init()
-  {
-    if($this->isRaw())
-      throw new Error('Specified resource is not a document.');
+  public function getSize() {
+    return null;
   }
 
   /**
@@ -47,49 +38,23 @@ class Document extends Raw
   public function getXML()
   {
     $xml = new XML();
-    $xml->loadXML($this->getContents());
+    $xml->loadXML($this->read());
     return $xml;
-  }
-  
-  /**
-   * Returns the contents of the document as XML.
-   * 
-   * @return \DOMDocument
-   */
-  public function setXML(\DOMDocument $xml)
-  {
-    return $this->setContents($xml->saveXML());
   }
 
   /**
    * Retrieves contents of a document filtered by an XPath expression.
    * 
    * @param string $xpath An XPath expression to apply to the contents.
+   * @param \BaseX\Query\QueryResultFactoryInterface $factory
    * @return string $result
    */
-  public function xpath($xpath)
+  public function xpath($xpath, MapperInterface $mapper=null)
   {
-    $db = new Database($this->getSession(), $this->getDatabase());
-    return $db->xpath($xpath, $this->getPath());
+    return $this->getDatabase()->xpath($xpath, $this->getPath(), $mapper);
   }
   
-  protected function getContentsQuery() 
-  {
-    $xql = sprintf("db:open('%s', '%s')", $this->getDatabase(), $this->getPath());
-    return QueryBuilder::begin()
-            ->setParameter('omit-xml-declaration', 'false')
-            ->setBody($xql)
-            ->getQuery($this->getSession());
+  public function creationMethod() {
+    return 'replace';
   }
-  
-  protected function getCopyQuery($dest) 
-  {
-    $xql = sprintf(
-        "(db:output('OK'),db:replace('%s', '%s', db:open('%s', '%s')))", 
-        $this->getDatabase(), $dest, $this->getDatabase(), $this->getPath());
-    
-    return $this->getSession()->query($xql);
-    
-  }
-          
 }

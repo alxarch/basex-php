@@ -1,0 +1,153 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+namespace BaseX\Resource;
+
+
+use BaseX\Resource\Streamable;
+use BaseX\StreamWrapper;
+use BaseX\PHPUnit\TestCaseDb;
+
+class GenericStreamable extends Streamable
+{
+  public function creationMethod() {
+    return 'store';
+  }
+  public function isRaw() {
+    ;
+  }
+}
+
+/**
+ * Description of StreamableTest
+ *
+ * @author alxarch
+ */
+class StreamableTest extends TestCaseDb 
+{
+  protected $rawInfo = '<resource raw="true" content-type="image/jpeg" modified-date="2012-05-27T12:36:48.000Z" size="60751">image.jpg</resource>';
+  protected $xmlInfo = '<resource raw="false" content-type="application/xml" modified-date="2012-05-27T13:38:33.988Z">collection/doc.xml</resource>';
+  protected $rawStreamable;
+  protected $xmlStreamable;
+  
+  public function setUp()
+  {
+    parent::setUp();
+    StreamWrapper::register($this->session);
+
+    $this->rawStreamable = new GenericStreamable($this->db, 'image.jpg', '2012-05-27T12:36:48.000Z');
+    $this->rawStreamable->setContentType('image/jpeg');
+    $this->xmlStreamable = new GenericStreamable($this->db, 'collection/doc.xml', '2012-05-27T13:38:33.988Z');
+    $this->xmlStreamable->setContentType('application/xml');
+  }
+  
+  public function testType()
+  {
+    $this->assertEquals('image/jpeg', $this->rawStreamable->getContentType());
+    $this->assertEquals('application/xml', $this->xmlStreamable->getContentType());
+  }
+  
+  public function testRead()
+  {
+    $this->db->add('original.xml', '<test/>');
+    
+    $original = new GenericStreamable($this->db, 'original.xml');
+    
+    $this->assertXmlStringEqualsXmlString('<test/>', $original->read());
+  }
+  
+  public function testWrite()
+  {
+    $original = new GenericStreamable($this->db, 'original.xml');
+    $original->write('<test/>');
+    $this->assertXmlStringEqualsXmlString('<test/>', $this->doc('original.xml'));
+  }
+  
+  public function testReadInto()
+  {
+    $into = fopen('php://temp', 'r+');
+    
+    $this->db->add('original.xml', '<test/>');
+    
+    $original = new GenericStreamable($this->db, 'original.xml');
+    
+    $result = $original->read($into);
+    
+    $this->assertFalse(false === $result);
+    $this->assertTrue(is_int($result));
+    $this->assertTrue($result > 0);
+    
+    rewind($into);
+    
+    $contents = stream_get_contents($into);
+    
+    $this->assertXmlStringEqualsXmlString('<test/>', $contents);
+    
+    fclose($into);
+  }
+  
+  public function testGetContentsRawInto()
+  {
+    $into = fopen('php://temp', 'r+');
+    
+    $contents = md5(time());
+    $this->db->store('test.txt', $contents);
+    
+    $original = new GenericStreamable($this->db, 'test.txt');
+    
+    $result = $original->read($into);
+    
+    $this->assertFalse(false === $result);
+    $this->assertTrue(is_int($result));
+    $this->assertTrue($result > 0);
+    
+    rewind($into);
+    
+    $actual = stream_get_contents($into);
+    
+    $this->assertEquals($contents, $actual);
+    
+    fclose($into);
+    
+  }
+  
+  public function testReadRaw()
+  {
+    $contents = md5(time());
+    
+    $this->db->store('test.txt', $contents);
+   
+    $original = new GenericStreamable($this->db, 'test.txt');
+    
+    $this->assertEquals($contents, $original->read());
+  }
+  
+   
+  public function testGetUri()
+  {
+    $this->assertEquals("basex://$this->dbname/image.jpg", $this->rawStreamable->getUri());
+    $this->assertEquals("basex://$this->dbname/collection/doc.xml", $this->xmlStreamable->getUri());
+  }
+  
+  public function testGetStream()
+  {
+    $this->db->add('test.xml', '<root/>');
+    
+    $res = new GenericStreamable($this->db, 'test.xml');
+    
+    $this->assertTrue(is_resource($res->getStream()));
+    $this->assertTrue(is_resource($res->getStream('w')));
+  }
+   
+  public function tearDown()
+  {
+    StreamWrapper::unregister();
+    parent::tearDown();
+  }
+  
+}
+

@@ -14,7 +14,6 @@
 namespace BaseX;
 
 use BaseX\Query;
-use BaseX\Query\QueryBuilder;
 use BaseX\Session\Socket;
 use BaseX\Helpers as B;
 use BaseX\Error\SessionError;
@@ -25,7 +24,7 @@ use BaseX\Session\SessionInfo;
  * 
  * @package BaseX
  */ 
-class Session 
+class Session
 {
   const OK = "\x00";
   const CREATE = 8;
@@ -128,14 +127,8 @@ class Session
   {
     if(null === $this->info)
     {
-      $results = SessionInfo::getForQuery($this->query('db:system()'));
-      
-      if(empty($results))
-      {
-        throw new SessionError('Could not load session info.');
-      }
-      
-      $this->info = $results[0];
+      $this->info = new SessionInfo($this);
+      $this->info->refresh();
     }
     
     return $this->info;
@@ -148,7 +141,7 @@ class Session
    */
   public function getStatus()
   {
-    return (string)$this->status;
+    return (string) $this->status;
   }
   
   /**
@@ -453,6 +446,9 @@ class Session
     }
     
     $this->execute("SET $name \"$value\"");
+    
+    $this->info = null;
+    
     return $this;
   }
   
@@ -465,7 +461,9 @@ class Session
   public function resetOption($name)
   {
     $this->execute("SET $name");
+    $this->info = null;
     return $this;
   }
+  
   
 }
