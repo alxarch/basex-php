@@ -12,6 +12,7 @@ namespace BaseX;
 use BaseX\Session;
 use BaseX\Query\Result\MapperInterface;
 use BaseX\Resource\Tree;
+use BaseX\Resource\ResourceMapper;
 
 /**
  * BaseX Database object.
@@ -36,6 +37,13 @@ class Database
    * @var string
    */
   protected $name;
+
+  /**
+   * @var \BaseX\Query\Result\MapperInterface Mapper to use for resource 
+   * retrieval
+   */
+  protected $mapper;
+
 
   /**
    * Constructor.
@@ -177,6 +185,20 @@ class Database
     return $this;
   }
   
+  public function setResourceMapper(MapperInterface $mapper)
+  {
+    $this->mapper = $mapper;
+  }
+  
+  public function getResourceMapper()
+  {
+    if(null === $this->mapper)
+    {
+      $this->mapper = new ResourceMapper($this);
+    }
+    return $this->mapper;
+  }
+  
   /**
    * 
    * @param string $path
@@ -185,6 +207,11 @@ class Database
    */
   public function getResource($path, MapperInterface $mapper = null)
   {
+    if(null === $mapper)
+    {
+      $mapper = $this->getResourceMapper();
+    }
+    
     return $this->getSession()
             ->query("db:list-details('$this', '$path')")
             ->getSingleResult($mapper);
@@ -198,6 +225,10 @@ class Database
    */
   public function getResources($path = null, MapperInterface $mapper = null)
   {
+    if(null === $mapper)
+    {
+      $mapper = $this->getResourceMapper();
+    }
     return $this->getSession()
             ->query("db:list-details('$this', '$path')")
             ->getResults($mapper);
