@@ -60,21 +60,31 @@ class QueryBuilder
    */
   protected $body;
   
-  protected function __construct()
-  {
-   
-  }
-  
+  /**
+   * 
+   * @return array
+   */
   public function getParameters()
   {
     return $this->parameters;
   }
   
+  /**
+   * 
+   * @param string $name
+   * @return string
+   */
   public function getParameter($name)
   {
     return isset($this->parameters[$name]) ? $this->parameters[$name] : null;
   }
   
+  /**
+   * 
+   * @param string $name
+   * @param string $value
+   * @return \BaseX\Query\QueryBuilder
+   */
   public function setParameter($name, $value)
   {
     $this->parameters[$name] = $value;
@@ -90,17 +100,31 @@ class QueryBuilder
     return $this;
   }
   
-  
+  /**
+   * 
+   * @return array
+   */
   public function getVariables()
   {
     return $this->variables;
   }
   
+  /**
+   * 
+   * @param string $name
+   * @return mixed
+   */
   public function getVariable($name)
   {
     return isset($this->variables[$name]) ? $this->variables[$name] : null;
   }
   
+  /**
+   * 
+   * @param string $name
+   * @param mixed $defaultValue
+   * @return \BaseX\Query\QueryBuilder
+   */
   public function addExternalVariable($name, $defaultValue=null)
   {
     $this->variables[$name] = $defaultValue;
@@ -130,11 +154,22 @@ class QueryBuilder
     return $this;
   }
   
+  /**
+   * 
+   * @param string $name
+   * @return string
+   */
   public function getOption($name)
   {
     return isset($this->options[$name]) ? $this->options[$name] : null;
   }
   
+  /**
+   * 
+   * @param string $name
+   * @param string $value
+   * @return \BaseX\Query\QueryBuilder
+   */
   public function setOption($name, $value)
   {
     if(is_string($name))
@@ -142,6 +177,11 @@ class QueryBuilder
     return $this;
   }
   
+  /**
+   * 
+   * @param array $options
+   * @return \BaseX\Query\QueryBuilder
+   */
   public function setOptions($options)
   {
     foreach($options as $key => $value)
@@ -152,11 +192,20 @@ class QueryBuilder
     return $this;
   }
   
+  /**
+   * 
+   * @return array
+   */
   public function getOptions()
   {
     return $this->options;
   }
   
+  /**
+   * 
+   * @param string $body
+   * @return \BaseX\Query\QueryBuilder
+   */
   public function setBody($body)
   {
     $this->body = $body;
@@ -164,11 +213,19 @@ class QueryBuilder
     return $this;
   }
   
+  /**
+   * 
+   * @return string
+   */
   public function getBody()
   {
     return $this->body;
   }
   
+  /**
+   * 
+   * @return string
+   */
   public function build()
   {
     $xq = array();
@@ -211,11 +268,20 @@ class QueryBuilder
     return implode("\n", $xq);
   }
   
+  /**
+   * 
+   * @return array
+   */
   public function getModules()
   {
     return $this->modules;
   }
   
+  /**
+   * 
+   * @param array $modules
+   * @return \BaseX\Query\QueryBuilder
+   */
   public function setModules($modules)  
   {
     foreach ($modules as $m => $uri)
@@ -226,6 +292,13 @@ class QueryBuilder
     return $this;
   }
   
+  /**
+   * 
+   * @param string $alias
+   * @param string $uri
+   * @return \BaseX\Query\QueryBuilder
+   * @throws \InvalidArgumentException if alias is invalid
+   */
   public function setModule($alias, $uri)
   {
     if(!preg_match('/^[a-zA-Z0-9\-_.]+$/', $alias))
@@ -235,11 +308,20 @@ class QueryBuilder
     return $this;
   }
   
+  /**
+   * 
+   * @return array
+   */
   public function getNamespaces()
   {
     return $this->namespaces;
   }
   
+  /**
+   * 
+   * @param array $namespaces
+   * @return \BaseX\Query\QueryBuilder
+   */
   public function setNamespaces($namespaces)  
   {
     foreach ($namespaces as $n => $uri)
@@ -271,6 +353,10 @@ class QueryBuilder
     return $q;
   }
   
+  /**
+   * 
+   * @return \BaseX\Query\QueryBuilder
+   */
   public static function begin()
   {
     $class = get_called_class();
