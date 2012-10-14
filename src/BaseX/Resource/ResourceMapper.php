@@ -49,7 +49,16 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
            $type === Query::TYPE_ELEMENT;
   }
   
- 
+  /**
+   * Shorthand method to load resources.
+   * 
+   * @param string $path
+   * @return array
+   */
+  public function get($path='')
+  {
+    return $this->db->getResources(B::path($this->path, $path), $this);
+  }
   
   /**
    * 
@@ -62,7 +71,7 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
     
     if($name === 'resource')
     {
-      $path = B::path($this->path, (string) $xml);
+      $path = (string) $xml;
       $modified = B::date((string) $xml['modified-date']);
       $mime = (string) $xml['content-type'];
       $raw = 'true' === (string) $xml['raw'];
@@ -84,7 +93,7 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
     }
     elseif($name === 'collection')
     {
-      $path = B::path($this->path, (string) $xml['path']);
+      $path = (string) $xml['path'];
       $modified = B::date((string) $xml['modified-date']);
       
       return new Collection($this->db, $path, $modified);

@@ -6,37 +6,14 @@ use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Database;
 use BaseX\Resource\ResourceMapper;
 
-class DatabaseTest extends TestCaseDb {
-//  public function testBackup()
-//  {
-//    $this->db->add('test.xml', '<test/>');
-//    $b = $this->db->backup();
-//    $this->assertTrue($b instanceof Backup);
-//    $this->assertNotEmpty($this->session->query("db:backups('$this->dbname')")->execute());
-//  }
-//  
-//  public function testBackups()
-//  {
-//    $this->db->add('test.xml', '<test/>');
-//    $this->db->backup();
-//    sleep(1);
-//    $this->db->backup();
-//    $backups = $this->db->getBackups();
-//    
-//    $this->assertEquals(2, count($backups));
-//    $this->assertTrue($backups[0] instanceof Backup);
-//    $this->assertTrue($backups[1] instanceof Backup);
-//  }
+class DatabaseTest extends TestCaseDb 
+{
 
   /**
    * @expectedException InvalidArgumentException
    * @expectedExceptionMessage Invalid database name.
    */
   public function test__construct() {
-//    $name = 'nameok'.time();
-//    $db = new Database($this->session, $name);
-//    $this->assertContains($name, $this->session->execute('LIST'));
-//    $this->session->execute("DROP DB $name");
 
     $name = 'not ok όνομα';
     $db = new Database($this->session, $name);
@@ -49,6 +26,7 @@ class DatabaseTest extends TestCaseDb {
   public function testGetName() {
     $this->assertEquals($this->dbname, $this->db->getName());
   }
+  
 
   /**
    * @depends testInit 
@@ -59,9 +37,9 @@ class DatabaseTest extends TestCaseDb {
 
     $this->db->add($path, $input);
 
-    $this->assertContains($path, self::ls());
+    $this->assertContains($path, $this->ls());
 
-    $this->assertXmlStringEqualsXmlString($input, self::doc($path));
+    $this->assertXmlStringEqualsXmlString($input, $this->doc($path));
 
     return $path;
   }
@@ -75,9 +53,9 @@ class DatabaseTest extends TestCaseDb {
 
     $this->db->store($path, $input);
 
-    $this->assertContains($path, self::ls());
+    $this->assertContains($path, $this->ls());
 
-    $contents = self::raw($path);
+    $contents = $this->raw($path);
 
     $this->assertEquals($input, $contents);
 
@@ -92,11 +70,11 @@ class DatabaseTest extends TestCaseDb {
 
     $this->db->delete($doc);
 
-    $this->assertNotContains($doc, self::ls());
+    $this->assertNotContains($doc, $this->ls());
 
     $this->db->delete($raw);
 
-    $this->assertNotContains($raw, self::ls());
+    $this->assertNotContains($raw, $this->ls());
   }
 
   /**
@@ -111,10 +89,10 @@ class DatabaseTest extends TestCaseDb {
     $this->db->add($old, $input);
 
     $this->db->rename($old, $new);
-    $this->assertNotContains($old, self::ls());
-    $this->assertContains($new, self::ls());
+    $this->assertNotContains($old, $this->ls());
+    $this->assertContains($new, $this->ls());
 
-    $contents = self::doc($new);
+    $contents = $this->doc($new);
 
     $this->assertXmlStringEqualsXmlString($input, $contents);
 
@@ -132,7 +110,7 @@ class DatabaseTest extends TestCaseDb {
     $this->db->add($path, $old);
     $this->db->replace($path, $new);
 
-    $this->assertXmlStringEqualsXmlString($new, self::doc($path));
+    $this->assertXmlStringEqualsXmlString($new, $this->doc($path));
 
     $this->db->delete($path);
 
@@ -143,7 +121,7 @@ class DatabaseTest extends TestCaseDb {
     $this->db->store($path, $old);
     $this->db->replace($path, $new);
 
-    $this->assertEquals($new, self::raw($path));
+    $this->assertEquals($new, $this->raw($path));
 
     $this->db->delete($path);
   }
@@ -167,9 +145,7 @@ class DatabaseTest extends TestCaseDb {
     $this->db->add('dir/test-3.xml', '<test3/>');
     $this->db->store('test.txt', 'test');
 
-    $provider = new ResourceMapper($this->db);
-
-    $resource = $this->db->getResource('test-1.xml', $provider);
+    $resource = $this->db->getResource('test-1.xml');
 
     $this->assertNotNull($resource);
     $this->assertInstanceOf('BaseX\Resource', $resource);
@@ -187,7 +163,7 @@ class DatabaseTest extends TestCaseDb {
 
     $provider = new ResourceMapper($this->db);
 
-    $resources = $this->db->getResources('', $provider);
+    $resources = $this->db->getResources('');
 
     $this->assertTrue(is_array($resources));
     $this->assertEquals(4, count($resources));
@@ -218,6 +194,53 @@ class DatabaseTest extends TestCaseDb {
     $this->db->delete('test-3.xml');
     $this->db->delete('test.txt');
   }
+  
+  public function testCreate()
+  {
+    $name = 'dsfasdaf';
+    $db = new Database($this->session, $name);
+    $db->create();
+    $this->assertContains($name, $this->session->execute('LIST'));
+  }
+  
+  public function testCopy()
+  {
+    $this->db->add('test/test.xml', '<test/>');
+    $this->db->store('test/test.txt', 'test');
+    
+    $this->db->copy('test/test.xml', 'sa/test.xml');
+    
+    $this->assertContains('sa/test.xml', $this->ls());
+    $this->assertXmlStringEqualsXmlString('<test/>', $this->doc('sa/test.xml'));
+    
+    $this->db->copy('test', 'sazam');
+    $this->assertContains('test/test.xml', $this->ls());
+    $this->assertContains('test/test.txt', $this->ls());
+    $this->assertContains('sazam/test.xml', $this->ls());
+    $this->assertContains('sazam/test.txt', $this->ls());
+    
+    $this->assertEquals('test', $this->raw('sazam/test.txt'));
+    
+  }
+  
+  public function testExists()
+  {
+    $this->assertFalse($this->db->exists('test.xml'));
+    $this->db->add('test/test.xml', '<test/>');
+    $this->assertFalse($this->db->exists('test.xml'));
+    $this->assertTrue($this->db->exists('test/test.xml'));
+    $this->assertTrue($this->db->exists('test'));
+  }
+  
+  public function testGetResourceMapper()
+  {
+    $this->assertInstanceOf('BaseX\Resource\ResourceMapper', $this->db->getResourceMapper());
+    
+    $m = new Query\Result\SimpleXMLMapper();
+    $this->db->setResourceMapper($m);
+    $this->assertEquals($m, $this->db->getResourceMapper());
+  }
+  
 
 //  /**
 //   * @depends testDelete
@@ -229,15 +252,15 @@ class DatabaseTest extends TestCaseDb {
 //    
 //    $this->db->addXML($path, $input);
 //    
-//    $this->assertContains($path, self::ls());
-//    $actual = self::doc($path);
+//    $this->assertContains($path, $this->ls());
+//    $actual = $this->doc($path);
 //    $this->assertXmlStringEqualsXmlString($input, $actual);
 //    
 //    $this->db->delete($path);
 //    
 //    $this->db->addXML(array($path => $input), null);
-//    $this->assertContains($path, self::ls());
-//    $actual = self::doc($path);
+//    $this->assertContains($path, $this->ls());
+//    $actual = $this->doc($path);
 //    $this->assertXmlStringEqualsXmlString($input, $actual);
 //    
 //    $this->assertResetAfterAdd();
@@ -267,7 +290,7 @@ class DatabaseTest extends TestCaseDb {
 //    
 //    $this->db->addHTML($path, $html);
 //    
-//    $this->assertContains($path, self::ls());
+//    $this->assertContains($path, $this->ls());
 //    
 //    $this->assertResetAfterAdd();
 //    
@@ -285,7 +308,7 @@ class DatabaseTest extends TestCaseDb {
 //    
 //    $this->db->addJSON($path, $json);
 //    
-//    $this->assertContains($path, self::ls());
+//    $this->assertContains($path, $this->ls());
 //    
 //    $this->assertResetAfterAdd();
 //  }
@@ -301,7 +324,7 @@ class DatabaseTest extends TestCaseDb {
 //    
 //    $this->db->addCSV($path, $json);
 //    
-//    $this->assertContains($path, self::ls());
+//    $this->assertContains($path, $this->ls());
 //    
 //    $this->assertResetAfterAdd();
 //    
@@ -358,6 +381,21 @@ class DatabaseTest extends TestCaseDb {
     foreach ($results as $r) {
       $this->assertXmlStringEqualsXmlString($r, '<test/>');
     }
+  }
+  
+  /**
+   * @expectedException BaseX\Error
+   */
+  public function testGetTree()
+  {
+    $this->db->add('test/test.xml', '<test/>');
+    $this->db->store('test/test.txt', 'test');
+    
+    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree());
+    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('test'));
+    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('test', 1));
+    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('te', 1));
+    
   }
 
 }

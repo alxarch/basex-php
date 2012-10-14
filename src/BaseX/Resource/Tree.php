@@ -14,6 +14,7 @@ use BaseX\Query\Result\SimpleXMLMapperInterface;
 use BaseX\Resource\Interfaces\CollectionInterface;
 use Serializable;
 use BaseX\Error\UnserializationError;
+use BaseX\Error\SessionError;
 use BaseX\Error;
 use BaseX\Database;
 
@@ -362,14 +363,15 @@ return \$tree
 
 XQL;
 
-    $data = $db->getSession()->query($xql)->execute();
+    try{
+      $data = $db->getSession()->query($xql)->execute();
+    }
+    catch (SessionError $e)
+    {
+      throw new Error('Path does not exist.');
+    }
     $this->unserialize($data);
-  }
-  
-  
-  public static function getTreeData(Database $db, $root='', $depth=-1)
-  {
-
+    
   }
 }
 
