@@ -151,7 +151,7 @@ class User implements AdvancedUserInterface, Serializable
   public function setUsername($username) {
     if(!preg_match('/^[a-zA-Z0-9\.\-_]+$/', $username))
     {
-      throw new \InvalidArgumentException('Invlid username.');
+      throw new \InvalidArgumentException('Invalid username.');
     }
     
     $this->username = $username;
@@ -217,26 +217,29 @@ class User implements AdvancedUserInterface, Serializable
   {
     $xml = @simplexml_load_string($data);
     
-    if(false === $xml || !isset($xml->username) || !isset($xml->password))
+    if(false !== $xml && isset($xml->username) && isset($xml->password))
+    {
+      $this->setUsername((string) $xml->username)
+           ->setPassword((string) $xml->password)
+           ->setRoles($xml->roles->role);
+
+      if(isset($xml->expires))
+        $this->setExpires ((string)$xml->expires);
+
+      if(isset($xml->{'last-login'}))
+        $this->setLastLogin((string) $xml->{'last-login'});
+
+      if((boolean) $xml->disabled)
+        $this->disable();
+
+      if((boolean) $xml->locked)
+        $this->lock();
+    }
+    else
     {
       throw new UnserializationError();
     }
     
-    $this->setUsername((string) $xml->username)
-         ->setPassword((string) $xml->password)
-         ->setRoles($xml->roles->role);
-    
-    if(isset($xml->expires))
-      $this->setExpires ((string)$xml->expires);
-    
-    if(isset($xml->{'last-login'}))
-      $this->setLastLogin((string) $xml->{'last-login'});
-    
-    if((boolean) $xml->disabled)
-      $this->disable();
-    
-    if((boolean) $xml->locked)
-      $this->lock();
   }
   
   public function __toString() {

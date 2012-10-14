@@ -49,7 +49,7 @@ class UserProvider implements UserProviderInterface, MapperInterface
   
   public function supportsType($type)
   {
-    return $type === Query::TYPE_DOCUMENT;
+    return $type === Query::TYPE_ELEMENT || $type === Query::TYPE_DOCUMENT;
   }
   
   public function getResult($data, $type) 
