@@ -9,7 +9,6 @@
 namespace BaseX\Database;
 
 use BaseX\Query\Result\MapperInterface;
-use \IteratorAggregate;
 use BaseX\Query;
 use BaseX\Database;
 
@@ -18,7 +17,7 @@ use BaseX\Database;
  *
  * @author alxarch
  */
-class BackupProvider implements MapperInterface, IteratorAggregate
+class BackupProvider implements MapperInterface
 {
   /**
    *
@@ -31,7 +30,7 @@ class BackupProvider implements MapperInterface, IteratorAggregate
   }
   
   public function supportsType($type) {
-     return $type === Query::TYPE_NODE || $type === Query::TYPE_ELEMENT;
+     return $type === Query::TYPE_ELEMENT;
   }
   
   public function getResult($data, $type) {
@@ -39,11 +38,14 @@ class BackupProvider implements MapperInterface, IteratorAggregate
     $backup->unserialize($data);
     return $backup;
   }
-
   
-  
-  public function getIterator() {
-    return $this->getBackups();
+  /**
+   * @todo implement date filters.
+   */
+  public function get()
+  {
+    $xql = "db:backups('$this->db')";
+    return $this->db->getSession()->query($xql)->getResults($this);
   }
 }
 
