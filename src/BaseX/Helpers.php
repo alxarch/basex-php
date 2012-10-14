@@ -271,4 +271,9 @@ class Helpers
   {
     return substr($xml, strlen('<?xml version="1.0"?>'));
   }
+  
+  static public function date($date)
+  {
+    return \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $date);
+  }
 }
