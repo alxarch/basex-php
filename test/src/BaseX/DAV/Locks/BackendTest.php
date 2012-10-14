@@ -6,7 +6,7 @@ use BaseX\PHPUnit\TestCaseDb;
 
 use BaseX\DAV\Locks\Backend;
 
-use BaseX\Dav\Locks\LockInfo;
+use BaseX\DAV\Locks\LockInfo;
 
 /*
  * To change this template, choose Tools | Templates
