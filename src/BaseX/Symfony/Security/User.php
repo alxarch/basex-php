@@ -27,11 +27,11 @@ class User implements AdvancedUserInterface, Serializable
   protected $roles;
   protected $salt;
   protected $disabled;
-  protected $locked;
-  protected $expires;
+  protected $locked=false;
+  protected $expires=null;
   
   public function isCredentialsNonExpired() {
-    return false;
+    return true;
   }
   
   public function isEnabled() {
@@ -229,11 +229,13 @@ class User implements AdvancedUserInterface, Serializable
       if(isset($xml->{'last-login'}))
         $this->setLastLogin((string) $xml->{'last-login'});
 
-      if((boolean) $xml->disabled)
+      if('true' === (string) $xml->disabled)
         $this->disable();
 
-      if((boolean) $xml->locked)
+      if('true' === (string) $xml->locked)
         $this->lock();
+      else
+        $this->unlock();
     }
     else
     {
@@ -246,4 +248,3 @@ class User implements AdvancedUserInterface, Serializable
     return $this->getUsername();
   }
 } 
-
