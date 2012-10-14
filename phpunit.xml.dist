@@ -13,7 +13,7 @@
 >
   <testsuites>
     <testsuite name="BaseX Test Suite">
-      <directory>./test/BaseX/</directory>
+      <directory>./test/src/</directory>
     </testsuite>
   </testsuites>
 </phpunit>
