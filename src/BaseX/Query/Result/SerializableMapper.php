@@ -43,12 +43,17 @@ class SerializableMapper implements MapperInterface
   public function supportsType($type){
     return true;
   }
+  
+  public function getInstance()
+  {
+    $class = $this->class;
+    return new $class();
+  }
 
   public function getResult($data, $type) {
-    $class = $this->class;
     try
     {
-      $object = new $class();
+      $object = $this->getInstance();
       $object->unserialize($data);
       return $object;
     }

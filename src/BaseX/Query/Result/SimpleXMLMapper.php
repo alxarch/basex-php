@@ -29,7 +29,6 @@ class SimpleXMLMapper implements MapperInterface
    */
   public function supportsType($type) {
     return $type === Query::TYPE_NODE ||
-           $type === MapperInterface::TYPE_SIMPLEXML ||
            $type === Query::TYPE_DOCUMENT || 
            $type === Query::TYPE_ELEMENT || 
            $type === Query::TYPE_DOCUMENT_ELEMENT
