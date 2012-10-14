@@ -44,7 +44,7 @@ class BackupProvider implements MapperInterface
    */
   public function get()
   {
-    $xql = "db:backups('$this->db')";
+    $xql = "for \$d in db:backups('$this->db') order by \$d descending return \$d";
     return $this->db->getSession()->query($xql)->getResults($this);
   }
 }
