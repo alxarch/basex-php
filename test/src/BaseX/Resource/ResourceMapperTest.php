@@ -16,7 +16,7 @@ use BaseX\Resource\Raw;
 use BaseX\Resource\ResourceMapper;
 use BaseX\Resource\Document;
 use BaseX\Resource\Collection;
-
+use BaseX\Helpers as B;
 /**
  * Description of ResourceMapperTest
  *
@@ -39,7 +39,7 @@ class ResourceMapperTest extends TestCaseDb {
     $this->assertTrue($result instanceof Raw);
     $this->assertEquals('image.jpg', $result->getPath());
     $this->assertEquals('image/jpeg', $result->getContentType());
-    $this->assertEquals(new \DateTime('2012-05-27T12:36:48.000Z'), $result->getModified());
+    $this->assertEquals(B::date('2012-05-27T12:36:48.000Z'), $result->getModified());
   }
 
   function testCollection() {
@@ -48,7 +48,7 @@ class ResourceMapperTest extends TestCaseDb {
     $result = $mapper->getResult($data, null);
     $this->assertTrue($result instanceof Collection);
     $this->assertEquals('somepath/test', $result->getPath());
-    $this->assertEquals(new \DateTime('2012-05-27T12:36:48.000Z'), $result->getModified());
+    $this->assertEquals(B::date('2012-05-27T12:36:48.000Z'), $result->getModified());
   }
 
   function testDocument() {
@@ -58,7 +58,7 @@ class ResourceMapperTest extends TestCaseDb {
     $this->assertTrue($result instanceof Document);
     $this->assertEquals('collection/doc.xml', $result->getPath());
     $this->assertEquals('application/xml', $result->getContentType());
-    $this->assertEquals(new \DateTime('2012-05-27T13:38:33.988Z'), $result->getModified());
+    $this->assertEquals(B::date('2012-05-27T13:38:33.988Z'), $result->getModified());
   }
 
 }

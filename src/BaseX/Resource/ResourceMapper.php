@@ -49,6 +49,8 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
            $type === Query::TYPE_ELEMENT;
   }
   
+ 
+  
   /**
    * 
    * @param SimpleXMLElement $xml
@@ -61,14 +63,13 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
     if($name === 'resource')
     {
       $path = B::path($this->path, (string) $xml);
-      $modified = (string) $xml['modified-date'];
+      $modified = B::date((string) $xml['modified-date']);
       $mime = (string) $xml['content-type'];
       $raw = 'true' === (string) $xml['raw'];
       
       if($raw)
       {
         $size = (int) $xml['size'];
-        
         $resource = new Raw($this->db, $path, $modified);
         $resource->setSize($size);
       }
@@ -84,7 +85,7 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
     elseif($name === 'collection')
     {
       $path = B::path($this->path, (string) $xml['path']);
-      $modified = (string) $xml['modified-date'];
+      $modified = B::date((string) $xml['modified-date']);
       
       return new Collection($this->db, $path, $modified);
     }

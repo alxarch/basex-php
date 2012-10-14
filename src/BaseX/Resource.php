@@ -57,7 +57,7 @@ abstract class Resource implements ResourceInterface
    * @param string $path
    * @param string $modified
    */
-  public function __construct(Database $db, $path, $modified = null)
+  public function __construct(Database $db, $path, \DateTime $modified = null)
   {
     $this->db = $db;
     $this->path = (string) $path;
@@ -69,7 +69,7 @@ abstract class Resource implements ResourceInterface
     else
     {
       $this->exists = true;
-      $this->modified = new \DateTime($modified);
+      $this->modified = $modified;
     }
   }
   
@@ -163,7 +163,7 @@ abstract class Resource implements ResourceInterface
     $etag = sprintf('%s/%s/%d', 
             $this->getDatabase(), 
             $this->getPath(), 
-            $this->getModified()->format('U'));
+            $this->getModified()->format('Y-m-d\TH:i:s.uP'));
     
     return md5($etag);
   }

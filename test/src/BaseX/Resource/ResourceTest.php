@@ -4,6 +4,7 @@ namespace BaseX\Resource;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Resource;
+use BaseX\Helpers as B;
 
 class GenericResource extends Resource
 {
@@ -22,16 +23,16 @@ class ResourceTest extends TestCaseDb
   {
     parent::setUp();
 
-    $this->raw = new GenericResource($this->db, 'image.jpg', '2012-05-27T12:36:48.000Z');
-    $this->xml = new GenericResource($this->db, 'collection/doc.xml', '2012-05-27T13:38:33.988Z');
+    $this->raw = new GenericResource($this->db, 'image.jpg', B::date('2012-05-27T12:36:48.000Z'));
+    $this->xml = new GenericResource($this->db, 'collection/doc.xml', B::date('2012-05-27T13:38:33.988Z'));
 
   }
  
   public function testModified()
   {
     
-    $this->assertEquals( new \DateTime('2012-05-27T12:36:48.000Z'), $this->raw->getModified());
-    $this->assertEquals( new \DateTime('2012-05-27T13:38:33.988Z'), $this->xml->getModified());
+    $this->assertEquals(B::date('2012-05-27T12:36:48.000Z'), $this->raw->getModified());
+    $this->assertEquals(B::date('2012-05-27T13:38:33.988Z'), $this->xml->getModified());
   }
  
   public function testPath()

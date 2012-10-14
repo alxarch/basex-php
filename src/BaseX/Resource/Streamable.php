@@ -12,6 +12,7 @@ use BaseX\Resource\Interfaces\StreamableResource;
 use BaseX\Resource;
 use BaseX\Session\Socket;
 use BaseX\Helpers as B;
+use BaseX\Error;
 
 /**
  * Base class for streamable resources (raw/document).
@@ -37,7 +38,7 @@ abstract class Streamable extends Resource implements StreamableResource
    */
   public function getStream($mode='r')
   {
-    $stream = fopen($this->getUri(), $mode);
+    $stream = @fopen($this->getUri(), $mode);
     
     if(false === $stream)
     {
@@ -78,26 +79,33 @@ abstract class Streamable extends Resource implements StreamableResource
     }
   }
   
-   /**
+  
+  /**
    * Set contents for this resource.
    * 
    * @param resource|string $data
-   * @return mixed 
+   * @return int 
    */
-  public function write($data)
+  public function write($input)
   {
-    $stream = $this->getStream('w');
+    $output = $this->getStream('w');
     
-    if(is_resource($data))
+    $total = 0;
+    
+    if(is_resource($input))
     {
-      $total = stream_copy_to_stream($data, $stream);
+      while(!feof($input))
+      {
+        $total += fwrite($output, fread($input, Socket::BUFFER_SIZE));
+      }
     }
     else 
     {
-      $total = fwrite($stream, $data);
+      $total = fwrite($output, $input);
     }
     
-    fclose($stream);
+    fclose($output);
+    
     return $total;
   }
   
@@ -135,30 +143,26 @@ abstract class Streamable extends Resource implements StreamableResource
    */
   public function refresh()
   {
-    $resources = $this->getDatabase()->getResources($this->getPath());
-    if(count($resources) === 1)
+    $xml = $this->getDatabase()->getResource($this->getPath(), new \BaseX\Query\Result\SimpleXMLMapper());
+    
+    if($xml || $this->isRaw() !== ('true' === $xml['raw']))
     {
-      $resource = $resources[0];
-      
-      if($resource instanceof StreamableResource && 
-         $resource->isRaw() === $this->isRaw())
+      $this->path = (string) $xml;
+      $this->modified = B::date((string) $xml['modified-date']);
+      $this->mime = (string) $xml['content-type'];
+      if(isset($xml['size']) && method_exists($this, 'setSize'))
       {
-        $this->setContentType($resource->getContentType());
-        $this->modified = $resource->getModified();
-        if(method_exists($resource, 'getSize') && method_exists($this, 'setSize'))
-        {
-          $this->setSize($resource->getSize());
-        }
-        
-        return $this;
+        $this->setSize((int)$xml['size']);
       }
+      
+      return $this;
+    }
+    else
+    {
+      return null;
     }
     
-    return null;
-    
   }
-  
-  
 
 }
 

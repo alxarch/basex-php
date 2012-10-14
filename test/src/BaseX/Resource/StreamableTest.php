@@ -11,6 +11,7 @@ namespace BaseX\Resource;
 use BaseX\Resource\Streamable;
 use BaseX\StreamWrapper;
 use BaseX\PHPUnit\TestCaseDb;
+use BaseX\Helpers as B;
 
 class GenericStreamable extends Streamable
 {
@@ -18,8 +19,15 @@ class GenericStreamable extends Streamable
     return 'store';
   }
   public function isRaw() {
-    ;
+    return $this->raw;
   }
+  
+  public function setSize($size)
+  {
+    
+  }
+  
+  public $raw;
 }
 
 /**
@@ -29,6 +37,8 @@ class GenericStreamable extends Streamable
  */
 class StreamableTest extends TestCaseDb 
 {
+  
+  
   protected $rawInfo = '<resource raw="true" content-type="image/jpeg" modified-date="2012-05-27T12:36:48.000Z" size="60751">image.jpg</resource>';
   protected $xmlInfo = '<resource raw="false" content-type="application/xml" modified-date="2012-05-27T13:38:33.988Z">collection/doc.xml</resource>';
   protected $rawStreamable;
@@ -39,9 +49,9 @@ class StreamableTest extends TestCaseDb
     parent::setUp();
     StreamWrapper::register($this->session);
 
-    $this->rawStreamable = new GenericStreamable($this->db, 'image.jpg', '2012-05-27T12:36:48.000Z');
+    $this->rawStreamable = new GenericStreamable($this->db, 'image.jpg', B::date('2012-05-27T12:36:48.000Z'));
     $this->rawStreamable->setContentType('image/jpeg');
-    $this->xmlStreamable = new GenericStreamable($this->db, 'collection/doc.xml', '2012-05-27T13:38:33.988Z');
+    $this->xmlStreamable = new GenericStreamable($this->db, 'collection/doc.xml', B::date('2012-05-27T12:36:48.000Z'));
     $this->xmlStreamable->setContentType('application/xml');
   }
   
@@ -65,6 +75,16 @@ class StreamableTest extends TestCaseDb
     $original = new GenericStreamable($this->db, 'original.xml');
     $original->write('<test/>');
     $this->assertXmlStringEqualsXmlString('<test/>', $this->doc('original.xml'));
+  }
+  
+  public function testWriteFromResource()
+  {
+    $original = new GenericStreamable($this->db, 'original.xml');
+    
+    $file = DATADIR.DIRECTORY_SEPARATOR.'test.xml';
+    $original->write(fopen($file, 'r'));
+    
+    $this->assertXmlStringEqualsXmlFile($file, $this->doc('original.xml'));
   }
   
   public function testReadInto()
@@ -142,11 +162,68 @@ class StreamableTest extends TestCaseDb
     $this->assertTrue(is_resource($res->getStream()));
     $this->assertTrue(is_resource($res->getStream('w')));
   }
+  
+  
+  /**
+   * @expectedException BaseX\Error
+   */
+  public function testGetStreamNonExisting()
+  {
+    
+    $res = new GenericStreamable($this->db, 'test.xml');
+    $res->getStream();
+   
+  }
    
   public function tearDown()
   {
     StreamWrapper::unregister();
     parent::tearDown();
+  }
+  
+  public function testRefresh()
+  {
+    $this->db->add('test.xml', '<root/>');
+    $this->db->store('test.txt', 'root');
+    
+    $res = new GenericStreamable($this->db, 'test.xml');
+    
+    $r = $res->refresh();
+    $this->assertTrue($r instanceof GenericStreamable);
+    $start = $res->getModified()->format('Y-m-d\TH:i:s.uP');
+    
+    
+    $this->db->replace('test.xml', '<replaced/>');
+    
+    $res->refresh();
+    
+    $end = $res->getModified()->format('Y-m-d\TH:i:s.uP');
+    
+    $this->assertNotEquals($end, $start);
+    
+    $res = new GenericStreamable($this->db, 'test.txt');
+    $res->refresh();
+    $start = $res->getModified()->format('Y-m-d\TH:i:s.uP');
+    $res->refresh();
+    $end = $res->getModified()->format('Y-m-d\TH:i:s.uP');
+    
+  }
+  
+  public function testRefreshChanged()
+  {
+    $this->db->add('test.xml', '<root/>');
+    
+    $res = new GenericStreamable($this->db, 'test.xml');
+    $res->raw = false;
+    $r = $res->refresh();
+    
+    $this->assertTrue($r instanceof GenericStreamable);
+    
+    $this->db->store('test.xml', 'root');
+    
+    $this->assertNull($res->refresh());
+    
+    
   }
   
 }
