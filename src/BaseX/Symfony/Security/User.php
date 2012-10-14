@@ -205,11 +205,15 @@ class User implements AdvancedUserInterface, Serializable
       $xml->addChild('expires', $this->expires);
     
     $xml->addChild('roles');
-    foreach ($this->getRoles() as $role)
-    {
-      $xml->roles->addChild('role', $role);
-    }
     
+    $roles = $this->getRoles();
+    if($roles)
+    {
+      foreach ($roles as $role)
+      {
+        $xml->roles->addChild('role', $role);
+      }
+    }
     return B::stripXMLDeclaration($xml->asXML());
   }
   

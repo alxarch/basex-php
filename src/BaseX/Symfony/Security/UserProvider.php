@@ -62,17 +62,14 @@ class UserProvider implements UserProviderInterface, MapperInterface
   
   public function loadUserByUsername($username)
   {
+    $users = $this->db->xpath("//user[username = '$username']", $this->path, $this);
     
-    $xql = "db:open('$this->db', '$this->path')//user[username = '$username']";
-    
-    $user = $this->db->getSession()->query($xql)->getSingleResult($this);
-    
-    if(null === $user)
+    if(count($users) === 1)
     {
-      throw new UsernameNotFoundException("Username '$username' not found.");
+      return $users[0];
     }
     
-    return $user;
+    throw new UsernameNotFoundException("Username '$username' not found.");
     
   }
 
@@ -90,17 +87,26 @@ class UserProvider implements UserProviderInterface, MapperInterface
     return $class === 'BaseX\Symfony\Security\User';
   }
   
-  public function loadUsers()
+  public function get($username=null)
   {
-    $xql = "db:open('$this->db', '$this->path')//user";
+    if(null === $username)
+    {
+      return $this->db->xpath('//user', $this->path, $this);
+    }
     
-    return $this->db->getSession()->query($xql)->getResults($this);
+    try
+    {
+      return $this->loadUserByUsername($username);
+    }
+    catch (UsernameNotFoundException $e)
+    {
+      return null;
+    }
   }
   
   public function deleteUser($username)
   {
-    $xql = "db:delete('$this->db', '$this->path/$username.xml')";
-    $this->db->getSession()->query($xql)->execute();
+    $this->db->delete("$this->path/$username.xml");
   }
   
   public function addUser(User $user)
