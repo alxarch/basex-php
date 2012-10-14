@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-namespace BaseX\Query;
+namespace BaseX\Query\Result;
 
 
 use BaseX\PHPUnit\TestCaseSession as TestCase;
