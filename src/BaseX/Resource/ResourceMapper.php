@@ -17,6 +17,7 @@ use BaseX\Resource\Raw;
 use BaseX\Resource\Document;
 use BaseX\Resource\Collection;
 use \SimpleXMLElement;
+use BaseX\Helpers as B;
 
 /**
  * Description of ResourceResult
@@ -31,8 +32,15 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
    */
   protected $db;
   
-  public function __construct(Database $db) {
+  /**
+   *
+   * @var string
+   */
+  protected $path;
+  
+  public function __construct(Database $db, $path='') {
     $this->db = $db;
+    $this->path = $path;
   }
   
   public function supportsType($type)
@@ -52,7 +60,7 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
     
     if($name === 'resource')
     {
-      $path = (string) $xml;
+      $path = B::path($this->path, (string) $xml);
       $modified = (string) $xml['modified-date'];
       $mime = (string) $xml['content-type'];
       $raw = 'true' === (string) $xml['raw'];
@@ -75,7 +83,7 @@ class ResourceMapper extends SimpleXMLMapper implements SimpleXMLMapperInterface
     }
     elseif($name === 'collection')
     {
-      $path = (string) $xml['path'];
+      $path = B::path($this->path, (string) $xml['path']);
       $modified = (string) $xml['modified-date'];
       
       return new Collection($this->db, $path, $modified);

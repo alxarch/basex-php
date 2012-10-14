@@ -22,18 +22,16 @@ use BaseX\Resource\Collection;
  *
  * @author alxarch
  */
-class ResourceMapperTest extends TestCaseDb
-{
-  
+class ResourceMapperTest extends TestCaseDb {
+
   /**
    * @expectedException BaseX\Error\ResultMapperError
    */
   function testWrongData() {
     $mapper = new ResourceMapper($this->db);
     $result = $mapper->getResult('<whatever/>', null);
-    
   }
-  
+
   function testRaw() {
     $data = '<resource raw="true" content-type="image/jpeg" modified-date="2012-05-27T12:36:48.000Z" size="60751">image.jpg</resource>';
     $mapper = new ResourceMapper($this->db);
@@ -43,7 +41,7 @@ class ResourceMapperTest extends TestCaseDb
     $this->assertEquals('image/jpeg', $result->getContentType());
     $this->assertEquals(new \DateTime('2012-05-27T12:36:48.000Z'), $result->getModified());
   }
-  
+
   function testCollection() {
     $data = '<collection modified-date="2012-05-27T12:36:48.000Z" path="somepath/test"/>';
     $mapper = new ResourceMapper($this->db);
@@ -52,7 +50,7 @@ class ResourceMapperTest extends TestCaseDb
     $this->assertEquals('somepath/test', $result->getPath());
     $this->assertEquals(new \DateTime('2012-05-27T12:36:48.000Z'), $result->getModified());
   }
-  
+
   function testDocument() {
     $data = '<resource raw="false" content-type="application/xml" modified-date="2012-05-27T13:38:33.988Z">collection/doc.xml</resource>';
     $mapper = new ResourceMapper($this->db);
@@ -62,5 +60,6 @@ class ResourceMapperTest extends TestCaseDb
     $this->assertEquals('application/xml', $result->getContentType());
     $this->assertEquals(new \DateTime('2012-05-27T13:38:33.988Z'), $result->getModified());
   }
+
 }
 
