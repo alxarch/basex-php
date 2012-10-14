@@ -14,7 +14,7 @@ use Sabre_DAV_ICollection;
 /**
  * WebDAV collection node representing a collection in a BaseX database.
  * 
- * @package SabreDAV-BaseX
+ * @package BaseX
  * 
  */
 class CollectionNode implements Sabre_DAV_ICollection

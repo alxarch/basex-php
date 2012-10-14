@@ -112,7 +112,7 @@ XML;
   }
 
   /**
-   * @covers BaseX\Symfony\Security\UserProvider::loadUsers
+   * @covers BaseX\Symfony\Security\UserProvider::get
    */
   public function testLoadUsers() {
     

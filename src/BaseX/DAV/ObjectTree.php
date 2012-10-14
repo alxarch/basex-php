@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @package BaseX 
  * 
  * @copyright Copyright (c) 2012, Alexandors Sigalas
  * @author Alexandros Sigalas <alxarch@gmail.com>
@@ -20,6 +19,7 @@ use Sabre_DAV_Exception_NotFound;
 /**
  * ObjectTree for accessing a BaseX\Database via a DAVServer
  *
+ * @package BaseX 
  * @author alxarch
  */
 class ObjectTree extends Sabre_DAV_ObjectTree

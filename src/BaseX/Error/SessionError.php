@@ -1,5 +1,6 @@
 <?php
 /**
+ * 
  * @package BaseX 
  * 
  * @copyright Copyright (c) 2012, Alexandors Sigalas
@@ -15,6 +16,7 @@ use BaseX\Error;
 /**
  * Exception class for BaseX\Session
  * 
+ * @codeCoverageIgnore
  * @package BaseX 
  */
 class SessionError extends Error{}

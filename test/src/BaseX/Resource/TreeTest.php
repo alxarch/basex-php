@@ -16,13 +16,7 @@ use BaseX\Resource\Tree;
 class TreeTest extends TestCaseDb{
   public function testData()
   {
-    $this->db->add('test.xml', '<test/>');
-    $this->db->add('test/test.xml', '<test/>');
-    $this->db->add('test/path/test.xml', '<test/>');
-    
-    $data = Tree::getTreeData($this->db);
-    
-    $this->assertEquals('', $data);
+    $tree = new Tree();
   }
 }
 

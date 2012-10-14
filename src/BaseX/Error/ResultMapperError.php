@@ -16,6 +16,7 @@ use BaseX\Error\UnserializationError;
 /**
  * Exception class for BaseX\Query\Result\MapperInterface
  * 
+ * @codeCoverageIgnore
  * @package BaseX 
  */
 class ResultMapperError extends UnserializationError{}

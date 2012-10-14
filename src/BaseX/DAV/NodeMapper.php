@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @package BaseX 
  * 
  * @copyright Copyright (c) 2012, Alexandors Sigalas
  * @author Alexandros Sigalas <alxarch@gmail.com>
@@ -22,6 +21,7 @@ use BaseX\Helpers as B;
 /**
  * Maps query results to DAV nodes.
  *
+ * @package BaseX 
  * @author alxarch
  */
 class NodeMapper extends ResourceMapper

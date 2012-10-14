@@ -13,7 +13,6 @@ use \Exception;
 
 /**
  * Base exception class for BaseX namespace.
- * 
  * @package BaseX
  */
 class Error extends Exception{}

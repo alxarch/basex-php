@@ -14,6 +14,7 @@ use BaseX\Error;
 /**
  * Exception class for BaseX\Socket
  * 
+ * @codeCoverageIgnore
  * @package BaseX 
  */
 class SocketError extends Error{}

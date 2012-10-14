@@ -14,7 +14,7 @@ use Sabre_DAV_File;
 /**
  * WebDAV file node representing a BaseX resource.
  * 
- * @package SabreDAV-BaseX
+ * @package BaseX
  * 
  */
 class ResourceNode extends Sabre_DAV_File
