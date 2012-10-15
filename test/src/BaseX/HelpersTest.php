@@ -86,7 +86,66 @@ class HelpersTest  extends TestCase
         'a' => 'banana',
         'b' => 'test'
     )));
+    $this->assertEquals("{'a' := 'banana', 2 := 'test'}", B::map(array(
+        'a' => 'banana',
+        2 => 'test'
+    )));
     
   }
+  
+  public function testURI()
+  {
+    $this->assertEquals('basex://db/path/to.xml', B::uri('db', 'path/to.xml'));
+    $this->assertEquals('basex://db/path/to.xml?serializer=method%3Djson#html', B::uri('db', 'path/to.xml', 'html', array('serializer'=>'method=json')));
+    $this->assertEquals('basex://db/path/to.xml?htmlopt=method%3Dxhtml#html', B::uri('db', 'path/to.xml', 'html', array('htmlopt'=>array('method'=>'xhtml'))));
+    $this->assertEquals('basex://db/path/to.xml?parseopt=lines%3Dtrue#html', B::uri('db', 'path/to.xml', 'html', array('parseopt'=>array('lines'=>'true'))));
+  }
+  
+  public function testDate()
+  {
+    $date = new \DateTime();
+    
+    $this->assertEquals($date, B::date($date->format('Y-m-d\TH:i:s.u\Z')));
+  }
+  
+  public function testStripXML()
+  {
+    $string = '<?xml version="1.0"?><root/>';
+   $this->assertEquals('<root/>', B::stripXMLDeclaration($string));
+  }
       
+  function testRename(){
+    $this->assertEquals('test/renamed.txt', B::rename('test/test.xml', 'renamed.txt'));
+    $this->assertEquals('renamed.txt', B::rename('test.xml', 'renamed.txt'));
+  }
+  function testDirname(){
+    $this->assertEquals('test', B::dirname('test/test.xml'));
+    $this->assertEquals('', B::dirname('test.xml'));
+    
+  }
+  
+  function testRelative(){
+    $this->assertEquals('test.xml', B::relative('test/test.xml', 'test'));
+    $this->assertEquals('test/test.xml', B::relative('/test/test.xml', ''));
+    $this->assertFalse(B::relative('sa/test.xml', 'test'));
+    
+  }
+  
+  function testPath(){
+    $this->assertEquals('test/renamed.txt', B::path('test', 'renamed.txt'));
+    $this->assertEquals('test/sa/renamed.txt', B::path('test', 'sa', 'renamed.txt'));
+    $this->assertEquals('test/sa/renamed.txt', B::path('/test', 'sa', 'renamed.txt'));
+    $this->assertEquals('test/sa/renamed.txt', B::path('test', 'sa', 'renamed.txt/'));
+    $this->assertEquals('test/sa/renamed.txt', B::path('test', '/sa', 'renamed.txt/'));
+    $this->assertEquals('renamed.txt', B::path('renamed.txt'));
+  }
+  
+  function testConvert()
+  {
+    $this->assertTrue(B::convert('true'));
+    $this->assertFalse(B::convert('false'));
+    $this->assertInternalType('integer', B::convert('123'));
+    $this->assertInternalType('float', B::convert('123.32'));
+    $this->assertEquals('so long', B::convert('so long'));
+  }
 }

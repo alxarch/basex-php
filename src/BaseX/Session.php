@@ -52,13 +52,6 @@ class Session
    * @var string
    */
    protected $status = null;
-
-   /**
-    * Output redirection
-    * 
-    * @var resource
-    */
-   protected $out = null;
    
    /**
     * Locks the curent session.
@@ -95,29 +88,7 @@ class Session
   {
     return $this->socket;
   }
-  
-  /**
-   * Redirect content output to a stream.
-   * 
-   * @param resource $to
-   * @return \BaseX\Session $this 
-   */
-  public function redirectOutput($to)
-  {
-    $this->out = $to;
-    return $this;
-  }
-  
-  /**
-   * Resource at wich session's output is redirected
-   * 
-   * @return resource 
-   */
-  public function redirectsTo()
-  {
-    return $this->out;
-  }
-  
+    
   /**
    * Gets session information & options wrapper.
    * 
@@ -187,14 +158,7 @@ class Session
     
     $this->socket->clearBuffer();
     
-    if(is_resource($this->out))
-    {
-      $result = $this->socket->readInto($this->out);
-    }
-    else 
-    {
-      $result = $this->socket->read();
-    }
+    $result = $this->socket->read();
     
     $this->status = $this->socket->read();
     
@@ -343,12 +307,11 @@ class Session
    * 
    * @param int $code
    * @param string $arg
-   * @param boolean $noredirects Don't redirect output.
    * @return mixed
    * 
    * @throws BaseX\Error\SessionError
    */
-  public function sendQueryCommand($code, $arg, $noredirects = false)
+  public function sendQueryCommand($code, $arg)
   {
     $this->checkLock();
     if(is_array($arg))
@@ -358,14 +321,9 @@ class Session
     $this->socket->send($msg);
     $this->socket->clearBuffer();
     
-    if($noredirects || !is_resource($this->out))
-    {
-      $result = $this->socket->read();
-    }
-    else 
-    {
-      $result = $this->socket->readInto($this->out);
-    }
+    
+    $result = $this->socket->read();
+   
     if(!$this->ok())
     {
       throw new SessionError($this->socket->read());

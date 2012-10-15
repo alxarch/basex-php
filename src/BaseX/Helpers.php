@@ -73,12 +73,10 @@ class Helpers
         }
         return '('.implode(',', $result).')';
         break;
-      case is_string($value):
-        return "'$value'";
-        break;
       case is_numeric($value):
         return "$value";
         break;
+      case is_string($value):
       default:
         return sprintf("'%s'", $value);
         break;
@@ -174,7 +172,7 @@ class Helpers
         $options['htmlopt'] = self::options($options['htmlopt']);
       }
       
-      $parts[] = http_build_query($options);
+      $parts[] = '?'.http_build_query($options);
     
     }
     
@@ -242,7 +240,7 @@ class Helpers
     
     if(strpos($path, $base) === 0)
     {
-      return substr($path, 0, strlen($base) + 1);
+      return substr($path, strlen($base) + 1);
     }
     
     return false;

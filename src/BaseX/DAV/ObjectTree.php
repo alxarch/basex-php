@@ -106,11 +106,17 @@ class ObjectTree extends Sabre_DAV_ObjectTree
    * @return string
    * @throws \InvalidArgumentException If no streamable resource exists at $path.
    */
-  public function getURI(ResourceNode $node)
+  public function getURI($path)
   {
-    return B::uri($this->getDatabase(), $node->path);
+    return B::uri($this->getDatabase(), B::path($this->root, $path));
   }
   
+  /**
+   * 
+   * @param type $path
+   * @return \BaseX\DAV\ResourceNode|\BaseX\DAV\CollectionNode
+   * @throws Sabre_DAV_Exception_NotFound
+   */
   public function getNodeForPath($path)
   {
     $node = $this->getTree()->getChild($path);

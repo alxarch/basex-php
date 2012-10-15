@@ -479,7 +479,9 @@ class StreamWrapper
     
     if(isset($url['query']))
     {
-      foreach (parse_str($url['query']) as $name => $value)
+      $params = array();
+      parse_str($url['query'], $params);
+      foreach ($params as $name => $value)
       {
         $this->options[strtolower($name)] = urldecode($value);
       }

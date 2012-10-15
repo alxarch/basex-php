@@ -23,9 +23,9 @@ abstract class Streamable extends Resource implements StreamableResource
 {
   protected $mime;
 
-  public function getUri()
+  public function getUri($parser=null, $options=array())
   {
-    return B::uri($this->getDatabase(), $this->getPath());
+    return B::uri($this->getDatabase(), $this->getPath(), $parser, $options);
   }
   
   /**
@@ -36,9 +36,11 @@ abstract class Streamable extends Resource implements StreamableResource
    * 
    * @throws Error 
    */
-  public function getStream($mode='r')
+  public function getStream($mode='r', $parser=null, $options=array())
   {
-    $stream = @fopen($this->getUri(), $mode);
+    $uri = $this->getUri($parser, $options);
+    
+    $stream = @fopen($uri, $mode);
     
     if(false === $stream)
     {
@@ -55,9 +57,9 @@ abstract class Streamable extends Resource implements StreamableResource
    * @param resource $into If provided contents will be piped into this stream.
    * @return string|int Contents of the resource or number of bytes piped.
    */
-  public function read($into=null)
+  public function read($into=null, $options=array())
   {
-    $stream = $this->getStream('r');
+    $stream = $this->getStream('r', null, $options);
     
     if(is_resource($into))
     {
@@ -83,12 +85,14 @@ abstract class Streamable extends Resource implements StreamableResource
   /**
    * Set contents for this resource.
    * 
-   * @param resource|string $data
+   * @param resource|string $input
+   * @param string $parser
+   * @param array $options
    * @return int 
    */
-  public function write($input)
+  public function write($input, $parser=null, $options=array())
   {
-    $output = $this->getStream('w');
+    $output = $this->getStream('w', $parser, $options);
     
     $total = 0;
     

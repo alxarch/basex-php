@@ -10,7 +10,7 @@ namespace BaseX\DAV;
 use BaseX\DAV\ObjectTree;
 use BaseX\Helpers as B;
 use Sabre_DAV_File;
-
+use BaseX\Session\Socket;
 /**
  * WebDAV file node representing a BaseX resource.
  * 
@@ -56,24 +56,29 @@ class ResourceNode extends Sabre_DAV_File
   
   public function setName($name)
   {
-    $this->tree->move($this->path, B::rename($this->path, $name));
+    $new = B::rename($this->path, $name);
+    $this->tree->move($this->path, $new);
+    $this->path = $new;
   }
   
-  public function put($data)
+  public function put($in)
   {
     $uri = $this->tree->getURI($this->path);
-    $dest = fopen($uri, 'w');
+    $out = fopen($uri, 'w');
     
-    if(is_resource($data))
+    if(is_resource($in))
     {
-      stream_copy_to_stream($data, $dest);
+      while(!feof($in))
+      {
+        fwrite($out, fread($in, Socket::BUFFER_SIZE));
+      }
     }
     else
     {
-      fwrite($dest, $data);
+      fwrite($out, $in);
     }
     
-    fclose($dest);
+    fclose($out);
   }
 
   public function get()
