@@ -8,6 +8,8 @@
  * @license BSD License
  */
 
+namespace BaseX\Silex;
+
 use Silex\Application;
 use Sabre_DAV_Server;
 use BaseX\Dav\ObjectTree;
