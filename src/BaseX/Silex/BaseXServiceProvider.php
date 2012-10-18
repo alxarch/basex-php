@@ -21,7 +21,7 @@ use BaseX\Session;
  * 
  * @author alxarch
  */
-class Provider implements ServiceProviderInterface
+class BaseXServiceProvider implements ServiceProviderInterface
 {
   
   public function register(Application $app)
