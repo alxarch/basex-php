@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package BaseX
  * 
@@ -6,12 +7,14 @@
  * @author Alexandros Sigalas <alxarch@gmail.com>
  * @license BSD License
  */
+
 namespace BaseX\Resource;
 
 use BaseX\Resource\StreamableInterface;
 use BaseX\Resource;
 use BaseX\Helpers as B;
 use BaseX\Error;
+use BaseX\Database;
 
 /**
  * Base class for streamable resources (raw/document).
@@ -20,6 +23,7 @@ use BaseX\Error;
  */
 abstract class Streamable extends Resource implements StreamableInterface
 {
+
   /**
    * Content-Type for this resource.
    * 
@@ -27,12 +31,12 @@ abstract class Streamable extends Resource implements StreamableInterface
    */
   protected $mime;
 
-  public function getUri($options=array())
+  public function getUri($options = array())
   {
     $parser = isset($options['parser']) ? $options['parser'] : null;
     return B::uri($this->getDatabase(), $this->getPath(), $parser, $options);
   }
-  
+
   /**
    * Return a stream handler for this resource.
    * 
@@ -41,17 +45,17 @@ abstract class Streamable extends Resource implements StreamableInterface
    * 
    * @throws Error 
    */
-  public function getStream($mode='r', $options=array())
+  public function getStream($mode = 'r', $options = array())
   {
     $uri = $this->getUri($options);
-    
+
     $stream = @fopen($uri, $mode);
-    
-    if(false === $stream)
+
+    if (false === $stream)
     {
       throw new Error('Failed to open resource stream.');
     }
-    
+
     return $stream;
   }
 
@@ -60,22 +64,23 @@ abstract class Streamable extends Resource implements StreamableInterface
    * 
    * @return string
    */
-  public function getContentType() {
+  public function getContentType()
+  {
     return $this->mime;
   }
-  
+
   /**
    * Set mime type for this resource.
    * 
    * @param string $type
    * @return \BaseX\Resource\Streamable
    */
-  public function setContentType($type){
+  public function setContentType($type)
+  {
     $this->mime = $type;
     return $this;
   }
 
-  
   /**
    * Refreshes info for this resource.
    * 
@@ -86,24 +91,30 @@ abstract class Streamable extends Resource implements StreamableInterface
   public function refresh()
   {
     $res = $this->getDatabase()->getResource($this->getPath());
-    
-    if(null !== $res && $this->isRaw() === $res->isRaw())
+
+    if (null !== $res && $this->isRaw() === $res->isRaw())
     {
       $this->path = $res->getPath();
       $this->modified = $res->getModified();
       $this->mime = $res->getContentType();
-      if(method_exists($res, 'getSize') && method_exists($this, 'setSize'))
+      if (method_exists($res, 'getSize') && method_exists($this, 'setSize'))
       {
         $this->setSize($res->getSize());
       }
-      
+
       return $this;
     }
     else
     {
       return null;
     }
-    
+  }
+
+  public static function fromSimpleXML(Database $db, \SimpleXMLElement $xml)
+  {
+    $resource = parent::fromSimpleXML($db, $xml);
+    $resource->setContentType((string) $resource['content-type']);
+    return $resource;
   }
 
 }

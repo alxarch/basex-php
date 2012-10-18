@@ -21,10 +21,12 @@ use BaseX\Query\Result\QueryResultsInterface;
  */
 class Document extends Streamable
 {
-  public function isRaw() {
+
+  public function isRaw()
+  {
     return false;
   }
-  
+
   /**
    * Returns the contents of the document as XML.
    * 
@@ -44,25 +46,29 @@ class Document extends Streamable
    * @param \BaseX\Query\QueryResultsInterface $results
    * @return string $result
    */
-  public function xpath($xpath, QueryResultsInterface $results=null)
+  public function xpath($xpath, QueryResultsInterface $results = null)
   {
     return $this->getDatabase()->xpath($xpath, $this->getPath(), $results);
   }
-  
-  public function getWriteMethod() {
+
+  public function getWriteMethod()
+  {
     return 'replace';
   }
 
-  public function getReadMethod() {
+  public function getReadMethod()
+  {
     return 'open';
   }
 
-  public function getContents() {
+  public function getContents()
+  {
     $xql = sprintf("db:open('%s', '%s')", $this->getDatabase(), $this->getPath());
     return $this->getDatabase()->getSession()->query($xql)->execute();
   }
 
-  public function setContents($data) {
+  public function setContents($data)
+  {
     $this->getDatabase()->replace($this->getPath(), $data);
   }
 

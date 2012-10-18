@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package BaseX
  * @copyright Copyright (c) 2012, Alexandors Sigalas
@@ -10,6 +11,7 @@ namespace BaseX;
 
 use BaseX\Helpers as B;
 use BaseX\Resource\ResourceInterface;
+use BaseX\Database;
 
 /**
  * Base class for BaseX resources.
@@ -27,24 +29,21 @@ abstract class Resource implements ResourceInterface
    * @var \BaseX\Database
    */
   protected $db;
-  
+
   /**
    * The path for this resource.
    * 
    * @var string 
    */
   protected $path;
-  
+
   /**
    * Last modified date.
    * 
    * @var \DateTime 
    */
   protected $modified;
-  
-  
   protected $deleted;
-
 
   /**
    * Creates a new resource.
@@ -61,7 +60,7 @@ abstract class Resource implements ResourceInterface
     $this->db = $db;
     $this->path = (string) $path;
   }
-  
+
   /**
    * The database this document belongs to.
    * 
@@ -71,7 +70,7 @@ abstract class Resource implements ResourceInterface
   {
     return $this->db;
   }
-    
+
   /**
    * Copy this document to another location.
    * 
@@ -85,7 +84,7 @@ abstract class Resource implements ResourceInterface
   {
     $this->getDatabase()->copy($this->getPath(), $dest);
   }
-  
+
   /**
    * Move this to resource to another path.
    * 
@@ -98,10 +97,10 @@ abstract class Resource implements ResourceInterface
     $this->getDatabase()->rename($this->getPath(), $dest);
     $this->path = $dest;
     $this->refresh();
-    
+
     return $this;
   }
-  
+
   /**
    * Move this to document to another path.
    * 
@@ -113,14 +112,14 @@ abstract class Resource implements ResourceInterface
   {
     $from = $this->getPath();
     $to = B::rename($this->getPath(), $name);
-    
+
     $this->getDatabase()->rename($from, $to);
     $this->path = $to;
     $this->refresh();
-    
+
     return $this;
   }
-  
+
   /**
    * Delete this resource.
    */
@@ -143,53 +142,56 @@ abstract class Resource implements ResourceInterface
    */
   public function getEtag()
   {
-    $etag = sprintf('%s/%s/%d', 
-            $this->getDatabase(), 
-            $this->getPath(), 
-            $this->getModified()->format('Y-m-d\TH:i:s.uP'));
-    
+    $etag = sprintf('%s/%s/%d', $this->getDatabase(), $this->getPath(), $this->getModified()->format('Y-m-d\TH:i:s.uP'));
+
     return md5($etag);
   }
-  
+
   /**
    * Resource path.
    * 
    * @return string
    */
-  public function __toString(){
+  public function __toString()
+  {
     return (string) $this->path;
   }
-  
+
   /**
    * Resource path.
    * @return string
    */
-  public function getPath(){
+  public function getPath()
+  {
     return $this->path;
   }
-  
+
   /**
    * Resource name only.
    * 
    * @return string
    */
-  public function getName(){
+  public function getName()
+  {
     return basename($this->getPath());
   }
-  
+
   /**
    * 
    * @return \DateTime
    */
-  public function getModified(){
+  public function getModified()
+  {
     return $this->modified;
   }
+
   /**
    * 
    * @return \DateTime
    */
-  public function setModified($datetime){
-    if($datetime instanceof \DateTime)
+  public function setModified($datetime)
+  {
+    if ($datetime instanceof \DateTime)
     {
       $this->modified = $datetime;
     }
@@ -198,16 +200,25 @@ abstract class Resource implements ResourceInterface
       $this->modified = new \DateTime($datetime);
     }
   }
-  
+
   public function exists()
   {
     return !$this->isDeleted() && $this->db->exists($this->getPath());
   }
-  
+
   public function isDeleted()
   {
     return true === $this->deleted;
   }
-  
-  
+
+  public static function fromSimpleXML(Database $db, \SimpleXMLElement $xml)
+  {
+    $class = get_called_class();
+
+    $resource = new $class($db, (string) $xml);
+    $modified = \DateTime::createFromFormat(self::DATE_FORMAT, (string) $xml['modified-date']);
+    $resource->setModified($modified);
+    return $resource;
+  }
+
 }

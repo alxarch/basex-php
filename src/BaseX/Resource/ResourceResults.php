@@ -8,12 +8,10 @@
  */
 namespace BaseX\Resource;
 
-use BaseX\Query;
 use BaseX\Query\Results\ProcessedResults;
 use BaseX\Database;
 use BaseX\Resource\Raw;
 use BaseX\Resource\Document;
-use BaseX\Resource;
 
 /**
  * Description of ResourceResult
@@ -28,55 +26,37 @@ class ResourceResults extends ProcessedResults
    */
   protected $db;
   
+
   public function __construct(Database $db)
   {
     $this->db = $db;
+    
   }
   
   public function supportsType($type)
   {
-    return true;
-//    return $type === Query::TYPE_ELEMENT;
+    return $type === Query::TYPE_ELEMENT;
   }
   
   public function supportsMethod($method) 
   {
-    return true;
-//    return 'xml' === $method;
+    return 'xml' === $method;
   }
   
   protected function processData($data, $type)
   {
     $xml = @simplexml_load_string($data);
     
-    if(false !== $xml 
-        && $xml->getName() === 'resource' 
-        && isset($xml['content-type']) 
-        && isset($xml['modified-date'])
-        && isset($xml['raw'])
-            )
+    if($xml instanceof \SimpleXMLElement && 'resource' === $xml->getName())
     {
-    
-      $path = (string) $xml;
-      $mime = (string) $xml['content-type'];
-      $modified = (string)$xml['modified-date'];
-      $raw = 'true' === (string) $xml['raw'];
-
-      if($raw)
+      if('false' === (string)$xml['raw'])
       {
-        $size = (int) $xml['size'];
-        $resource = new Raw($this->db, $path);
-        $resource->setSize($size);
+        return Document::fromSimpleXML($this->db, $xml);
       }
       else
       {
-        $resource = new Document($this->db, $path);
+        return Raw::fromSimpleXML($this->db, $xml);
       }
-      
-      $resource->setModified(\DateTime::createFromFormat(Resource::DATE_FORMAT, $modified));
-      $resource->setContentType($mime);
-
-      return $resource;
     }
     
     return null;
