@@ -4,6 +4,7 @@
     "sabre/dav": "1.6.4",
     "silex/silex": "dev-master",
     "symfony/security": "2.1.x",
+    "symfony/serializer": "2.1.x",
     "symfony/finder": "2.1.x"
   },
   "autoload": {

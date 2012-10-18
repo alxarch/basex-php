@@ -26,7 +26,7 @@ class Raw extends Streamable
   
   public function setSize($size)
   {
-    $this->size = (int)$size;
+    $this->size = (int) $size;
   }
 
   public function getSize() {
@@ -41,13 +41,23 @@ class Raw extends Streamable
     return "$dbpath/$db/raw/$path";
   }
   
-  public function getLocalStream($mode='r')
-  {
-    return fopen($this->getFilePath(), $mode);
+  public function getReadMethod() {
+    return 'retrieve';
   }
-  
-  public function creationMethod() {
+
+  public function getWriteMethod() {
     return 'store';
   }
+
+  public function getContents() 
+  {
+    $command = sprintf('RETRIEVE "%s"', $this->getPath());
+    return $this->getDatabase()->execute($command);
+  }
+
+  public function setContents($data) {
+    $this->getDatabase()->store($this->getPath(), $data);
+  }
+  
   
 }

@@ -1,377 +1,302 @@
 <?php
-/**
- * @package BaseX 
- * 
- * @copyright Copyright (c) 2012, Alexandors Sigalas
- * @author Alexandros Sigalas <alxarch@gmail.com>
- * @license BSD License
- */
 
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 namespace BaseX\Resource;
 
 use BaseX\Helpers as B;
-use BaseX\Query\Result\SimpleXMLMapperInterface;
-use BaseX\Resource\Interfaces\CollectionInterface;
-use Serializable;
-use BaseX\Error\UnserializationError;
-use BaseX\Error\SessionError;
-use BaseX\Error;
-use BaseX\Database;
-
 /**
- * Resource tree for a BaseX\Database.
+ * Description of Tree
  *
  * @author alxarch
  */
-class Tree implements Serializable
+class Tree implements \ArrayAccess
 {
-  
-  /**
-   *
-   * @var boolean
-   */
-  protected $complete;
-  
-  /**
-   *
-   * @var \SimpleXMLElement
-   */
-  protected $tree;
-  
-  /**
-   *
-   * @var int
-   */
-  protected $depth;
-  
-  /**
-   *
-   * @var \BaseX\Query\Result\SimpleXMLMapperInterface
-   */
-  protected $mapper;
-  
-  /**
-   *
-   * @var string
-   */
   protected $root;
+  protected $cache;
+  protected $children;
+  protected $maxdepth;
   
   /**
-   * Sets a default resource mapper for this tree.
-   * 
-   * @param \BaseX\Query\Result\SimpleXMLMapperInterface $mapper
-   * 
-   * @return \BaseX\Resource\Tree
+   *
+   * @var callable
    */
-  public function setResourceMapper(SimpleXMLMapperInterface $mapper)
-  {
-    $this->mapper = $mapper;
-    return $this;
-  }
+  protected $loader;
   
   /**
-   * 
-   * @return \BaseX\Query\Result\SimpleXMLMapperInterface
+   *
+   * @var array
    */
-  public function getResourceMapper()
-  {
-    return $this->mapper;
-  }
+  protected $items;
+  
+  /**
+   * @var callable
+   */
+  protected $converter;
 
   /**
    * 
-   * @param string $path
-   * @param \BaseX\Query\Result\SimpleXMLMapperInterface $mapper
-   * @return array
+   * @param type $root
+   * @param callable $items A c
+   * @param type $maxdepth
    */
-  public function getChildren($path='', SimpleXMLMapperInterface $mapper = null)
+  public function __construct($root) 
   {
-    $path = $this->getPath($path);
-    $xpath = "//collection[@path = '$path']/child::*";
-    
-    return $this->getResourcesByXpath($xpath, $mapper);
+    $this->root = $root;
   }
   
-  /**
-   * 
-   * @param string $path
-   * @param \BaseX\Query\Result\SimpleXMLMapperInterface $mapper
-   * @return mixed
-   */
-  public function getChild($path, SimpleXMLMapperInterface $mapper=null)
+  public function setItemLoader($loader)
   {
-    $path = $this->getPath($path);
-    $xpath = "//collection[@path = '$path']|//resource[text() = '$path']";
-    $result =  $this->getResourcesByXpath($xpath, $mapper);
-    return count($result) === 1 ? $result[0] : null;
-  }
-  
-  /**
-   * 
-   * @param string $path
-   * @return boolean
-   */
-  public function hasStreamableChild($path)
-  {
-    $path = $this->getPath($path);
-    $xpath = "//resource[text() = '$path']";
-    return count($this->getXML()->xpath($xpath)) === 1;
-  }
-  
-  /**
-   * 
-   * @param string $path
-   * @return boolean
-   */
-  public function hasChild($path)
-  {
-    $path = $this->getPath($path);
-    $xpath = "//collection[@path = '$path']|//resource[text() = '$path']";
-    return count($this->getXML()->xpath($xpath)) === 1;
-  }
+    if(!is_callable($loader))
+    {
+      throw new \InvalidArgumentException('Non callable loader.');
 
-  /**
-   * 
-   * @param string $xpath
-   * @param \BaseX\Query\Result\SimpleXMLMapperInterface $mapper
-   * @return array
-   */
-  public function getResourcesByXpath($xpath, SimpleXMLMapperInterface $mapper=null)
-  {
-    $data = $this->getXML()->xpath($xpath);
-    
-    if(null === $mapper)
-    {
-      $mapper = $this->getResourceMapper();
-    }
-    
-    if(null === $mapper)
-    {
-      return $data;
-    }
-    
-    $resources = array();
-    
-    foreach ($data as $d)
-    {
-      $resource = $mapper->getResultFromXML($d);
-      if(null === $resource)
+      if(is_array($loader))
       {
-        continue;
+        $callback = new \ReflectionMethod($loader[0], $loader[1]);
+      }
+      else
+      {
+        $callback = new \ReflectionFunction($loader);
       }
       
-      if($resource instanceof CollectionInterface)
+      if($callback->getNumberOfRequiredParameters() > 1)
       {
-        $class = get_called_class();
-        $tree = new $class();
-        try{
-          $tree->unserialize($d);
-          $resource->setTree($tree);
-        }
-        catch (UnserializationError $e){
-          ;
-        }
+        throw new \InvalidArgumentException('Invalid callable, too many required params.');
       }
-
-      $resources[] = $resource;
+      
     }
     
-    return $resources;
+    $this->loader = $loader;
     
-  }
-  
-  public function serialize(){
-    if(null === $this->tree)
-      return null;
-    
-    return B::stripXMLDeclaration($this->getXML()->asXML());
-  }
-  
-  public function unserialize($data)
-  {
-    $xml = $data instanceof \SimpleXMLElement ? $data : @simplexml_load_string($data);
-    
-    if($xml !== false && $xml instanceof \SimpleXMLElement && 
-            $xml->getName() === 'collection' && 
-            isset($xml['path']) && 
-            isset($xml['modified-date']) && 
-            isset($xml['complete']) && 
-            isset($xml['depth']))
-    {
-      $this->tree = $xml;
-      $this->root = (string) $xml['path'];
-      $this->depth = (int) $xml['depth'];
-      $this->complete = 'true' === (string) $xml['complete'];
-    }
-    else
-    {
-      throw new UnserializationError();
-    }
+    return $this;
   }
 
-  /**
-   * Checks whether data is valid tree data.
-   * 
-   * @param \SimpleXMLElement $tree
-   * @return type
-   */
-  public static function isValid(\SimpleXMLElement $tree)
+  public function setTreeConverter($converter)
   {
+    if(!is_callable($converter))
+    {
+      throw new \InvalidArgumentException('Non callable converter.');
+
+      if(is_array($converter))
+      {
+        $callback = new \ReflectionMethod($converter[0], $converter[1]);
+      }
+      else
+      {
+        $callback = new \ReflectionFunction($converter);
+      }
+      
+      if($callback->getNumberOfRequiredParameters() > 1)
+      {
+        throw new \InvalidArgumentException('Invalid callable, too many required params.');
+      }
+      
+    }
+    
+    $this->converter = $converter;
+    return $this;
   }
-  
-  public function getDepth(){
-    return $this->depth;
-  }
-  
-  /**
-   * Check whether current tree data reach specified depth.
-   * 
-   * @param int $depth
-   * @return boolean
-   */
-  public function reaches($depth)
+
+  public function getRoot()
   {
-    return $this->complete || $depth < $this->depth;
-  }
-  
-  /**
-   * Whether this tree has loaded all possible subtrees.
-   * 
-   * @return boolean
-   */
-  public function isComplete(){
-    return $this->complete;
-  }
-  
-  /**
-   * The root for this tree.
-   * 
-   * @return string
-   */
-  public function getRoot() {
     return $this->root;
   }
   
-  /**
-   * 
-   * @return \SimpleXMLElement
-   */
-  public function getXML()
+  public function setMaxdepth($depth)
   {
-    if(null === $this->tree)
-    {
-      throw new Error('Uninitialized tree.');
-    }
-    return $this->tree;
+    $this->maxdepth = (int)$depth;
+    return $this;
   }
   
-  /**
-   * 
-   * @param string $path
-   * @param \BaseX\Query\Result\SimpleXMLMapperInterface $mapper
-   * @return \BaseX\Resource\Tree|null
-   */
-  public function getSubTree($path, SimpleXMLMapperInterface $mapper = null)
+  public function getMaxdepth($depth)
   {
-    $xpath = "//collection[@path = '$path']";
+    return $this->maxdepth = (int)$depth;
+  }
+
+  /**
+   * Extracts tree structure from a list of resources.
+   * 
+   * @param array[string]Object $items path => item
+   * @param $depth int
+   */
+  protected function build($items, $depth=-1)
+  {
+    $class = get_called_class();
+    if(null === $this->cache) $this->cache = array();
+    if(null === $this->children) $this->children = array();
     
-    $results = $this->getXML()->xpath($xpath);
+    $rootpath = $this->root === '' ? '' : sprintf('%s/', $this->root);
+    $rootlen =  strlen($rootpath);
     
-    if(count($results) === 1)
+    foreach($items as $path => $item)
     {
-      $class = get_called_class();
-      $subtree = new $class($results[0]);
-      if($mapper !== null)
-        $subtree->setResourceMapper($mapper);
-      return $subtree;
+      if($rootlen === 0 || 0 === strpos($path, $rootpath))
+      {
+        $relpath = substr($path, $rootlen);
+      }
+      else
+      {
+        continue;
+      }
+     
+      $pos = strpos($relpath, '/');
+      
+      if($pos === false)
+      {
+        $this->children[$relpath] = $item;
+        $this->cache["/$path"] = $item;
+        continue;
+      }
+   
+      $name = substr($relpath, 0, $pos);
+
+      $childroot = B::path($this->root, $name);
+
+      if(!isset($this->cache["/$childroot"]))
+      {
+        $child = new $class($childroot);
+        
+        $this->children[$name] = $child;
+        $this->cache["/$childroot"] = $child;
+
+        if($depth !== 0)
+        {
+          $child->build($items, $depth - 1);
+          $this->cache = array_replace($this->cache, $child->cache);
+        }
+      }
+    }
+    
+    $this->cache['/'] = $this;
+  }
+  
+  public function getChildren()
+  {
+    return $this->children;
+  }
+  
+  protected function getItems($path='')
+  {
+    if(null !== $this->loader)
+    {
+      return call_user_func($this->loader, $path);
+    }
+    
+    if(null !== $this->items)
+    {
+      if($path)
+      {
+        if(isset($this->items[$path]))
+        {
+          return $this->items[$path];
+        }
+      }
+      else
+      {
+        return $this->items;
+      }
+    }
+
+    return null;
+  }
+
+  public function rebuild($path='')
+  {
+    if($path === '/')  $path = '';
+    
+    if($this->maxdepth >= 0)
+      $depth = $this->maxdepth - count(explode('/', $path)) + 1;
+    else
+      $depth = -1;
+    
+    if($this->maxdepth < 0 || $depth >= 0)
+    {
+      $items = $this->getItems($path);
+      if(null === $items)
+      {
+        throw new \RuntimeException('Unable to refresh resources.');
+      }
+      
+      $this->build(call_user_func($this->loader, $path), $depth);
+    }
+    else
+    {
+      throw new \LogicException('Requested path is too deep for this tree.');
+    }
+    
+    return $this;
+  }
+
+  public function offsetExists($path) 
+  {
+    if(isset($this->cache["/$path"]))
+    {
+      return true;
+    }
+    elseif(null === $this->loader)
+    {
+      return false;
+    }
+    else
+    {
+      $this->rebuild($path);
+      
+      return isset($this->cache["/$path"]);
+    }
+  }
+  
+  public function convert($item)
+  {
+    if($item instanceof Tree && null !== $this->converter)
+    {
+      return call_user_func($this->converter, $item);
+    }
+    return $item;
+  }
+
+  public function offsetGet($path) {
+    $path = trim($path, '/');
+    if($this->offsetExists($path))
+    {
+      $item = $this->cache["/$path"];
+      return $this->convert($item);
     }
     
     return null;
   }
-  
-  /**
-   * Converts a relative path to full path.
-   * 
-   * @param string $path
-   * @return string
-   */
-  public function getPath($path)
-  {
-    return B::path($this->getRoot(), $path);
-  }
-  
-  /**
-   * Converts an absolute path to relative.
-   * 
-   * @param string $path The path to convert
-   * @return string The converted path or null if not a subpath.
-   */
-  public function getRelativePath($path)
-  {
-    return B::relative($path, $this->getRoot());
-  }
-  
-  public function load(Database $db, $root='', $depth=-1)
-  {
-            $depth = (int) $depth;
-    $xql = <<<XQL
-declare function local:relative-path(\$path as xs:string, \$base as xs:string) as xs:string{
-      if(\$base ne '') then substring(\$path, string-length(\$base) + 2) else \$path
-    };
 
-declare function local:trim-path(\$path as xs:string) as xs:string {
-  if(starts-with(\$path, '/')) then substring(\$path, 2) else \$path
-};
+  public function offsetSet($offset, $value) {
+    throw new \RuntimeException('Not implemented.');
+  }
 
-declare function local:tree(\$db as xs:string, \$path as xs:string, \$depth as xs:integer) as element(collection)*
-{
-  if (db:exists(\$db, \$path)) then () else
-  let \$path := local:trim-path(\$path)
-  let \$resources := db:list-details(\$db, \$path)
-  let \$modified := max(\$resources/@modified-date/string())
-  let \$children := if(\$depth eq 0) then () else
-    for \$r in \$resources
-      let \$rel-path := local:relative-path(\$r/text(), \$path)
-      let \$name := substring-before(\$rel-path, '/')
-      group by \$name
-      order by \$name
-      return if(\$name)
-        then local:tree(\$db, \$path||'/'||\$name, \$depth - 1)
-        else \$r
-            
-  return if(empty(\$resources) and \$path ne '') then () else
-    <collection>{ 
-      attribute path { \$path } ,
-      attribute modified-date { \$modified } ,
-      attribute complete { \$depth lt 0 } ,
-      \$children 
-    }</collection>
-      
-};
+  public function offsetUnset($path) 
+  {
+    if(null === $this->cache)
+      return;
+    unset($this->cache["/$path"]);
     
-declare function local:depth(\$n as element(collection), \$max as xs:integer)
-{
-  max(if(\$n/collection) then for \$c in \$n/collection return local:depth(\$c, \$max + 1) else \$max)
-};
-
-copy \$tree := local:tree('$db', '$root', $depth)
-modify (
-  for \$c in \$tree/descendant-or-self::collection
-    return insert node attribute depth {local:depth(\$c, 0)} into \$c
-)
-return \$tree
-
-XQL;
-
-    try{
-      $data = $db->getSession()->query($xql)->execute();
-    }
-    catch (SessionError $e)
+    $check = "/$path/";
+    
+    foreach ($this->cache as $key => $path)
     {
-      throw new Error('Path does not exist.');
+      if(strpos($key, $check) === 0)
+      {
+        unset($this->cache[$key]);
+      }
     }
-    $this->unserialize($data);
-    
+  }
+  
+  /**
+   * 
+   * @param type $path
+   * @return \BaseX\Resource\Tree
+   */
+  public static function make($path)
+  {
+    $class = get_called_class();
+    return new $class($path);
   }
 }
-

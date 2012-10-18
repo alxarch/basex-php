@@ -3,10 +3,8 @@
 namespace BaseX;
 
 use BaseX\Error\ImportError;
-use BaseX\Error\ResultMapperError;
 use BaseX\Error\SessionError;
 use BaseX\Error\SocketError;
-use BaseX\Error\UnserializationError;
 
 /**
  * Test class for Error.
@@ -34,18 +32,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase {
   function testSocketError() {
     throw new SocketError;
   }
-  /**
-   * @expectedException BaseX\Error\ResultMapperError
-   */
-  function testResultError() {
-    throw new ResultMapperError;
-  }
-  /**
-   * @expectedException BaseX\Error\UnserializationError
-   */
-  function testSerialError() {
-    throw new UnserializationError;
-  }
+
   /**
    * @expectedException BaseX\Error\ImportError
    */

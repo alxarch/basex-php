@@ -7,7 +7,7 @@
 	<title>Class BaseX\Symfony\Security\UserProvider | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?584957199"></script>
+	<script type="text/javascript" src="elementlist.js?4007815624"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -28,7 +28,7 @@
 				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
@@ -39,14 +39,11 @@
 						</li>
 				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
+				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
+				<li><a href="namespace-BaseX.Resource.html">Resource</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -56,6 +53,8 @@
 				<li class="active"><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -127,9 +126,7 @@
 		<dd style="padding-left:0px">
 <b><span>BaseX\Symfony\Security\UserProvider</span></b>			
 			 implements 
-<span>Symfony\Component\Security\Core\User\UserProviderInterface</span>, 
-			
-				<a href="class-BaseX.Query.Result.MapperInterface.html"><span>BaseX\Query\Result\MapperInterface</span></a>
+<span>Symfony\Component\Security\Core\User\UserProviderInterface</span>
 			
 			
 		</dd>
@@ -150,7 +147,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Symfony.Security.UserProvider.html#21-117" title="Go to source code">src/BaseX/Symfony/Security/UserProvider.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Symfony.Security.UserProvider.html#20-111" title="Go to source code">src/BaseX/Symfony/Security/UserProvider.php</a><br />
 	</div>
 
 
@@ -168,7 +165,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#43-48" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span>mixed <var>$path</var></span>, <span>mixed <var>$salt</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#41-46" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span>mixed <var>$path</var></span>, <span>mixed <var>$salt</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -186,18 +183,18 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="supportsType" id="_supportsType">
+	<tr data-order="xpath" id="_xpath">
 
 		<td class="attributes"><code>
-			 public 
-			
+			 protected 
+			<code><a href="class-BaseX.Query.Results.UnserializableResults.html">BaseX\Query\Results\UnserializableResults</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_supportsType">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#50-53" title="Go to source code">supportsType</a>( <span>mixed <var>$type</var></span> )</code>
+		<a class="anchor" href="#_xpath">#</a>
+		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#48-58" title="Go to source code">xpath</a>( <span>string <var>$xpath</var></span> )</code>
 
 		<div class="description short">
 			
@@ -207,44 +204,20 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$xpath</var></dt>
+					<dd><code>string</code><br>$xpath</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Query.Results.UnserializableResults.html">BaseX\Query\Results\UnserializableResults</a></code></code><br />
+				</div>
 
 
 
 
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Query.Result.MapperInterface.html#_supportsType">BaseX\Query\Result\MapperInterface::supportsType()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getResult" id="_getResult">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getResult">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#55-61" title="Go to source code">getResult</a>( <span>mixed <var>$data</var></span>, <span>mixed <var>$type</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Query.Result.MapperInterface.html#_getResult">BaseX\Query\Result\MapperInterface::getResult()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -259,7 +232,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_loadUserByUsername">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#63-74" title="Go to source code">loadUserByUsername</a>( <span>mixed <var>$username</var></span> )</code>
+		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#60-68" title="Go to source code">loadUserByUsername</a>( <span>mixed <var>$username</var></span> )</code>
 
 		<div class="description short">
 			
@@ -288,7 +261,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_refreshUser">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#76-84" title="Go to source code">refreshUser</a>( <span>Symfony\Component\Security\Core\User\UserInterface <var>$user</var></span> )</code>
+		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#70-78" title="Go to source code">refreshUser</a>( <span>Symfony\Component\Security\Core\User\UserInterface <var>$user</var></span> )</code>
 
 		<div class="description short">
 			
@@ -317,7 +290,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_supportsClass">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#86-88" title="Go to source code">supportsClass</a>( <span>mixed <var>$class</var></span> )</code>
+		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#80-82" title="Go to source code">supportsClass</a>( <span>mixed <var>$class</var></span> )</code>
 
 		<div class="description short">
 			
@@ -346,7 +319,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#90-105" title="Go to source code">get</a>( <span>mixed <var>$username</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#84-99" title="Go to source code">get</a>( <span>mixed <var>$username</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -375,7 +348,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deleteUser">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#107-110" title="Go to source code">deleteUser</a>( <span>mixed <var>$username</var></span> )</code>
+		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#101-104" title="Go to source code">deleteUser</a>( <span>mixed <var>$username</var></span> )</code>
 
 		<div class="description short">
 			
@@ -404,7 +377,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addUser">#</a>
-		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#112-115" title="Go to source code">addUser</a>( <span><code><a href="class-BaseX.Symfony.Security.User.html">BaseX\Symfony\Security\User</a></code> <var>$user</var></span> )</code>
+		<code><a href="source-class-BaseX.Symfony.Security.UserProvider.html#106-109" title="Go to source code">addUser</a>( <span><code><a href="class-BaseX.Symfony.Security.User.html">BaseX\Symfony\Security\User</a></code> <var>$user</var></span> )</code>
 
 		<div class="description short">
 			

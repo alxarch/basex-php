@@ -10,9 +10,8 @@
 namespace BaseX;
 
 use BaseX\Session;
-use BaseX\Query\Result\MapperInterface;
-use BaseX\Resource\Tree;
-use BaseX\Resource\ResourceMapper;
+use BaseX\Resource\ResourceResults;
+use BaseX\Query\QueryResultsInterface;
 
 /**
  * BaseX Database object.
@@ -185,53 +184,29 @@ class Database
     return $this;
   }
   
-  public function setResourceMapper(MapperInterface $mapper)
-  {
-    $this->mapper = $mapper;
-  }
-  
-  public function getResourceMapper()
-  {
-    if(null === $this->mapper)
-    {
-      $this->mapper = new ResourceMapper($this);
-    }
-    return $this->mapper;
-  }
-  
   /**
    * 
    * @param string $path
    * @param \BaseX\Query\Result\MapperInterface $mapper
    * @return mixed
    */
-  public function getResource($path, MapperInterface $mapper = null)
+  public function getResource($path)
   {
-    if(null === $mapper)
-    {
-      $mapper = $this->getResourceMapper();
-    }
-    
-    return $this->getSession()
-            ->query("db:list-details('$this', '$path')")
-            ->getSingleResult($mapper);
+    return $this->getResources($path)->getSingle();
   }
   
   /**
    * Lists all database resources.
    * 
    * @param string $path 
-   * @return array 
+   * @return \BaseX\Resource\ResourceResults
    */
-  public function getResources($path = null, MapperInterface $mapper = null)
+  public function getResources($path = null)
   {
-    if(null === $mapper)
-    {
-      $mapper = $this->getResourceMapper();
-    }
     return $this->getSession()
             ->query("db:list-details('$this', '$path')")
-            ->getResults($mapper);
+            ->getResults(new ResourceResults($this));
+   
   }
 
   protected function open()
@@ -256,11 +231,12 @@ class Database
    * 
    * @param string $xpath An XPath expression to apply to the contents.
    * @param string $path An path to limit scope of contents.
-   * @param \BaseX\Query\Result\MapperInterface $mapper A mapper to use for
+   * @param \BaseX\Query\Result\Results $results A mapper to use for
    * the results.
-   * @return string $result
+   * @return BaseX\Query\Results\QueryResultsInterface|array
+   * 
    */
-  public function xpath($xpath, $path=null, MapperInterface $mapper = null)
+  public function xpath($xpath, $path=null, QueryResultsInterface $results = null)
   {
     if(null === $path)
     {
@@ -271,7 +247,7 @@ class Database
       $xq = sprintf("db:open('%s', '%s')%s", $this->getName(), $path, $xpath);
     }
     
-    return $this->getSession()->query($xq)->getResults($mapper);
+    return $this->getSession()->query($xq)->getResults($results);
   }
   
   /**
@@ -318,17 +294,6 @@ XQL;
     return $this;
   }
   
-  /**
-   * Gets a resource tree for this database.
-   * 
-   * @param string $root
-   * @param int $depth
-   * @return \BaseX\Resource\Tree
-   */
-  public function getTree($root='', $depth=-1)
-  {
-    $tree = new Tree();
-    $tree->load($this, $root, $depth);
-    return $tree;
-  }
+
+
 }

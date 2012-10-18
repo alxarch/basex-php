@@ -10,8 +10,8 @@ namespace BaseX;
 
 use BaseX\Session;
 use BaseX\Session\Socket;
-use BaseX\Error\UnserializationError;
-use BaseX\Query\Result\MapperInterface;
+use BaseX\Query\QueryResultsInterface;
+use BaseX\Query\QueryResults;
 
 /** 
  * Query object for a BaseX session.
@@ -248,67 +248,50 @@ class Query
     return (count($results) === 1) ? $results[0] : null;
   }
  
-  public function getResults(MapperInterface $mapper=null)
+  /**
+   * 
+   * @param \BaseX\Query\Result\QueryResultsInterface $results
+   * @return \BaseX\Query\Result\QueryResultsInterface
+   * @throws \InvalidArgumentException
+   */
+  public function getResults(QueryResultsInterface $results=null)
   {
-//    $options = $this->options();
-    
-    $results = array();
-    
-//    if($options['method'] === 'xml' && $options['omit-xml-declaration'])
-//    {
-      $sock = $this->getSession()->getSocket();
-      $msg = sprintf('%c%d%s', self::RESULTS, $this->id, Socket::NUL);
-      $sock->send($msg);
-      $sock->clearBuffer();
-
-      while(true)
+    if(null === $results)
+    {
+      $results = new QueryResults();
+    }
+    else
+    {
+      $options = $this->options();
+      $method = $options['method'];
+      if(!$results->supportsMethod($options['method']))
       {
-    
-        $byte = $sock->readSingle();
-        
-        if(Socket::NUL === $byte)
-        {
-          break;
-        }
-        
-        $data = $sock->read();
-        $type = ord($byte);
-        
-        if(null === $mapper)
-        {
-          $results[] = $data;
-        }
-        elseif($mapper->supportsType($type))
-        {
-          try
-          {
-            $results[] = $mapper->getResult($data, $type);
-          }
-          catch (UnserializationError $e)
-          {
-            continue;
-          }
-        }
+        throw new \InvalidArgumentException("Results container does not support '$method' serialization method.");
       }
-          
-      return $results;
+    }
+     
+    $sock = $this->getSession()->getSocket();
+    $msg = sprintf('%c%d%s', self::RESULTS, $this->id, Socket::NUL);
+    $sock->send($msg);
+    $sock->clearBuffer();
 
-//    }
+    while(true)
+    {
+
+      $byte = $sock->readSingle();
+
+      if(Socket::NUL === $byte)
+      {
+        break;
+      }
+
+      $data = $sock->read();
+      $type = ord($byte);
+
+      $results->addResult($data, $type);
+    }
     
-//    // Result is single item (full xml document, raw data, etc).
-//    if(null === $mapper)
-//    {
-//      return $this->execute();
-//    }
-//    
-//    try
-//    {
-//      return $mapper->getResult($this->execute(), null);
-//    }
-//    catch (ResultMapperError $e)
-//    {
-//      return null;
-//    }
+    return $results;
     
   }
   

@@ -274,4 +274,18 @@ class Helpers
   {
     return \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $date);
   }
+
+  static public function child($path, $root='')
+  {
+    $path = ltrim($path, '/');
+    $len = strlen($root);
+    if(0 !== $len && strpos($path, $root) === 0 && $path[$len] === '/')
+    {
+      $path = substr($path, $len+1);
+    }
+    
+    $pos = strpos($path, '/');
+    
+    return $pos === false ? $path : substr($path, 0, $pos);
+  }
 }

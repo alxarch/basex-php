@@ -13,7 +13,6 @@ use BaseX\Helpers as B;
 use BaseX\Session;
 use BaseX\Session\Socket;
 use BaseX\Resource\Streamable;
-use BaseX\Resource\ResourceMapper;
 
 /**
  * Stream wrapper for BaseX resources
@@ -51,7 +50,7 @@ class StreamWrapper
   
   /**
    *
-   * @var \BaseX\Resource\Interfaces\StreamableResource
+   * @var \BaseX\Resource\Interfaces\StreamableInterface
    */
   protected $resource = null;
   
@@ -382,7 +381,7 @@ class StreamWrapper
         return Session::REPLACE;
       }
     }
-    elseif('replace' === $this->resource->creationMethod())
+    elseif('replace' === $this->resource->getWriteMethod())
     {
       return Session::REPLACE;
     }
@@ -499,7 +498,7 @@ class StreamWrapper
   protected function loadResource()
   {
     
-    $resource = $this->db->getResource($this->path, new ResourceMapper($this->db));
+    $resource = $this->db->getResource($this->path);
     
     if(null === $resource)
     {

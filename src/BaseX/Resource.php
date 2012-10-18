@@ -9,7 +9,7 @@
 namespace BaseX;
 
 use BaseX\Helpers as B;
-use BaseX\Resource\Interfaces\ResourceInterface;
+use BaseX\Resource\ResourceInterface;
 
 /**
  * Base class for BaseX resources.
@@ -18,6 +18,9 @@ use BaseX\Resource\Interfaces\ResourceInterface;
  */
 abstract class Resource implements ResourceInterface
 {
+
+  const DATE_FORMAT = 'Y-m-d\TH:i:s.u\Z';
+
   /**
    * The database this resource belongs to.
    * 
@@ -39,12 +42,8 @@ abstract class Resource implements ResourceInterface
    */
   protected $modified;
   
-  /**
-   * Whether or not this resource exists on the database.
-   * 
-   * @var boolean
-   */
-  protected $exists;
+  
+  protected $deleted;
 
 
   /**
@@ -57,25 +56,10 @@ abstract class Resource implements ResourceInterface
    * @param string $path
    * @param string $modified
    */
-  public function __construct(Database $db, $path, \DateTime $modified = null)
+  public function __construct(Database $db, $path)
   {
     $this->db = $db;
     $this->path = (string) $path;
-    
-    if(null === $modified)
-    {
-      $this->exists = false;
-    }
-    else
-    {
-      $this->exists = true;
-      $this->modified = $modified;
-    }
-  }
-  
-  public function exists()
-  {
-    return $this->exists;
   }
   
   /**
@@ -143,8 +127,7 @@ abstract class Resource implements ResourceInterface
   public function delete()
   {
     $this->getDatabase()->delete($this->getPath());
-    $this->path = null;
-    $this->modified = null;
+    $this->deleted = true;
   }
 
   /**
@@ -182,9 +165,6 @@ abstract class Resource implements ResourceInterface
    * @return string
    */
   public function getPath(){
-    if(null === $this->path)
-      throw new Error('Resource has probably been deleted.');
-    
     return $this->path;
   }
   
@@ -203,6 +183,30 @@ abstract class Resource implements ResourceInterface
    */
   public function getModified(){
     return $this->modified;
+  }
+  /**
+   * 
+   * @return \DateTime
+   */
+  public function setModified($datetime){
+    if($datetime instanceof \DateTime)
+    {
+      $this->modified = $datetime;
+    }
+    else
+    {
+      $this->modified = new \DateTime($datetime);
+    }
+  }
+  
+  public function exists()
+  {
+    return !$this->isDeleted() && $this->db->exists($this->getPath());
+  }
+  
+  public function isDeleted()
+  {
+    return true === $this->deleted;
   }
   
   

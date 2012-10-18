@@ -1,6 +1,6 @@
 <?php
 /**
- * @package BaseX
+ * @package BaseX 
  * 
  * @copyright Copyright (c) 2012, Alexandors Sigalas
  * @author Alexandros Sigalas <alxarch@gmail.com>
@@ -9,16 +9,15 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Query\Result\SimpleXMLMapperInterface;
-use BaseX\Query\Result\MapperInterface;
-use BaseX\Resource\Interfaces\CollectionInterface;
+use BaseX\Helpers as B;
 use BaseX\Resource;
-//use BaseX\Query\Result\SimpleXMLMapper;
-//use BaseX\Helpers as B;
+use BaseX\Resource\CollectionInterface;
 use BaseX\Resource\Tree;
+use BaseX\Query\QueryBuilder;
+use BaseX\Query\Results\DateTimeResults;
 
 /**
- * BaseX Collection
+ * Resource tree for a BaseX\Database.
  *
  * @author alxarch
  */
@@ -26,153 +25,149 @@ class Collection extends Resource implements CollectionInterface
 {
   /**
    *
-   * @var \BaseX\Database\Tree
+   * @var array
    */
-  protected $tree;
+  protected $children;
 
-  /**
-   * Reloads collection info.
-   * 
-   * @return \BaseX\Collection $this
-   */
-  public function refresh() 
-  {
-    $db = $this->getDatabase();
-    $path = $this->getPath();
-    $xql = "max(db:list-details('$db', '$path')//@modified-date/string())";
-    $result = $db->getSession()->query($xql)->execute();
-    if($result)
+  public function getModified() {
+    if(null === $this->modified)
     {
-      $this->modified = new \DateTime($result);
+      $xql = "max(db:list-details('$this->db', '$this->path')/@modified-date/string())";
+      
+      $this->modified = QueryBuilder::begin()
+              ->setBody($xql)
+              ->getQuery($this->db->getSession())
+              ->getResults(new DateTimeResults(Resource::DATE_FORMAT))
+              ->getSingle();
     }
-    else
-    {
-      $this->path = false;
-      $this->modified = false;
-      $this->db = null;
-    }
-
-    return $this;
+    
+    return $this->modified;
   }
   
   /**
-   * Gets all resources for this collection.
    * 
-   * @param string $path list resources from this subpath
-   * @return array A BaseX\Resource array
+   * @param string $path
+   * @param \BaseX\Query\Result\SimpleXMLMapperInterface $mapper
+   * @return array
    */
-  public function getResources($path=null, MapperInterface $mapper=null)
+  public function getChildren()
   {
-    return $this->getDatabase()->getResources($this->getSubpath($path), $mapper);
+    if(null === $this->children)
+    {
+      $this->children = $this->getTree()->rebuild()->offsetGet('/');
+    }
+    
+    return $this->children;
+  }
+  
+  protected function getTree()
+  {
+    $that = $this;
+    return Tree::make($this->getPath())
+      ->setMaxdepth(0)
+      ->setItemLoader(function($path) use ($that){
+        $items = array();
+        foreach ($that->getDatabase()->getResources($path) as $r)
+        {
+          $items[$r->getPath()] = $r;
+        }
+        return $items;
+      })
+      ->setTreeConverter(function(Tree $tree) use ($that){
+          
+          $class = get_class($that);
+          
+          $children = array();
+        
+          foreach ($tree->getChildren() as $name => $child)
+          {
+            if($child instanceof Tree)
+            {
+              $children[$name] = new $class($that->getDatabase(), $child->getRoot());
+            }
+            else
+            {
+              $children[$name] = $child;
+            }
+          }
+          
+          return $children;
+      });
   }
 
   /**
-   * Checks collection contents for a child.
    * 
-   * @param string $name
+   * @param string $path
+   * @return \BaseX\Resource\ResourceInterface|null
+   */
+  public function getChild($path)
+  {
+    if($this->hasChild($path))
+    {
+      return $this->children[$path];
+    }
+    
+    return null;
+  }
+  
+  /**
+   * 
+   * @param string $path
    * @return boolean
    */
-  public function hasChild($name)
+  public function hasChild($path)
   {
-    return $this->getTree()->hasChild($name);
-  }
-  
-  public function getSubpath($path)
-  {
-    return trim($this->getPath().'/'.$path, '/');
-  }
-
-//  public function addChild($name, $data, $raw='detect') 
-//  {
-//    $data = $this->getTree()->getChild($name, new SimpleXMLMapper());
-//    if('collection' === $data->getName())
-//    {
-//      throw new Error('A collection with the same name exists.');
-//    }
-//    
-//    if($raw === 'detect')
-//    {
-//      if(null === $data)
-//      {
-//        $createfilter = $this->getDatabase()->getSession()->getInfo()->option('createfilter');
-//        foreach(explode(',', $createfilter) as $pattern)
-//        {
-//          if(fnmatch($pattern, $name))
-//          {
-//            $raw = true;
-//          }
-//        }
-//      }
-//    }
-//    $uri = B::uri($this->getDatabase(), $this->getSubpath($name));
-//    
-//    $dest = fopen($uri, 'w');
-//    
-//    if(is_resource($data))
-//    {
-//      stream_copy_to_stream($data, $dest);
-//    }
-//    else
-//    {
-//      fwrite($dest, $data);
-//    }
-//    
-//    fclose($dest);
+    if($this->deleted !== true)
+    {
+      $this->getChildren();
+      return is_array($this->children) && isset($this->children[$path]);
+    }
     
-//    
-//    $this->getSession()->execute('OPEN '. $this->getDatabase());
-//    
-//    if($raw)
-//    {
-//      $this->getSession()->store($path, $data);
-//    }
-//    else
-//    {
-//      $this->getSession()->replace($path, $data);
-//    }
-//    
-//    return $this;
-//  }
-  
-  public function rename($name)
-  {
-    parent::rename($name);
-    $this->tree = null;
-    
-  }
-  
-  public function delete() 
-  {
-    parent::delete();
-    $this->tree = null;
-  }
-   
-  public function getChildren(SimpleXMLMapperInterface $mapper = null)
-  {
-    return $this->getTree()->getChildren('', $mapper);
-  }
-  
-  public function setTree(Tree $tree)
-  {
-    $this->tree = $tree;
-    return $this;
+    return false;
   }
 
   /**
+   * Converts an absolute path to relative.
    * 
-   * @param int $mindepth
-   * @return \BaseX\Resource\Tree
+   * @param string $path The path to convert
+   * @return string The converted path or null if not a subpath.
    */
-  public function getTree($mindepth=1)
+  public function getRelativePath($path){
+    return B::relative($path, $this->getPath());
+  }
+
+  public function getChildPath($path){
+    return B::path($this->getPath(), $path);
+  }
+  
+  public function refresh()
   {
-    // Minimize unneeded tree reloading.
-    
-    if(null === $this->tree || !$this->tree->reaches($mindepth)) 
-    {
-      $this->tree = $this->getDatabase()->getTree($this->getPath(), $mindepth);
-    }
-    
-    return $this->tree;
+    $this->modified = null;
+    $this->children = null;
+    $this->getChildren();
+    $this->getModified();
+    return $this;
+  }
+
+  public function offsetExists($offset) 
+  {
+    return $this->hasChild($offset);
+  }
+
+  public function offsetGet($offset) 
+  {
+    return $this->getChild($offset);
+  }
+
+  public function offsetSet($offset, $value)
+  {
+    throw new \RuntimeException('Not implemented.');
+  }
+
+  public function offsetUnset($offset)
+  {
+    $this->db->delete($this->getChildPath($offset));
   }
 
 }
+

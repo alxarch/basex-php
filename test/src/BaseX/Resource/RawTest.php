@@ -22,48 +22,58 @@ use BaseX\StreamWrapper;
  */
 class RawTest extends TestCaseDb
 {
+  protected $resource;
   function setUp()
   {
     parent::setUp();
     StreamWrapper::register($this->session);
-  }
-  
-  function testInit()
-  {
-    $this->db->store('test.txt', 'yadayada');
-    
-    $raw = new Raw($this->db, 'test.txt');
-    
+    $this->contents = md5(time());
+    $this->db->store('test.txt', $this->contents);
+    $this->resource =  new Raw($this->db, 'test.txt');
   }
   
   public function testGetRaw()
   {
-    $raw = new Raw($this->db, 'test.x');
-    $this->assertTrue($raw->isRaw());
+    $this->assertTrue($this->resource->isRaw());
     
   }
   public function testGetSize()
   {
-    $raw = new Raw($this->db, 'test.x');
-    $raw->setSize(120);
-    
-    $this->assertEquals(120, $raw->getSize());
+    $this->resource->refresh();
+    $this->assertEquals(32, $this->resource->getSize());
   }
 
   public function testGetFilePath()
   {
-    $contents = md5(time());
-    $this->db->store('test.txt', $contents);
-    $raw = new Raw($this->db, 'test.txt');
     $dbpath = $this->session->query('db:system()/mainoptions/dbpath/text()')->execute();
     $file = $dbpath.'/'.$this->dbname.'/raw/test.txt';
-    $this->assertEquals($file, $raw->getFilepath());
+    $this->assertEquals($file, $this->resource->getFilepath());
   }
     
   function tearDown()
   {
     StreamWrapper::unregister();
     parent::tearDown();
+  }
+  
+  
+  function testGetContents() {
+    $this->assertEquals($this->contents, $this->resource->getContents());
+  }
+  
+  function testSetContents() {
+    $this->resource->setContents('yadayada');
+    $this->assertEquals('yadayada', $this->raw('test.txt'));
+  }
+  
+  function testReadMethod()
+  {
+    $this->assertEquals('retrieve', $this->resource->getReadMethod());
+  }
+  
+  function testWriteMethod()
+  {
+    $this->assertEquals('store', $this->resource->getWriteMethod());
   }
   
 }

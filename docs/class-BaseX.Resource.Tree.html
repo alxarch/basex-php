@@ -7,7 +7,7 @@
 	<title>Class BaseX\Resource\Tree | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?584957199"></script>
+	<script type="text/javascript" src="elementlist.js?4007815624"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -28,7 +28,7 @@
 				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
@@ -39,14 +39,11 @@
 						</li>
 				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
+				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
+				<li class="active"><a href="namespace-BaseX.Resource.html">Resource</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -56,6 +53,8 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -70,11 +69,17 @@
 				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
 				<li><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
-				<li><a href="class-BaseX.Resource.ResourceMapper.html">ResourceMapper</a></li>
+				<li><a href="class-BaseX.Resource.ResourceResults.html">ResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
 				<li class="active"><a href="class-BaseX.Resource.Tree.html">Tree</a></li>
 			</ul>
 
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-BaseX.Resource.CollectionInterface.html">CollectionInterface</a></li>
+				<li><a href="class-BaseX.Resource.ResourceInterface.html">ResourceInterface</a></li>
+				<li><a href="class-BaseX.Resource.StreamableInterface.html">StreamableInterface</a></li>
+			</ul>
 
 
 
@@ -123,7 +128,7 @@
 
 	<div class="description">
 	
-<p>Resource tree for a BaseX\Database.</p>
+<p>Description of Tree</p>
 
 	</div>
 
@@ -131,7 +136,7 @@
 		<dd style="padding-left:0px">
 <b><span>BaseX\Resource\Tree</span></b>			
 			 implements 
-				<a href="class-Serializable.html"><span>Serializable</span></a>
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>
 			
 			
 		</dd>
@@ -152,100 +157,25 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Resource.Tree.html#21-376" title="Go to source code">src/BaseX/Resource/Tree.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.Tree.html#10-302" title="Go to source code">src/BaseX/Resource/Tree.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="setResourceMapper" id="_setResourceMapper">
+	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-BaseX.Resource.Tree.html">BaseX\Resource\Tree</a></code>
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setResourceMapper">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#59-70" title="Go to source code">setResourceMapper</a>( <span><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code> <var>$mapper</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Sets a default resource mapper for this tree.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Sets a default resource mapper for this tree.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$mapper</var></dt>
-					<dd><code><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code></code><br>$mapper</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><code><a href="class-BaseX.Resource.Tree.html">BaseX\Resource\Tree</a></code></code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getResourceMapper" id="_getResourceMapper">
-
-		<td class="attributes"><code>
-			 public 
-			<code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getResourceMapper">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#72-79" title="Go to source code">getResourceMapper</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code></code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getChildren" id="_getChildren">
-
-		<td class="attributes"><code>
-			 public 
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getChildren">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#81-93" title="Go to source code">getChildren</a>( <span>string <var>$path</var> = <span class="php-quote">''</span></span>, <span><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#39-48" title="Go to source code">__construct</a>( <span>type <var>$root</var></span> )</code>
 
 		<div class="description short">
 			
@@ -257,16 +187,10 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path</dd>
-					<dt><var>$mapper</var></dt>
-					<dd><code><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code></code><br>$mapper</dd>
+					<dt><var>$root</var></dt>
+					<dd><code>type</code><br>$root</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code><br />
-				</div>
 
 
 
@@ -274,163 +198,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getChild" id="_getChild">
-
-		<td class="attributes"><code>
-			 public 
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getChild">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#95-107" title="Go to source code">getChild</a>( <span>string <var>$path</var></span>, <span><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path</dd>
-					<dt><var>$mapper</var></dt>
-					<dd><code><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code></code><br>$mapper</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="hasStreamableChild" id="_hasStreamableChild">
-
-		<td class="attributes"><code>
-			 public 
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_hasStreamableChild">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#109-119" title="Go to source code">hasStreamableChild</a>( <span>string <var>$path</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="hasChild" id="_hasChild">
-
-		<td class="attributes"><code>
-			 public 
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_hasChild">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#121-131" title="Go to source code">hasChild</a>( <span>string <var>$path</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getResourcesByXpath" id="_getResourcesByXpath">
-
-		<td class="attributes"><code>
-			 public 
-			array
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getResourcesByXpath">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#133-181" title="Go to source code">getResourcesByXpath</a>( <span>string <var>$xpath</var></span>, <span><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$xpath</var></dt>
-					<dd><code>string</code><br>$xpath</dd>
-					<dt><var>$mapper</var></dt>
-					<dd><code><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code></code><br>$mapper</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>array</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="serialize" id="_serialize">
+	<tr data-order="setItemLoader" id="_setItemLoader">
 
 		<td class="attributes"><code>
 			 public 
@@ -440,8 +208,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_serialize">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#183-188" title="Go to source code">serialize</a>( )</code>
+		<a class="anchor" href="#_setItemLoader">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#50-75" title="Go to source code">setItemLoader</a>( <span>mixed <var>$loader</var></span> )</code>
 
 		<div class="description short">
 			
@@ -456,12 +224,10 @@
 
 
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Serializable.html#_serialize">Serializable::serialize()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="unserialize" id="_unserialize">
+	<tr data-order="setTreeConverter" id="_setTreeConverter">
 
 		<td class="attributes"><code>
 			 public 
@@ -471,8 +237,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_unserialize">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#190-210" title="Go to source code">unserialize</a>( <span>mixed <var>$data</var></span> )</code>
+		<a class="anchor" href="#_setTreeConverter">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#77-101" title="Go to source code">setTreeConverter</a>( <span>mixed <var>$converter</var></span> )</code>
 
 		<div class="description short">
 			
@@ -483,158 +249,6 @@
 
 
 
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Serializable.html#_unserialize">Serializable::unserialize()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="isValid" id="_isValid">
-
-		<td class="attributes"><code>
-			 public static
-			type
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_isValid">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#212-220" title="Go to source code">isValid</a>( <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>$tree</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Checks whether data is valid tree data.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Checks whether data is valid tree data.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$tree</var></dt>
-					<dd><code><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code></code><br>$tree</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>type</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getDepth" id="_getDepth">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getDepth">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#222-224" title="Go to source code">getDepth</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="reaches" id="_reaches">
-
-		<td class="attributes"><code>
-			 public 
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_reaches">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#226-235" title="Go to source code">reaches</a>( <span>integer <var>$depth</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Check whether current tree data reach specified depth.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Check whether current tree data reach specified depth.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$depth</var></dt>
-					<dd><code>integer</code><br>$depth</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="isComplete" id="_isComplete">
-
-		<td class="attributes"><code>
-			 public 
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_isComplete">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#237-244" title="Go to source code">isComplete</a>( )</code>
-
-		<div class="description short">
-			
-<p>Whether this tree has loaded all possible subtrees.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Whether this tree has loaded all possible subtrees.</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code><br />
-				</div>
 
 
 
@@ -646,51 +260,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			string
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRoot">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#246-253" title="Go to source code">getRoot</a>( )</code>
-
-		<div class="description short">
-			
-<p>The root for this tree.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>The root for this tree.</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getXML" id="_getXML">
-
-		<td class="attributes"><code>
-			 public 
-			<code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getXML">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#255-266" title="Go to source code">getXML</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#103-106" title="Go to source code">getRoot</a>( )</code>
 
 		<div class="description short">
 			
@@ -701,10 +278,6 @@
 
 
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code></code><br />
-				</div>
 
 
 
@@ -712,18 +285,356 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getSubTree" id="_getSubTree">
+	<tr data-order="setMaxdepth" id="_setMaxdepth">
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-BaseX.Resource.Tree.html">BaseX\Resource\Tree</a></code>|null
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getSubTree">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#268-290" title="Go to source code">getSubTree</a>( <span>string <var>$path</var></span>, <span><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code> <var>$mapper</var> = <span class="php-keyword1">null</span></span> )</code>
+		<a class="anchor" href="#_setMaxdepth">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#108-112" title="Go to source code">setMaxdepth</a>( <span>mixed <var>$depth</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMaxdepth" id="_getMaxdepth">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMaxdepth">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#114-117" title="Go to source code">getMaxdepth</a>( <span>mixed <var>$depth</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="build" id="_build">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_build">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#119-174" title="Go to source code">build</a>( <span>array[string]Object <var>$items</var></span>, <span>mixed <var>$depth</var> = -<span class="php-num">1</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Extracts tree structure from a list of resources.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Extracts tree structure from a list of resources.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$items</var></dt>
+					<dd><code>array[string]Object</code><br>$items path =&gt; item</dd>
+					<dt><var>$depth</var></dt>
+					<dd><code>mixed</code><br>$depth int</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getChildren" id="_getChildren">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getChildren">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#176-179" title="Go to source code">getChildren</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getItems" id="_getItems">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getItems">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#181-204" title="Go to source code">getItems</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="rebuild" id="_rebuild">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_rebuild">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#206-231" title="Go to source code">rebuild</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetExists" id="_offsetExists">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetExists">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#233-249" title="Go to source code">offsetExists</a>( <span>mixed <var>$path</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_offsetExists">ArrayAccess::offsetExists()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="convert" id="_convert">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_convert">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#251-258" title="Go to source code">convert</a>( <span>mixed <var>$item</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetGet" id="_offsetGet">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetGet">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#260-269" title="Go to source code">offsetGet</a>( <span>mixed <var>$path</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_offsetGet">ArrayAccess::offsetGet()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetSet" id="_offsetSet">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetSet">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#271-273" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_offsetSet">ArrayAccess::offsetSet()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetUnset" id="_offsetUnset">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetUnset">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#275-290" title="Go to source code">offsetUnset</a>( <span>mixed <var>$path</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_offsetUnset">ArrayAccess::offsetUnset()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="make" id="_make">
+
+		<td class="attributes"><code>
+			 public static
+			<code><a href="class-BaseX.Resource.Tree.html">BaseX\Resource\Tree</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_make">#</a>
+		<code><a href="source-class-BaseX.Resource.Tree.html#292-301" title="Go to source code">make</a>( <span>type <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -736,128 +647,13 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path</dd>
-					<dt><var>$mapper</var></dt>
-					<dd><code><code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code></code><br>$mapper</dd>
+					<dd><code>type</code><br>$path</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-BaseX.Resource.Tree.html">BaseX\Resource\Tree</a></code>|null</code><br />
+					<code><code><a href="class-BaseX.Resource.Tree.html">BaseX\Resource\Tree</a></code></code><br />
 				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getPath" id="_getPath">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getPath">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#292-301" title="Go to source code">getPath</a>( <span>string <var>$path</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Converts a relative path to full path.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Converts a relative path to full path.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getRelativePath" id="_getRelativePath">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getRelativePath">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#303-312" title="Go to source code">getRelativePath</a>( <span>string <var>$path</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Converts an absolute path to relative.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Converts an absolute path to relative.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path The path to convert</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>The converted path or null if not a subpath.<br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="load" id="_load">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_load">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#314-375" title="Go to source code">load</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span>mixed <var>$root</var> = <span class="php-quote">''</span></span>, <span>mixed <var>$depth</var> = -<span class="php-num">1</span></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
 
 
 
@@ -880,110 +676,156 @@
 
 	<table class="summary" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="complete" id="$complete">
-		<td class="attributes"><code>
-			protected  
-			boolean
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#29-33" title="Go to source code"><var>$complete</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$complete" class="anchor">#</a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="tree" id="$tree">
-		<td class="attributes"><code>
-			protected  
-			<code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code>
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#35-39" title="Go to source code"><var>$tree</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$tree" class="anchor">#</a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="depth" id="$depth">
-		<td class="attributes"><code>
-			protected  
-			integer
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#41-45" title="Go to source code"><var>$depth</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$depth" class="anchor">#</a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="mapper" id="$mapper">
-		<td class="attributes"><code>
-			protected  
-			<code><a href="class-BaseX.Query.Result.SimpleXMLMapperInterface.html">BaseX\Query\Result\SimpleXMLMapperInterface</a></code>
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#47-51" title="Go to source code"><var>$mapper</var></a>
-		</td>
-		<td class="value"><code></code></td>
-		<td class="description"><div>
-			<a href="#$mapper" class="anchor">#</a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</div></td>
-	</tr>
 	<tr data-order="root" id="$root">
 		<td class="attributes"><code>
 			protected  
-			string
+			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#53-57" title="Go to source code"><var>$root</var></a>
+				<a href="source-class-BaseX.Resource.Tree.html#17" title="Go to source code"><var>$root</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
 			<a href="#$root" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="cache" id="$cache">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Resource.Tree.html#18" title="Go to source code"><var>$cache</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$cache" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="children" id="$children">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Resource.Tree.html#19" title="Go to source code"><var>$children</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$children" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="maxdepth" id="$maxdepth">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Resource.Tree.html#20" title="Go to source code"><var>$maxdepth</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$maxdepth" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="loader" id="$loader">
+		<td class="attributes"><code>
+			protected  
+			callable
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Resource.Tree.html#22-26" title="Go to source code"><var>$loader</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$loader" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="items" id="$items">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Resource.Tree.html#28-32" title="Go to source code"><var>$items</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$items" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="converter" id="$converter">
+		<td class="attributes"><code>
+			protected  
+			callable
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Resource.Tree.html#34-37" title="Go to source code"><var>$converter</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$converter" class="anchor">#</a>
 
 			<div class="description short">
 				

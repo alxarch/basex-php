@@ -4,8 +4,6 @@ namespace BaseX\Symfony\Security;
 
 use BaseX\Symfony\Security\UserProvider;
 use BaseX\Symfony\Security\User;
-use BaseX\Database;
-use BaseX\Error\ResultMapperError;
 use BaseX\Query;
 use BaseX\PHPUnit\TestCaseDb;
 
@@ -60,24 +58,6 @@ XML;
   }
 
   /**
-   * @covers BaseX\Symfony\Security\UserProvider::supportsType
-   */
-  public function testSupportsType() {
-    $this->assertFalse($this->provider->supportsType(12333));
-    $this->assertTrue($this->provider->supportsType(Query::TYPE_ELEMENT));
-    $this->assertTrue($this->provider->supportsType(Query::TYPE_DOCUMENT));
-  }
-
-  /**
-   * @covers BaseX\Symfony\Security\UserProvider::getResult
-   * @expectedException BaseX\Error\UnserializationError
-   */
-  public function testGetResult() {
-    $this->assertTrue($this->provider->getResult($this->userdata, null) instanceof User);
-    $this->assertTrue($this->provider->getResult('<usah/>', null) instanceof User);
-  }
-
-  /**
    * @covers BaseX\Symfony\Security\UserProvider::loadUserByUsername
    * @expectedException Symfony\Component\Security\Core\Exception\UsernameNotFoundException
    */
@@ -116,7 +96,7 @@ XML;
    */
   public function testLoadUsers() {
     
-    $this->assertEmpty($this->provider->get());
+    $this->assertEquals(0, count($this->provider->get()));
     $this->provider->addUser($this->user);
     $this->assertNotEmpty($this->provider->get());
   }

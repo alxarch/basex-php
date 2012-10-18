@@ -15,15 +15,14 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 use BaseX\Database;
 use BaseX\Symfony\Security\User;
-use BaseX\Query\Result\MapperInterface;
-use BaseX\Query;
+use BaseX\Query\Results\UnserializableResults;
 
 /**
  * UserProvider for Symfony Security.
  *
  * @author alxarch
  */
-class UserProvider implements UserProviderInterface, MapperInterface
+class UserProvider implements UserProviderInterface
 {
   /**
    *
@@ -38,39 +37,34 @@ class UserProvider implements UserProviderInterface, MapperInterface
   private $db;
   
   private $salt;
-
-
+  
   public function __construct(Database $db, $path, $salt=null) 
   {
     $this->db = $db;
     $this->path = $path;
     $this->salt = $salt;
   }
-  
-  public function supportsType($type)
+
+  /**
+   * 
+   * @param string $xpath
+   * @return  \BaseX\Query\Results\UnserializableResults
+   */
+  protected function xpath($xpath)
   {
-    return $type === Query::TYPE_ELEMENT || $type === Query::TYPE_DOCUMENT;
-  }
-  
-  public function getResult($data, $type) 
-  {
-    $user = new User();
-    $user->unserialize($data);
-    $user->setSalt($this->salt);
-    return $user;
+    $results =  new UnserializableResults('BaseX\Symfony\Security\User');
+    
+    return $this->db->xpath($xpath, $this->path, $results);
   }
   
   public function loadUserByUsername($username)
   {
-    $users = $this->db->xpath("//user[username = '$username']", $this->path, $this);
+    $user = $this->xpath("//user[username = '$username']")->getSingle();
     
-    if(count($users) === 1)
-    {
-      return $users[0];
-    }
+    if(null === $user)
+      throw new UsernameNotFoundException("Username '$username' not found.");
     
-    throw new UsernameNotFoundException("Username '$username' not found.");
-    
+    return $user;
   }
 
   public function refreshUser(UserInterface $user)
@@ -91,7 +85,7 @@ class UserProvider implements UserProviderInterface, MapperInterface
   {
     if(null === $username)
     {
-      return $this->db->xpath('//user', $this->path, $this);
+      return $this->xpath('//user');
     }
     
     try

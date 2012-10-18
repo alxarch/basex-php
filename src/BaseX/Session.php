@@ -60,8 +60,6 @@ class Session
     */
    protected $locked = false;
 
-   protected $providers = array();
-
    /**
     * Creates a new Session
     * 

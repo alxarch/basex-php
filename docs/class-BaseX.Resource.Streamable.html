@@ -7,7 +7,7 @@
 	<title>Class BaseX\Resource\Streamable | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?584957199"></script>
+	<script type="text/javascript" src="elementlist.js?4007815624"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -28,7 +28,7 @@
 				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.DAV.html">DAV<span></span></a>
+				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
@@ -39,14 +39,11 @@
 						</li>
 				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
 						<ul>
-				<li><a href="namespace-BaseX.Query.Result.html">Result</a>
+				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Resource.Interfaces.html">Interfaces</a>
+				<li class="active"><a href="namespace-BaseX.Resource.html">Resource</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -56,6 +53,8 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -70,11 +69,17 @@
 				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
 				<li><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
-				<li><a href="class-BaseX.Resource.ResourceMapper.html">ResourceMapper</a></li>
+				<li><a href="class-BaseX.Resource.ResourceResults.html">ResourceResults</a></li>
 				<li class="active"><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
 				<li><a href="class-BaseX.Resource.Tree.html">Tree</a></li>
 			</ul>
 
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-BaseX.Resource.CollectionInterface.html">CollectionInterface</a></li>
+				<li><a href="class-BaseX.Resource.ResourceInterface.html">ResourceInterface</a></li>
+				<li><a href="class-BaseX.Resource.StreamableInterface.html">StreamableInterface</a></li>
+			</ul>
 
 
 
@@ -132,7 +137,7 @@
 			<a href="class-BaseX.Resource.html"><span>BaseX\Resource</span></a>
 			
 			 implements 
-				<a href="class-BaseX.Resource.Interfaces.ResourceInterface.html"><span>BaseX\Resource\Interfaces\ResourceInterface</span></a>
+				<a href="class-BaseX.Resource.ResourceInterface.html"><span>BaseX\Resource\ResourceInterface</span></a>
 			
 			
 		</dd>
@@ -140,7 +145,7 @@
 			<img src="resources/inherit.png" alt="Extended by" />
 <b><span>BaseX\Resource\Streamable</span></b>			
 			 implements 
-				<a href="class-BaseX.Resource.Interfaces.StreamableResource.html"><span>BaseX\Resource\Interfaces\StreamableResource</span></a>
+				<a href="class-BaseX.Resource.StreamableInterface.html"><span>BaseX\Resource\StreamableInterface</span></a>
 			
 			
 		</dd>
@@ -166,7 +171,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Resource.Streamable.html#17-167" title="Go to source code">src/BaseX/Resource/Streamable.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.Streamable.html#16-109" title="Go to source code">src/BaseX/Resource/Streamable.php</a><br />
 	</div>
 
 
@@ -184,7 +189,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUri">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#26-29" title="Go to source code">getUri</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#30-34" title="Go to source code">getUri</a>( <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -213,7 +218,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getStream">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#31-49" title="Go to source code">getStream</a>( <span>string <var>$mode</var> = <span class="php-quote">'r'</span></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#36-56" title="Go to source code">getStream</a>( <span>string <var>$mode</var> = <span class="php-quote">'r'</span></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -231,6 +236,8 @@
 				<div class="list"><dl>
 					<dt><var>$mode</var></dt>
 					<dd><code>string</code><br>$mode valid modes: r, w</dd>
+					<dt><var>$options</var></dt>
+					<dd></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -246,130 +253,7 @@
 
 
 				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Resource.Interfaces.StreamableResource.html#_getStream">BaseX\Resource\Interfaces\StreamableResource::getStream()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="read" id="_read">
-
-		<td class="attributes"><code>
-			 public 
-			string|integer
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_read">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#52-80" title="Go to source code">read</a>( <span>resource <var>$into</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			
-<p>Get contents of this resource.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Get contents of this resource.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$into</var></dt>
-					<dd><code>resource</code><br>$into If provided contents will be piped into this stream.</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string|integer</code><br>Contents of the resource or number of bytes piped.<br />
-				</div>
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Resource.Interfaces.StreamableResource.html#_read">BaseX\Resource\Interfaces\StreamableResource::read()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="write" id="_write">
-
-		<td class="attributes"><code>
-			 public 
-			integer
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_write">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#83-110" title="Go to source code">write</a>( <span>resource|string <var>$input</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Set contents for this resource.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Set contents for this resource.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$input</var></dt>
-					<dd><code>resource|string</code><br>$data</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>integer</code><br />
-				</div>
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Resource.Interfaces.StreamableResource.html#_write">BaseX\Resource\Interfaces\StreamableResource::write()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="isRaw" id="_isRaw">
-
-		<td class="attributes"><code>
-			abstract public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_isRaw">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#112-115" title="Go to source code">isRaw</a>( )</code>
-
-		<div class="description short">
-			
-<p>Whether this resource is raw.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Whether this resource is raw.</p>
-
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Resource.Interfaces.StreamableResource.html#_isRaw">BaseX\Resource\Interfaces\StreamableResource::isRaw()</a></code></div>
+				<div class="list"><code><a href="class-BaseX.Resource.StreamableInterface.html#_getStream">BaseX\Resource\StreamableInterface::getStream()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -384,17 +268,17 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContentType">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#117-124" title="Go to source code">getContentType</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#58-65" title="Go to source code">getContentType</a>( )</code>
 
 		<div class="description short">
 			
-<p>Mime type for this resource.</p>
+<p>Content-Type for this resource.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Mime type for this resource.</p>
+<p>Content-Type for this resource.</p>
 
 
 
@@ -408,7 +292,7 @@
 
 
 				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Resource.Interfaces.StreamableResource.html#_getContentType">BaseX\Resource\Interfaces\StreamableResource::getContentType()</a></code></div>
+				<div class="list"><code><a href="class-BaseX.Resource.StreamableInterface.html#_getContentType">BaseX\Resource\StreamableInterface::getContentType()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -423,7 +307,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setContentType">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#126-135" title="Go to source code">setContentType</a>( <span>string <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#67-76" title="Go to source code">setContentType</a>( <span>string <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -465,7 +349,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_refresh">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#137-165" title="Go to source code">refresh</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#79-107" title="Go to source code">refresh</a>( )</code>
 
 		<div class="description short">
 			
@@ -490,7 +374,7 @@ or has changed from Raw to Document or vice versa.<br />
 
 
 				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Resource.Interfaces.ResourceInterface.html#_refresh">BaseX\Resource\Interfaces\ResourceInterface::refresh()</a></code></div>
+				<div class="list"><code><a href="class-BaseX.Resource.ResourceInterface.html#_refresh">BaseX\Resource\ResourceInterface::refresh()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -510,17 +394,23 @@ or has changed from Raw to Document or vice versa.<br />
 			<a href="class-BaseX.Resource.html#_getModified">getModified()</a>, 
 			<a href="class-BaseX.Resource.html#_getName">getName()</a>, 
 			<a href="class-BaseX.Resource.html#_getPath">getPath()</a>, 
+			<a href="class-BaseX.Resource.html#_isDeleted">isDeleted()</a>, 
 			<a href="class-BaseX.Resource.html#_move">move()</a>, 
-			<a href="class-BaseX.Resource.html#_rename">rename()</a>
+			<a href="class-BaseX.Resource.html#_rename">rename()</a>, 
+			<a href="class-BaseX.Resource.html#_setModified">setModified()</a>
 		</code></td>
 	</tr>
 	</table>
 	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-BaseX.Resource.Interfaces.StreamableResource.html#methods">BaseX\Resource\Interfaces\StreamableResource</a></caption>
+	<caption>Methods inherited from <a href="class-BaseX.Resource.StreamableInterface.html#methods">BaseX\Resource\StreamableInterface</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-BaseX.Resource.Interfaces.StreamableResource.html#_creationMethod">creationMethod()</a>, 
-			<a href="class-BaseX.Resource.Interfaces.StreamableResource.html#_getURI">getURI()</a>
+			<a href="class-BaseX.Resource.StreamableInterface.html#_getContents">getContents()</a>, 
+			<a href="class-BaseX.Resource.StreamableInterface.html#_getReadMethod">getReadMethod()</a>, 
+			<a href="class-BaseX.Resource.StreamableInterface.html#_getURI">getURI()</a>, 
+			<a href="class-BaseX.Resource.StreamableInterface.html#_getWriteMethod">getWriteMethod()</a>, 
+			<a href="class-BaseX.Resource.StreamableInterface.html#_isRaw">isRaw()</a>, 
+			<a href="class-BaseX.Resource.StreamableInterface.html#_setContents">setContents()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -532,6 +422,14 @@ or has changed from Raw to Document or vice versa.<br />
 
 
 
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-BaseX.Resource.html#constants">BaseX\Resource</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Resource.html#DATE_FORMAT"><b>DATE_FORMAT</b></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 
@@ -540,11 +438,11 @@ or has changed from Raw to Document or vice versa.<br />
 	<tr data-order="mime" id="$mime">
 		<td class="attributes"><code>
 			protected  
-			mixed
+			string
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Streamable.html#24" title="Go to source code"><var>$mime</var></a>
+				<a href="source-class-BaseX.Resource.Streamable.html#23-28" title="Go to source code"><var>$mime</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -552,10 +450,14 @@ or has changed from Raw to Document or vice versa.<br />
 
 			<div class="description short">
 				
+<p>Content-Type for this resource.</p>
+
 			</div>
 
 			<div class="description detailed hidden">
 				
+<p>Content-Type for this resource.</p>
+
 
 			</div>
 		</div></td>
@@ -567,7 +469,7 @@ or has changed from Raw to Document or vice versa.<br />
 	<tr>
 		<td><code>
 			<a href="class-BaseX.Resource.html#$db"><var>$db</var></a>, 
-			<a href="class-BaseX.Resource.html#$exists"><var>$exists</var></a>, 
+			<a href="class-BaseX.Resource.html#$deleted"><var>$deleted</var></a>, 
 			<a href="class-BaseX.Resource.html#$modified"><var>$modified</var></a>, 
 			<a href="class-BaseX.Resource.html#$path"><var>$path</var></a>
 		</code></td>

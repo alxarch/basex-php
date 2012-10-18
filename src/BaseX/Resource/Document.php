@@ -11,9 +11,8 @@
 namespace BaseX\Resource;
 
 use BaseX\Resource\Streamable;
-use BaseX\Query\Result\MapperInterface;
 use \DOMDocument as XML;
-
+use BaseX\Query\Result\QueryResultsInterface;
 
 /**
  * BaseX Resource for xml documents.
@@ -26,10 +25,6 @@ class Document extends Streamable
     return false;
   }
   
-  public function getSize() {
-    return null;
-  }
-
   /**
    * Returns the contents of the document as XML.
    * 
@@ -38,7 +33,7 @@ class Document extends Streamable
   public function getXML()
   {
     $xml = new XML();
-    $xml->loadXML($this->read());
+    $xml->loadXML($this->getContents());
     return $xml;
   }
 
@@ -46,15 +41,29 @@ class Document extends Streamable
    * Retrieves contents of a document filtered by an XPath expression.
    * 
    * @param string $xpath An XPath expression to apply to the contents.
-   * @param \BaseX\Query\QueryResultFactoryInterface $factory
+   * @param \BaseX\Query\QueryResultsInterface $results
    * @return string $result
    */
-  public function xpath($xpath, MapperInterface $mapper=null)
+  public function xpath($xpath, QueryResultsInterface $results=null)
   {
-    return $this->getDatabase()->xpath($xpath, $this->getPath(), $mapper);
+    return $this->getDatabase()->xpath($xpath, $this->getPath(), $results);
   }
   
-  public function creationMethod() {
+  public function getWriteMethod() {
     return 'replace';
   }
+
+  public function getReadMethod() {
+    return 'open';
+  }
+
+  public function getContents() {
+    $xql = sprintf("db:open('%s', '%s')", $this->getDatabase(), $this->getPath());
+    return $this->getDatabase()->getSession()->query($xql)->execute();
+  }
+
+  public function setContents($data) {
+    $this->getDatabase()->replace($this->getPath(), $data);
+  }
+
 }

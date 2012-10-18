@@ -10,7 +10,6 @@
 namespace BaseX\Session;
 
 use BaseX\Session;
-use BaseX\Error\UnserializationError;
 use Serializable;
 
 /**
@@ -70,10 +69,11 @@ class SessionInfo implements Serializable
             isset($xml->options))
     {
       $this->xml = $xml;
+      return true;
     }
     else
     {
-      throw new UnserializationError();
+      return false;
     }
   }
 

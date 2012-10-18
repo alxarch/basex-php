@@ -12,20 +12,19 @@ namespace BaseX\Database;
 
 use BaseX\Error\UnserializationError;
 use BaseX\Database;
-use Serializable;
-use BaseX\Query\Result\SerializableMapper;
+use BaseX\Query\Result\UnserializableResults;
 
 /**
  * BaseX Database Backup.
  * 
  * @package BaseX 
  */
-class Backup implements Serializable
+class Backup
 {
   /**
-   * The database this backup belongs to.
+   * The name of the database this backup belongs to.
    * 
-   * @var \BaseX\Database
+   * @var string
    */
   protected $db;
   
@@ -105,9 +104,6 @@ class Backup implements Serializable
     $db->getSession()->execute("CREATE BACKUP $db");
   }
   
-  public function serialize() {
-    return null;
-  }
   
   public function unserialize($data) {
      $pattern = 
@@ -147,8 +143,7 @@ class Backup implements Serializable
   
   public static function getLatestBackup(Database  $db)
   {
-    $results = self::getBackups($db);
-    return $results[0];
+    return $this->getBackups($db)->getFirst();
   }
   
   public static function getBackups(Database $db)
@@ -158,7 +153,9 @@ class Backup implements Serializable
         order by \$b descending
         return \$b
 XQL;
-    return  $db->getSession()->query($xql)->getResults(new SerializableMapper(get_called_class()));
+    return  $db->getSession()
+              ->query($xql)
+              ->getResults(new UnserializableResults(get_called_class()));
     
   }
 }

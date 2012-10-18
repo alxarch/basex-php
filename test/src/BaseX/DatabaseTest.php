@@ -4,7 +4,7 @@ namespace BaseX;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Database;
-use BaseX\Resource\ResourceMapper;
+use BaseX\Resource\ResourceResults;
 
 class DatabaseTest extends TestCaseDb 
 {
@@ -161,11 +161,9 @@ class DatabaseTest extends TestCaseDb
     $this->db->add('dir/test-3.xml', '<test3/>');
     $this->db->store('test.txt', 'test');
 
-    $provider = new ResourceMapper($this->db);
-
     $resources = $this->db->getResources('');
 
-    $this->assertTrue(is_array($resources));
+    $this->assertTrue($resources instanceof ResourceResults);
     $this->assertEquals(4, count($resources));
 
     foreach ($resources as $r) {
@@ -181,8 +179,8 @@ class DatabaseTest extends TestCaseDb
     $resource = $resources[3];
     $this->assertEquals('test.txt', $resource->getPath());
 
-    $resources = $this->db->getResources('dir/', $provider);
-    $this->assertTrue(is_array($resources));
+    $resources = $this->db->getResources('dir/');
+    $this->assertTrue($resources instanceof ResourceResults);
     $this->assertEquals(2, count($resources));
 
     foreach ($resources as $r) {
@@ -230,15 +228,6 @@ class DatabaseTest extends TestCaseDb
     $this->assertFalse($this->db->exists('test.xml'));
     $this->assertTrue($this->db->exists('test/test.xml'));
     $this->assertTrue($this->db->exists('test'));
-  }
-  
-  public function testGetResourceMapper()
-  {
-    $this->assertInstanceOf('BaseX\Resource\ResourceMapper', $this->db->getResourceMapper());
-    
-    $m = new Query\Result\SimpleXMLMapper();
-    $this->db->setResourceMapper($m);
-    $this->assertEquals($m, $this->db->getResourceMapper());
   }
   
 
@@ -383,19 +372,19 @@ class DatabaseTest extends TestCaseDb
     }
   }
   
-  /**
-   * @expectedException BaseX\Error
-   */
-  public function testGetTree()
-  {
-    $this->db->add('test/test.xml', '<test/>');
-    $this->db->store('test/test.txt', 'test');
-    
-    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree());
-    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('test'));
-    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('test', 1));
-    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('te', 1));
-    
-  }
+//  /**
+//   * @expectedException BaseX\Error
+//   */
+//  public function testGetTree()
+//  {
+//    $this->db->add('test/test.xml', '<test/>');
+//    $this->db->store('test/test.txt', 'test');
+//    
+//    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree());
+//    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('test'));
+//    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('test', 1));
+//    $this->assertInstanceOf('BaseX\Resource\Tree', $this->db->getTree('te', 1));
+//    
+//  }
 
 }

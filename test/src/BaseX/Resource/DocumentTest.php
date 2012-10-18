@@ -4,36 +4,38 @@ namespace BaseX\Resource;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Resource\Document;
-use BaseX\StreamWrapper;
+
 
 class DocumentTest extends TestCaseDb
 {
+  /**
+   *
+   * @var \BaseX\Resource\Document
+   */
+  protected $resource;
   
   function setUp()
   {
     parent::setUp();
-    StreamWrapper::register($this->session);
+    $this->db->add('test.xml', '<test/>');
+    $this->resource = new Document($this->db, 'test.xml');
   }
   
   public function testGetXML()
   {
-    $this->db->add('test.xml', '<test/>');
-    $doc = new Document($this->db, 'test.xml');
     
-    $xml = $doc->getXML();
+    $xml = $this->resource->getXML();
     
     $this->assertInstanceOf('\DOMDocument', $xml);
-    $this->db->delete('test.xml');
+    $this->assertXmlStringEqualsXmlString('<test/>', $xml->saveXML());
+    
   }
   
   public function testXpath()
   {
-    $this->db->add('test-1.xml', '<root><test/><test/></root>');
-    $this->db->add('test-2.xml', '<root><test/></root>');
+    $this->db->replace('test.xml', '<root><test/><test/></root>');
     
-    $doc = new Document($this->db, 'test-1.xml');
-    
-    $result = $doc->xpath('//test');
+    $result = $this->resource->xpath('//test');
     
     $this->assertNotEmpty($result);
     
@@ -43,19 +45,28 @@ class DocumentTest extends TestCaseDb
     }
    
   }
-    
- 
-  
-  function tearDown()
+
+  public function testSetContents()
   {
-    StreamWrapper::unregister();
-    parent::tearDown();
+    $this->resource->setContents('<sada/>');
+    $this->assertXmlStringEqualsXmlString($this->resource->getContents(), '<sada/>');
   }
   
+
   public function testRaw()
   {
-    $doc = new Document($this->db, 'test-1.xml');
-    $this->assertFalse($doc->isRaw());
+    $this->assertFalse($this->resource->isRaw());
+  }
+  
+   
+  function testReadMethod()
+  {
+    $this->assertEquals('open', $this->resource->getReadMethod());
+  }
+  
+  function testWriteMethod()
+  {
+    $this->assertEquals('replace', $this->resource->getWriteMethod());
   }
   
 }

@@ -14,9 +14,45 @@ use BaseX\Resource\Tree;
  * @author alxarch
  */
 class TreeTest extends TestCaseDb{
-  public function testData()
+  
+  
+  public function setUp()
   {
-    $tree = new Tree();
+    parent::setUp();
+    $this->db->add('test.xml', '<test/>');
+    $this->db->add('test/test.xml', '<test/>');
+    $this->db->add('sa/test.xml', '<test/>');
+    $this->db->add('test/path/test.xml', '<test/>');
+    
+  }
+  
+  public function loadItems($path)
+  {
+    $items = array();
+    foreach ($this->db->getResources($path) as $r)
+    {
+       $items[$r->getPath()] = $r;
+    }
+    return $items;
+  }
+  
+  public function testItemLoaderCallable()
+  {  
+    $tree = new Tree('');
+    $tree->setItemLoader(array($this, 'loadItems'));
+    
+    $result = $tree->rebuild()->offsetGet('');
+    
+    $this->assertTrue($result instanceof Tree);
+    $this->assertEquals(3, count($result->getChildren()));
+  }
+  
+  public function testTreeConverter()
+  {  
+    $tree = new Tree('');
+    $tree->setItemLoader(array($this, 'loadItems'));
+    $result = $tree->rebuild()->offsetGet('');
+    $this->assertTrue($result instanceof Tree);
   }
 }
 
