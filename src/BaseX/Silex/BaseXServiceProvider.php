@@ -26,15 +26,16 @@ class BaseXServiceProvider implements ServiceProviderInterface
   
   public function register(Application $app)
   {
-    $app['basex'] = $app->share(function() use ($app){
+    $app['basex'] = $app->share(function(Application $app){
       $s = $app['basex.session'];
       
       $session = new Session($s['host'], $s['port'], $s['user'], $s['pass']);
-      
-      StreamWrapper::register($session);
 
+      StreamWrapper::register($session);
+      
       if(isset($app['basex.databases']))
       {
+          
         $db  = $app['basex.databases'];
         if(!is_array($db)) $db = array($db);
 
