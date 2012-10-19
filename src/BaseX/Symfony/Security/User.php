@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package BaseX 
  * 
@@ -21,36 +22,41 @@ use BaseX\Error\UnserializationError;
  */
 class User implements AdvancedUserInterface, Serializable
 {
+
   protected $username;
   protected $password;
   protected $last_login;
   protected $roles;
   protected $salt;
   protected $disabled;
-  protected $locked=false;
-  protected $expires=null;
-  
-  public function isCredentialsNonExpired() {
+  protected $locked = false;
+  protected $expires = null;
+
+  public function isCredentialsNonExpired()
+  {
     return true;
   }
-  
-  public function isEnabled() {
+
+  public function isEnabled()
+  {
     return !$this->disabled;
   }
-  
-  public function isAccountNonExpired() {
+
+  public function isAccountNonExpired()
+  {
     return null === $this->expires || $this->expires > time();
   }
-  
-  public function isAccountNonLocked() {
+
+  public function isAccountNonLocked()
+  {
     return !$this->locked;
   }
-  
 
   public function eraseCredentials()
   {
+    
   }
-  
+
   /**
    * 
    * @param string $pass
@@ -61,75 +67,78 @@ class User implements AdvancedUserInterface, Serializable
     $this->password = $pass;
     return $this;
   }
-  
+
   /**
    * 
    * @return string
    */
-  public function getPassword() {
+  public function getPassword()
+  {
     return $this->password;
   }
-  
+
   /**
    * 
    * @return string[]
    */
-  public function getRoles() {
+  public function getRoles()
+  {
     return $this->roles;
   }
-  
+
   /**
    * 
    * @param array $roles
    * @return \BaseX\Symfony\Security\User
    */
-  public function setRoles($roles) 
+  public function setRoles($roles)
   {
     $this->roles = array();
-    
+
     foreach ($roles as $r)
     {
-      $this->roles[] = (string)$r;
+      $this->roles[] = (string) $r;
     }
-    
+
     return $this;
   }
-  
+
   /**
    * 
    * @return string
    */
-  public function getUsername() {
+  public function getUsername()
+  {
     return $this->username;
   }
-  
+
   public function lock()
   {
     $this->locked = true;
     return $this;
   }
-  
+
   public function unlock()
   {
     $this->locked = false;
     return $this;
   }
-  
+
   public function disable()
   {
     $this->disabled = true;
     return $this;
   }
-  
+
   public function enable()
   {
     $this->disabled = false;
     return $this;
   }
-  
+
   public function setExpires($expires)
   {
-    if(null === $expires)
+    if (null === $expires)
     {
       $this->expires = null;
     }
@@ -137,27 +146,27 @@ class User implements AdvancedUserInterface, Serializable
     {
       $this->expires = strtotime($expires);
     }
-    
+
     return $this;
   }
-  
-  
+
   /**
    * 
    * @param string $username
    * @return \BaseX\Symfony\Security\User
    * @throws \InvalidArgumentException
    */
-  public function setUsername($username) {
-    if(!preg_match('/^[a-zA-Z0-9\.\-_]+$/', $username))
+  public function setUsername($username)
+  {
+    if (!preg_match('/^[a-zA-Z0-9\.\-_]+$/', $username))
     {
       throw new \InvalidArgumentException('Invalid username.');
     }
-    
+
     $this->username = $username;
     return $this;
   }
-  
+
   /**
    * 
    * @return string|null
@@ -166,12 +175,12 @@ class User implements AdvancedUserInterface, Serializable
   {
     return $this->salt;
   }
-  
+
   public function setSalt($salt)
   {
     $this->salt = $salt;
   }
-  
+
   /**
    * 
    * @return int timestamp
@@ -180,17 +189,17 @@ class User implements AdvancedUserInterface, Serializable
   {
     return $this->last_login;
   }
-  
+
   public function setLastLogin($datetime)
   {
-    if(null === $datetime)
+    if (null === $datetime)
       $this->last_login = null;
     else
       $this->last_login = strtotime($datetime);
-    
+
     return $this;
   }
-  
+
   public function serialize()
   {
     $xml = simplexml_load_string('<user xmlns=""/>');
@@ -198,16 +207,16 @@ class User implements AdvancedUserInterface, Serializable
     $xml->addChild('last-login', $this->getLastLogin());
     $xml->addChild('password', $this->getPassword());
     $xml->addChild('disabled', $this->disabled);
-    
+
     $xml->addChild('locked', $this->locked);
-    
-    if($this->expires)
+
+    if ($this->expires)
       $xml->addChild('expires', $this->expires);
-    
+
     $xml->addChild('roles');
-    
+
     $roles = $this->getRoles();
-    if($roles)
+    if ($roles)
     {
       foreach ($roles as $role)
       {
@@ -216,27 +225,27 @@ class User implements AdvancedUserInterface, Serializable
     }
     return B::stripXMLDeclaration($xml->asXML());
   }
-  
+
   public function unserialize($data)
   {
     $xml = @simplexml_load_string($data);
-    
-    if(false !== $xml && isset($xml->username) && isset($xml->password))
+
+    if (false !== $xml && isset($xml->username) && isset($xml->password))
     {
       $this->setUsername((string) $xml->username)
-           ->setPassword((string) $xml->password)
-           ->setRoles($xml->roles->role);
+          ->setPassword((string) $xml->password)
+          ->setRoles($xml->roles->role);
 
-      if(isset($xml->expires))
-        $this->setExpires ((string)$xml->expires);
+      if (isset($xml->expires))
+        $this->setExpires((string) $xml->expires);
 
-      if(isset($xml->{'last-login'}))
+      if (isset($xml->{'last-login'}))
         $this->setLastLogin((string) $xml->{'last-login'});
 
-      if('true' === (string) $xml->disabled)
+      if ('true' === (string) $xml->disabled)
         $this->disable();
 
-      if('true' === (string) $xml->locked)
+      if ('true' === (string) $xml->locked)
         $this->lock();
       else
         $this->unlock();
@@ -245,10 +254,12 @@ class User implements AdvancedUserInterface, Serializable
     {
       throw new UnserializationError();
     }
-    
   }
-  
-  public function __toString() {
+
+  public function __toString()
+  {
     return $this->getUsername();
   }
-} 
+
+}
+
