@@ -113,7 +113,7 @@ abstract class Streamable extends Resource implements StreamableInterface
   public static function fromSimpleXML(Database $db, \SimpleXMLElement $xml)
   {
     $resource = parent::fromSimpleXML($db, $xml);
-    $resource->setContentType((string) $resource['content-type']);
+    $resource->setContentType((string) $xml['content-type']);
     return $resource;
   }
 

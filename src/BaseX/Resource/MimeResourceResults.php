@@ -31,7 +31,8 @@ class MimeResourceResults extends ResourceResults
     );
     foreach ($types as $mime => $class)
     {
-      $this->assignClass($mime, $class);
+      $this->types[$mime] = $class;
+//      $this->assignClass($mime, $class);
     }
   }
 
@@ -39,7 +40,7 @@ class MimeResourceResults extends ResourceResults
   {
     if ('application/xml' === $mime)
     {
-      if ($class instanceof Document)
+      if (is_subclass_of('BaseX\Resource\Document', $class))
       {
         $this->types[$mime] = $class;
       }
@@ -50,7 +51,7 @@ class MimeResourceResults extends ResourceResults
     }
     else
     {
-      if ($class instanceof Raw)
+      if (is_subclass_of('BaseX\Resource\Raw', $class))
       {
         $this->types[$mime] = $class;
       }
