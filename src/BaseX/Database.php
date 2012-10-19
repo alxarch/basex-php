@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package BaseX
  * 
@@ -24,13 +25,13 @@ use BaseX\Query\QueryResultsInterface;
  */
 class Database
 {
-    
+
   /**
    *
    * @var \BaseX\Session
    */
   protected $session;
-  
+
   /**
    *
    * @var string
@@ -42,7 +43,6 @@ class Database
    * retrieval
    */
   protected $mapper;
-
 
   /**
    * Constructor.
@@ -58,16 +58,15 @@ class Database
     $this->session = $session;
     $this->setName($name);
   }
-  
+
   public function setName($name)
   {
-    if(!preg_match('/^[\-_a-zA-Z0-9]{1,128}$/', $name))
+    if (!preg_match('/^[\-_a-zA-Z0-9]{1,128}$/', $name))
       throw new \InvalidArgumentException('Invalid database name.');
-    
+
     $this->name = $name;
     return $this;
   }
-
 
   /**
    * Creates the database if it does not exist.
@@ -80,16 +79,17 @@ class Database
     $this->getSession()->execute("CHECK $name");
     return $this;
   }
-  
+
   /**
    * The name of the database.
    * 
    * @return string
    */
-  public function getName(){
+  public function getName()
+  {
     return $this->name;
   }
-  
+
   /**
    * Adds a document to the database.
    * 
@@ -106,7 +106,7 @@ class Database
     $this->getSession()->add($path, $input);
     return $this;
   }
-  
+
   /**
    * Replaces a resource.
    * 
@@ -123,7 +123,7 @@ class Database
     $this->getSession()->replace($path, $input);
     return $this;
   }
-  
+
   /**
    * Stores a non-xml document to the database at the specified path.
    * 
@@ -139,7 +139,7 @@ class Database
     $this->open()->getSession()->store($path, $input);
     return $this;
   }
-  
+
   /**
    * Executes a command after opening the database.
    * 
@@ -152,7 +152,7 @@ class Database
   {
     return $this->open()->getSession()->execute($command);
   }
-  
+
   /**
    * Deletes a document.
    * 
@@ -167,7 +167,7 @@ class Database
     $this->execute("DELETE \"$path\"");
     return $this;
   }
-  
+
   /**
    * Renames a document.
    * 
@@ -183,7 +183,7 @@ class Database
     $this->execute("RENAME \"$old\" \"$new\"");
     return $this;
   }
-  
+
   /**
    * 
    * @param string $path
@@ -194,7 +194,7 @@ class Database
   {
     return $this->getResources($path)->getSingle();
   }
-  
+
   /**
    * Lists all database resources.
    * 
@@ -204,9 +204,8 @@ class Database
   public function getResources($path = null)
   {
     return $this->getSession()
-            ->query("db:list-details('$this', '$path')")
-            ->getResults(new ResourceResults($this));
-   
+        ->query("db:list-details('$this', '$path')")
+        ->getResults(new ResourceResults($this));
   }
 
   protected function open()
@@ -225,7 +224,7 @@ class Database
     $xql = "count(db:list('$this', '$path')) ne 0";
     return 'true' === $this->getSession()->query($xql)->execute();
   }
-  
+
   /**
    * Retrieves contents of a database filtered by an XPath expression.
    * 
@@ -236,9 +235,10 @@ class Database
    * @return BaseX\Query\Results\QueryResultsInterface|array
    * 
    */
-  public function xpath($xpath, $path=null, QueryResultsInterface $results = null)
+  public function xpath($xpath, $path = null,
+                        QueryResultsInterface $results = null)
   {
-    if(null === $path)
+    if (null === $path)
     {
       $xq = sprintf("db:open('%s')%s", $this->getName(), $xpath);
     }
@@ -246,10 +246,10 @@ class Database
     {
       $xq = sprintf("db:open('%s', '%s')%s", $this->getName(), $path, $xpath);
     }
-    
+
     return $this->getSession()->query($xq)->getResults($results);
   }
-  
+
   /**
    *
    * @return \BaseX\Session
@@ -258,7 +258,7 @@ class Database
   {
     return $this->session;
   }
-  
+
   /**
    * 
    * @return string
@@ -267,7 +267,7 @@ class Database
   {
     return $this->getName();
   }
-  
+
   /**
    * Copies contents form source path to destination path.
    * 
@@ -288,12 +288,37 @@ class Database
         else
           db:replace('$this', \$dest, db:open('$this', \$src))
 XQL;
-    
+
     $this->getSession()->query($xql)->execute();
-    
+
     return $this;
   }
-  
 
+  public function getLatestBackup()
+  {
+    return $this->getBackups()->getFirst();
+  }
+
+  public function getBackups()
+  {
+    $xql = <<<XQL
+      for \$b in db:backups('$this') 
+        order by \$b descending
+        return \$b
+XQL;
+    return $this->getSession()
+        ->query($xql)
+        ->getResults(new UnserializableResults('BaseX\Database\Backup'));
+  }
+
+  /**
+   * Create a new backup for this Database.
+   * @return \BaseX\Database
+   */
+  public function backup()
+  {
+    $this->getSession()->execute("CREATE BACKUP $this");
+    return $this;
+  }
 
 }
