@@ -1,12 +1,17 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @package BaseX 
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
  */
+
 namespace BaseX\Resource;
 
 use BaseX\Helpers as B;
+
 /**
  * Description of Tree
  *
@@ -14,23 +19,24 @@ use BaseX\Helpers as B;
  */
 class Tree implements \ArrayAccess
 {
+
   protected $root;
   protected $cache;
   protected $children;
   protected $maxdepth;
-  
+
   /**
    *
    * @var callable
    */
   protected $loader;
-  
+
   /**
    *
    * @var array
    */
   protected $items;
-  
+
   /**
    * @var callable
    */
@@ -42,18 +48,18 @@ class Tree implements \ArrayAccess
    * @param callable $items A c
    * @param type $maxdepth
    */
-  public function __construct($root) 
+  public function __construct($root)
   {
     $this->root = $root;
   }
-  
+
   public function setItemLoader($loader)
   {
-    if(!is_callable($loader))
+    if (!is_callable($loader))
     {
       throw new \InvalidArgumentException('Non callable loader.');
 
-      if(is_array($loader))
+      if (is_array($loader))
       {
         $callback = new \ReflectionMethod($loader[0], $loader[1]);
       }
@@ -61,26 +67,25 @@ class Tree implements \ArrayAccess
       {
         $callback = new \ReflectionFunction($loader);
       }
-      
-      if($callback->getNumberOfRequiredParameters() > 1)
+
+      if ($callback->getNumberOfRequiredParameters() > 1)
       {
         throw new \InvalidArgumentException('Invalid callable, too many required params.');
       }
-      
     }
-    
+
     $this->loader = $loader;
-    
+
     return $this;
   }
 
   public function setTreeConverter($converter)
   {
-    if(!is_callable($converter))
+    if (!is_callable($converter))
     {
       throw new \InvalidArgumentException('Non callable converter.');
 
-      if(is_array($converter))
+      if (is_array($converter))
       {
         $callback = new \ReflectionMethod($converter[0], $converter[1]);
       }
@@ -88,14 +93,13 @@ class Tree implements \ArrayAccess
       {
         $callback = new \ReflectionFunction($converter);
       }
-      
-      if($callback->getNumberOfRequiredParameters() > 1)
+
+      if ($callback->getNumberOfRequiredParameters() > 1)
       {
         throw new \InvalidArgumentException('Invalid callable, too many required params.');
       }
-      
     }
-    
+
     $this->converter = $converter;
     return $this;
   }
@@ -104,16 +108,16 @@ class Tree implements \ArrayAccess
   {
     return $this->root;
   }
-  
+
   public function setMaxdepth($depth)
   {
-    $this->maxdepth = (int)$depth;
+    $this->maxdepth = (int) $depth;
     return $this;
   }
-  
+
   public function getMaxdepth($depth)
   {
-    return $this->maxdepth = (int)$depth;
+    return $this->maxdepth = (int) $depth;
   }
 
   /**
@@ -122,18 +126,20 @@ class Tree implements \ArrayAccess
    * @param array[string]Object $items path => item
    * @param $depth int
    */
-  protected function build($items, $depth=-1)
+  protected function build($items, $depth = -1)
   {
     $class = get_called_class();
-    if(null === $this->cache) $this->cache = array();
-    if(null === $this->children) $this->children = array();
-    
+    if (null === $this->cache)
+      $this->cache = array();
+    if (null === $this->children)
+      $this->children = array();
+
     $rootpath = $this->root === '' ? '' : sprintf('%s/', $this->root);
-    $rootlen =  strlen($rootpath);
-    
-    foreach($items as $path => $item)
+    $rootlen = strlen($rootpath);
+
+    foreach ($items as $path => $item)
     {
-      if($rootlen === 0 || 0 === strpos($path, $rootpath))
+      if ($rootlen === 0 || 0 === strpos($path, $rootpath))
       {
         $relpath = substr($path, $rootlen);
       }
@@ -141,55 +147,55 @@ class Tree implements \ArrayAccess
       {
         continue;
       }
-     
+
       $pos = strpos($relpath, '/');
-      
-      if($pos === false)
+
+      if ($pos === false)
       {
         $this->children[$relpath] = $item;
         $this->cache["/$path"] = $item;
         continue;
       }
-   
+
       $name = substr($relpath, 0, $pos);
 
       $childroot = B::path($this->root, $name);
 
-      if(!isset($this->cache["/$childroot"]))
+      if (!isset($this->cache["/$childroot"]))
       {
         $child = new $class($childroot);
-        
+
         $this->children[$name] = $child;
         $this->cache["/$childroot"] = $child;
 
-        if($depth !== 0)
+        if ($depth !== 0)
         {
           $child->build($items, $depth - 1);
           $this->cache = array_replace($this->cache, $child->cache);
         }
       }
     }
-    
+
     $this->cache['/'] = $this;
   }
-  
+
   public function getChildren()
   {
     return $this->children;
   }
-  
-  protected function getItems($path='')
+
+  protected function getItems($path = '')
   {
-    if(null !== $this->loader)
+    if (null !== $this->loader)
     {
       return call_user_func($this->loader, $path);
     }
-    
-    if(null !== $this->items)
+
+    if (null !== $this->items)
     {
-      if($path)
+      if ($path)
       {
-        if(isset($this->items[$path]))
+        if (isset($this->items[$path]))
         {
           return $this->items[$path];
         }
@@ -203,92 +209,95 @@ class Tree implements \ArrayAccess
     return null;
   }
 
-  public function rebuild($path='')
+  public function rebuild($path = '')
   {
-    if($path === '/')  $path = '';
-    
-    if($this->maxdepth >= 0)
+    if ($path === '/')
+      $path = '';
+
+    if ($this->maxdepth >= 0)
       $depth = $this->maxdepth - count(explode('/', $path)) + 1;
     else
       $depth = -1;
-    
-    if($this->maxdepth < 0 || $depth >= 0)
+
+    if ($this->maxdepth < 0 || $depth >= 0)
     {
       $items = $this->getItems($path);
-      if(null === $items)
+      if (null === $items)
       {
         throw new \RuntimeException('Unable to refresh resources.');
       }
-      
+
       $this->build(call_user_func($this->loader, $path), $depth);
     }
     else
     {
       throw new \LogicException('Requested path is too deep for this tree.');
     }
-    
+
     return $this;
   }
 
-  public function offsetExists($path) 
+  public function offsetExists($path)
   {
-    if(isset($this->cache["/$path"]))
+    if (isset($this->cache["/$path"]))
     {
       return true;
     }
-    elseif(null === $this->loader)
+    elseif (null === $this->loader)
     {
       return false;
     }
     else
     {
       $this->rebuild($path);
-      
+
       return isset($this->cache["/$path"]);
     }
   }
-  
+
   public function convert($item)
   {
-    if($item instanceof Tree && null !== $this->converter)
+    if ($item instanceof Tree && null !== $this->converter)
     {
       return call_user_func($this->converter, $item);
     }
     return $item;
   }
 
-  public function offsetGet($path) {
+  public function offsetGet($path)
+  {
     $path = trim($path, '/');
-    if($this->offsetExists($path))
+    if ($this->offsetExists($path))
     {
       $item = $this->cache["/$path"];
       return $this->convert($item);
     }
-    
+
     return null;
   }
 
-  public function offsetSet($offset, $value) {
+  public function offsetSet($offset, $value)
+  {
     throw new \RuntimeException('Not implemented.');
   }
 
-  public function offsetUnset($path) 
+  public function offsetUnset($path)
   {
-    if(null === $this->cache)
+    if (null === $this->cache)
       return;
     unset($this->cache["/$path"]);
-    
+
     $check = "/$path/";
-    
+
     foreach ($this->cache as $key => $path)
     {
-      if(strpos($key, $check) === 0)
+      if (strpos($key, $check) === 0)
       {
         unset($this->cache[$key]);
       }
     }
   }
-  
+
   /**
    * 
    * @param type $path
@@ -299,4 +308,5 @@ class Tree implements \ArrayAccess
     $class = get_called_class();
     return new $class($path);
   }
+
 }
