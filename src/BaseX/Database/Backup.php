@@ -11,8 +11,6 @@
 namespace BaseX\Database;
 
 use BaseX\Error\UnserializationError;
-use BaseX\Database;
-use BaseX\Query\Result\UnserializableResults;
 
 /**
  * BaseX Database Backup.
@@ -46,7 +44,7 @@ class Backup
   /**
    * The database this backup belongs to.
    * 
-   * @return \BaseX\Database
+   * @return string
    */
   public function getDatabase()
   {

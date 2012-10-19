@@ -13,6 +13,7 @@ namespace BaseX;
 use BaseX\Session;
 use BaseX\Resource\ResourceResults;
 use BaseX\Query\QueryResultsInterface;
+use Query\Results\UnserializableResults;
 
 /**
  * BaseX Database object.
