@@ -1,6 +1,6 @@
 <?php
 
-namespace BaseX\Dav;
+namespace BaseX\Dav\Locks;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Dav\Locks\LockInfo;

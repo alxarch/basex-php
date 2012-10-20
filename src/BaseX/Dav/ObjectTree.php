@@ -345,4 +345,15 @@ class ObjectTree extends Sabre_DAV_ObjectTree
     return $this->root;
   }
 
+  public function get(ResourceNode $node)
+  {
+    $path = $this->getFullpath($node->path);
+    if(!$node->raw)
+    {
+      $doc = new \BaseX\Resource\Document($this->getDatabase(), $path);
+      return $doc->getContents();
+    }
+    
+    return fopen($this->getURI($node), 'r');
+  }
 }

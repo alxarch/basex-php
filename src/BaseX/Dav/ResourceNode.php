@@ -41,7 +41,7 @@ class ResourceNode extends Node implements \Sabre_DAV_IFile
   }
 
   public function get(){
-    return fopen($this->tree->getURI($this), 'r');
+    return $this->tree->get($this);
   }
 
   public function getETag() {

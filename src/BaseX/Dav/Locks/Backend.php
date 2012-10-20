@@ -121,11 +121,6 @@ XQL;
     */
   public function unlock($uri, Sabre_DAV_Locks_LockInfo $lock) 
   {
-    if(!$lock instanceof LockInfo)
-    {
-      throw new \InvalidArgumentException('Invalid lock class.');
-    }
-    
     $this->db->delete("$this->path/$uri/lock.xml");
     return true;
   }
