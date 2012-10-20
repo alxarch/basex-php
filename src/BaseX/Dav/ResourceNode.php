@@ -8,7 +8,7 @@
 namespace BaseX\Dav;
 
 use BaseX\Dav\Node;
-use BaseX\Resource;
+use BaseX\Helpers as B;
 
 /**
  * WebDAV file node representing a BaseX resource.
@@ -24,7 +24,7 @@ class ResourceNode extends Node implements \Sabre_DAV_IFile
   public $raw;
   
   public function getSize(){
-    return $this->size;
+    return $this->raw ? (int)$this->size : 0;
   }
   
   public function isRaw()
@@ -37,33 +37,17 @@ class ResourceNode extends Node implements \Sabre_DAV_IFile
   }
   
   public function put($data){
-    $this->tree->put($this, $data);
+    if($this->raw)
+      $this->db->store($this->path, $data);
+    else
+      $this->db->replace($this->path, $data);
   }
 
   public function get(){
-    return $this->tree->get($this);
+    return fopen(B::uri($this->db, $this->path), 'r');
   }
 
   public function getETag() {
-    return $this->tree->getEtag($this);
-  }
-  
-  public function unserialize($data)
-  {
-    $xml = @simplexml_load_string($data);
-    
-    if($xml instanceof \SimpleXMLElement)
-    {
-      $this->path = $this->tree->getRelativePath((string) $xml);
-      $time = Resource::parseDate((string) $xml['modified-date']);
-      if($time instanceof \DateTime)
-        $this->modified = (int) $time->format('U');
-      else
-        $this->modified = time();
-      
-      $this->mime = (string) $xml['content-type'];
-      $this->size = isset($xml['size']) ? (int) $xml['size'] : 0;
-      $this->raw = 'false' !== (string) $xml['raw'];
-    }
+    return sprintf('"%s/%s/%s"', $this->db, $this->path, $this->modified);
   }
 }

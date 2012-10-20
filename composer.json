@@ -1,7 +1,7 @@
 {
   "name": "alxarch/basex-php",
   "require-dev": {
-    "sabre/dav": "1.6.4",
+    "sabre/dav": "1.7.1",
     "silex/silex": "dev-master",
     "symfony/security": "2.1.x",
     "symfony/serializer": "2.1.x",

@@ -104,4 +104,9 @@ class QueryResults implements QueryResultsInterface
   public function supportsMethod($method) {
     return true;
   }
+  
+  public function asArray()
+  {
+    return $this->data;
+  }
 }

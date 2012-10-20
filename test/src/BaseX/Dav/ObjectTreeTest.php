@@ -15,8 +15,8 @@ class ObjectTreeTest extends TestCaseDb {
 
     $this->assertTrue($tree->nodeExists('test.xml'));
     $this->assertTrue($tree->nodeExists('test'));
-    $this->assertFalse($tree->nodeExists(''));
-    $this->assertF/alse($tree->nodeExists('/'));
+    $this->assertTrue($tree->nodeExists(''));
+    $this->assertTrue($tree->nodeExists('/'));
     $this->assertFalse($tree->nodeExists('bazinga.txt'));
     $this->assertTrue($tree->nodeExists('test/.protect/sa.xml'));
     $this->assertTrue($tree->nodeExists('test/sa.xml'));

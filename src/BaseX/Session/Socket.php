@@ -23,7 +23,7 @@ use BaseX\Helpers as B;
 class Socket
 {
   const BUFFER_SIZE = 4096;
-  const TIMEOUT = 8;
+  const TIMEOUT = 1;
   const NUL = "\x00";
   const PAD = "\xff";
   const PADDED_NUL = "\xff\x00";

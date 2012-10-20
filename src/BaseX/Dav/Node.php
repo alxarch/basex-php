@@ -8,8 +8,9 @@
 namespace BaseX\Dav;
 
 use Sabre_DAV_INode;
-use BaseX\Dav\ObjectTree;
 use BaseX\Helpers as B;
+use BaseX\Database;
+
 /**
  * Description of INode
  *
@@ -18,20 +19,20 @@ use BaseX\Helpers as B;
 abstract class Node implements Sabre_DAV_INode
 {
   /**
-   * @var \BaseX\Dav\ObjectTree
+   * @var \BaseX\Database
    */
-  protected $tree;
+  protected $db;
   public $path;
   public $modified;
   
-  public function __construct(ObjectTree $tree, $path)
+  public function __construct(Database $db, $path)
   {
-    $this->tree = $tree;
+    $this->db = $db;
     $this->path = $path;
   }
   
   public function delete() {
-    $this->tree->delete($this->path);
+    $this->db->delete($this->path);
   }
   
   public function getLastModified() {
@@ -44,12 +45,7 @@ abstract class Node implements Sabre_DAV_INode
 
   public function setName($name){
     $dest = B::rename($this->path, $name);
-    $this->tree->move($this->path, $dest);
+    $this->db->rename($this->path, $dest);
     $this->path = $dest;
-    
-  }
-  
-  public function getFullpath(){
-    return $this->tree->getFullpath($this->path);
   }
 }

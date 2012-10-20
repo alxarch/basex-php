@@ -11,6 +11,8 @@ namespace BaseX\Dav;
 use Sabre_DAV_ICollection;
 use BaseX\Dav\Node;
 use BaseX\Helpers as B;
+use BaseX\Dav\ResourceNodeIterator;
+use \Sabre_DAV_Exception_NotFound;
 
 /**
  * WebDAV collection node representing a collection in a BaseX database.
@@ -21,31 +23,74 @@ use BaseX\Helpers as B;
 class CollectionNode extends Node implements Sabre_DAV_ICollection
 {
 
-  public $children;
-
   public function getChildren()
   {
-    return $this->tree->getChildren($this->path);
+    $children = array();
+
+    foreach ($this->getNodes() as $node)
+    {
+      $rel = B::relative($node->path, $this->path);
+      if (false === $rel)
+      {
+        continue;
+      }
+      $pos = strpos($rel, '/');
+      if (false === $pos)
+      {
+        $children[$rel] = $node;
+        continue;
+      }
+
+      $name = substr($rel, 0, $pos);
+      if (!isset($children[$name]))
+      {
+        $children[$name] = new CollectionNode($this->db, B::path($this->path, $name));
+      }
+    }
+
+    return $children;
+  }
+
+  protected function getNodes($path = '')
+  {
+    return new ResourceNodeIterator($this->db, B::path($this->path, $path));
   }
 
   public function getChild($name)
   {
-    return $this->tree->getNodeForPath(B::path($this->path, $name));
+    $nodes = $this->getNodes($name);
+    $path = B::path($this->path, $name);
+    switch (count($nodes))
+    {
+      case 0:
+        throw new Sabre_DAV_Exception_NotFound;
+        break;
+      case 1:
+        $node = $nodes->getFirst();
+        if ($node->path === $path)
+          return $node;
+        else
+          return new CollectionNode($this->db, $path);
+        break;
+      default:
+        return new CollectionNode($this->db, $path);
+        break;
+    }
   }
 
   public function childExists($name)
   {
-    return $this->tree->nodeExists(B::path($this->path, $name));
+    return $this->db->exists(B::path($this->path, $name));
   }
 
   public function createFile($name, $data = null)
   {
-    return $this->tree->addNode($this, $name, $data);
+    throw new \Sabre_DAV_Exception_NotImplemented;
   }
 
   public function createDirectory($name)
   {
-    return $this->tree->addNode($this, $name . '/.empty', null, 'store');
+    return $this->db->store(B::path($this->path, $name, '.empty'), '');
   }
 
   public function getLastModified()

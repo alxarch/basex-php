@@ -8,11 +8,11 @@
 namespace BaseX\Dav\Locks;
 
 use BaseX\Database;
-use BaseX\Query\Results\UnserializableResults;
 use Sabre_DAV_Locks_Backend_Abstract as AbstractBackend;
-use BaseX\Dav\Locks\LockInfo;
 use BaseX\Helpers as B;
-use Sabre_DAV_Locks_LockInfo;
+use Sabre_DAV_Locks_LockInfo as LockInfo;
+use BaseX\Query\Results\CallbackResults;
+use BaseX\Query\QueryBuilder;
 
 /**
  * WebDAV locks backend storing lock info in a BaseX database.
@@ -62,33 +62,31 @@ class Backend extends AbstractBackend
     */
   public function getLocks($uri, $returnChildLocks) 
   {
+    $locks = QueryBuilder::begin()
+          ->setBody("db:open('$this->db', '$this->path')//*:lock")
+          ->getQuery($this->db->getSession())
+          ->getResults(new CallbackResults(array($this, 'unserialize')));
     
-    $childlocks = B::value((boolean)$returnChildLocks);
+    $result = array();
     
-    $xql = <<<XQL
- 
-let \$uri := '$uri'
-let \$childlocks := $childlocks
-let \$now := convert:dateTime-to-ms(current-dateTime())
-let \$parts :=  tokenize(\$uri, '/')
-let \$parents := 
-  for \$part at \$i in \$parts
-    return string-join(subsequence(\$parts, 0, \$i), '/')
+    $now = time();
     
-return 
-
-for \$lock in db:open('$this->db', '$this->path')//lock
-  let \$expires := (xs:integer(\$lock/created) + xs:integer(\$lock/timeout)) * 1000
-  let \$parentlock :=  \$lock/depth != 0 and \$lock/uri = \$parents
-  let \$childlock := \$childlocks and starts-with(\$lock/uri, \$uri || '/')
-  
-  where \$expires > \$now and (\$lock/uri = \$uri or \$parentlock or \$childlock)
-   
-  return \$lock
-
-XQL;
+    foreach ($locks as $lock)
+    {
+      if($lock->created + $lock->timeout > $now)
+      {
+        if($lock->uri === $uri || false !== B::relative($uri, $lock->uri))
+        {
+          $result[] = $lock;
+        }
+        elseif ($returnChildLocks && false !== B::relative($lock->uri, $uri)) 
+        {
+          $result[] = $lock;
+        }
+      }
+    }
     
-    return $this->db->getSession()->query($xql)->getResults(new UnserializableResults(new LockInfo));
+    return $result;
   }
 
   /**
@@ -98,17 +96,11 @@ XQL;
     * @param Sabre_DAV_Locks_LockInfo $lockInfo
     * @return bool
     */
-  public function lock($uri, Sabre_DAV_Locks_LockInfo $lock) 
+  public function lock($uri, LockInfo $lock) 
   {
-    if(!$lock instanceof LockInfo)
-    {
-      throw new \InvalidArgumentException('Invalid lock class.');
-    }
-    
-    $lock->uri = $uri;
-    
-    $xml = $lock->serialize();
-    $this->db->replace("$this->path/$uri/lock.xml", $xml);
+    $lock->uri = trim($uri);
+    $xml = $this->serialize($lock);
+    $this->db->replace("$this->path/$lock->token.xml", $xml);
     return true;
   }
 
@@ -119,10 +111,38 @@ XQL;
     * @param Sabre_DAV_Locks_LockInfo $lockInfo
     * @return bool
     */
-  public function unlock($uri, Sabre_DAV_Locks_LockInfo $lock) 
+  public function unlock($uri, LockInfo $lock) 
   {
-    $this->db->delete("$this->path/$uri/lock.xml");
+    $this->db->delete("$this->path/$lock->token.xml");
     return true;
+  }
+  
+  public function serialize(LockInfo $lock)
+  {
+    $xml = simplexml_load_string('<lock xmlns=""/>');
+    $xml->addChild('created', $lock->created ? $lock->created : time());
+    $xml->addChild('timeout', isset($lock->timeout) ? $lock->timeout : 3600);
+    $xml->addChild('token', $lock->token);
+    $xml->addChild('uri', $lock->uri);
+    $xml->addChild('owner', isset($lock->owner) ? $lock->owner : 'AnonymousCoward');
+    $xml->addChild('depth', isset($lock->depth) ? $lock->depth : 0);
+    $xml->addChild('scope', isset($lock->scope) ? $lock->scope : LockInfo::EXCLUSIVE);
+    return $xml->asXML();
+  }
+  
+  public function unserialize($data)
+  {
+    $xml = @simplexml_load_string($data);
+    
+    $lock = new LockInfo();
+    $lock->uri = (string) $xml->uri;
+    $lock->token = (string) $xml->token;
+    $lock->created = (int) $xml->created;
+    $lock->depth = (int) $xml->maxdepth;
+    $lock->owner = (string) $xml->owner;
+    $lock->scope = (int) $xml->scope;
+    $lock->timeout = (int) $xml->timeout;
+    return $lock;
   }
 
 }
