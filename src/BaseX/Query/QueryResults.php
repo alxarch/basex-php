@@ -40,7 +40,7 @@ class QueryResults implements QueryResultsInterface
   }
 
   public function key() {
-    return $this->current;
+    return  null === $this->data ? null : $this->current;
   }
 
   public function next() {
