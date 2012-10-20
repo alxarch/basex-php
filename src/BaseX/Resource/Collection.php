@@ -47,7 +47,7 @@ class Collection extends Resource implements CollectionInterface
   /**
    * 
    * @param string $path
-   * @param \BaseX\Query\Result\SimpleXMLMapperInterface $mapper
+   * @param \BaseX\Query\Results\SimpleXMLMapperInterface $mapper
    * @return array
    */
   public function getChildren()

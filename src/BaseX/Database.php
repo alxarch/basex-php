@@ -40,12 +40,6 @@ class Database
   protected $name;
 
   /**
-   * @var \BaseX\Query\Result\MapperInterface Mapper to use for resource 
-   * retrieval
-   */
-  protected $mapper;
-
-  /**
    * Constructor.
    * 
    * If the database does not exist (and the session user has the required 
@@ -188,7 +182,6 @@ class Database
   /**
    * 
    * @param string $path
-   * @param \BaseX\Query\Result\MapperInterface $mapper
    * @return mixed
    */
   public function getResource($path)
@@ -230,10 +223,10 @@ class Database
    * Retrieves contents of a database filtered by an XPath expression.
    * 
    * @param string $xpath An XPath expression to apply to the contents.
-   * @param string $path An path to limit scope of contents.
-   * @param \BaseX\Query\Result\Results $results A mapper to use for
-   * the results.
-   * @return BaseX\Query\Results\QueryResultsInterface|array
+   * @param string $path A path to limit scope of contents.
+   * @param \BaseX\Query\QueryResultsInterface $results 
+   * 
+   * @return BaseX\Query\QueryResultsInterface
    * 
    */
   public function xpath($xpath, $path = null,

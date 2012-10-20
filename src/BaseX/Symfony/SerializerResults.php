@@ -6,7 +6,7 @@
  */
 namespace BaseX\Symfony;
 
-use BaseX\Query\Result\ProcessedResults;
+use BaseX\Query\Results\ProcessedResults;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -35,7 +35,7 @@ class SerializerResults extends ProcessedResults
   /**
    * 
    * @param string $type
-   * @return \Query\Result\QueryResults
+   * @return \Query\Results\QueryResults
    */
   public function setType($type)
   {
@@ -46,7 +46,7 @@ class SerializerResults extends ProcessedResults
   /**
    * 
    * @param string $format
-   * @return \Query\Result\QueryResults
+   * @return \Query\Results\QueryResults
    */
   public function setFormat($format)
   {
@@ -56,8 +56,8 @@ class SerializerResults extends ProcessedResults
 
   /**
    * 
-   * @param \Query\Result\SerializerInterface $serializer
-   * @return \Query\Result\QueryResults $this
+   * @param \Symfony\Component\Serializer\SerializerInterface $serializer
+   * @return \Query\Results\QueryResults $this
    */
   public function setSerializer(SerializerInterface $serializer) {
     $this->serializer = $serializer;

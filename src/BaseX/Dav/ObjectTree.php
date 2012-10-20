@@ -9,7 +9,7 @@
 
 namespace BaseX\Dav;
 
-use Query\Result\DateTimeResults;
+use Query\Results\DateTimeResults;
 use BaseX\Database;
 use BaseX\Dav\ResourceNode;
 use BaseX\Dav\ResourceNodeResults;

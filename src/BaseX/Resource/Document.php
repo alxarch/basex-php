@@ -12,7 +12,7 @@ namespace BaseX\Resource;
 
 use BaseX\Resource\Streamable;
 use \DOMDocument as XML;
-use BaseX\Query\Result\QueryResultsInterface;
+use BaseX\Query\QueryResultsInterface;
 
 /**
  * BaseX Resource for xml documents.

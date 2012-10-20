@@ -1,8 +1,11 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @package BaseX 
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
  */
 
 namespace BaseX\Query\Results;

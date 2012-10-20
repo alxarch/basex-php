@@ -32,7 +32,6 @@ class QueryResults implements QueryResultsInterface
    * 
    * @param scalar $data
    * @param int $type
-   * @return \Query\Result\QueryResults
    */
   public function addResult($data, $type)
   {

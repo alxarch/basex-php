@@ -6,6 +6,7 @@
  * @author Alexandros Sigalas <alxarch@gmail.com>
  * @license BSD License
  */
+
 namespace BaseX\Query\Results;
 
 use BaseX\Query\Results\ProcessedResults;

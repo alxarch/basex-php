@@ -250,8 +250,8 @@ class Query
  
   /**
    * 
-   * @param \BaseX\Query\Result\QueryResultsInterface $results
-   * @return \BaseX\Query\Result\QueryResultsInterface
+   * @param \BaseX\Query\QueryResultsInterface $results
+   * @return \BaseX\Query\QueryResultsInterface
    * @throws \InvalidArgumentException
    */
   public function getResults(QueryResultsInterface $results=null)
