@@ -21,21 +21,10 @@ use BaseX\Database;
 class Raw extends Streamable
 {
 
-  protected $size;
-
+  
   public function isRaw()
   {
     return true;
-  }
-
-  public function setSize($size)
-  {
-    $this->size = (int) $size;
-  }
-
-  public function getSize()
-  {
-    return $this->size;
   }
 
   public function getFilepath()

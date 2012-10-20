@@ -25,6 +25,13 @@ abstract class Streamable extends Resource implements StreamableInterface
 {
 
   /**
+   *
+   * @var int
+   */
+  
+  protected $size;
+
+  /**
    * Content-Type for this resource.
    * 
    * @var string
@@ -115,6 +122,16 @@ abstract class Streamable extends Resource implements StreamableInterface
     $resource = parent::fromSimpleXML($db, $xml);
     $resource->setContentType((string) $xml['content-type']);
     return $resource;
+  }
+  
+  public function setSize($size)
+  {
+    $this->size = (int) $size;
+  }
+
+  public function getSize()
+  {
+    return $this->size;
   }
 
 }

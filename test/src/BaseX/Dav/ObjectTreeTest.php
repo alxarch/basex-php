@@ -16,10 +16,26 @@ class ObjectTreeTest extends TestCaseDb {
     $this->assertTrue($tree->nodeExists('test.xml'));
     $this->assertTrue($tree->nodeExists('test'));
     $this->assertFalse($tree->nodeExists(''));
-    $this->assertFalse($tree->nodeExists('/'));
+    $this->assertF/alse($tree->nodeExists('/'));
     $this->assertFalse($tree->nodeExists('bazinga.txt'));
     $this->assertTrue($tree->nodeExists('test/.protect/sa.xml'));
     $this->assertTrue($tree->nodeExists('test/sa.xml'));
+  }
+  
+  function testGetChildren()
+  {
+    $this->db->add('test/sa.xml', '<root/>');
+    $this->db->add('test.xml', '<root/>');
+    $this->db->add('test/.protect/sa.xml', '<root/>');
+    $tree = new ObjectTree($this->db);
+    $children = $tree->getChildren('');
+    $this->assertTrue(is_array($children));
+    $this->assertEquals(2, count($children));
+    
+    $granchildren = $tree->getChildren('test');
+    
+    $this->assertTrue(is_array($granchildren));
+    $this->assertEquals(2, count($granchildren));
   }
 
   function testGetNodeForPath() {

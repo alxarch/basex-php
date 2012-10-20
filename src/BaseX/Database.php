@@ -11,7 +11,7 @@
 namespace BaseX;
 
 use BaseX\Session;
-use BaseX\Resource\ResourceResults;
+use BaseX\Resource\Iterator\ResourceIterator;
 use BaseX\Query\QueryResultsInterface;
 use BaseX\Query\Results\UnserializableResults;
 
@@ -182,7 +182,7 @@ class Database
   /**
    * 
    * @param string $path
-   * @return mixed
+   * @return \BaseX\Resource|null
    */
   public function getResource($path)
   {
@@ -193,13 +193,13 @@ class Database
    * Lists all database resources.
    * 
    * @param string $path 
-   * @return \BaseX\Resource\ResourceResults
+   * @param boolean $modified
+   * 
+   * @return \BaseX\Resource\Iterator\ResourceIterator
    */
-  public function getResources($path = null)
+  public function getResources($path = null, $modified = true)
   {
-    return $this->getSession()
-        ->query("db:list-details('$this', '$path')")
-        ->getResults(new ResourceResults($this));
+    return new ResourceIterator($this, $path, $modified);
   }
 
   protected function open()

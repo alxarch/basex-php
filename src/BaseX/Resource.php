@@ -216,9 +216,45 @@ abstract class Resource implements ResourceInterface
     $class = get_called_class();
 
     $resource = new $class($db, (string) $xml);
-    $modified = \DateTime::createFromFormat(self::DATE_FORMAT, (string) $xml['modified-date']);
-    $resource->setModified($modified);
+    $modified = self::parseDate((string) $xml['modified-date']);
+    if (false !== $modified)
+    {
+      $resource->setModified($modified);
+    }
+
     return $resource;
+  }
+
+  /**
+   * Converts <resource>'s modified-date attribute to DateTime.
+   * 
+   * @param string $date
+   * 
+   * @return \DateTime|null
+   */
+  static public function parseDate($date)
+  {
+    $date = date_create_from_format(self::DATE_FORMAT, $date);
+    return false === $date ? null : $date;
+  }
+  
+  /**
+   *
+   * 
+   * @param string $line
+   * 
+   * @return array|null
+   */
+  static public function parseLine($line)
+  {
+    $matches = array();
+    $pattern = "/(?P<path>.+[^\s])\s+(?P<type>raw|xml)\s+(?P<content_type>[^\s]+)\s+(?P<size>\d+)?/";
+    if(preg_match($pattern, $line, $matches))
+    {
+      return $matches;
+    }
+    
+    return null;
   }
 
 }

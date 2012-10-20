@@ -27,8 +27,7 @@ class ResourceNodeTest extends TestCaseDb {
     $this->tree = new ObjectTree($this->db);
     $this->db->add('test.xml', '<test/>');
     $this->db->store('sa/test.txt', 'test');
-    $this->node = new ResourceNode($this->tree);
-    $this->node->path = 'test.xml';
+    $this->node = new ResourceNode($this->tree, 'test.xml');
   }
 
 
@@ -60,11 +59,11 @@ class ResourceNodeTest extends TestCaseDb {
    * @covers BaseX\Dav\ResourceNode::getSize
    */
   public function testGetSize() {
-    $this->assertEquals(0, $this->node->getSize());
+    $this->assertEquals(null, $this->node->getSize());
     $raw = $this->tree->getNodeForPath('sa/test.txt');
     $this->assertNotEquals(0, $raw->getSize());
     $x = $this->tree->getNodeForPath('test.xml');
-    $this->assertEquals(0, $x->getSize());
+    $this->assertEquals(2, $x->getSize());
   }
 
   /**

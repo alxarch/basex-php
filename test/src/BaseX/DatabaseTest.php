@@ -163,34 +163,30 @@ class DatabaseTest extends TestCaseDb
 
     $resources = $this->db->getResources('');
 
-    $this->assertTrue($resources instanceof ResourceResults);
+    $this->assertTrue($resources instanceof Resource\Iterator\ResourceIterator);
     $this->assertEquals(4, count($resources));
 
-    foreach ($resources as $r) {
+    foreach ($resources->byPath() as $r) {
       $this->assertInstanceOf('BaseX\Resource', $r);
     }
 
     $resource = $resources[0];
-    $this->assertEquals('test-1.xml', $resource->getPath());
-    $resource = $resources[1];
     $this->assertEquals('dir/test-2.xml', $resource->getPath());
     $resource = $resources[2];
+    $this->assertEquals('test-1.xml', $resource->getPath());
+    $resource = $resources[1];
     $this->assertEquals('dir/test-3.xml', $resource->getPath());
     $resource = $resources[3];
     $this->assertEquals('test.txt', $resource->getPath());
 
     $resources = $this->db->getResources('dir/');
-    $this->assertTrue($resources instanceof ResourceResults);
+    $this->assertTrue($resources instanceof Resource\Iterator\ResourceIterator);
     $this->assertEquals(2, count($resources));
 
     foreach ($resources as $r) {
       $this->assertInstanceOf('BaseX\Resource', $r);
     }
 
-    $this->db->delete('test-1.xml');
-    $this->db->delete('test-2.xml');
-    $this->db->delete('test-3.xml');
-    $this->db->delete('test.txt');
   }
   
   public function testCreate()
@@ -231,119 +227,6 @@ class DatabaseTest extends TestCaseDb
   }
   
 
-//  /**
-//   * @depends testDelete
-//   */
-//  public function testAddXML()
-//  {
-//    $input = '<root/>';
-//    $path = 'test.xml';
-//    
-//    $this->db->addXML($path, $input);
-//    
-//    $this->assertContains($path, $this->ls());
-//    $actual = $this->doc($path);
-//    $this->assertXmlStringEqualsXmlString($input, $actual);
-//    
-//    $this->db->delete($path);
-//    
-//    $this->db->addXML(array($path => $input), null);
-//    $this->assertContains($path, $this->ls());
-//    $actual = $this->doc($path);
-//    $this->assertXmlStringEqualsXmlString($input, $actual);
-//    
-//    $this->assertResetAfterAdd();
-//    
-//    $this->db->delete($path);
-//  }
-//  
-//  /**
-//   * @depends testDelete
-//   */
-//  public function testAddHTML()
-//  {
-//    $html = <<<HTML
-//    <!doctype html>
-//    <html>
-//      <head>
-//        <meta charset="utf-8">
-//        <title>Hello</title>
-//      </head>
-//      <body>
-//        <h1>Hello Test!</h1>
-//      </body>
-//    </html>
-//HTML;
-//    
-//    $path = "test.html";
-//    
-//    $this->db->addHTML($path, $html);
-//    
-//    $this->assertContains($path, $this->ls());
-//    
-//    $this->assertResetAfterAdd();
-//    
-//    $this->db->delete($path);
-//  }
-//  
-//  /**
-//   * @depends testDelete
-//   */
-//  public function testAddJSON()
-//  {
-//    $json = '{"key": "value"}';
-//    
-//    $path = "test.json";
-//    
-//    $this->db->addJSON($path, $json);
-//    
-//    $this->assertContains($path, $this->ls());
-//    
-//    $this->assertResetAfterAdd();
-//  }
-//  
-//  /**
-//   * @depends testDelete
-//   */
-//  public function testAddCSV()
-//  {
-//    $json = "val1, val2\nval1, val2";
-//    
-//    $path = "test.csv";
-//    
-//    $this->db->addCSV($path, $json);
-//    
-//    $this->assertContains($path, $this->ls());
-//    
-//    $this->assertResetAfterAdd();
-//    
-//    $this->db->delete($path);
-//  }
-
-  protected function assertResetAfterAdd() {
-//    $actual = $this->session->execute('GET PARSER');
-//    $this->assertEquals("PARSER: xml\n", $actual);
-//    
-//    $actual = $this->session->execute('GET PARSEROPT');
-//    $this->assertEquals("PARSEROPT: \n", $actual);
-//    
-//    $actual = $this->session->execute('GET HTMLOPT');
-//    $this->assertEquals("HTMLOPT: \n", $actual);
-//    
-//    $actual = $this->session->execute('GET CREATEFILTER');
-//    $this->assertEquals("CREATEFILTER: \n", $actual);
-  }
-
-//  /**
-//   * @depends testDelete
-//   */
-//  public function testExists()
-//  {
-//    $this->assertFalse($this->db->exists('file_'.time().'.xml'));
-//    $this->db->add('test.xml', '<test/>');
-//    $this->assertTrue($this->db->exists('test.xml'));
-//    $this->db->delete('test.xml');
-//  }
 
   /**
    * @depends testDelete 

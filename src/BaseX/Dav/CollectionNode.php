@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (c) 2012, Alexandors Sigalas
  * @author Alexandros Sigalas <alxarch@gmail.com>
@@ -19,50 +20,37 @@ use BaseX\Helpers as B;
  */
 class CollectionNode extends Node implements Sabre_DAV_ICollection
 {
+
   public $children;
-  
-  public function getChildren(){
-    if(null === $this->children)
-    {
-      $this->children = $this->tree->getChildren($this->path);
-    }
-    return $this->children;
+
+  public function getChildren()
+  {
+    return $this->tree->getChildren($this->path);
   }
 
-  public function getChild($name){
-    if(null === $this->children)
-    {
-      $this->children = $this->tree->getChildren($this->path);
-    }
-    
-    return isset ($this->children[$name]) ? $this->children[$name] : null;
+  public function getChild($name)
+  {
+    return $this->tree->getNodeForPath(B::path($this->path, $name));
   }
 
-  public function childExists($name){
-    return null === $this->children ? 
-      $this->tree->nodeExists(B::path($this->path, $name)) : 
-      isset($this->children[$name]);
+  public function childExists($name)
+  {
+    return $this->tree->nodeExists(B::path($this->path, $name));
   }
- 
-  public function createFile($name, $data = null){
+
+  public function createFile($name, $data = null)
+  {
     return $this->tree->addNode($this, $name, $data);
   }
 
-  public function createDirectory($name){
-    return $this->tree->addNode($this, $name.'/.empty', null, 'store');
-  }
-  
-  public function getLastModified() 
+  public function createDirectory($name)
   {
-    if(null === $this->modified)
-    {
-      $mod = $this->tree->getPathModified($this->path);
-      if($mod instanceof \DateTime)
-      {
-        $this->modified = (int) $mod->format('U');
-      }
-    }
-    return $this->modified;
+    return $this->tree->addNode($this, $name . '/.empty', null, 'store');
+  }
+
+  public function getLastModified()
+  {
+    return time();
   }
 
 }

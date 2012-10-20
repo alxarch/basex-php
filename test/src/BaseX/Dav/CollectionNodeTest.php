@@ -21,14 +21,13 @@ class CollectionNodeTest extends TestCaseDb
     $this->db->add('dir/dada/test4.xml', '<root/>');
     $this->db->add('dir/dada/test5.xml', '<root/>');
     
-    $this->tree = new ObjectTree($this->db);
+    $this->tree = new ObjectTree($this->db, '');
   }
 
   public function testGetChildren()
   {
     
     $col = new CollectionNode($this->tree, '');
-    
     $children = $col->getChildren();
     $this->assertEquals(4, count($children));
     $this->assertInstanceOf('BaseX\Dav\ResourceNode', $children['test.xml']);
@@ -89,8 +88,7 @@ class CollectionNodeTest extends TestCaseDb
   
   public function testChildExists()
   {
-    $col = new CollectionNode($this->tree);
-    $col->path = '';
+    $col = new CollectionNode($this->tree, '');
     
     $this->assertTrue($col->childExists('test1.xml'));
     

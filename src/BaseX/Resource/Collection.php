@@ -13,8 +13,6 @@ use BaseX\Helpers as B;
 use BaseX\Resource;
 use BaseX\Resource\CollectionInterface;
 use BaseX\Resource\Tree;
-use BaseX\Query\QueryBuilder;
-use BaseX\Query\Results\DateTimeResults;
 
 /**
  * Resource tree for a BaseX\Database.
@@ -32,13 +30,12 @@ class Collection extends Resource implements CollectionInterface
   public function getModified() {
     if(null === $this->modified)
     {
-      $xql = "max(db:list-details('$this->db', '$this->path')/@modified-date/string())";
-      
-      $this->modified = QueryBuilder::begin()
-              ->setBody($xql)
-              ->getQuery($this->db->getSession())
-              ->getResults(new DateTimeResults(Resource::DATE_FORMAT))
-              ->getSingle();
+      $this->modified = $this->db
+        ->getResources($this->path)
+        ->byModified()
+        ->reverse()
+        ->getFirst()
+        ->getModified();
     }
     
     return $this->modified;

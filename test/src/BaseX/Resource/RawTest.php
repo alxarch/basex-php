@@ -37,11 +37,7 @@ class RawTest extends TestCaseDb
     $this->assertTrue($this->resource->isRaw());
     
   }
-  public function testGetSize()
-  {
-    $this->resource->refresh();
-    $this->assertEquals(32, $this->resource->getSize());
-  }
+  
 
   public function testGetFilePath()
   {

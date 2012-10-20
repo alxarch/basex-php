@@ -151,6 +151,12 @@ class StreamableTest extends TestCaseDb {
 //    $this->assertEquals($contents, $original->read());
 //  }
 
+  
+  public function testGetSize()
+  {
+    
+  }
+  
   public function testGetUri() {
     $this->assertEquals("basex://$this->dbname/image.jpg", $this->rawStreamable->getUri());
     $this->assertEquals("basex://$this->dbname/collection/doc.xml", $this->xmlStreamable->getUri());

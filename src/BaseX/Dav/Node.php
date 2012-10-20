@@ -24,9 +24,10 @@ abstract class Node implements Sabre_DAV_INode
   public $path;
   public $modified;
   
-  public function __construct(ObjectTree $tree)
+  public function __construct(ObjectTree $tree, $path)
   {
     $this->tree = $tree;
+    $this->path = $path;
   }
   
   public function delete() {
