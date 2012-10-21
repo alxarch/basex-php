@@ -5,7 +5,7 @@ namespace BaseX\Dav;
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Dav\ResourceNode;
 use BaseX\StreamWrapper;
-use BaseX\Dav\ResourceNodeIterator;
+use BaseX\Dav\Iterator\Nodes;
 
 /**
  * Test class for ResourceNode.
@@ -27,7 +27,8 @@ class ResourceNodeTest extends TestCaseDb {
     
     $this->db->add('test.xml', '<test/>');
     $this->db->store('sa/test.txt', 'test');
-    $this->nodes = new ResourceNodeIterator($this->db, '');
+    $nodes =  new Nodes($this->db, '');
+    $this->nodes = $nodes->withTimestamps()->getIterator();
 
   }
 

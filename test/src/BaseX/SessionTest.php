@@ -16,14 +16,8 @@ class SessionTest extends TestCaseSession {
   public function testAuthenticate() {
     $pass = BASEX_PASS . time();
     $user = BASEX_USER . time();
-    try{
+
     $session = new Session(BASEX_HOST, BASEX_PORT, $user, $pass);
-    }
-    catch (\PHPUnit_Framework_Error_Notice $e)
-    {
-      die($e->getFile().'@'.$e->getLine());
-    }
-    
   }
 
   public function testConstruct() {

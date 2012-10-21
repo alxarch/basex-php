@@ -30,91 +30,90 @@ class BaseXDavServiceProvider implements ServiceProviderInterface
 
     $this->routes = array();
 
-    $app['basex.dav'] = $app->share(function(Application $app){
-      $servers = new \ArrayObject(array());
-      
-      foreach ($app['basex.dav.servers'] as $name => $opts)
-      {
-        if (isset($opts['db']))
-          $db = $opts['db'];
-        elseif (isset($app['basex.db.' . $name]))
-          $db = $app['basex.db.' . $name];
-        else
-          throw new \LogicException("No database defined for DAV Server '$name'.");
+    $app['basex.dav'] = $app->share(function(Application $app) {
+        $servers = new \ArrayObject(array());
 
-        $path = isset($opts['path']) ? $opts['path'] : '';
-
-        $dir = false;
-
-        $root = new CollectionNode($db, $path);
-        
-        if (isset($opts['localfiles']) && $opts['localfiles'])
+        foreach ($app['basex.dav.servers'] as $name => $opts)
         {
-          $dbpath = $app['basex']->getInfo()->dbpath;
-          $dir = implode(DIRECTORY_SEPARATOR, array_filter($dbpath, $db, 'raw', $path));
-          $root->serveRawFilesFrom($dir);
-        }
-        
-        if(isset($opts['filter']))
-        {
-          $filter = $opts['filter'];
-          if(!is_array($filter))
-            $filter = array($filter);
-          foreach ($filter as $filter => $type)
+          if (isset($opts['db']))
+            $db = $opts['db'];
+          elseif (isset($app['basex.db.' . $name]))
+            $db = $app['basex.db.' . $name];
+          else
+            throw new \LogicException("No database defined for DAV Server '$name'.");
+
+          $path = isset($opts['path']) ? $opts['path'] : '';
+
+          $dir = false;
+
+          $root = new CollectionNode($db, $path);
+
+          if (isset($opts['localfiles']) && $opts['localfiles'])
           {
-            if(is_int($filter))
+            $dbpath = $app['basex']->getInfo()->dbpath;
+            $dir = implode(DIRECTORY_SEPARATOR, array_filter($dbpath, $db, 'raw', $path));
+            $root->serveRawFilesFrom($dir);
+          }
+
+          if (isset($opts['filter']))
+          {
+            $filter = $opts['filter'];
+            if (!is_array($filter))
+              $filter = array($filter);
+            foreach ($filter as $filter => $type)
             {
-              $filter = $type;
-              $type = \BaseX\Resource\Iterator\ResourceIterator::FILTER_GLOB;
+              if (is_int($filter))
+              {
+                $filter = $type;
+                $type = \BaseX\Resource\Iterator\Resources::FILTER_GLOB;
+              }
+              $root->getIterator()->filter($filter, $type);
             }
-            $root->getIterator()->filter($filter, $type);
           }
-        }
-        
-        $dav = new Sabre_DAV_Server($root);
 
-        $baseuri = isset($opts['baseuri']) ? '/' . trim($opts['baseuri'], '/') . '/' : "/webdav/$name/";
+          $dav = new Sabre_DAV_Server($root);
 
-        $dav->setBaseUri($baseuri);
+          $baseuri = isset($opts['baseuri']) ? '/' . trim($opts['baseuri'], '/') . '/' : "/webdav/$name/";
 
-        if (isset($opts['debug']) && $opts['debug'])
-          $dav->debugExceptions = true;
-        
-        if(isset($opts['locks']) && $opts['locks'])
-        {
-          $backend = new \BaseX\Dav\Locks\Backend($app['db'], $opts['locks']);
-          $locks = new \Sabre_DAV_Locks_Plugin($backend);
-          $dav->addPlugin($locks);
-        }
-        
-        if (isset($opts['plugins']))
-        {
-          foreach ($opts['plugins'] as $plugin)
+          $dav->setBaseUri($baseuri);
+
+          if (isset($opts['debug']) && $opts['debug'])
+            $dav->debugExceptions = true;
+
+          if (isset($opts['locks']) && $opts['locks'])
           {
-            $dav->addPlugin($plugin);
+            $backend = new \BaseX\Dav\Locks\Backend($db, $opts['locks']);
+            $locks = new \Sabre_DAV_Locks_Plugin($backend);
+            $dav->addPlugin($locks);
           }
+
+          if (isset($opts['plugins']))
+          {
+            foreach ($opts['plugins'] as $plugin)
+            {
+              $dav->addPlugin($plugin);
+            }
+          }
+
+          $servers[$name] = $dav;
         }
-        
-        $servers[$name] = $dav;
-      }
-      
-      return $servers;
-    });
-  
+
+        return $servers;
+      });
   }
 
   public function boot(Application $app)
   {
-   
+
     foreach ($app['basex.dav'] as $name => $server)
     {
       $pattern = sprintf("%s{path}", $server->getBaseUri());
       $app->match($pattern, function($path) use ($app, $server) {
-          $server->exec();
-          exit();
-        })
-      ->method(self::METHODS_ALLOWED)
-      ->assert('path', '.*');
+            $server->exec();
+            exit();
+          })
+        ->method(self::METHODS_ALLOWED)
+        ->assert('path', '.*');
     }
   }
 

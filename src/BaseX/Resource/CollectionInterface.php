@@ -16,7 +16,7 @@ use BaseX\Resource\ResourceInterface;
  *
  * @author alxarch
  */
-interface CollectionInterface extends ResourceInterface, \ArrayAccess//, \IteratorAggregate
+interface CollectionInterface extends ResourceInterface
 {
   public function hasChild($name);
   public function getChildren();

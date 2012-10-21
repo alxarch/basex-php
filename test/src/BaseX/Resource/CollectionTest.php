@@ -20,7 +20,7 @@ class CollectionTest extends TestCaseDb
   
   function setUp() {
     parent::setUp();
-    $this->collection = new Collection($this->db, '');
+    $this->collection = new Collection($this->db, null);
   }
   
   function testGetChildren()

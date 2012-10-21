@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package BaseX 
  * 
@@ -12,7 +13,6 @@ namespace BaseX\Resource;
 use BaseX\Helpers as B;
 use BaseX\Resource;
 use BaseX\Resource\CollectionInterface;
-use BaseX\Resource\Tree;
 
 /**
  * Resource tree for a BaseX\Database.
@@ -21,26 +21,29 @@ use BaseX\Resource\Tree;
  */
 class Collection extends Resource implements CollectionInterface
 {
+
   /**
    *
    * @var array
    */
   protected $children;
 
-  public function getModified() {
-    if(null === $this->modified)
+  public function getModified()
+  {
+    if (null === $this->modified)
     {
       $this->modified = $this->db
         ->getResources($this->path)
         ->byModified()
         ->reverse()
+        ->getIterator()
         ->getFirst()
         ->getModified();
     }
-    
+
     return $this->modified;
   }
-  
+
   /**
    * 
    * @param string $path
@@ -49,47 +52,30 @@ class Collection extends Resource implements CollectionInterface
    */
   public function getChildren()
   {
-    if(null === $this->children)
+    $children = array();
+    $resources = $this->db->getResources($this->path)->withTimestamps();
+    foreach ($resources as $resource)
     {
-      $this->children = $this->getTree()->rebuild()->offsetGet('/');
+      $rel = B::relative($resource->path, $this->path);
+      if (false === $rel)
+      {
+        continue;
+      }
+      $pos = strpos($rel, '/');
+      if (false === $pos)
+      {
+        $children[$rel] = $resource;
+        continue;
+      }
+
+      $name = substr($rel, 0, $pos);
+      if (!isset($children[$name]))
+      {
+        $children[$name] = new Collection($this->db, B::path($this->path, $name));
+      }
     }
-    
-    return $this->children;
-  }
-  
-  protected function getTree()
-  {
-    $that = $this;
-    return Tree::make($this->getPath())
-      ->setMaxdepth(0)
-      ->setItemLoader(function($path) use ($that){
-        $items = array();
-        foreach ($that->getDatabase()->getResources($path) as $r)
-        {
-          $items[$r->getPath()] = $r;
-        }
-        return $items;
-      })
-      ->setTreeConverter(function(Tree $tree) use ($that){
-          
-          $class = get_class($that);
-          
-          $children = array();
-        
-          foreach ($tree->getChildren() as $name => $child)
-          {
-            if($child instanceof Tree)
-            {
-              $children[$name] = new $class($that->getDatabase(), $child->getRoot());
-            }
-            else
-            {
-              $children[$name] = $child;
-            }
-          }
-          
-          return $children;
-      });
+
+    return $children;
   }
 
   /**
@@ -99,14 +85,14 @@ class Collection extends Resource implements CollectionInterface
    */
   public function getChild($path)
   {
-    if($this->hasChild($path))
+    if ($this->hasChild($path))
     {
       return $this->children[$path];
     }
-    
+
     return null;
   }
-  
+
   /**
    * 
    * @param string $path
@@ -114,12 +100,12 @@ class Collection extends Resource implements CollectionInterface
    */
   public function hasChild($path)
   {
-    if($this->deleted !== true)
+    if ($this->deleted !== true)
     {
       $this->getChildren();
       return is_array($this->children) && isset($this->children[$path]);
     }
-    
+
     return false;
   }
 
@@ -129,14 +115,16 @@ class Collection extends Resource implements CollectionInterface
    * @param string $path The path to convert
    * @return string The converted path or null if not a subpath.
    */
-  public function getRelativePath($path){
+  public function getRelativePath($path)
+  {
     return B::relative($path, $this->getPath());
   }
 
-  public function getChildPath($path){
+  public function getChildPath($path)
+  {
     return B::path($this->getPath(), $path);
   }
-  
+
   public function refresh()
   {
     $this->modified = null;
@@ -146,25 +134,6 @@ class Collection extends Resource implements CollectionInterface
     return $this;
   }
 
-  public function offsetExists($offset) 
-  {
-    return $this->hasChild($offset);
-  }
-
-  public function offsetGet($offset) 
-  {
-    return $this->getChild($offset);
-  }
-
-  public function offsetSet($offset, $value)
-  {
-    throw new \RuntimeException('Not implemented.');
-  }
-
-  public function offsetUnset($offset)
-  {
-    $this->db->delete($this->getChildPath($offset));
-  }
 
 }
 

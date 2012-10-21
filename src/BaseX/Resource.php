@@ -248,7 +248,7 @@ abstract class Resource implements ResourceInterface
   static public function parseLine($line)
   {
     $matches = array();
-    $pattern = "/(?P<path>.+[^\s])\s+(?P<type>raw|xml)\s+(?P<content_type>[^\s]+)\s+(?P<size>\d+)?/";
+    $pattern = "/(?P<path>.+[^\s])\s+(?P<type>raw|xml)\s+(?P<mime>[^\s]+)\s+(?P<size>\d+)?/";
     if(preg_match($pattern, $line, $matches))
     {
       return $matches;

@@ -11,7 +11,7 @@ namespace BaseX\Dav;
 use Sabre_DAV_ICollection;
 use BaseX\Dav\Node;
 use BaseX\Helpers as B;
-use BaseX\Dav\ResourceNodeIterator;
+use BaseX\Dav\Iterator\Nodes;
 use \Sabre_DAV_Exception_NotFound;
 
 /**
@@ -53,19 +53,13 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
     return $children;
   }
   
-  public function getIterator()
+  protected function getNodes($path='')
   {
-    if(null === $this->iterator)
-    {
-      $this->iterator = new ResourceNodeIterator($this->db, $this->path);
-    }
-    
-    return $this->iterator;
-  }
-
-  protected function getNodes($path = '')
-  {
-    return $this->getIterator()->setPath(B::path($this->path, $path))->reload();
+    return Nodes::begin($this->db)
+      ->setPath(B::path($this->path, $path))
+      ->withTimestamps()
+      ->getIterator()
+      ;
   }
 
   public function getChild($name)
