@@ -26,7 +26,7 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
   public function getChildren()
   {
     $children = array();
-
+    
     foreach ($this->getNodes() as $node)
     {
       $rel = B::relative($node->path, $this->path);
@@ -44,7 +44,7 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
       $name = substr($rel, 0, $pos);
       if (!isset($children[$name]))
       {
-        $children[$name] = new CollectionNode($this->db, B::path($this->path, $name));
+        $children[$name] = new static($this->db, B::path($this->path, $name));
       }
     }
 
@@ -76,7 +76,7 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
       return $iterator->current();
     }
 
-    return new CollectionNode($this->db, $path);
+    return new static($this->db, $path);
   }
 
   public function childExists($name)
