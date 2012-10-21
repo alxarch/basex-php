@@ -58,7 +58,6 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
     return Nodes::begin($this->db)
       ->setPath(B::path($this->path, $path))
       ->withTimestamps()
-      ->getIterator()
       ;
   }
 
@@ -66,7 +65,8 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
   {
     $nodes = $this->getNodes($name);
     $path = B::path($this->path, $name);
-    switch (count($nodes))
+    
+    switch ($nodes->getIterator()->count())
     {
       case 0:
         throw new Sabre_DAV_Exception_NotFound;

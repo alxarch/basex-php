@@ -186,7 +186,7 @@ class Database
    */
   public function getResource($path)
   {
-    return  $this->getResources($path)->getIterator()->getSingle();
+    return  $this->getResources($path)->getSingle();
   }
 
   /**

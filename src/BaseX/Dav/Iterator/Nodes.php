@@ -16,6 +16,10 @@ use BaseX\Dav\ResourceNode;
  */
 class Nodes extends Resources
 {
+  /**
+   * 
+   * @return \ArrayIterator
+   */
   public function getIterator()
   {
     $this->setConverter(array($this, 'convertNode'));

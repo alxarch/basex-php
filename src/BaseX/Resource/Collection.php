@@ -36,7 +36,6 @@ class Collection extends Resource implements CollectionInterface
         ->getResources($this->path)
         ->byModified()
         ->reverse()
-        ->getIterator()
         ->getFirst()
         ->getModified();
     }
@@ -53,7 +52,7 @@ class Collection extends Resource implements CollectionInterface
   public function getChildren()
   {
     $children = array();
-    $resources = $this->db->getResources($this->path)->withTimestamps();
+    $resources = $this->db->getResources($this->path);
     foreach ($resources as $resource)
     {
       $rel = B::relative($resource->path, $this->path);
@@ -85,10 +84,7 @@ class Collection extends Resource implements CollectionInterface
    */
   public function getChild($path)
   {
-    if ($this->hasChild($path))
-    {
-      return $this->children[$path];
-    }
+    return $this->db->getResource($this->getRelativePath($path));
 
     return null;
   }
@@ -102,8 +98,7 @@ class Collection extends Resource implements CollectionInterface
   {
     if ($this->deleted !== true)
     {
-      $this->getChildren();
-      return is_array($this->children) && isset($this->children[$path]);
+      return $this->db->exists($this->getRelativePath($path));
     }
 
     return false;
@@ -128,8 +123,6 @@ class Collection extends Resource implements CollectionInterface
   public function refresh()
   {
     $this->modified = null;
-    $this->children = null;
-    $this->getChildren();
     $this->getModified();
     return $this;
   }

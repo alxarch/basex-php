@@ -138,7 +138,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \BaseX\Resource\Iterator\Wrapper
+   * @return \BaseX\Resource\Iterator\Converter
    */
   public function reverse()
   {
@@ -152,6 +152,10 @@ class Resources implements \IteratorAggregate
     return $this;
   }
 
+  /**
+   * 
+   * @return \ArrayIterator
+   */
   public function getIterator()
   {
     $base = new ListCommand($this->db, $this->path);
@@ -178,7 +182,8 @@ class Resources implements \IteratorAggregate
     
     $converter = null === $this->converter ? array($this, 'convertResource') : $this->converter;
     
-    return new Wrapper($resources, $converter);
+    $resources = new Converter($resources, $converter);
+    return new \ArrayIterator(iterator_to_array($resources));
   }
   
   public function convertResource($resource)
@@ -206,6 +211,26 @@ class Resources implements \IteratorAggregate
   public static function begin(Database $db)
   {
     return new static ($db, '');
+  }
+  
+  public function getFirst()
+  {
+    $iter = $this->getIterator();
+    
+    return $iter->count() > 0 ? $iter->offsetGet(0) : 0;
+  }
+  
+  public function getLast()
+  {
+    $iter = $this->getIterator();
+    $total = $iter->count();
+    return $total > 0 ? $iter->offsetGet($total - 1) : null;
+  }
+  
+  public function getSingle()
+  {
+    $iter = $this->getIterator();
+    return $iter->count() === 1 ? $iter->offsetGet(0) : null;
   }
 }
 
