@@ -24,7 +24,7 @@ class Nodes extends Resources
     $node->raw = 'raw' === $resource['type'];
     
     if(null !== $resource['modified'])
-      $node->modified = (int) $resource['modified']->format('U');
+      $node->modified = (int)$resource['modified']->format('U');
     
     return $node;
   }

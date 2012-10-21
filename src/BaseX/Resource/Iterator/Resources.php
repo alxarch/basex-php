@@ -172,7 +172,7 @@ class Resources implements \IteratorAggregate
       $resources = new Modified($resources, $this->db, $this->path);
     }
     
-    if(!empty($this->exclude))
+    if(count($this->exclude) > 0)
     {
       $resources = new Exclude($resources);
       foreach ($this->exclude as $pattern => $type)

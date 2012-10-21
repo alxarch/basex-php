@@ -64,15 +64,16 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
     $iterator = $this->getNodes($name)->getIterator();
     $path = B::path($this->path, $name);
     $total = $iterator->count();
-
+    $iterator->rewind();
+    
     if (0 === $total)
     {
       throw new Sabre_DAV_Exception_NotFound;
     }
 
-    if (1 === $total && $iterator->offsetGet(0)->path === $path)
+    if (1 === $total && $iterator->current()->path === $path)
     {
-      return $iterator->offsetGet(0);
+      return $iterator->current();
     }
 
     return new CollectionNode($this->db, $path);

@@ -66,6 +66,7 @@ class ResourcesTest extends TestCaseDb
     $res = $this->iterator->exclude('@[/^]\.protect/@');
     $this->assertTrue($res instanceof Resources);
     $this->assertEquals(6, $this->iterator->getIterator()->count());
+    
     foreach ($res as $r)
     {
       $this->assertNotEquals('test/.protect/hidden.xml', $r->getPath());

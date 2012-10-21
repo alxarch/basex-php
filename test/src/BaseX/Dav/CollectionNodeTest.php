@@ -4,11 +4,11 @@ namespace BaseX\Dav;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Dav\CollectionNode;
-
 use BaseX\StreamWrapper;
 
 class CollectionNodeTest extends TestCaseDb
 {
+  protected $collection;
   public function setUp()
   {
     parent::setUp();
@@ -21,14 +21,12 @@ class CollectionNodeTest extends TestCaseDb
     $this->db->add('dir/dada/test4.xml', '<root/>');
     $this->db->add('dir/dada/test5.xml', '<root/>');
     
-    
+    $this->collection = new CollectionNode($this->db, '');
   }
 
   public function testGetChildren()
   {
-    
-    $col = new CollectionNode($this->db, '');
-    $children = $col->getChildren();
+    $children = $this->collection->getChildren();
     $this->assertEquals(4, count($children));
     $this->assertInstanceOf('BaseX\Dav\ResourceNode', $children['test.xml']);
     $this->assertEquals('test.xml', $children['test.xml']->getName());
@@ -38,7 +36,7 @@ class CollectionNodeTest extends TestCaseDb
     $this->assertEquals('test1.xml', $children['test1.xml']->getName());
     $this->assertInstanceOf('BaseX\Dav\CollectionNode', $children['dir']);
     $this->assertEquals('dir', $children['dir']->getName());
-    
+
     $dir = $children['dir'];
     $children = $dir->getChildren();
     $this->assertEquals(3, count($children));
@@ -48,7 +46,7 @@ class CollectionNodeTest extends TestCaseDb
     $this->assertEquals('test3.xml', $children['test3.xml']->getName());
     $this->assertInstanceOf('BaseX\Dav\ResourceNode', $children['test4.xml']);
     $this->assertEquals('test4.xml', $children['test4.xml']->getName());
-    
+
     $dada = $children['dada'];
     $children = $dada->getChildren();
     $this->assertEquals(2, count($children));
@@ -56,83 +54,79 @@ class CollectionNodeTest extends TestCaseDb
     $this->assertEquals('test4.xml', $children['test4.xml']->getName());
     $this->assertInstanceOf('BaseX\Dav\ResourceNode', $children['test5.xml']);
     $this->assertEquals('test5.xml', $children['test5.xml']->getName());
-    
   }
-  
+
   public function testGetChild()
   {
-    $col = new CollectionNode($this->db, '');
-    
-    $result = $col->getChild('test1.xml');
-    $this->assertInstanceOf('BaseX\Dav\ResourceNode', $result);
-    $this->assertEquals('test1.xml', $result->getName());
-    
-    $col = $col->getChild('dir');
-    
-    $this->assertInstanceOf('BaseX\Dav\CollectionNode', $col);
-    $this->assertEquals('dir', $col->getName());
-    
-    $result = $col->getChild('test3.xml');
-    
-    $this->assertInstanceOf('BaseX\Dav\ResourceNode', $result);
-    $this->assertEquals('test3.xml', $result->getName());
-    
-    $col = $col->getChild('dada');
-    $this->assertInstanceOf('BaseX\Dav\CollectionNode', $col);
-    $this->assertEquals('dada', $col->getName());
-    
-    $result = $col->getChild('test4.xml');
-    $this->assertInstanceOf('BaseX\Dav\CollectionNode', $col);
-    $this->assertEquals('dada', $col->getName());
+    $this->collection = new CollectionNode($this->db, '');
+
+    $node = $this->collection->getChild('test1.xml');
+    $this->assertInstanceOf('BaseX\Dav\ResourceNode', $node);
+    $this->assertEquals('test1.xml', $node->getName());
+
+    $this->collection = $this->collection->getChild('dir');
+
+    $this->assertInstanceOf('BaseX\Dav\CollectionNode', $this->collection);
+    $this->assertEquals('dir', $this->collection->getName());
+
+    $node = $this->collection->getChild('test3.xml');
+
+    $this->assertInstanceOf('BaseX\Dav\ResourceNode', $node);
+    $this->assertEquals('test3.xml', $node->getName());
+
+    $this->collection = $this->collection->getChild('dada');
+    $this->assertInstanceOf('BaseX\Dav\CollectionNode', $this->collection);
+    $this->assertEquals('dada', $this->collection->getName());
+
+    $node = $this->collection->getChild('test4.xml');
+    $this->assertInstanceOf('BaseX\Dav\CollectionNode', $this->collection);
+    $this->assertEquals('dada', $this->collection->getName());
   }
-  
+
   public function testChildExists()
   {
-    $col = new CollectionNode($this->db, '');
-    
-    $this->assertTrue($col->childExists('test1.xml'));
-    
-    $this->assertTrue($col->childExists('dir'));
-    $this->assertFalse($col->childExists('nothere.png'));
-    $this->assertFalse($col->childExists('test3.xml'));
-    $this->assertTrue($col->childExists('dir/test3.xml'));
-    
-    $col = $col->getChild('dir');
-    $this->assertTrue($col->childExists('dada'));
-    $this->assertFalse($col->childExists('nothere.png'));
-    $this->assertTrue($col->childExists('test3.xml'));
-    $this->assertFalse($col->childExists('test1.xml'));
-    
-    $col = $col->getChild('dada');
-    $this->assertTrue($col->childExists('test4.xml'));
-    $this->assertTrue($col->childExists('test5.xml'));
-    $this->assertFalse($col->childExists('nothere.png'));
+    $this->assertTrue($this->collection->childExists('test1.xml'));
+
+    $this->assertTrue($this->collection->childExists('dir'));
+    $this->assertFalse($this->collection->childExists('nothere.png'));
+    $this->assertFalse($this->collection->childExists('test3.xml'));
+    $this->assertTrue($this->collection->childExists('dir/test3.xml'));
+
+    $this->collection = $this->collection->getChild('dir');
+    $this->assertTrue($this->collection->childExists('dada'));
+    $this->assertFalse($this->collection->childExists('nothere.png'));
+    $this->assertTrue($this->collection->childExists('test3.xml'));
+    $this->assertFalse($this->collection->childExists('test1.xml'));
+
+    $this->collection = $this->collection->getChild('dada');
+    $this->assertTrue($this->collection->childExists('test4.xml'));
+    $this->assertTrue($this->collection->childExists('test5.xml'));
+    $this->assertFalse($this->collection->childExists('nothere.png'));
   }
-  
-  
+
   public function testCreateFile()
   {
-    
-    $col = new CollectionNode($this->db, '');
-    
-    $etag = $col->createFile('dir/test.xml', '<test/>');
-    
+
+    $etag = $this->collection->createFile('dir/test.xml', '<test/>');
+
     $this->assertTrue($this->db->exists('dir/test.xml'));
-    
+
     $this->assertNotNull($etag);
-    
-    $etag = $col->createFile('dir/test.txt', 'test');
-    
+
+    $etag = $this->collection->createFile('dir/test.txt', 'test');
+
     $this->assertNotNull($etag);
-    
+
     $this->assertTrue($this->db->exists('dir/test.txt'));
     $xql = "db:list-details('$this->dbname', 'dir/test.txt')/@size/string()";
-    
+
     $this->assertFalse('0' === $this->session->query($xql)->execute());
   }
-  
-  public function tearDown() {
+
+  public function tearDown()
+  {
     StreamWrapper::unregister();
     parent::tearDown();
   }
+
 }

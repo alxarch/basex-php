@@ -65,7 +65,7 @@ class BaseXDavServiceProvider implements ServiceProviderInterface
               if (is_int($filter))
               {
                 $filter = $type;
-                $type = \BaseX\Resource\Iterator\Resources::FILTER_GLOB;
+                $type = \BaseX\Resource\Iterator\Exclude::FILTER_GLOB;
               }
               $root->getIterator()->filter($filter, $type);
             }
