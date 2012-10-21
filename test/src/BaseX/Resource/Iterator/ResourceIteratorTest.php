@@ -56,26 +56,24 @@ class ResourceIteratorTest extends TestCaseDb
 
   /**
    * @covers BaseX\Resource\Iterator\ResourceIterator::current
-   * @todo   Implement testCurrent().
    */
   public function testCurrent()
   {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-      'This test has not been implemented yet.'
-    );
+    $this->assertNull($this->iterator->current());
+    $this->db->add('test.xml', '<test/>');
+    $current = $this->iterator->reload()->current();
+    $this->assertInstanceOf('\BaseX\Resource\Document', $current);
+    $this->assertEquals('test.xml', $current->getPath());
   }
 
   /**
    * @covers BaseX\Resource\Iterator\ResourceIterator::key
-   * @todo   Implement testKey().
    */
   public function testKey()
   {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-      'This test has not been implemented yet.'
-    );
+    $this->assertNull($this->iterator->key());
+    $this->db->add('test.xml', '<test/>');
+    $this->assertEquals(0, $this->iterator->reload()->key());
   }
 
   /**
@@ -232,6 +230,31 @@ class ResourceIteratorTest extends TestCaseDb
     $this->markTestIncomplete(
       'This test has not been implemented yet.'
     );
+  }
+  
+  public function testSetPath()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $this->db->add('dada.xml', '<test/>');
+    $this->db->add('dir/test.xml', '<test/>');
+    
+    $this->assertEquals(3, $this->iterator->count());
+    $return = $this->iterator->setPath('dir');
+    $this->assertTrue($return === $this->iterator );
+    $this->iterator->reload();
+    $this->assertEquals(1, $this->iterator->count());
+  }
+  
+  public function testFilter()
+  {
+    $this->db->add('test.xml', '<test/>');
+    $this->db->add('dada.xml', '<test/>');
+    $this->db->add('dir/test.xml', '<test/>');
+    $this->iterator->filter('dir/*');
+    $this->assertEquals(2, $this->iterator->count());
+    
+    $this->iterator->filter('*.xml');
+    $this->assertEquals(0, $this->iterator->count());
   }
 
 }

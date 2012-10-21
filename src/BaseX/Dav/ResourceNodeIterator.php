@@ -19,11 +19,12 @@ use BaseX\Dav\ResourceNode;
  */
 class ResourceNodeIterator extends ResourceIterator
 {
-  protected function asObject($matches)
+  protected function getObject($matches)
   {
     $node = new ResourceNode($this->db, $matches['path']);
     $node->size = (int)$matches['size'];
     $node->mime = $matches['content_type'];
+    $node->raw = 'raw' === $matches['type'];
     
     if(null !== $matches['modified'])
       $node->modified = (int)$matches['modified']->format('U');

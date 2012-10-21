@@ -12,7 +12,7 @@ namespace BaseX\Silex;
 
 use Silex\Application;
 use Sabre_DAV_Server;
-use BaseX\Dav\ObjectTree;
+use BaseX\Dav\CollectionNode;
 use Silex\ServiceProviderInterface;
 
 /**
@@ -46,13 +46,31 @@ class BaseXDavServiceProvider implements ServiceProviderInterface
 
         $dir = false;
 
-        if (isset($app['basex.dav.localfiles']) && $opts['basex.dav.localfiles'])
+        $root = new CollectionNode($db, $path);
+        
+        if (isset($opts['localfiles']) && $opts['localfiles'])
         {
           $dbpath = $app['basex']->getInfo()->dbpath;
           $dir = implode(DIRECTORY_SEPARATOR, array_filter($dbpath, $db, 'raw', $path));
+          $root->serveRawFilesFrom($dir);
         }
-
-        $root = new ObjectTree($db, $path, $dir);
+        
+        if(isset($opts['filter']))
+        {
+          $filter = $opts['filter'];
+          if(!is_array($filter))
+            $filter = array($filter);
+          foreach ($filter as $filter => $type)
+          {
+            if(is_int($filter))
+            {
+              $filter = $type;
+              $type = \BaseX\Resource\Iterator\ResourceIterator::FILTER_GLOB;
+              $root->getIterator()->filter($filter, $type);
+            }
+          }
+        }
+        
         $dav = new Sabre_DAV_Server($root);
 
         $baseuri = isset($opts['baseuri']) ? '/' . trim($opts['baseuri'], '/') . '/' : "/webdav/$name/";

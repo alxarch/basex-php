@@ -4,8 +4,8 @@ namespace BaseX\Dav;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Dav\ResourceNode;
-use BaseX\Dav\ObjectTree;
 use BaseX\StreamWrapper;
+use BaseX\Dav\ResourceNodeIterator;
 
 /**
  * Test class for ResourceNode.
@@ -14,9 +14,9 @@ use BaseX\StreamWrapper;
 class ResourceNodeTest extends TestCaseDb {
 
   /**
-   * @var ResourceNode
+   * @var \BaseX\Dav\ResourceNodeIterator
    */
-  protected $node;
+  protected $nodes;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -24,10 +24,11 @@ class ResourceNodeTest extends TestCaseDb {
    */
   public function setUp() {
     parent::setUp();
-    $this->tree = new ObjectTree($this->db);
+    
     $this->db->add('test.xml', '<test/>');
     $this->db->store('sa/test.txt', 'test');
-    $this->node = new ResourceNode($this->tree, 'test.xml');
+    $this->nodes = new ResourceNodeIterator($this->db, '');
+
   }
 
 
@@ -35,7 +36,7 @@ class ResourceNodeTest extends TestCaseDb {
    * @covers BaseX\Dav\ResourceNode::__construct
    */
   public function testConst() {
-    $this->node = new ResourceNode($this->tree, 'test.xml');
+    $node = new ResourceNode($this->db, 'test.xml');
     
   }
   /**
@@ -43,42 +44,39 @@ class ResourceNodeTest extends TestCaseDb {
    */
   public function testGetLastModified() {
     
-    $this->assertNull($this->node->getLastModified());
-    $node = $this->tree->getNodeForPath('test.xml');
-    $this->assertNotNull($node->getLastModified());
+    $this->assertNotNull($this->nodes[0]->getLastModified());
+    
   }
 
   /**
    * @covers BaseX\Dav\ResourceNode::getName
    */
   public function testGetName() {
-    $this->assertEquals('test.xml', $this->node->getName());
+    $this->assertEquals('test.xml', $this->nodes[1]->getName());
   }
 
   /**
    * @covers BaseX\Dav\ResourceNode::getSize
    */
   public function testGetSize() {
-    $this->assertEquals(null, $this->node->getSize());
-    $raw = $this->tree->getNodeForPath('sa/test.txt');
-    $this->assertNotEquals(0, $raw->getSize());
-    $x = $this->tree->getNodeForPath('test.xml');
-    $this->assertEquals(2, $x->getSize());
+    $this->assertEquals(4, $this->nodes[0]->getSize());
+    
+    $this->assertEquals(0, $this->nodes[1]->getSize());
   }
 
   /**
    * @covers BaseX\Dav\ResourceNode::getContentType
    */
   public function testGetContentType() {
-    $this->assertEquals('text/plain', $this->tree->getNodeForPath('sa/test.txt')->getContentType());
-    $this->assertEquals('application/xml', $this->tree->getNodeForPath('test.xml')->getContentType());
+    $this->assertEquals('text/plain', $this->nodes[0]->getContentType());
+    $this->assertEquals('application/xml', $this->nodes[1]->getContentType());
   }
 
   /**
    * @covers BaseX\Dav\ResourceNode::setName
    */
   public function testSetName() {
-    $node = $this->tree->getNodeForPath('sa/test.txt');
+    $node = $this->nodes[0];
     $node->setName('zam.txt');
     $this->assertContains('sa/zam.txt', $this->ls());
     $this->assertNotContains('sa/test.txt', $this->ls());
@@ -90,7 +88,7 @@ class ResourceNodeTest extends TestCaseDb {
    */
   public function testPut() {
     StreamWrapper::register($this->session);
-    $node = $this->tree->getNodeForPath('sa/test.txt');
+    $node = $this->nodes[0];
     $node->put('ratata');
     $this->assertEquals('ratata', $this->raw('sa/test.txt'));
     
@@ -106,7 +104,7 @@ class ResourceNodeTest extends TestCaseDb {
    */
   public function testGet() {
     StreamWrapper::register($this->session);
-    $node = $this->tree->getNodeForPath('sa/test.txt');
+    $node = $this->nodes[0];
     $stream = $node->get();
     $this->assertTrue(is_resource($stream));
     $data = fread($stream, 100);
@@ -120,7 +118,7 @@ class ResourceNodeTest extends TestCaseDb {
    * @covers BaseX\Dav\ResourceNode::getETag
    */
   public function testGetETag() {
-    $node = $this->tree->getNodeForPath('sa/test.txt');
+       $node = $this->nodes[0];
     $this->assertNotEmpty($node->getEtag());
   }
 
@@ -128,7 +126,7 @@ class ResourceNodeTest extends TestCaseDb {
    * @covers BaseX\Dav\ResourceNode::delete
    */
   public function testDelete() {
-    $node = $this->tree->getNodeForPath('sa/test.txt');
+        $node = $this->nodes[0];
     $node->delete();
     $this->assertNotContains('sa/test.txt', $this->ls());
   }

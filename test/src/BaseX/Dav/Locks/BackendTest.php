@@ -4,7 +4,7 @@ namespace BaseX\Dav\Locks;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Dav\Locks\Backend;
-use BaseX\Dav\Locks\LockInfo;
+use \Sabre_DAV_Locks_LockInfo as LockInfo;
 
 /*
  * To change this template, choose Tools | Templates
@@ -55,7 +55,7 @@ class BackendTest extends TestCaseDb
   {
     $lock = $this->getLock();
     $this->assertTrue($this->getBackend()->lock('test.xml', $lock));
-    $this->assertContains('.davlocks/test.xml/lock.xml', $this->ls());
+    $this->assertContains('.davlocks/'.$lock->token.'.xml', $this->ls());
     return $lock;
   }
 
@@ -95,7 +95,7 @@ class BackendTest extends TestCaseDb
 
     $this->assertTrue($this->getBackend()->lock($lock->uri, $lock));
 
-    $locks = $this->getBackend()->getLocks('/x/k/c', false);
+    $locks = $this->getBackend()->getLocks('/x/k', false);
 
     $this->assertEquals(2, count($locks));
 
@@ -123,13 +123,13 @@ class BackendTest extends TestCaseDb
 
     $this->assertTrue($this->getBackend()->lock($lock->uri, $lock));
 
-    $locks = $this->getBackend()->getLocks('/x/k/c', true);
+    $locks = $this->getBackend()->getLocks('/x/k', true);
 
     $this->assertEquals(3, count($locks));
 
-    $this->assertInstanceOf('BaseX\Dav\Locks\LockInfo', $locks[0]);
-    $this->assertInstanceOf('BaseX\Dav\Locks\LockInfo', $locks[1]);
-    $this->assertInstanceOf('BaseX\Dav\Locks\LockInfo', $locks[2]);
+    $this->assertInstanceOf('Sabre_DAV_Locks_LockInfo', $locks[0]);
+    $this->assertInstanceOf('Sabre_DAV_Locks_LockInfo', $locks[1]);
+    $this->assertInstanceOf('Sabre_DAV_Locks_LockInfo', $locks[2]);
   }
 
   function testGetLock()

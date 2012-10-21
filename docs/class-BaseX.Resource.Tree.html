@@ -7,7 +7,7 @@
 	<title>Class BaseX\Resource\Tree | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -42,8 +42,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li class="active"><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -53,8 +56,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -68,6 +69,7 @@
 			<ul>
 				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
+				<li><a href="class-BaseX.Resource.MimeResourceResults.html">MimeResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
 				<li><a href="class-BaseX.Resource.ResourceResults.html">ResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
@@ -157,7 +159,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Resource.Tree.html#10-302" title="Go to source code">src/BaseX/Resource/Tree.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.Tree.html#15-312" title="Go to source code">src/BaseX/Resource/Tree.php</a><br />
 	</div>
 
 
@@ -175,7 +177,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#39-48" title="Go to source code">__construct</a>( <span>type <var>$root</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#45-54" title="Go to source code">__construct</a>( <span>type <var>$root</var></span> )</code>
 
 		<div class="description short">
 			
@@ -209,7 +211,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setItemLoader">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#50-75" title="Go to source code">setItemLoader</a>( <span>mixed <var>$loader</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#56-80" title="Go to source code">setItemLoader</a>( <span>mixed <var>$loader</var></span> )</code>
 
 		<div class="description short">
 			
@@ -238,7 +240,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setTreeConverter">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#77-101" title="Go to source code">setTreeConverter</a>( <span>mixed <var>$converter</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#82-105" title="Go to source code">setTreeConverter</a>( <span>mixed <var>$converter</var></span> )</code>
 
 		<div class="description short">
 			
@@ -267,7 +269,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRoot">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#103-106" title="Go to source code">getRoot</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#107-110" title="Go to source code">getRoot</a>( )</code>
 
 		<div class="description short">
 			
@@ -296,7 +298,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setMaxdepth">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#108-112" title="Go to source code">setMaxdepth</a>( <span>mixed <var>$depth</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#112-116" title="Go to source code">setMaxdepth</a>( <span>mixed <var>$depth</var></span> )</code>
 
 		<div class="description short">
 			
@@ -325,7 +327,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMaxdepth">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#114-117" title="Go to source code">getMaxdepth</a>( <span>mixed <var>$depth</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#118-121" title="Go to source code">getMaxdepth</a>( <span>mixed <var>$depth</var></span> )</code>
 
 		<div class="description short">
 			
@@ -354,7 +356,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_build">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#119-174" title="Go to source code">build</a>( <span>array[string]Object <var>$items</var></span>, <span>mixed <var>$depth</var> = -<span class="php-num">1</span></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#123-180" title="Go to source code">build</a>( <span>array[string]Object <var>$items</var></span>, <span>mixed <var>$depth</var> = -<span class="php-num">1</span></span> )</code>
 
 		<div class="description short">
 			
@@ -394,7 +396,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getChildren">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#176-179" title="Go to source code">getChildren</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#182-185" title="Go to source code">getChildren</a>( )</code>
 
 		<div class="description short">
 			
@@ -423,7 +425,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getItems">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#181-204" title="Go to source code">getItems</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#187-210" title="Go to source code">getItems</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
 
 		<div class="description short">
 			
@@ -452,7 +454,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_rebuild">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#206-231" title="Go to source code">rebuild</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#212-238" title="Go to source code">rebuild</a>( <span>mixed <var>$path</var> = <span class="php-quote">''</span></span> )</code>
 
 		<div class="description short">
 			
@@ -481,7 +483,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_offsetExists">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#233-249" title="Go to source code">offsetExists</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#240-256" title="Go to source code">offsetExists</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -512,7 +514,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_convert">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#251-258" title="Go to source code">convert</a>( <span>mixed <var>$item</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#258-265" title="Go to source code">convert</a>( <span>mixed <var>$item</var></span> )</code>
 
 		<div class="description short">
 			
@@ -541,7 +543,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_offsetGet">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#260-269" title="Go to source code">offsetGet</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#267-277" title="Go to source code">offsetGet</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -572,7 +574,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_offsetSet">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#271-273" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#279-282" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
@@ -603,7 +605,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_offsetUnset">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#275-290" title="Go to source code">offsetUnset</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#284-299" title="Go to source code">offsetUnset</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -634,7 +636,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_make">#</a>
-		<code><a href="source-class-BaseX.Resource.Tree.html#292-301" title="Go to source code">make</a>( <span>type <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Tree.html#301-310" title="Go to source code">make</a>( <span>type <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -683,7 +685,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#17" title="Go to source code"><var>$root</var></a>
+				<a href="source-class-BaseX.Resource.Tree.html#23" title="Go to source code"><var>$root</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -706,7 +708,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#18" title="Go to source code"><var>$cache</var></a>
+				<a href="source-class-BaseX.Resource.Tree.html#24" title="Go to source code"><var>$cache</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -729,7 +731,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#19" title="Go to source code"><var>$children</var></a>
+				<a href="source-class-BaseX.Resource.Tree.html#25" title="Go to source code"><var>$children</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -752,7 +754,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#20" title="Go to source code"><var>$maxdepth</var></a>
+				<a href="source-class-BaseX.Resource.Tree.html#26" title="Go to source code"><var>$maxdepth</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -775,7 +777,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#22-26" title="Go to source code"><var>$loader</var></a>
+				<a href="source-class-BaseX.Resource.Tree.html#28-32" title="Go to source code"><var>$loader</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -798,7 +800,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#28-32" title="Go to source code"><var>$items</var></a>
+				<a href="source-class-BaseX.Resource.Tree.html#34-38" title="Go to source code"><var>$items</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -821,7 +823,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Tree.html#34-37" title="Go to source code"><var>$converter</var></a>
+				<a href="source-class-BaseX.Resource.Tree.html#40-43" title="Go to source code"><var>$converter</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

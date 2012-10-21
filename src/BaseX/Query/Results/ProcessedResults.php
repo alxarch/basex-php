@@ -42,16 +42,4 @@ abstract class ProcessedResults extends QueryResults
 
   abstract protected function processData($data, $type);
   
-  public function asArray()
-  {
-    if(count($this->cache) < count($this->data))
-    {
-      foreach ($this->data as $i => $d)
-      {
-        $this->cache[$i] = $this->processData($data, $this->types[$i]);
-      }
-    }
-    
-    return $this->cache;
-  }
 }

@@ -7,7 +7,7 @@
 	<title>Class BaseX\Resource\Document | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -42,8 +42,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li class="active"><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -53,8 +56,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -68,6 +69,7 @@
 			<ul>
 				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li class="active"><a href="class-BaseX.Resource.Document.html">Document</a></li>
+				<li><a href="class-BaseX.Resource.MimeResourceResults.html">MimeResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
 				<li><a href="class-BaseX.Resource.ResourceResults.html">ResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
@@ -171,7 +173,7 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Resource.html">Resource</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Resource.Document.html#17-69" title="Go to source code">src/BaseX/Resource/Document.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.Document.html#17-75" title="Go to source code">src/BaseX/Resource/Document.php</a><br />
 	</div>
 
 
@@ -189,7 +191,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isRaw">#</a>
-		<code><a href="source-class-BaseX.Resource.Document.html#24-26" title="Go to source code">isRaw</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Document.html#25-28" title="Go to source code">isRaw</a>( )</code>
 
 		<div class="description short">
 			
@@ -218,7 +220,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getXML">#</a>
-		<code><a href="source-class-BaseX.Resource.Document.html#28-38" title="Go to source code">getXML</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Document.html#30-40" title="Go to source code">getXML</a>( )</code>
 
 		<div class="description short">
 			
@@ -255,7 +257,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_xpath">#</a>
-		<code><a href="source-class-BaseX.Resource.Document.html#40-50" title="Go to source code">xpath</a>( <span>string <var>$xpath</var></span>, <span>BaseX\Query\Result\QueryResultsInterface <var>$results</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Document.html#42-52" title="Go to source code">xpath</a>( <span>string <var>$xpath</var></span>, <span><code><a href="class-BaseX.Query.QueryResultsInterface.html">BaseX\Query\QueryResultsInterface</a></code> <var>$results</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -299,7 +301,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getWriteMethod">#</a>
-		<code><a href="source-class-BaseX.Resource.Document.html#52-54" title="Go to source code">getWriteMethod</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Document.html#54-57" title="Go to source code">getWriteMethod</a>( )</code>
 
 		<div class="description short">
 			
@@ -328,7 +330,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReadMethod">#</a>
-		<code><a href="source-class-BaseX.Resource.Document.html#56-58" title="Go to source code">getReadMethod</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Document.html#59-62" title="Go to source code">getReadMethod</a>( )</code>
 
 		<div class="description short">
 			
@@ -357,7 +359,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContents">#</a>
-		<code><a href="source-class-BaseX.Resource.Document.html#60-63" title="Go to source code">getContents</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Document.html#64-68" title="Go to source code">getContents</a>( )</code>
 
 		<div class="description short">
 			
@@ -386,7 +388,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setContents">#</a>
-		<code><a href="source-class-BaseX.Resource.Document.html#65-67" title="Go to source code">setContents</a>( <span>mixed <var>$data</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Document.html#70-73" title="Go to source code">setContents</a>( <span>mixed <var>$data</var></span> )</code>
 
 		<div class="description short">
 			
@@ -410,11 +412,14 @@
 	<caption>Methods inherited from <a href="class-BaseX.Resource.Streamable.html#methods">BaseX\Resource\Streamable</a></caption>
 	<tr>
 		<td><code>
+			<a href="class-BaseX.Resource.Streamable.html#_fromSimpleXML">fromSimpleXML()</a>, 
 			<a href="class-BaseX.Resource.Streamable.html#_getContentType">getContentType()</a>, 
+			<a href="class-BaseX.Resource.Streamable.html#_getSize">getSize()</a>, 
 			<a href="class-BaseX.Resource.Streamable.html#_getStream">getStream()</a>, 
 			<a href="class-BaseX.Resource.Streamable.html#_getUri">getUri()</a>, 
 			<a href="class-BaseX.Resource.Streamable.html#_refresh">refresh()</a>, 
-			<a href="class-BaseX.Resource.Streamable.html#_setContentType">setContentType()</a>
+			<a href="class-BaseX.Resource.Streamable.html#_setContentType">setContentType()</a>, 
+			<a href="class-BaseX.Resource.Streamable.html#_setSize">setSize()</a>
 		</code></td>
 	</tr>
 	</table>
@@ -434,6 +439,8 @@
 			<a href="class-BaseX.Resource.html#_getPath">getPath()</a>, 
 			<a href="class-BaseX.Resource.html#_isDeleted">isDeleted()</a>, 
 			<a href="class-BaseX.Resource.html#_move">move()</a>, 
+			<a href="class-BaseX.Resource.html#_parseDate">parseDate()</a>, 
+			<a href="class-BaseX.Resource.html#_parseLine">parseLine()</a>, 
 			<a href="class-BaseX.Resource.html#_rename">rename()</a>, 
 			<a href="class-BaseX.Resource.html#_setModified">setModified()</a>
 		</code></td>
@@ -471,7 +478,8 @@
 	<caption>Properties inherited from <a href="class-BaseX.Resource.Streamable.html#properties">BaseX\Resource\Streamable</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-BaseX.Resource.Streamable.html#$mime"><var>$mime</var></a>
+			<a href="class-BaseX.Resource.Streamable.html#$mime"><var>$mime</var></a>, 
+			<a href="class-BaseX.Resource.Streamable.html#$size"><var>$size</var></a>
 		</code></td>
 	</tr>
 	</table>

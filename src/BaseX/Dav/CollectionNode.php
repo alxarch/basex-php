@@ -22,6 +22,8 @@ use \Sabre_DAV_Exception_NotFound;
  */
 class CollectionNode extends Node implements Sabre_DAV_ICollection
 {
+  
+  protected $iterator;
 
   public function getChildren()
   {
@@ -50,10 +52,20 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
 
     return $children;
   }
+  
+  public function getIterator()
+  {
+    if(null === $this->iterator)
+    {
+      $this->iterator = new ResourceNodeIterator($this->db, $this->path);
+    }
+    
+    return $this->iterator;
+  }
 
   protected function getNodes($path = '')
   {
-    return new ResourceNodeIterator($this->db, B::path($this->path, $path));
+    return $this->getIterator()->setPath(B::path($this->path, $path))->reload();
   }
 
   public function getChild($name)
@@ -85,7 +97,16 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
 
   public function createFile($name, $data = null)
   {
-    throw new \Sabre_DAV_Exception_NotImplemented;
+    $path = B::path($this->path, $name);
+    
+    if($this->db->getSession()->getInfo()->matchesCreatefilter($name))
+      $this->db->replace ($path, $data);
+    else
+      $this->db->store ($path, $data);
+    
+    $node = $this->getNodes($name)->getSingle();
+    
+    return $node->getEtag();
   }
 
   public function createDirectory($name)

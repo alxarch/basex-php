@@ -8,7 +8,7 @@
 	<title>File src/BaseX/Symfony/SerializerResults.php | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -43,8 +43,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -54,8 +57,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -121,7 +122,7 @@
 </span></span><span id="6" class="l"><a class="l" href="#6"> 6: </a><span class="php-comment"> */</span>
 </span><span id="7" class="l"><a class="l" href="#7"> 7: </a><span class="php-keyword1">namespace</span> BaseX\Symfony;
 </span><span id="8" class="l"><a class="l" href="#8"> 8: </a>
-</span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-keyword1">use</span> BaseX\Query\Result\ProcessedResults;
+</span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-keyword1">use</span> BaseX\Query\Results\ProcessedResults;
 </span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-keyword1">use</span> Symfony\Component\Serializer\SerializerInterface;
 </span><span id="11" class="l"><a class="l" href="#11">11: </a>
 </span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment">/**
@@ -150,7 +151,7 @@
 </span><span id="35" class="l"><a class="l" href="#35">35: </a>  <span class="php-comment">/**
 </span></span><span id="36" class="l"><a class="l" href="#36">36: </a><span class="php-comment">   * 
 </span></span><span id="37" class="l"><a class="l" href="#37">37: </a><span class="php-comment">   * @param string $type
-</span></span><span id="38" class="l"><a class="l" href="#38">38: </a><span class="php-comment">   * @return \Query\Result\QueryResults
+</span></span><span id="38" class="l"><a class="l" href="#38">38: </a><span class="php-comment">   * @return \Query\Results\QueryResults
 </span></span><span id="39" class="l"><a class="l" href="#39">39: </a><span class="php-comment">   */</span>
 </span><span id="40" class="l"><a class="l" href="#40">40: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <span class="php-keyword2">setType</span>(<span class="php-var">$type</span>)
 </span><span id="41" class="l"><a class="l" href="#41">41: </a>  {
@@ -161,7 +162,7 @@
 </span><span id="46" class="l"><a class="l" href="#46">46: </a>  <span class="php-comment">/**
 </span></span><span id="47" class="l"><a class="l" href="#47">47: </a><span class="php-comment">   * 
 </span></span><span id="48" class="l"><a class="l" href="#48">48: </a><span class="php-comment">   * @param string $format
-</span></span><span id="49" class="l"><a class="l" href="#49">49: </a><span class="php-comment">   * @return \Query\Result\QueryResults
+</span></span><span id="49" class="l"><a class="l" href="#49">49: </a><span class="php-comment">   * @return \Query\Results\QueryResults
 </span></span><span id="50" class="l"><a class="l" href="#50">50: </a><span class="php-comment">   */</span>
 </span><span id="51" class="l"><a class="l" href="#51">51: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_setFormat" href="#_setFormat">setFormat</a>(<span class="php-var">$format</span>)
 </span><span id="52" class="l"><a class="l" href="#52">52: </a>  {
@@ -171,8 +172,8 @@
 </span><span id="56" class="l"><a class="l" href="#56">56: </a>
 </span><span id="57" class="l"><a class="l" href="#57">57: </a>  <span class="php-comment">/**
 </span></span><span id="58" class="l"><a class="l" href="#58">58: </a><span class="php-comment">   * 
-</span></span><span id="59" class="l"><a class="l" href="#59">59: </a><span class="php-comment">   * @param \Query\Result\SerializerInterface $serializer
-</span></span><span id="60" class="l"><a class="l" href="#60">60: </a><span class="php-comment">   * @return \Query\Result\QueryResults $this
+</span></span><span id="59" class="l"><a class="l" href="#59">59: </a><span class="php-comment">   * @param \Symfony\Component\Serializer\SerializerInterface $serializer
+</span></span><span id="60" class="l"><a class="l" href="#60">60: </a><span class="php-comment">   * @return \Query\Results\QueryResults $this
 </span></span><span id="61" class="l"><a class="l" href="#61">61: </a><span class="php-comment">   */</span>
 </span><span id="62" class="l"><a class="l" href="#62">62: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_setSerializer" href="#_setSerializer">setSerializer</a>(SerializerInterface <span class="php-var">$serializer</span>) {
 </span><span id="63" class="l"><a class="l" href="#63">63: </a>    <span class="php-var">$this</span>-&gt;serializer = <span class="php-var">$serializer</span>;

@@ -4,7 +4,7 @@ namespace BaseX\Dav;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Dav\CollectionNode;
-use BaseX\Dav\ObjectTree;
+
 use BaseX\StreamWrapper;
 
 class CollectionNodeTest extends TestCaseDb
@@ -21,13 +21,13 @@ class CollectionNodeTest extends TestCaseDb
     $this->db->add('dir/dada/test4.xml', '<root/>');
     $this->db->add('dir/dada/test5.xml', '<root/>');
     
-    $this->tree = new ObjectTree($this->db, '');
+    
   }
 
   public function testGetChildren()
   {
     
-    $col = new CollectionNode($this->tree, '');
+    $col = new CollectionNode($this->db, '');
     $children = $col->getChildren();
     $this->assertEquals(4, count($children));
     $this->assertInstanceOf('BaseX\Dav\ResourceNode', $children['test.xml']);
@@ -61,7 +61,7 @@ class CollectionNodeTest extends TestCaseDb
   
   public function testGetChild()
   {
-    $col = new CollectionNode($this->tree, '');
+    $col = new CollectionNode($this->db, '');
     
     $result = $col->getChild('test1.xml');
     $this->assertInstanceOf('BaseX\Dav\ResourceNode', $result);
@@ -88,7 +88,7 @@ class CollectionNodeTest extends TestCaseDb
   
   public function testChildExists()
   {
-    $col = new CollectionNode($this->tree, '');
+    $col = new CollectionNode($this->db, '');
     
     $this->assertTrue($col->childExists('test1.xml'));
     
@@ -113,7 +113,7 @@ class CollectionNodeTest extends TestCaseDb
   public function testCreateFile()
   {
     
-    $col = new CollectionNode($this->tree, '');
+    $col = new CollectionNode($this->db, '');
     
     $etag = $col->createFile('dir/test.xml', '<test/>');
     

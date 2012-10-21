@@ -7,7 +7,7 @@
 	<title>Class BaseX\Query\QueryResults | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -42,8 +42,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -53,8 +56,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -144,13 +145,16 @@
 
 	<div>
 		<h4>Indirect known subclasses</h4>
-			<a href="class-BaseX.Dav.ResourceNodeResults.html">BaseX\Dav\ResourceNodeResults</a>, 
+			<a href="class-BaseX.Query.Results.CallbackResults.html">BaseX\Query\Results\CallbackResults</a>, 
 			<a href="class-BaseX.Query.Results.CSVResults.html">BaseX\Query\Results\CSVResults</a>, 
 			<a href="class-BaseX.Query.Results.DateTimeResults.html">BaseX\Query\Results\DateTimeResults</a>, 
 			<a href="class-BaseX.Query.Results.JSONResults.html">BaseX\Query\Results\JSONResults</a>, 
+			<a href="class-BaseX.Query.Results.RegexResults.html">BaseX\Query\Results\RegexResults</a>, 
 			<a href="class-BaseX.Query.Results.SimpleXMLResults.html">BaseX\Query\Results\SimpleXMLResults</a>, 
 			<a href="class-BaseX.Query.Results.UnserializableResults.html">BaseX\Query\Results\UnserializableResults</a>, 
-			<a href="class-BaseX.Resource.ResourceResults.html">BaseX\Resource\ResourceResults</a>
+			<a href="class-BaseX.Resource.MimeResourceResults.html">BaseX\Resource\MimeResourceResults</a>, 
+			<a href="class-BaseX.Resource.ResourceResults.html">BaseX\Resource\ResourceResults</a>, 
+			<a href="class-BaseX.Symfony.SerializerResults.html">BaseX\Symfony\SerializerResults</a>
 	</div>
 
 
@@ -176,14 +180,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			Query\Result\QueryResults
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addResult">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#31-41" title="Go to source code">addResult</a>( <span>scalar <var>$data</var></span>, <span>integer <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#31-40" title="Go to source code">addResult</a>( <span>scalar <var>$data</var></span>, <span>integer <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -201,10 +205,6 @@
 					<dd><code>integer</code><br>$type</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>Query\Result\QueryResults</code><br />
-				</div>
 
 
 
@@ -225,7 +225,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_key">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#43-45" title="Go to source code">key</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#42-44" title="Go to source code">key</a>( )</code>
 
 		<div class="description short">
 			
@@ -256,7 +256,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_next">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#47-49" title="Go to source code">next</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#46-48" title="Go to source code">next</a>( )</code>
 
 		<div class="description short">
 			
@@ -287,7 +287,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_rewind">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#51-53" title="Go to source code">rewind</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#50-52" title="Go to source code">rewind</a>( )</code>
 
 		<div class="description short">
 			
@@ -318,7 +318,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_current">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#55-57" title="Go to source code">current</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#54-56" title="Go to source code">current</a>( )</code>
 
 		<div class="description short">
 			
@@ -349,7 +349,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_valid">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#59-61" title="Go to source code">valid</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#58-60" title="Go to source code">valid</a>( )</code>
 
 		<div class="description short">
 			
@@ -380,7 +380,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_offsetExists">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#63-66" title="Go to source code">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#62-65" title="Go to source code">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
 
 		<div class="description short">
 			
@@ -411,7 +411,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_offsetGet">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#68-71" title="Go to source code">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#67-70" title="Go to source code">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
 
 		<div class="description short">
 			
@@ -442,7 +442,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_offsetSet">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#73-75" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#72-74" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
@@ -473,7 +473,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_offsetUnset">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#77-79" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#76-78" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
 
 		<div class="description short">
 			
@@ -504,7 +504,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFirst">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#81-84" title="Go to source code">getFirst</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#80-83" title="Go to source code">getFirst</a>( )</code>
 
 		<div class="description short">
 			
@@ -533,7 +533,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLast">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#86-89" title="Go to source code">getLast</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#85-88" title="Go to source code">getLast</a>( )</code>
 
 		<div class="description short">
 			
@@ -562,7 +562,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSingle">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#91-94" title="Go to source code">getSingle</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#90-93" title="Go to source code">getSingle</a>( )</code>
 
 		<div class="description short">
 			
@@ -591,7 +591,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_count">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#96-99" title="Go to source code">count</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#95-98" title="Go to source code">count</a>( )</code>
 
 		<div class="description short">
 			
@@ -622,7 +622,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_supportsType">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#101-103" title="Go to source code">supportsType</a>( <span>mixed <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#100-102" title="Go to source code">supportsType</a>( <span>mixed <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -653,7 +653,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_supportsMethod">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#105-107" title="Go to source code">supportsMethod</a>( <span>mixed <var>$method</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#104-106" title="Go to source code">supportsMethod</a>( <span>mixed <var>$method</var></span> )</code>
 
 		<div class="description short">
 			

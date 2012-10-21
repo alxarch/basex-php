@@ -7,7 +7,7 @@
 	<title>Class BaseX\Dav\Node | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -42,8 +42,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -53,8 +56,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -68,9 +69,8 @@
 			<ul>
 				<li><a href="class-BaseX.Dav.CollectionNode.html">CollectionNode</a></li>
 				<li class="active"><a href="class-BaseX.Dav.Node.html">Node</a></li>
-				<li><a href="class-BaseX.Dav.ObjectTree.html">ObjectTree</a></li>
 				<li><a href="class-BaseX.Dav.ResourceNode.html">ResourceNode</a></li>
-				<li><a href="class-BaseX.Dav.ResourceNodeResults.html">ResourceNodeResults</a></li>
+				<li><a href="class-BaseX.Dav.ResourceNodeIterator.html">ResourceNodeIterator</a></li>
 			</ul>
 
 
@@ -155,7 +155,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Dav.Node.html#13-54" title="Go to source code">src/BaseX/Dav/Node.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Dav.Node.html#14-51" title="Go to source code">src/BaseX/Dav/Node.php</a><br />
 	</div>
 
 
@@ -173,7 +173,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-BaseX.Dav.Node.html#27-30" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Dav.ObjectTree.html">BaseX\Dav\ObjectTree</a></code> <var>$tree</var></span> )</code>
+		<code><a href="source-class-BaseX.Dav.Node.html#28-32" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -202,7 +202,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-BaseX.Dav.Node.html#32-34" title="Go to source code">delete</a>( )</code>
+		<code><a href="source-class-BaseX.Dav.Node.html#34-36" title="Go to source code">delete</a>( )</code>
 
 		<div class="description short">
 			
@@ -231,7 +231,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLastModified">#</a>
-		<code><a href="source-class-BaseX.Dav.Node.html#36-38" title="Go to source code">getLastModified</a>( )</code>
+		<code><a href="source-class-BaseX.Dav.Node.html#38-40" title="Go to source code">getLastModified</a>( )</code>
 
 		<div class="description short">
 			
@@ -260,7 +260,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-BaseX.Dav.Node.html#40-42" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-BaseX.Dav.Node.html#42-44" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			
@@ -289,36 +289,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setName">#</a>
-		<code><a href="source-class-BaseX.Dav.Node.html#44-49" title="Go to source code">setName</a>( <span>mixed <var>$name</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getFullpath" id="_getFullpath">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getFullpath">#</a>
-		<code><a href="source-class-BaseX.Dav.Node.html#51-53" title="Go to source code">getFullpath</a>( )</code>
+		<code><a href="source-class-BaseX.Dav.Node.html#46-50" title="Go to source code">setName</a>( <span>mixed <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -351,18 +322,18 @@
 
 	<table class="summary" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="tree" id="$tree">
+	<tr data-order="db" id="$db">
 		<td class="attributes"><code>
 			protected  
-			<code><a href="class-BaseX.Dav.ObjectTree.html">BaseX\Dav\ObjectTree</a></code>
+			<code><a href="class-BaseX.Database.html">BaseX\Database</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Dav.Node.html#20-23" title="Go to source code"><var>$tree</var></a>
+				<a href="source-class-BaseX.Dav.Node.html#21-24" title="Go to source code"><var>$db</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
-			<a href="#$tree" class="anchor">#</a>
+			<a href="#$db" class="anchor">#</a>
 
 			<div class="description short">
 				
@@ -381,7 +352,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Dav.Node.html#24" title="Go to source code"><var>$path</var></a>
+				<a href="source-class-BaseX.Dav.Node.html#25" title="Go to source code"><var>$path</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -404,7 +375,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Dav.Node.html#25" title="Go to source code"><var>$modified</var></a>
+				<a href="source-class-BaseX.Dav.Node.html#26" title="Go to source code"><var>$modified</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

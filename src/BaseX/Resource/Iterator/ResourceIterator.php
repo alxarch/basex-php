@@ -14,8 +14,6 @@ use BaseX\Database;
 use BaseX\Resource\Document;
 use BaseX\Resource\Raw;
 use BaseX\Resource;
-use \Iterator;
-use \Countable;
 use BaseX\Query\QueryBuilder;
 use BaseX\Query\Results\DateTimeResults;
 
@@ -24,8 +22,13 @@ use BaseX\Query\Results\DateTimeResults;
  *
  * @author alxarch
  */
-class ResourceIterator implements Iterator, Countable, \ArrayAccess
+class ResourceIterator implements \Iterator, \Countable, \ArrayAccess
 {
+
+  const FILTER_GLOB = 1;
+  const FILTER_REGEX = 2;
+  const FILTER_NAME_GLOB = 4;
+  const FILTER_NAME_REGEX = 8;
 
   /**
    *
@@ -38,13 +41,8 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
    * @var string
    */
   protected $path;
+  protected $reverse;
 
-  /**
-   *
-   * @var \ArrayObject
-   */
-  protected $lines;
-  
   /**
    *
    * @var array
@@ -53,115 +51,141 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
 
   /**
    *
-   * @var array
+   * @var \ArrayIterator
    */
   protected $idx;
 
-  /**
-   *
-   * @var \BaseX\Query\Results\DateTimeResults
-   */
-  protected $timestamps;
-  
   /**
    *
    * @var boolean
    */
   protected $modified;
 
+  /**
+   *
+   * @var string
+   */
+  protected $sort;
+
+  /**
+   *
+   * @var array
+   */
+  protected $filters = array();
+
   public function __construct(Database $db, $path = '', $modified = true)
   {
     $this->db = $db;
-    $this->path = $path;
     $this->modified = $modified;
+    $this->setPath($path);
   }
 
-  protected function getTimestamps()
+  public function setPath($path)
   {
-    if (null === $this->timestamps)
+    $this->path = $path;
+    return $this;
+  }
+
+  public function reload()
+  {
+    $data = $this->db->getSession()->execute("LIST $this->db \"$this->path\"");
+
+    $lines = explode("\n", $data);
+    array_shift($lines);
+    array_shift($lines);
+    array_pop($lines);
+    array_pop($lines);
+    array_pop($lines);
+
+    if ($this->modified)
     {
       $xql = sprintf("db:list-details('%s', '%s')/@modified-date/string()", $this->db, $this->path);
-      $this->timestamps = QueryBuilder::begin()
+      $timestamps = QueryBuilder::begin()
         ->setBody($xql)
         ->getQuery($this->db->getSession())
         ->getResults(new DateTimeResults());
     }
 
-    return $this->timestamps;
-  }
+    $this->resources = new \ArrayObject(array());
 
-  protected function getLines()
-  {
-    if (null === $this->lines)
+    foreach (array_values($lines) as $i => $line)
     {
-      $data = $this->db->getSession()->execute("LIST $this->db \"$this->path\"");
-
-      $lines = explode("\n", $data);
-
-      array_shift($lines);
-      array_shift($lines);
-      array_pop($lines);
-      array_pop($lines);
-      array_pop($lines);
-      
-      $this->lines = new \ArrayObject(array_values($lines));
-
-      $this->resources = array();
-      $this->matches = array();
-
-      $this->idx = empty($lines) ? array() : range(0, count($lines) - 1);
-    }
-   
-    return $this->lines;
-  }
-
-  protected function asObject($matches)
-  {
-    if ($matches['type'] === 'raw')
-    {
-      $resource = new Raw($this->db, $matches['path']);
-    }
-    else
-    {
-      $resource = new Document($this->db, $matches['path']);
-    }
-
-    $resource->setSize((int) $matches['size']);
-    $resource->setContentType($matches['content_type']);
-
-    if (isset($matches['modified']))
-    {
-      $resource->setModified($matches['modified']);
-    }
-    return $resource;
-  }
-
-  public function get($i)
-  {
-    if (!$this->getLines()->offsetExists($i))
-    {
-      return null;
-    }
-
-    if (!isset($this->resources[$i]))
-    {
-      $resource = Resource::parseLine($this->getLines()->offsetGet($i));
+      $resource = Resource::parseLine($line);
 
       if ($this->modified)
       {
-        $resource['modified'] = $this->getTimestamps()->offsetGet($i);
+        $resource['modified'] = $timestamps[$i];
       }
       else
       {
         $resource['modified'] = null;
       }
 
-      $resource['object'] = $this->asObject($resource);
-      $this->resources[$i] = $resource;
-
+      $this->resources->append($resource);
     }
 
-    return $this->resources[$i]['object'];
+    $this->idx = null;
+
+    return $this;
+  }
+
+  /**
+   * 
+   * @return \ArrayObject
+   */
+  protected function getResources()
+  {
+    if (null === $this->resources)
+    {
+      $this->reload();
+    }
+
+    return $this->resources;
+  }
+
+  protected function getObject($resource)
+  {
+    if ($resource['type'] === 'raw')
+    {
+      $object = new Raw($this->db, $resource['path']);
+    }
+    else
+    {
+      $object = new Document($this->db, $resource['path']);
+    }
+
+    $object->setSize((int) $resource['size']);
+    $object->setContentType($resource['content_type']);
+
+    if (isset($resource['modified']))
+    {
+      $object->setModified($resource['modified']);
+    }
+
+    return $object;
+  }
+
+  /**
+   * 
+   * @param int $i
+   * @return \BaseX\Resource
+   */
+  public function get($i)
+  {
+    if (null === $i || !$this->getResources()->offsetExists($i))
+    {
+      return null;
+    }
+
+    $res = $this->getResources()->offsetGet($i);
+
+    if (!isset($res['object']))
+    {
+      $res['object'] = $this->getObject($res);
+      $this->getResources()->offsetSet($i, $res);
+    }
+
+    return $res['object'];
   }
 
   public function current()
@@ -171,31 +195,32 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
 
   public function key()
   {
-    $this->getLines();
-    return current($this->idx);
+    $this->getResources();
+    return $this->getIndex()->key();
   }
 
   public function next()
   {
-    $this->getLines();
-    next($this->idx);
+    $this->getResources();
+    $this->getIndex()->next();
   }
 
   public function rewind()
   {
-    $this->getLines();
-    reset($this->idx);
+    $this->getResources();
+    $this->getIndex()->rewind();
   }
 
   public function valid()
   {
-    $this->getLines();
-    return false !== current($this->idx);
+    $this->getResources();
+    return $this->getIndex()->valid();
   }
 
   public function count()
   {
-    return $this->getLines()->count();
+    $this->getResources();
+    return $this->getIndex()->count();
   }
 
   /**
@@ -204,8 +229,8 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
    */
   public function getFirst()
   {
-    $this->getLines();
-    return $this->get($this->idx[0]);
+    $this->getResources();
+    return $this->get($this->getIndex()->offsetGet(0));
   }
 
   /**
@@ -214,8 +239,8 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
    */
   public function getLast()
   {
-    $this->getLines();
-    return $this->get($this->idx[count($this->idx) - 1]);
+    $this->getResources();
+    return $this->get($this->getIndex()->offsetGet($this->getIndex()->count() - 1));
   }
 
   /**
@@ -224,7 +249,8 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
    */
   public function getSingle()
   {
-    return $this->getLines()->count() === 1 ? $this->get($this->idx[0]) : null;
+    $this->getResources();
+    return $this->getIndex()->count() === 1 ? $this->get($this->getIndex()->offsetGet(0)) : null;
   }
 
   /**
@@ -234,20 +260,106 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
    */
   protected function sort($key)
   {
-    $idx = [];
-    
-    foreach ($this as $i => $resource)
+    if ($this->sort !== $key)
     {
-      $idx[] = $this->resources[$i][$key];
+      $this->sort = $key;
+      $this->idx = null;
     }
-    
-    asort($idx);
-    
-    $this->idx = array_keys($idx);
-    
+
     return $this;
   }
-  
+
+  /**
+   * Rebuilds index.
+   */
+  protected function reindex()
+  {
+    $idx = array();
+
+    if (null === $this->sort && count($this->filters) === 0)
+    {
+      $total = $this->resources->count();
+      if (0 === $total)
+        $keys = array();
+      else
+        $keys = range(0, $total - 1);
+    }
+    else
+    {
+
+      $sort = null === $this->sort ? 'path' : $this->sort;
+
+      reset($this->resources);
+
+      foreach ($this->resources as $i => $resource)
+      {
+        $path = $resource['path'];
+        $skip = false;
+        foreach ($this->filters as $pattern => $type)
+        {
+          switch ($type)
+          {
+            case self::FILTER_REGEX:
+              $skip = preg_match($pattern, $path);
+              break;
+            case self::FILTER_NAME_REGEX:
+              $skip = preg_match($pattern, basename($path));
+              break;
+            case self::FILTER_NAME_GLOB:
+              $skip = fnmatch($pattern, basename($path));
+              break;
+            case self::FILTER_GLOB:
+            default:
+              $skip = fnmatch($pattern, $path);
+              break;
+          }
+
+          if ($skip)
+            break;
+        }
+
+        if ($skip)
+          continue;
+
+        $idx[] = $this->resources[$i][$sort];
+      }
+
+      asort($idx);
+
+      $keys = array_keys($idx);
+    }
+
+    if ($this->reverse)
+      $keys = array_reverse($keys);
+
+    $this->idx = new \ArrayIterator($keys);
+  }
+
+  /**
+   * 
+   * @return \ArrayIterator
+   */
+  protected function getIndex()
+  {
+    if (null === $this->idx)
+    {
+      $this->reindex();
+    }
+
+    return $this->idx;
+  }
+
+  public function filter($pattern, $type = self::FILTER_GLOB)
+  {
+    if (!isset($this->filters[$pattern]) || $this->filters[$pattern] !== $type)
+    {
+      $this->filters[$pattern] = $type;
+      $this->idx = null;
+    }
+
+    return $this;
+  }
+
   /**
    * 
    * @return \BaseX\Resource\Iterator\ResourceIterator
@@ -256,8 +368,7 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
   {
     return $this->sort('size');
   }
-  
-  
+
   /**
    * 
    * @return \BaseX\Resource\Iterator\ResourceIterator
@@ -266,7 +377,7 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
   {
     return $this->sort('modified');
   }
-  
+
   /**
    * 
    * @return \BaseX\Resource\Iterator\ResourceIterator
@@ -275,7 +386,7 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
   {
     return $this->sort('content_type');
   }
-  
+
   /**
    * 
    * @return \BaseX\Resource\Iterator\ResourceIterator
@@ -284,7 +395,7 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
   {
     return $this->sort('path');
   }
-  
+
   /**
    * 
    * @return \BaseX\Resource\Iterator\ResourceIterator
@@ -293,14 +404,15 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
   {
     return $this->sort('type');
   }
-  
+
   /**
    * 
    * @return \BaseX\Resource\Iterator\ResourceIterator
    */
   public function reverse()
   {
-    $this->idx = array_reverse($this->idx);
+    $this->reverse = true;
+    $this->idx = null;
     return $this;
   }
 
@@ -316,7 +428,7 @@ class ResourceIterator implements Iterator, Countable, \ArrayAccess
 
   public function offsetSet($offset, $value)
   {
-    throw new ErrorException('Not implemented');
+    throw new \ErrorException('Not implemented');
   }
 
   public function offsetUnset($offset)

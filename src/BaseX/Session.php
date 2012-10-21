@@ -131,12 +131,13 @@ class Session
     $hash = hash("md5", hash("md5", $pass) . $ts);
     
     $msg = implode(array($user , Socket::NUL, $hash, Socket::NUL));
-    
+    $this->socket->clearBuffer();
     $this->socket->send($msg);
     
     // receives success flag
     if(!$this->ok()) 
     {
+      
       throw new SessionError("Access denied.");
     }
   }

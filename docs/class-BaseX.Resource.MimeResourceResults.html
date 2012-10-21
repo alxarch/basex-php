@@ -4,10 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class BaseX\Dav\ResourceNodeResults | basex-php</title>
+	<title>Class BaseX\Resource\MimeResourceResults | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -28,7 +28,7 @@
 				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
 						</li>
 							</ul></li>
-				<li class="active"><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
+				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
@@ -42,8 +42,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -53,8 +56,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -66,13 +67,21 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-BaseX.Dav.CollectionNode.html">CollectionNode</a></li>
-				<li><a href="class-BaseX.Dav.Node.html">Node</a></li>
-				<li><a href="class-BaseX.Dav.ObjectTree.html">ObjectTree</a></li>
-				<li><a href="class-BaseX.Dav.ResourceNode.html">ResourceNode</a></li>
-				<li class="active"><a href="class-BaseX.Dav.ResourceNodeResults.html">ResourceNodeResults</a></li>
+				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
+				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
+				<li class="active"><a href="class-BaseX.Resource.MimeResourceResults.html">MimeResourceResults</a></li>
+				<li><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
+				<li><a href="class-BaseX.Resource.ResourceResults.html">ResourceResults</a></li>
+				<li><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
+				<li><a href="class-BaseX.Resource.Tree.html">Tree</a></li>
 			</ul>
 
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-BaseX.Resource.CollectionInterface.html">CollectionInterface</a></li>
+				<li><a href="class-BaseX.Resource.ResourceInterface.html">ResourceInterface</a></li>
+				<li><a href="class-BaseX.Resource.StreamableInterface.html">StreamableInterface</a></li>
+			</ul>
 
 
 
@@ -98,7 +107,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-BaseX.Dav.html" title="Summary of BaseX\Dav"><span>Namespace</span></a>
+				<a href="namespace-BaseX.Resource.html" title="Summary of BaseX\Resource"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -116,12 +125,12 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class ResourceNodeResults</h1>
+	<h1>Class MimeResourceResults</h1>
 
 
 	<div class="description">
 	
-<p>Maps query results to DAV nodes.</p>
+<p>Resource results that maps content type to PHP classes.</p>
 
 	</div>
 
@@ -150,7 +159,7 @@
 		</dd>
 		<dd style="padding-left:90px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>BaseX\Dav\ResourceNodeResults</span></b>			
+<b><span>BaseX\Resource\MimeResourceResults</span></b>			
 			
 			
 		</dd>
@@ -166,12 +175,12 @@
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Dav.html">Dav</a><br />
-		<b>Package:</b> BaseX<br />
+		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Resource.html">Resource</a><br />
+		
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Dav.ResourceNodeResults.html#14-51" title="Go to source code">src/BaseX/Dav/ResourceNodeResults.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.MimeResourceResults.html#16-88" title="Go to source code">src/BaseX/Resource/MimeResourceResults.php</a><br />
 	</div>
 
 
@@ -189,7 +198,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-BaseX.Dav.ResourceNodeResults.html#28-32" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Dav.ObjectTree.html">BaseX\Dav\ObjectTree</a></code> <var>$tree</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.MimeResourceResults.html#26-37" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span>mixed <var>$types</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -209,7 +218,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="processData" id="_processData">
+	<tr data-order="assignClass" id="_assignClass">
 
 		<td class="attributes"><code>
 			 public 
@@ -219,8 +228,37 @@
 		</td>
 
 		<td class="name"><div>
+		<a class="anchor" href="#_assignClass">#</a>
+		<code><a href="source-class-BaseX.Resource.MimeResourceResults.html#39-65" title="Go to source code">assignClass</a>( <span>mixed <var>$mime</var></span>, <span>mixed <var>$class</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="processData" id="_processData">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
 		<a class="anchor" href="#_processData">#</a>
-		<code><a href="source-class-BaseX.Dav.ResourceNodeResults.html#34-50" title="Go to source code">processData</a>( <span>mixed <var>$data</var></span>, <span>mixed <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.MimeResourceResults.html#67-86" title="Go to source code">processData</a>( <span>mixed <var>$data</var></span>, <span>mixed <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -292,18 +330,18 @@
 
 	<table class="summary" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="tree" id="$tree">
+	<tr data-order="types" id="$types">
 		<td class="attributes"><code>
 			protected  
-			<code><a href="class-BaseX.Dav.ObjectTree.html">BaseX\Dav\ObjectTree</a></code>
+			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Dav.ResourceNodeResults.html#22-26" title="Go to source code"><var>$tree</var></a>
+				<a href="source-class-BaseX.Resource.MimeResourceResults.html#24" title="Go to source code"><var>$types</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
-			<a href="#$tree" class="anchor">#</a>
+			<a href="#$types" class="anchor">#</a>
 
 			<div class="description short">
 				
@@ -338,8 +376,7 @@
 	<tr>
 		<td><code>
 			<a href="class-BaseX.Query.QueryResults.html#$current"><var>$current</var></a>, 
-			<a href="class-BaseX.Query.QueryResults.html#$data"><var>$data</var></a>, 
-			<a href="class-BaseX.Query.QueryResults.html#$types"><var>$types</var></a>
+			<a href="class-BaseX.Query.QueryResults.html#$data"><var>$data</var></a>
 		</code></td>
 	</tr>
 	</table>

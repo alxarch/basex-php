@@ -7,7 +7,7 @@
 	<title>Class BaseX\Symfony\SerializerResults | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -42,8 +42,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -53,8 +56,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -123,11 +124,21 @@
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-BaseX\Query\Result\ProcessedResults
+			<a href="class-BaseX.Query.QueryResults.html"><span>BaseX\Query\QueryResults</span></a>
+			
+			 implements 
+				<a href="class-BaseX.Query.QueryResultsInterface.html"><span>BaseX\Query\QueryResultsInterface</span></a>
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-BaseX.Query.Results.ProcessedResults.html"><span>BaseX\Query\Results\ProcessedResults</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by" />
 <b><span>BaseX\Symfony\SerializerResults</span></b>			
 			
@@ -190,7 +201,7 @@ BaseX\Query\Result\ProcessedResults
 
 		<td class="attributes"><code>
 			 public 
-			Query\Result\QueryResults
+			Query\Results\QueryResults
 			
 			</code>
 		</td>
@@ -215,7 +226,7 @@ BaseX\Query\Result\ProcessedResults
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>Query\Result\QueryResults</code><br />
+					<code>Query\Results\QueryResults</code><br />
 				</div>
 
 
@@ -228,7 +239,7 @@ BaseX\Query\Result\ProcessedResults
 
 		<td class="attributes"><code>
 			 public 
-			Query\Result\QueryResults
+			Query\Results\QueryResults
 			
 			</code>
 		</td>
@@ -253,7 +264,7 @@ BaseX\Query\Result\ProcessedResults
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>Query\Result\QueryResults</code><br />
+					<code>Query\Results\QueryResults</code><br />
 				</div>
 
 
@@ -266,7 +277,7 @@ BaseX\Query\Result\ProcessedResults
 
 		<td class="attributes"><code>
 			 public 
-			Query\Result\QueryResults
+			Query\Results\QueryResults
 			
 			</code>
 		</td>
@@ -286,12 +297,12 @@ BaseX\Query\Result\ProcessedResults
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$serializer</var></dt>
-					<dd><code>Query\Result\SerializerInterface</code><br>$serializer</dd>
+					<dd><code>Symfony\Component\Serializer\SerializerInterface</code><br>$serializer</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>Query\Result\QueryResults</code><br>$this<br />
+					<code>Query\Results\QueryResults</code><br>$this<br />
 				</div>
 
 
@@ -342,6 +353,36 @@ BaseX\Query\Result\ProcessedResults
 	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-BaseX.Query.Results.ProcessedResults.html#methods">BaseX\Query\Results\ProcessedResults</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Query.Results.ProcessedResults.html#_current">current()</a>, 
+			<a href="class-BaseX.Query.Results.ProcessedResults.html#_offsetGet">offsetGet()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-BaseX.Query.QueryResults.html#methods">BaseX\Query\QueryResults</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Query.QueryResults.html#_addResult">addResult()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_count">count()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_getFirst">getFirst()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_getLast">getLast()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_getSingle">getSingle()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_key">key()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_next">next()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_offsetExists">offsetExists()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_offsetSet">offsetSet()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_offsetUnset">offsetUnset()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_rewind">rewind()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_supportsMethod">supportsMethod()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_supportsType">supportsType()</a>, 
+			<a href="class-BaseX.Query.QueryResults.html#_valid">valid()</a>
+		</code></td>
+	</tr>
+	</table>
 
 
 
@@ -426,6 +467,24 @@ BaseX\Query\Result\ProcessedResults
 	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-BaseX.Query.Results.ProcessedResults.html#properties">BaseX\Query\Results\ProcessedResults</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Query.Results.ProcessedResults.html#$cache"><var>$cache</var></a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-BaseX.Query.QueryResults.html#properties">BaseX\Query\QueryResults</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Query.QueryResults.html#$current"><var>$current</var></a>, 
+			<a href="class-BaseX.Query.QueryResults.html#$data"><var>$data</var></a>, 
+			<a href="class-BaseX.Query.QueryResults.html#$types"><var>$types</var></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 

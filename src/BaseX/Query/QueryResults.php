@@ -105,8 +105,4 @@ class QueryResults implements QueryResultsInterface
     return true;
   }
   
-  public function asArray()
-  {
-    return $this->data;
-  }
 }

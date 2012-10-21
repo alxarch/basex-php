@@ -8,7 +8,7 @@
 	<title>File src/BaseX/Dav/ResourceNode.php | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -43,8 +43,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -54,8 +57,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -69,9 +70,8 @@
 			<ul>
 				<li><a href="class-BaseX.Dav.CollectionNode.html">CollectionNode</a></li>
 				<li><a href="class-BaseX.Dav.Node.html">Node</a></li>
-				<li><a href="class-BaseX.Dav.ObjectTree.html">ObjectTree</a></li>
 				<li class="active"><a href="class-BaseX.Dav.ResourceNode.html">ResourceNode</a></li>
-				<li><a href="class-BaseX.Dav.ResourceNodeResults.html">ResourceNodeResults</a></li>
+				<li><a href="class-BaseX.Dav.ResourceNodeIterator.html">ResourceNodeIterator</a></li>
 			</ul>
 
 
@@ -127,42 +127,50 @@
 </span><span id="8" class="l"><a class="l" href="#8"> 8: </a><span class="php-keyword1">namespace</span> BaseX\Dav;
 </span><span id="9" class="l"><a class="l" href="#9"> 9: </a>
 </span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-keyword1">use</span> BaseX\Dav\Node;
-</span><span id="11" class="l"><a class="l" href="#11">11: </a>
-</span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment">/**
-</span></span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-comment"> * WebDAV file node representing a BaseX resource.
-</span></span><span id="14" class="l"><a class="l" href="#14">14: </a><span class="php-comment"> * 
-</span></span><span id="15" class="l"><a class="l" href="#15">15: </a><span class="php-comment"> * @package BaseX
-</span></span><span id="16" class="l"><a class="l" href="#16">16: </a><span class="php-comment"> * 
-</span></span><span id="17" class="l"><a class="l" href="#17">17: </a><span class="php-comment"> */</span>
-</span><span id="18" class="l"><a class="l" href="#18">18: </a><span class="php-keyword1">class</span> <a id="ResourceNode" href="#ResourceNode">ResourceNode</a> <span class="php-keyword1">extends</span> Node <span class="php-keyword1">implements</span> \Sabre_DAV_IFile
-</span><span id="19" class="l"><a class="l" href="#19">19: </a>{
-</span><span id="20" class="l"><a class="l" href="#20">20: </a>
-</span><span id="21" class="l"><a class="l" href="#21">21: </a>  <span class="php-keyword1">public</span> <span class="php-var"><a id="$mime" href="#$mime">$mime</a></span>;
-</span><span id="22" class="l"><a class="l" href="#22">22: </a>  <span class="php-keyword1">public</span> <span class="php-var"><a id="$size" href="#$size">$size</a></span>;
-</span><span id="23" class="l"><a class="l" href="#23">23: </a>  <span class="php-keyword1">public</span> <span class="php-var"><a id="$resource" href="#$resource">$resource</a></span>;
-</span><span id="24" class="l"><a class="l" href="#24">24: </a>  
-</span><span id="25" class="l"><a class="l" href="#25">25: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getSize" href="#_getSize">getSize</a>(){
-</span><span id="26" class="l"><a class="l" href="#26">26: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;size;
-</span><span id="27" class="l"><a class="l" href="#27">27: </a>  }
-</span><span id="28" class="l"><a class="l" href="#28">28: </a>  
-</span><span id="29" class="l"><a class="l" href="#29">29: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContentType" href="#_getContentType">getContentType</a>(){
-</span><span id="30" class="l"><a class="l" href="#30">30: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;mime;
-</span><span id="31" class="l"><a class="l" href="#31">31: </a>  }
-</span><span id="32" class="l"><a class="l" href="#32">32: </a>  
-</span><span id="33" class="l"><a class="l" href="#33">33: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_put" href="#_put">put</a>(<span class="php-var">$data</span>){
-</span><span id="34" class="l"><a class="l" href="#34">34: </a>    <span class="php-var">$this</span>-&gt;tree-&gt;put(<span class="php-var">$this</span>, <span class="php-var">$data</span>);
-</span><span id="35" class="l"><a class="l" href="#35">35: </a>  }
-</span><span id="36" class="l"><a class="l" href="#36">36: </a>
-</span><span id="37" class="l"><a class="l" href="#37">37: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_get" href="#_get">get</a>(){
-</span><span id="38" class="l"><a class="l" href="#38">38: </a>    <span class="php-keyword1">return</span> <span class="php-keyword2">fopen</span>(<span class="php-var">$this</span>-&gt;tree-&gt;getURI(<span class="php-var">$this</span>), <span class="php-quote">'r'</span>);
-</span><span id="39" class="l"><a class="l" href="#39">39: </a>  }
-</span><span id="40" class="l"><a class="l" href="#40">40: </a>
-</span><span id="41" class="l"><a class="l" href="#41">41: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getETag" href="#_getETag">getETag</a>() {
-</span><span id="42" class="l"><a class="l" href="#42">42: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;tree-&gt;getEtag(<span class="php-var">$this</span>);
-</span><span id="43" class="l"><a class="l" href="#43">43: </a>  }
-</span><span id="44" class="l"><a class="l" href="#44">44: </a>  
-</span><span id="45" class="l"><a class="l" href="#45">45: </a>}
-</span><span id="46" class="l"><a class="l" href="#46">46: </a></span></code></pre>
+</span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-keyword1">use</span> BaseX\Helpers <span class="php-keyword1">as</span> B;
+</span><span id="12" class="l"><a class="l" href="#12">12: </a>
+</span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-comment">/**
+</span></span><span id="14" class="l"><a class="l" href="#14">14: </a><span class="php-comment"> * WebDAV file node representing a BaseX resource.
+</span></span><span id="15" class="l"><a class="l" href="#15">15: </a><span class="php-comment"> * 
+</span></span><span id="16" class="l"><a class="l" href="#16">16: </a><span class="php-comment"> * @package BaseX
+</span></span><span id="17" class="l"><a class="l" href="#17">17: </a><span class="php-comment"> * 
+</span></span><span id="18" class="l"><a class="l" href="#18">18: </a><span class="php-comment"> */</span>
+</span><span id="19" class="l"><a class="l" href="#19">19: </a><span class="php-keyword1">class</span> <a id="ResourceNode" href="#ResourceNode">ResourceNode</a> <span class="php-keyword1">extends</span> Node <span class="php-keyword1">implements</span> \Sabre_DAV_IFile
+</span><span id="20" class="l"><a class="l" href="#20">20: </a>{
+</span><span id="21" class="l"><a class="l" href="#21">21: </a>
+</span><span id="22" class="l"><a class="l" href="#22">22: </a>  <span class="php-keyword1">public</span> <span class="php-var"><a id="$mime" href="#$mime">$mime</a></span>;
+</span><span id="23" class="l"><a class="l" href="#23">23: </a>  <span class="php-keyword1">public</span> <span class="php-var"><a id="$size" href="#$size">$size</a></span>;
+</span><span id="24" class="l"><a class="l" href="#24">24: </a>  <span class="php-keyword1">public</span> <span class="php-var"><a id="$raw" href="#$raw">$raw</a></span>;
+</span><span id="25" class="l"><a class="l" href="#25">25: </a>  
+</span><span id="26" class="l"><a class="l" href="#26">26: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getSize" href="#_getSize">getSize</a>(){
+</span><span id="27" class="l"><a class="l" href="#27">27: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;raw ? (int)<span class="php-var">$this</span>-&gt;size : <span class="php-num">0</span>;
+</span><span id="28" class="l"><a class="l" href="#28">28: </a>  }
+</span><span id="29" class="l"><a class="l" href="#29">29: </a>  
+</span><span id="30" class="l"><a class="l" href="#30">30: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_isRaw" href="#_isRaw">isRaw</a>()
+</span><span id="31" class="l"><a class="l" href="#31">31: </a>  {
+</span><span id="32" class="l"><a class="l" href="#32">32: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;raw;
+</span><span id="33" class="l"><a class="l" href="#33">33: </a>  }
+</span><span id="34" class="l"><a class="l" href="#34">34: </a>  
+</span><span id="35" class="l"><a class="l" href="#35">35: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getContentType" href="#_getContentType">getContentType</a>(){
+</span><span id="36" class="l"><a class="l" href="#36">36: </a>    <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;mime;
+</span><span id="37" class="l"><a class="l" href="#37">37: </a>  }
+</span><span id="38" class="l"><a class="l" href="#38">38: </a>  
+</span><span id="39" class="l"><a class="l" href="#39">39: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_put" href="#_put">put</a>(<span class="php-var">$data</span>){
+</span><span id="40" class="l"><a class="l" href="#40">40: </a>    <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;raw)
+</span><span id="41" class="l"><a class="l" href="#41">41: </a>      <span class="php-var">$this</span>-&gt;db-&gt;store(<span class="php-var">$this</span>-&gt;path, <span class="php-var">$data</span>);
+</span><span id="42" class="l"><a class="l" href="#42">42: </a>    <span class="php-keyword1">else</span>
+</span><span id="43" class="l"><a class="l" href="#43">43: </a>      <span class="php-var">$this</span>-&gt;db-&gt;replace(<span class="php-var">$this</span>-&gt;path, <span class="php-var">$data</span>);
+</span><span id="44" class="l"><a class="l" href="#44">44: </a>  }
+</span><span id="45" class="l"><a class="l" href="#45">45: </a>
+</span><span id="46" class="l"><a class="l" href="#46">46: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_get" href="#_get">get</a>(){
+</span><span id="47" class="l"><a class="l" href="#47">47: </a>    <span class="php-keyword1">return</span> <span class="php-keyword2">fopen</span>(B::uri(<span class="php-var">$this</span>-&gt;db, <span class="php-var">$this</span>-&gt;path), <span class="php-quote">'r'</span>);
+</span><span id="48" class="l"><a class="l" href="#48">48: </a>  }
+</span><span id="49" class="l"><a class="l" href="#49">49: </a>
+</span><span id="50" class="l"><a class="l" href="#50">50: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_getETag" href="#_getETag">getETag</a>() {
+</span><span id="51" class="l"><a class="l" href="#51">51: </a>    <span class="php-keyword1">return</span> <span class="php-keyword2">sprintf</span>(<span class="php-quote">'&quot;%s/%s/%s&quot;'</span>, <span class="php-var">$this</span>-&gt;db, <span class="php-var">$this</span>-&gt;path, <span class="php-var">$this</span>-&gt;modified);
+</span><span id="52" class="l"><a class="l" href="#52">52: </a>  }
+</span><span id="53" class="l"><a class="l" href="#53">53: </a>}
+</span><span id="54" class="l"><a class="l" href="#54">54: </a></span></code></pre>
 
 	<div id="footer">
 		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

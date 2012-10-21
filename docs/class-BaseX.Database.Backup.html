@@ -7,7 +7,7 @@
 	<title>Class BaseX\Database\Backup | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4007815624"></script>
+	<script type="text/javascript" src="elementlist.js?1398979022"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -42,8 +42,11 @@
 				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
 						</li>
 							</ul></li>
-				<li><a href="namespace-BaseX.Resource.html">Resource</a>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
 						</li>
+							</ul></li>
 				<li><a href="namespace-BaseX.Session.html">Session</a>
 						</li>
 				<li><a href="namespace-BaseX.Silex.html">Silex</a>
@@ -53,8 +56,6 @@
 				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
 						</li>
 							</ul></li></ul></li>
-				<li><a href="namespace-None.html">None</a>
-						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -136,7 +137,7 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Database.html">Database</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Database.Backup.html#17-161" title="Go to source code">src/BaseX/Database/Backup.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Database.Backup.html#15-129" title="Go to source code">src/BaseX/Database/Backup.php</a><br />
 	</div>
 
 
@@ -147,14 +148,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-BaseX.Database.html">BaseX\Database</a></code>
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDatabase">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#45-52" title="Go to source code">getDatabase</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#44-52" title="Go to source code">getDatabase</a>( )</code>
 
 		<div class="description short">
 			
@@ -171,7 +172,7 @@
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-BaseX.Database.html">BaseX\Database</a></code></code><br />
+					<code>string</code><br />
 				</div>
 
 
@@ -191,7 +192,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSize">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#54-61" title="Go to source code">getSize</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#54-62" title="Go to source code">getSize</a>( )</code>
 
 		<div class="description short">
 			
@@ -228,7 +229,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDate">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#63-70" title="Go to source code">getDate</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#64-72" title="Go to source code">getDate</a>( )</code>
 
 		<div class="description short">
 			
@@ -265,7 +266,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFile">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#72-79" title="Go to source code">getFile</a>( )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#74-82" title="Go to source code">getFile</a>( )</code>
 
 		<div class="description short">
 			
@@ -302,7 +303,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDate">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#81-84" title="Go to source code">setDate</a>( <span>mixed <var>$date</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#84-87" title="Go to source code">setDate</a>( <span>mixed <var>$date</var></span> )</code>
 
 		<div class="description short">
 			
@@ -331,7 +332,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFilepath">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#86-94" title="Go to source code">getFilepath</a>( <span>mixed <var>$dbpath</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#89-97" title="Go to source code">getFilepath</a>( <span>mixed <var>$dbpath</var></span> )</code>
 
 		<div class="description short">
 			
@@ -357,48 +358,6 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="create" id="_create">
-
-		<td class="attributes"><code>
-			 public static
-			<code><a href="class-BaseX.Database.Backup.html">BaseX\Database\Backup</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#96-105" title="Go to source code">create</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Create a new backup for a Database.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Create a new backup for a Database.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$db</var></dt>
-					<dd><code><code><a href="class-BaseX.Database.html">BaseX\Database</a></code></code><br>$db</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><code><a href="class-BaseX.Database.Backup.html">BaseX\Database\Backup</a></code></code><br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="unserialize" id="_unserialize">
 
 		<td class="attributes"><code>
@@ -410,65 +369,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_unserialize">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#108-142" title="Go to source code">unserialize</a>( <span>mixed <var>$data</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getLatestBackup" id="_getLatestBackup">
-
-		<td class="attributes"><code>
-			 public static
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getLatestBackup">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#144-147" title="Go to source code">getLatestBackup</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getBackups" id="_getBackups">
-
-		<td class="attributes"><code>
-			 public static
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getBackups">#</a>
-		<code><a href="source-class-BaseX.Database.Backup.html#149-160" title="Go to source code">getBackups</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span> )</code>
+		<code><a href="source-class-BaseX.Database.Backup.html#99-127" title="Go to source code">unserialize</a>( <span>mixed <var>$data</var></span> )</code>
 
 		<div class="description short">
 			
@@ -508,7 +409,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Database.Backup.html#24-29" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-BaseX.Database.Backup.html#23-28" title="Go to source code"><var>$db</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -535,7 +436,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Database.Backup.html#31-36" title="Go to source code"><var>$size</var></a>
+				<a href="source-class-BaseX.Database.Backup.html#30-35" title="Go to source code"><var>$size</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -562,7 +463,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Database.Backup.html#38-43" title="Go to source code"><var>$date</var></a>
+				<a href="source-class-BaseX.Database.Backup.html#37-42" title="Go to source code"><var>$date</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
