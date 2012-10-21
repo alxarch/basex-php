@@ -66,8 +66,8 @@ class BaseXDavServiceProvider implements ServiceProviderInterface
             {
               $filter = $type;
               $type = \BaseX\Resource\Iterator\ResourceIterator::FILTER_GLOB;
-              $root->getIterator()->filter($filter, $type);
             }
+            $root->getIterator()->filter($filter, $type);
           }
         }
         
@@ -79,7 +79,14 @@ class BaseXDavServiceProvider implements ServiceProviderInterface
 
         if (isset($opts['debug']) && $opts['debug'])
           $dav->debugExceptions = true;
-
+        
+        if(isset($opts['locks']) && $opts['locks'])
+        {
+          $backend = new \BaseX\Dav\Locks\Backend($app['db'], $opts['locks']);
+          $locks = new \Sabre_DAV_Locks_Plugin($backend);
+          $dav->addPlugin($locks);
+        }
+        
         if (isset($opts['plugins']))
         {
           foreach ($opts['plugins'] as $plugin)
