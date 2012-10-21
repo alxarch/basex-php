@@ -77,6 +77,7 @@ class Resources implements \IteratorAggregate
   public function exclude($pattern, $type = Exclude::FILTER_REGEX)
   {
     $this->exclude[$pattern] = $type;
+    return $this;
   }
 
   public function withTimestamps()
@@ -217,7 +218,7 @@ class Resources implements \IteratorAggregate
   {
     $iter = $this->getIterator();
     
-    return $iter->count() > 0 ? $iter->offsetGet(0) : 0;
+    return $iter->count() > 0 ? $iter->offsetGet(0) : null;
   }
   
   public function getLast()

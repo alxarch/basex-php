@@ -28,6 +28,8 @@ class ResourcesTest extends TestCaseDb
     $this->db->store('test.txt', 'test');
     $this->db->add('test.xml', '<test/>');
     $this->db->add('test/test.xml', '<test/>');
+    $this->db->add('test/.protect/hidden.xml', '<test/>');
+    $this->db->add('test/test.xml', '<test/>');
     $this->db->add('sa/test.xml', '<test/>');
     $this->db->add('test/path/test.xml', '<test/>');
     
@@ -42,7 +44,7 @@ class ResourcesTest extends TestCaseDb
   {
      $this->object->setPath('test');
     
-    $this->assertEquals(2, $this->object->getIterator()->count());
+    $this->assertEquals(4, $this->object->getIterator()->count());
   }
 
   /**
@@ -54,6 +56,16 @@ class ResourcesTest extends TestCaseDb
     $this->object->exclude('@^test/.*@');
     
     $this->assertEquals(3, $this->object->getIterator()->count());
+  }
+  /**
+   * @covers BaseX\Resource\Iterator\Resources::exclude
+   * @todo   Implement testExclude().
+   */
+  public function testExclude2()
+  {
+    $this->object->exclude('@[/^]\.protect/@');
+    
+    $this->assertEquals(6, $this->object->getIterator()->count());
   }
 
   /**
