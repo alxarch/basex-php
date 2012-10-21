@@ -22,8 +22,6 @@ use \Sabre_DAV_Exception_NotFound;
  */
 class CollectionNode extends Node implements Sabre_DAV_ICollection
 {
-  
-  protected $iterator;
 
   public function getChildren()
   {
@@ -52,36 +50,32 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
 
     return $children;
   }
-  
-  protected function getNodes($path='')
+
+  protected function getNodes($path = '')
   {
     return Nodes::begin($this->db)
-      ->setPath(B::path($this->path, $path))
-      ->withTimestamps()
-      ;
+        ->setPath(B::path($this->path, $path))
+        ->withTimestamps()
+    ;
   }
 
   public function getChild($name)
   {
-    $nodes = $this->getNodes($name);
+    $iterator = $this->getNodes($name)->getIterator();
     $path = B::path($this->path, $name);
-    
-    switch ($nodes->getIterator()->count())
+    $total = $iterator->count();
+
+    if (0 === $total)
     {
-      case 0:
-        throw new Sabre_DAV_Exception_NotFound;
-        break;
-      case 1:
-        $node = $nodes->getFirst();
-        if ($node->path === $path)
-          return $node;
-        else
-          return new CollectionNode($this->db, $path);
-        break;
-      default:
-        return new CollectionNode($this->db, $path);
-        break;
+      throw new Sabre_DAV_Exception_NotFound;
     }
+
+    if (1 === $total && $iterator->offsetGet(0)->path === $path)
+    {
+      return $iterator->offsetGet(0);
+    }
+
+    return new CollectionNode($this->db, $path);
   }
 
   public function childExists($name)
@@ -92,14 +86,14 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
   public function createFile($name, $data = null)
   {
     $path = B::path($this->path, $name);
-    
-    if($this->db->getSession()->getInfo()->matchesCreatefilter($name))
-      $this->db->replace ($path, $data);
+
+    if ($this->db->getSession()->getInfo()->matchesCreatefilter($name))
+      $this->db->replace($path, $data);
     else
-      $this->db->store ($path, $data);
-    
+      $this->db->store($path, $data);
+
     $node = $this->getNodes($name)->getSingle();
-    
+
     return $node->getEtag();
   }
 

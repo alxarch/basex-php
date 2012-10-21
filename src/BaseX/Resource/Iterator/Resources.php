@@ -60,7 +60,7 @@ class Resources implements \IteratorAggregate
    */
   protected $exclude = array();
   
-  protected $converter;
+  protected $denormalizer;
 
   public function __construct(Database $db, $path = '')
   {
@@ -139,7 +139,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \BaseX\Resource\Iterator\Converter
+   * @return \BaseX\Resource\Iterator\Denormalizer
    */
   public function reverse()
   {
@@ -147,9 +147,14 @@ class Resources implements \IteratorAggregate
     return $this;
   }
   
-  public function setConverter($converter)
+  public function getDenormalizer()
   {
-    $this->converter = $converter;
+    return $this->denormalizer;
+  }
+  
+  public function setDenormalizer($denormalizer)
+  {
+    $this->denormalizer = $denormalizer;
     return $this;
   }
 
@@ -160,7 +165,7 @@ class Resources implements \IteratorAggregate
   public function getIterator()
   {
     $base = new ListCommand($this->db, $this->path);
-    $resources = new Parser($base);
+    $resources = new Callback($base, array('\BaseX\Resource', 'parseLine'));
     
     if($this->modified)
     {
@@ -181,13 +186,14 @@ class Resources implements \IteratorAggregate
       $resources = new Sort($resources, $this->sort);
     }
     
-    $converter = null === $this->converter ? array($this, 'convertResource') : $this->converter;
+    $converter = null === $this->denormalizer ? array($this, 'denormalize') : $this->denormalizer;
     
-    $resources = new Converter($resources, $converter);
-    return new \ArrayIterator(iterator_to_array($resources));
+    $result = new Callback($resources, $converter);
+    
+    return new \ArrayIterator(iterator_to_array($result));
   }
   
-  public function convertResource($resource)
+  public function denormalize($resource)
   {
     if ($resource['type'] === 'raw')
     {
@@ -211,7 +217,8 @@ class Resources implements \IteratorAggregate
   
   public static function begin(Database $db)
   {
-    return new static ($db, '');
+    $class = get_called_class();
+    return new $class($db, '');
   }
   
   public function getFirst()

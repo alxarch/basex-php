@@ -17,6 +17,5 @@ class Reverse implements \IteratorAggregate
   {
     return new \ArrayIterator(reverse(iterator_to_array($this->iterator)));
   }
-  
-  
+
 }

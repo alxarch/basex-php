@@ -54,5 +54,10 @@ class CollectionTest extends TestCaseDb
     $col = new Collection($this->db, null);
     $this->assertEmpty($col->getChildren());
   }
+  
+  public function testGetChild()
+  {
+    $this->assertNull();
+  }
  
 }

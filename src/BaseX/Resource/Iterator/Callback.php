@@ -2,9 +2,9 @@
 
 namespace BaseX\Resource\Iterator;
 
-class Converter extends \IteratorIterator
+class Callback extends \IteratorIterator
 {
-  protected $converter;
+  protected $callback;
   
   /**
    *
@@ -12,21 +12,23 @@ class Converter extends \IteratorIterator
    */
   protected $array;
   
-  public function __construct(\Traversable $iter, $converter=null)
+  public function __construct(\Traversable $iter, $callback=null)
   {
     parent::__construct($iter);
     
-    if(null !== $converter && !is_callable($converter))
+    if(null !== $callback && !is_callable($callback))
       throw new \InvalidArgumentException('Invalid Converter');
     
-    $this->converter = $converter;
+    $this->callback = $callback;
   }
   
   public function current()
   {
     $item = parent::current();
+    
     if(null === $item) 
       return $item;
-    return call_user_func($this->converter, $item);
+    
+    return call_user_func($this->callback, $item);
   }
 }

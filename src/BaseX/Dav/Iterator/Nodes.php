@@ -16,17 +16,7 @@ use BaseX\Dav\ResourceNode;
  */
 class Nodes extends Resources
 {
-  /**
-   * 
-   * @return \ArrayIterator
-   */
-  public function getIterator()
-  {
-    $this->setConverter(array($this, 'convertNode'));
-    return parent::getIterator();
-  }
-  
-  public function convertNode($resource)
+  public function denormalize($resource)
   {
     $node = new ResourceNode($this->db, $resource['path']);
     $node->size = (int)$resource['size'];
@@ -34,7 +24,7 @@ class Nodes extends Resources
     $node->raw = 'raw' === $resource['type'];
     
     if(null !== $resource['modified'])
-      $node->modified = (int)$resource['modified']->format('U');
+      $node->modified = (int) $resource['modified']->format('U');
     
     return $node;
   }
