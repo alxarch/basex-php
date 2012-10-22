@@ -11,6 +11,7 @@ namespace BaseX\Session;
 
 use BaseX\Session;
 use Serializable;
+use BaseX\Error\SessionError;
 
 /**
  * Session information and options.
@@ -53,7 +54,7 @@ class SessionInfo implements Serializable
       return $this->xml;
     }
     
-    throw new Error('Session information not loaded.');
+    throw new SessionError('Session information not loaded.');
   }
   
   public function serialize() {
