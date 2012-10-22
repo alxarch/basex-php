@@ -43,7 +43,13 @@ class SessionInfo implements Serializable
    */
   public function refresh()
   {
-    $this->unserialize($this->session->query('db:system()')->execute());
+    $query = $this->session->query('db:system()')->execute();
+    
+    if(false === $this->unserialize($query))
+    {
+      throw new SessionError('Session information could not be reloaded.');
+    }
+    
     return $this;
   }
 
