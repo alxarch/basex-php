@@ -304,7 +304,7 @@ class StreamWrapper
 
     if(count($this->options) || $this->parser)
     {
-      $this->restore = self::$session->getInfo();
+      $this->restore = self::$session->getOptions();
     }
 
     foreach ($this->options as $name => $value)
@@ -344,13 +344,13 @@ class StreamWrapper
       
       foreach ($this->options as $name => $value)
       {
-        $value = $this->restore->option($name);
+        $value = $this->restore[strtoupper($name)];
         self::$session->execute("SET $name '$value'");
       }
       
       if($this->parser)
       {
-        $parser = $this->restore->option('parser');
+        $parser = $this->restore['PARSER'];
         self::$session->execute("SET parser $parser");
       }
       
@@ -374,9 +374,8 @@ class StreamWrapper
     if(null === $this->resource)
     {
       $name = basename($this->path);
-      
-      $info = self::$session->getInfo();
-      if($info->refresh()->matchesCreatefilter($name))
+
+      if(self::$session->refresh()->matchesCreatefilter($name))
       {
         return Session::REPLACE;
       }

@@ -88,7 +88,7 @@ class CollectionNode extends Node implements Sabre_DAV_ICollection
   {
     $path = B::path($this->path, $name);
 
-    if ($this->db->getSession()->getInfo()->matchesCreatefilter($name))
+    if ($this->db->getSession()->matchesCreatefilter($name))
       $this->db->replace($path, $data);
     else
       $this->db->store($path, $data);

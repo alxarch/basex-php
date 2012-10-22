@@ -52,7 +52,7 @@ abstract class Importer
     $parseropt = ('html' === $parser) ? 'HTMLOPT' : 'PARSEROPT';
     
     $session =  $this->db->getSession();
-    $restore = $session->getInfo();
+    $restore = $session->getOptions();
     
     $session->setOption('parser', $parser)
             ->setOption($parseropt, $opts)
@@ -61,14 +61,13 @@ abstract class Importer
     return $restore;
   }
   
-  protected function endImport(SessionInfo $restore)
+  protected function endImport($restore)
   {
      $this->db->getSession()
-        ->setOption('parser', $restore)
-        ->setOption('parseropt', $restore)
-        ->setOption('parser', $restore)
-        ->setOption('htmlopt', $restore)
-        ->setOption('createfilter', $restore);
+        ->setOption('PARSER', $restore['PARSER'])
+        ->setOption('PARSEROPT', $restore['PARSEROPT'])
+        ->setOption('HTMLOPT', $restore['HTMLOPT'])
+        ->setOption('CREATEFILTER', $restore['CREATEFILTER']);
   }
   
   public function importDir($dir, $path, $options=array(), $createfilter=null)

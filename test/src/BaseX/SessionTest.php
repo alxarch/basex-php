@@ -221,11 +221,7 @@ class SessionTest extends TestCaseSession {
     $this->session->execute("DROP DB " . $db);
   }
 
-  function testGetInfo() {
-    $result = $this->session->getInfo();
-
-    $this->assertInstanceOf('BaseX\Session\SessionInfo', $result);
-  }
+  
 
   function testGetStatus() {
     $this->session->execute('INFO');
@@ -243,28 +239,19 @@ class SessionTest extends TestCaseSession {
   
   function testSetOption()
   {
-    $info = new Session\SessionInfo($this->session);
-    $info->refresh();
     $this->session->setOption('parser', 'json');
     $this->assertContains('PARSER: json', $this->session->execute('INFO'));
-    
-    $this->session->setOption('parser', $info);
-    $this->assertContains('PARSER: xml', $this->session->execute('INFO'));
-    
   }
   function testGetOption()
   {
-   
     $this->assertEquals('xml', $this->session->getOption('parser'));
-    
-    
   }
+  
   function testResetOption()
   {
     $this->session->execute('SET PARSER json');
     $this->session->resetOption('parser');
     $this->assertNotContains('PARSER: json', $this->session->execute('INFO'));
-    
   }
 
   public function tearDown() {

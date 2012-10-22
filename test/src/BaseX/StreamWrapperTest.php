@@ -349,7 +349,7 @@ class StreamWrapperTest extends TestCaseDb {
     fwrite($out, $in);
     fclose($out);
     $this->assertContains('test.html', $this->ls());
-    $this->assertEquals('xml', $this->session->getInfo()->option('parser'));
+    $this->assertEquals('xml', $this->session->getOption('PARSER'));
   }
   
   public function testOptions()
@@ -360,7 +360,7 @@ class StreamWrapperTest extends TestCaseDb {
     fwrite($out, $in);
     fclose($out);
     $this->assertContains('test.html', $this->ls());
-    $this->assertEquals('xml', $this->session->getInfo()->option('parser'));
+    $this->assertEquals('xml', $this->session->getOption('parser'));
   }
 
   public function tearDown() {

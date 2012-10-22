@@ -17,7 +17,6 @@ use BaseX\Query;
 use BaseX\Session\Socket;
 use BaseX\Helpers as B;
 use BaseX\Error\SessionError;
-use BaseX\Session\SessionInfo;
 
 /** 
  * Session for communicating with a BaseX server.
@@ -60,6 +59,10 @@ class Session
     */
    protected $locked = false;
 
+   protected $options;
+   
+   protected $version;
+
    /**
     * Creates a new Session
     * 
@@ -87,22 +90,6 @@ class Session
     return $this->socket;
   }
     
-  /**
-   * Gets session information & options wrapper.
-   * 
-   * @return \BaseX\Session\SessionInfo
-   */
-  public function getInfo()
-  {
-    if(null === $this->info)
-    {
-      $this->info = new SessionInfo($this);
-      $this->info->refresh();
-    }
-    
-    return $this->info;
-  }
-  
   /**
    * Gets last operation's status message.
    * 
@@ -383,7 +370,33 @@ class Session
    */
   public function getOption($name)
   {
-    return $this->getInfo()->option($name);
+    $this->getOptions();
+    
+    $name = strtoupper($name);
+    
+    if(!isset($this->options[$name]))
+    {
+      throw new \InvalidArgumentException('Invalid option name');
+    }
+    
+    return  $this->options[$name];
+  }
+  
+  public function refresh()
+  {
+    $data = $this->execute('INFO');
+    $lines =  explode("\n", $data);
+    $keys  = preg_filter('/^\s+([^:]+):.*$/', '$1', $lines);
+    $values = preg_filter('/^\s+[^:]+:\s(.*)$/', '$1', $lines);
+    
+    $this->options = array_combine($keys, $values);
+    $this->version = $this->options['Version'];
+    $this->memory = $this->options['Used Memory'];
+    
+    unset($this->options['Version']);
+    unset($this->options['Used Memory']);
+    
+    return $this;
   }
   
   /**
@@ -397,14 +410,11 @@ class Session
    */
   public function setOption($name, $value)
   {
-    if($value instanceof SessionInfo)
-    {
-      $value = $value->option($name);
-    }
-    
+    $this->getOption($name);
+   
     $this->execute("SET $name \"$value\"");
     
-    $this->info = null;
+    $this->options[strtoupper($name)] = $value;
     
     return $this;
   }
@@ -418,9 +428,50 @@ class Session
   public function resetOption($name)
   {
     $this->execute("SET $name");
-    $this->info = null;
+    $this->options = null;
     return $this;
   }
   
+  public function getVersion()
+  {
+    if(null === $this->version)
+    {
+      $this->refresh();
+    }
+    
+    return $this->version;
+  }
   
+  /**
+   * Whether a name matches the current createfilter patterns.
+   * 
+   * @link http://docs.basex.org/wiki/Options#CREATEFILTER
+   * 
+   * @param string $name
+   * @return boolean
+   */
+  public function matchesCreatefilter($name)
+  {
+    $patterns = explode(',', $this->options['CREATEFILTER']);
+    
+    foreach ($patterns as $p)
+    {
+      if(fnmatch($p, $name))
+      {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+  
+  public function getOptions()
+  {
+    if(null === $this->options)
+    {
+      $this->refresh();
+    }
+    
+    return $this->options;
+  }
 }

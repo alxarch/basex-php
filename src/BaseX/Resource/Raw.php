@@ -30,7 +30,7 @@ class Raw extends Streamable
   public function getFilepath()
   {
     $db = $this->getDatabase();
-    $dbpath = $db->getSession()->getInfo()->dbpath;
+    $dbpath = $db->getSession()->getOption('DBPATH');
     $path = $this->getPath();
     return "$dbpath/$db/raw/$path";
   }
