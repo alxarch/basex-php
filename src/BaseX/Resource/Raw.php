@@ -27,12 +27,9 @@ class Raw extends Streamable
     return true;
   }
 
-  public function getFilepath()
+  public function getFilepath($dbpath)
   {
-    $db = $this->getDatabase();
-    $dbpath = $db->getSession()->getOption('DBPATH');
-    $path = $this->getPath();
-    return "$dbpath/$db/raw/$path";
+    return sprintf("%s/%s/raw/%s", rtrim($dbpath, '\/'), $this->getDatabase(), $this->getPath());
   }
 
   public function getReadMethod()
