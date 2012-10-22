@@ -390,11 +390,16 @@ class Session
     $values = preg_filter('/^\s+[^:]+:\s(.*)$/', '$1', $lines);
     
     $this->options = array_combine($keys, $values);
-    $this->version = $this->options['Version'];
-    $this->memory = $this->options['Used Memory'];
     
+    $this->version = $this->options['Version'];
     unset($this->options['Version']);
-    unset($this->options['Used Memory']);
+    
+    if(isset($this->options['Used Memory']))
+    {
+      $this->memory = $this->options['Used Memory'];
+      unset($this->options['Used Memory']);
+    }
+    
     
     return $this;
   }
