@@ -41,9 +41,9 @@ class RawTest extends TestCaseDb
 
   public function testGetFilePath()
   {
-    $dbpath = $this->session->query('db:system()/mainoptions/dbpath/text()')->execute();
+    $dbpath = '/path';
     $file = $dbpath.'/'.$this->dbname.'/raw/test.txt';
-    $this->assertEquals($file, $this->resource->getFilepath());
+    $this->assertEquals($file, $this->resource->getFilepath($dbpath));
   }
     
   function tearDown()
