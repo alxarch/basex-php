@@ -14,6 +14,8 @@ use BaseX\Database;
 use BaseX\Resource\Iterator\Exclude;
 use BaseX\Resource\Document;
 use BaseX\Resource\Raw;
+use BaseX\Resource\Iterator\Callback;
+use BaseX\Resource\CallbackFilter;
 
 /**
  * Description of Resources
@@ -61,6 +63,8 @@ class Resources implements \IteratorAggregate
   protected $exclude = array();
   
   protected $denormalizer;
+  protected $mime;
+  protected $type;
 
   public function __construct(Database $db, $path = '')
   {
@@ -79,10 +83,54 @@ class Resources implements \IteratorAggregate
     $this->exclude[$pattern] = $type;
     return $this;
   }
+  
+  public function raw()
+  {
+    $this->type = 'raw';
+    return $this;
+  }
+  
+  public function all()
+  {
+    $this->type = null;
+    return $this;
+  }
+  
+  public function xml()
+  {
+    $this->type = 'xml';
+    return $this;
+  }
+  
+  public function mime($mime)
+  {
+    if(null === $mime)
+    {
+      $this->mime = array();
+    }
+    else
+    {
+      $this->mime[] = $mime;
+    }
+    
+    return $this;
+  }
+  
+  public function unordered()
+  {
+    $this->sort = null;
+    return $this;
+  }
 
   public function withTimestamps()
   {
     $this->modified = true;
+    return $this;
+  }
+  
+  public function withoutTimestamps()
+  {
+    $this->modified = false;
     return $this;
   }
 
@@ -143,7 +191,7 @@ class Resources implements \IteratorAggregate
    */
   public function reverse()
   {
-    $this->reverse = true;
+    $this->reverse = !((boolean) $this->reverse);
     return $this;
   }
   
@@ -170,6 +218,22 @@ class Resources implements \IteratorAggregate
     if($this->modified)
     {
       $resources = new Modified($resources, $this->db, $this->path);
+    }
+    
+    if(null !== $this->type)
+    {
+      $type = $this->type;
+      $resources = new CallbackFilter($resources, function($resource) use ($type){
+        return $resource['type'] === $type;
+      });
+    }
+    
+    if(count($this->mime))
+    {
+      $mime = $this->mime;
+      $resources = new CallbackFilter($resources, function($resource) use ($mime){
+        return in_array($resource['mime'], $mime);
+      });
     }
     
     if(count($this->exclude) > 0)
