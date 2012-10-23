@@ -42,6 +42,5 @@ class CallbackFilter extends FilterIterator
   public function accept()
   {
     $resource = parent::current();
-    return $this->callback($resource);
-  }
+    return call_user_func($this->callback, $resource);  }
 }
