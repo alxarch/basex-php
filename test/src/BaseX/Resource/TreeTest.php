@@ -8,6 +8,7 @@ namespace BaseX\Resource;
 
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Resource\Tree;
+
 /**
  * Description of TreeTest
  *

@@ -2,9 +2,11 @@
 
 namespace BaseX\Resource\Iterator;
 
+use ArrayIterator;
 use BaseX\Database;
+use IteratorAggregate;
 
-class ListCommand implements \IteratorAggregate
+class ListCommand implements IteratorAggregate
 {
 
   protected $db;
@@ -40,7 +42,7 @@ class ListCommand implements \IteratorAggregate
     array_pop($lines);
     array_pop($lines);
     
-    return new \ArrayIterator($lines);
+    return new ArrayIterator($lines);
     
   }
 

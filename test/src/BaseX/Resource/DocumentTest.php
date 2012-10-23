@@ -10,7 +10,7 @@ class DocumentTest extends TestCaseDb
 {
   /**
    *
-   * @var \BaseX\Resource\Document
+   * @var Document
    */
   protected $resource;
   

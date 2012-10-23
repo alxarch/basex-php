@@ -8,6 +8,7 @@
 namespace BaseX\Query\Results;
 
 use BaseX\Query\Results\ProcessedResults;
+use PHPUnit_Framework_TestCase;
 
 class ProcessedResultsMock extends ProcessedResults
 {
@@ -21,11 +22,11 @@ class ProcessedResultsMock extends ProcessedResults
  *
  * @author alxarch
  */
-class ProcessedResultsTest extends \PHPUnit_Framework_TestCase
+class ProcessedResultsTest extends PHPUnit_Framework_TestCase
 {
   /**
    *
-   * @var \BaseX\Query\Results\ProcessedResults
+   * @var ProcessedResults
    */
   protected $results;
 

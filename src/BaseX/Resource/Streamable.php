@@ -10,11 +10,13 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Resource\StreamableInterface;
-use BaseX\Resource;
-use BaseX\Helpers as B;
-use BaseX\Error;
 use BaseX\Database;
+use BaseX\Error;
+use BaseX\Helpers as B;
+use BaseX\Resource;
+use BaseX\Resource\Streamable;
+use BaseX\Resource\StreamableInterface;
+use SimpleXMLElement;
 
 /**
  * Base class for streamable resources (raw/document).
@@ -80,7 +82,7 @@ abstract class Streamable extends Resource implements StreamableInterface
    * Set mime type for this resource.
    * 
    * @param string $type
-   * @return \BaseX\Resource\Streamable
+   * @return Streamable
    */
   public function setContentType($type)
   {
@@ -91,7 +93,7 @@ abstract class Streamable extends Resource implements StreamableInterface
   /**
    * Refreshes info for this resource.
    * 
-   * @return \BaseX\Resource\Streamable Returns itself on success. 
+   * @return Streamable Returns itself on success. 
    * NULL is returned if resource is no longer available or has changed 
    * from Raw to Document or vice versa.
    */
@@ -117,7 +119,7 @@ abstract class Streamable extends Resource implements StreamableInterface
     }
   }
 
-  public static function fromSimpleXML(Database $db, \SimpleXMLElement $xml)
+  public static function fromSimpleXML(Database $db, SimpleXMLElement $xml)
   {
     $resource = parent::fromSimpleXML($db, $xml);
     $resource->setContentType((string) $xml['content-type']);

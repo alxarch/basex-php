@@ -10,13 +10,13 @@
 
 namespace BaseX\Symfony\Security;
 
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use BaseX\Database;
-use BaseX\Symfony\Security\User;
 use BaseX\Query\Results\UnserializableResults;
+use BaseX\Symfony\Security\User;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * UserProvider for Symfony Security.
@@ -34,7 +34,7 @@ class UserProvider implements UserProviderInterface
 
   /**
    *
-   * @var \BaseX\Database
+   * @var Database
    */
   private $db;
   private $salt;
@@ -49,7 +49,7 @@ class UserProvider implements UserProviderInterface
   /**
    * 
    * @param string $xpath
-   * @return  \BaseX\Query\Results\UnserializableResults
+   * @return  UnserializableResults
    */
   protected function xpath($xpath)
   {

@@ -2,15 +2,20 @@
 
 namespace BaseX\Resource\Iterator;
 
-class Sort implements \IteratorAggregate
+use ArrayIterator;
+use InvalidArgumentException;
+use IteratorAggregate;
+use Traversable;
+
+class Sort implements IteratorAggregate
 {
   protected $key;
   protected $iterator;
   
-  public function __construct(\Traversable $iterator, $key)
+  public function __construct(Traversable $iterator, $key)
   {
     if(!in_array($key, array('size', 'path', 'modified', 'mime')))
-      throw new \InvalidArgumentException('Invlid sort key.');
+      throw new InvalidArgumentException('Invlid sort key.');
     
     $this->key = $key;
     $this->iterator = $iterator;
@@ -31,7 +36,7 @@ class Sort implements \IteratorAggregate
       return $a[$key] > $b[$key] ? -1 : 1;
     });
     
-    return new \ArrayIterator($data);
+    return new ArrayIterator($data);
   }
   
   

@@ -8,10 +8,12 @@
  */
 namespace BaseX\Resource;
 
-use BaseX\Query\Results\ProcessedResults;
 use BaseX\Database;
-use BaseX\Resource\Raw;
+use BaseX\Query;
+use BaseX\Query\Results\ProcessedResults;
 use BaseX\Resource\Document;
+use BaseX\Resource\Raw;
+use SimpleXMLElement;
 
 /**
  * Description of ResourceResult
@@ -22,7 +24,7 @@ class ResourceResults extends ProcessedResults
 {
   
   /**
-   * @var \BaseX\Database;
+   * @var Database
    */
   protected $db;
   
@@ -47,7 +49,7 @@ class ResourceResults extends ProcessedResults
   {
     $xml = @simplexml_load_string($data);
     
-    if($xml instanceof \SimpleXMLElement && 'resource' === $xml->getName())
+    if($xml instanceof SimpleXMLElement && 'resource' === $xml->getName())
     {
       if('false' === (string)$xml['raw'])
       {

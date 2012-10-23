@@ -13,10 +13,12 @@
 
 namespace BaseX;
 
-use BaseX\Query;
-use BaseX\Session\Socket;
-use BaseX\Helpers as B;
 use BaseX\Error\SessionError;
+use BaseX\Helpers as B;
+use BaseX\Query;
+use BaseX\Session;
+use BaseX\Session\Socket;
+use InvalidArgumentException;
 
 /** 
  * Session for communicating with a BaseX server.
@@ -34,17 +36,10 @@ class Session
   /**
    * Socket wrapper
    * 
-   * @var \BaseX\Session\Socket
+   * @var Socket
    */
   protected $socket;
   
-  /**
-   * Session information & options
-   * 
-   * @var \BaseX\Session\Info
-   */
-   protected $info = null;
-   
   /**
    * Last operation's status message.
    * 
@@ -71,7 +66,7 @@ class Session
     * @param string $user Username
     * @param string $pass Password
     * 
-    * @throws \BaseX\Error\SessionError
+    * @throws SessionError
     */
   function __construct($host, $port, $user, $pass) 
   {
@@ -83,7 +78,7 @@ class Session
   /**
    * Gets the socket wrapper.
    *
-   * @return \BaseX\Session\Socket
+   * @return Socket
    */
   public function getSocket()
   {
@@ -106,7 +101,7 @@ class Session
    * @param string $user
    * @param string  $pass
    * 
-   * @throws \BaseX\Error\SessionError On failure
+   * @throws SessionError On failure
    */
   protected function authenticate($user, $pass)
   {
@@ -174,7 +169,7 @@ class Session
    * Creates a new Query that uses this session.
    * 
    * @param string $q XQuery code
-   * @return BaseX\Query $q
+   * @return Query $q
    */
   public function query($q) 
   {
@@ -253,7 +248,7 @@ class Session
    * @param string $arg
    * @param string|resource $input
    * 
-   * @throws \BaseX\Error\SessionError
+   * @throws SessionError
    */
   public function sendCommand($code, $arg, $input) 
   {
@@ -295,7 +290,7 @@ class Session
    * @param string $arg
    * @return mixed
    * 
-   * @throws BaseX\Error\SessionError
+   * @throws SessionError
    */
   public function sendQueryCommand($code, $arg)
   {
@@ -340,7 +335,7 @@ class Session
   /**
    * Flags session as locked.
    * 
-   * @return \BaseX\Session $this
+   * @return Session $this
    */
   public function lock()
   {
@@ -351,7 +346,7 @@ class Session
   /**
    * Flags session as unlocked.
    * 
-   * @return \BaseX\Session $this
+   * @return Session $this
    *  
    */
   public function unlock()
@@ -376,7 +371,7 @@ class Session
     
     if(!isset($this->options[$name]))
     {
-      throw new \InvalidArgumentException('Invalid option name');
+      throw new InvalidArgumentException('Invalid option name');
     }
     
     return  $this->options[$name];
@@ -411,7 +406,7 @@ class Session
    * 
    * @param string $name
    * @param mixed $value
-   * @return \BaseX\Session  $this
+   * @return Session  $this
    */
   public function setOption($name, $value)
   {
@@ -428,7 +423,7 @@ class Session
    * Resets an option
    * 
    * @param string $name
-   * @return \BaseX\Session $this
+   * @return Session $this
    */
   public function resetOption($name)
   {

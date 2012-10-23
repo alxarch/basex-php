@@ -2,10 +2,9 @@
 
 namespace BaseX\Query;
 
-use \PHPUnit_Framework_TestCase as TestCase;
-
-use BaseX\Session;
 use BaseX\Query\QueryBuilder;
+use BaseX\Session;
+use PHPUnit_Framework_TestCase as TestCase;
 
 class QueryBuilderTest extends TestCase
 {

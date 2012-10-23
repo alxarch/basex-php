@@ -2,10 +2,10 @@
 
 namespace BaseX\Symfony\Security;
 
-use BaseX\Symfony\Security\UserProvider;
-use BaseX\Symfony\Security\User;
-use BaseX\Query;
 use BaseX\PHPUnit\TestCaseDb;
+use BaseX\Symfony\Security\User;
+use BaseX\Symfony\Security\UserProvider;
+use Symfony\Component\Security\Core\User\User as User2;
 
 /**
  * Test class for UserProvider.
@@ -86,7 +86,7 @@ XML;
    * @covers BaseX\Symfony\Security\UserProvider::supportsClass
    */
   public function testSupportsClass() {
-    $u = new \Symfony\Component\Security\Core\User\User('aaa', 'aaa');
+    $u = new User2('aaa', 'aaa');
     $this->assertFalse($this->provider->supportsClass(get_class($u)));
     $this->assertTrue($this->provider->supportsClass(get_class($this->user)));
   }

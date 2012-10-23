@@ -3,6 +3,7 @@
 namespace BaseX;
 
 use BaseX\Helpers as B;
+use DateTime;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class HelpersTest  extends TestCase
@@ -103,7 +104,7 @@ class HelpersTest  extends TestCase
   
   public function testDate()
   {
-    $date = new \DateTime();
+    $date = new DateTime();
     
     $this->assertEquals($date, B::date($date->format('Y-m-d\TH:i:s.u\Z')));
   }

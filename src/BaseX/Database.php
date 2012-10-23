@@ -10,10 +10,14 @@
 
 namespace BaseX;
 
-use BaseX\Session;
-use BaseX\Resource\Iterator\Resources;
+use BaseX\Database;
+use BaseX\Database as Database2;
 use BaseX\Query\QueryResultsInterface;
 use BaseX\Query\Results\UnserializableResults;
+use BaseX\Resource;
+use BaseX\Resource\Iterator\Resources;
+use BaseX\Session;
+use InvalidArgumentException;
 
 /**
  * BaseX Database object.
@@ -29,7 +33,7 @@ class Database
 
   /**
    *
-   * @var \BaseX\Session
+   * @var Session
    */
   protected $session;
 
@@ -45,7 +49,7 @@ class Database
    * If the database does not exist (and the session user has the required 
    * privileges) it will be created.
    * 
-   * @param \BaseX\Session $session a BaseX\Session to use
+   * @param Session $session a BaseX\Session to use
    * @param string $name database name
    */
   public function __construct(Session $session, $name)
@@ -57,7 +61,7 @@ class Database
   public function setName($name)
   {
     if (!preg_match('/^[\-_a-zA-Z0-9]{1,128}$/', $name))
-      throw new \InvalidArgumentException('Invalid database name.');
+      throw new InvalidArgumentException('Invalid database name.');
 
     $this->name = $name;
     return $this;
@@ -66,7 +70,7 @@ class Database
   /**
    * Creates the database if it does not exist.
    * 
-   * @return \BaseX\Database
+   * @return Database2
    */
   public function create()
   {
@@ -93,7 +97,7 @@ class Database
    * @param string $path
    * @param string|resource $input
    * 
-   * @return \BaseX\Database
+   * @return Database2
    */
   public function add($path, $input)
   {
@@ -110,7 +114,7 @@ class Database
    * @param string $path
    * @param string|resource $input
    * 
-   * @return \BaseX\Database
+   * @return Database2
    */
   public function replace($path, $input)
   {
@@ -127,7 +131,7 @@ class Database
    * @param string $path
    * @param string|resource $input
    * 
-   * @return BaseX\Database
+   * @return Database
    */
   public function store($path, $input)
   {
@@ -155,7 +159,7 @@ class Database
    * 
    * @param string $path 
    * 
-   * @return BaseX\Database
+   * @return Database
    */
   public function delete($path)
   {
@@ -171,7 +175,7 @@ class Database
    * @param string $old 
    * @param string $new 
    * 
-   * @return BaseX\Database
+   * @return Database
    */
   public function rename($old, $new)
   {
@@ -182,7 +186,7 @@ class Database
   /**
    * 
    * @param string $path
-   * @return \BaseX\Resource|null
+   * @return Resource|null
    */
   public function getResource($path)
   {
@@ -195,7 +199,7 @@ class Database
    * @param string $path 
    * @param boolean $modified
    * 
-   * @return \BaseX\Resource\Iterator\Resources
+   * @return Resources
    */
   public function getResources($path = null, $modified = true)
   {
@@ -229,9 +233,9 @@ class Database
    * 
    * @param string $xpath An XPath expression to apply to the contents.
    * @param string $path A path to limit scope of contents.
-   * @param \BaseX\Query\QueryResultsInterface $results 
+   * @param QueryResultsInterface $results 
    * 
-   * @return BaseX\Query\QueryResultsInterface
+   * @return QueryResultsInterface
    * 
    */
   public function xpath($xpath, $path = null,
@@ -251,7 +255,7 @@ class Database
 
   /**
    *
-   * @return \BaseX\Session
+   * @return Session
    */
   public function getSession()
   {
@@ -272,7 +276,7 @@ class Database
    * 
    * @param string $src
    * @param string $dest
-   * @return \BaseX\Database
+   * @return Database2
    */
   public function copy($src, $dest)
   {
@@ -312,7 +316,7 @@ XQL;
 
   /**
    * Create a new backup for this Database.
-   * @return \BaseX\Database
+   * @return Database2
    */
   public function backup()
   {

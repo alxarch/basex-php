@@ -8,11 +8,11 @@
 
 namespace BaseX\Dav;
 
-use Sabre_DAV_ICollection;
+use BaseX\Dav\Iterator\Nodes;
 use BaseX\Dav\Node;
 use BaseX\Helpers as B;
-use BaseX\Dav\Iterator\Nodes;
-use \Sabre_DAV_Exception_NotFound;
+use Sabre_DAV_Exception_NotFound;
+use Sabre_DAV_ICollection;
 
 /**
  * WebDAV collection node representing a collection in a BaseX database.

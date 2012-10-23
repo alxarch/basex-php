@@ -10,9 +10,9 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Resource\Streamable;
-use \DOMDocument as XML;
 use BaseX\Query\QueryResultsInterface;
+use BaseX\Resource\Streamable;
+use DOMDocument as XML;
 
 /**
  * BaseX Resource for xml documents.
@@ -30,7 +30,7 @@ class Document extends Streamable
   /**
    * Returns the contents of the document as XML.
    * 
-   * @return \DOMDocument
+   * @return DOMDocument
    */
   public function getXML()
   {
@@ -43,7 +43,7 @@ class Document extends Streamable
    * Retrieves contents of a document filtered by an XPath expression.
    * 
    * @param string $xpath An XPath expression to apply to the contents.
-   * @param \BaseX\Query\QueryResultsInterface $results
+   * @param QueryResultsInterface $results
    * @return string $result
    */
   public function xpath($xpath, QueryResultsInterface $results = null)

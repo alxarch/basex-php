@@ -6,6 +6,7 @@
  */
 namespace BaseX\Query;
 
+use BaseX\Error;
 use BaseX\Query\QueryResultsInterface;
 
 /**
@@ -30,7 +31,7 @@ class QueryResults implements QueryResultsInterface
 
   /**
    * 
-   * @param scalar $data
+   * @param string $data
    * @param int $type
    */
   public function addResult($data, $type)

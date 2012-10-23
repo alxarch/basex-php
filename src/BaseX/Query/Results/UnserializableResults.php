@@ -7,6 +7,9 @@
 namespace BaseX\Query\Results;
 
 use BaseX\Query\Results\ProcessedResults;
+use InvalidArgumentException;
+use ReflectionClass;
+use ReflectionMethod;
 
 /**
  * Description of SerializableResults
@@ -17,7 +20,7 @@ class UnserializableResults extends ProcessedResults
 {
   /**
    *
-   * @var \ReflectionClass
+   * @var ReflectionClass
    */
   protected $class;
   
@@ -31,11 +34,11 @@ class UnserializableResults extends ProcessedResults
   
   public function __construct($class, $args=array()) 
   {
-    $class = new \ReflectionClass($class);
+    $class = new ReflectionClass($class);
     
     if(!$this->isValidClass($class, $args))
     {
-      throw new \InvalidArgumentException('Invalid class provided.');
+      throw new InvalidArgumentException('Invalid class provided.');
     }
     
     $this->class = $class;
@@ -59,14 +62,14 @@ class UnserializableResults extends ProcessedResults
     $this->method = $this->getUnserializer($class);
   }
   
-  protected function getUnserializer(\ReflectionClass $class)
+  protected function getUnserializer(ReflectionClass $class)
   {
     if($class->hasMethod('unserialize'))
     {
       return 'unserialize';
     }
     
-    foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC) as $meth)
+    foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $meth)
     {
       $doc = $meth->getDocComment();
       
@@ -85,9 +88,9 @@ class UnserializableResults extends ProcessedResults
 
   public function isValidClass($class, $args=array())
   {
-    if(!$class instanceof \ReflectionClass)
+    if(!$class instanceof ReflectionClass)
     {
-      $class = new \ReflectionClass($class);
+      $class = new ReflectionClass($class);
     }
     
     if(null === $this->getUnserializer($class))

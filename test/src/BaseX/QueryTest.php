@@ -2,8 +2,8 @@
 
 namespace BaseX;
 
-use BaseX\Query;
 use BaseX\PHPUnit\TestCaseSession;
+use BaseX\Query;
 use BaseX\Query\QueryResults;
 
 class QueryTest extends TestCaseSession

@@ -10,24 +10,30 @@
 
 namespace BaseX\Resource\Iterator;
 
+use ArrayIterator;
 use BaseX\Database;
-use BaseX\Resource\Iterator\Exclude;
 use BaseX\Resource\Document;
-use BaseX\Resource\Raw;
 use BaseX\Resource\Iterator\Callback;
-use BaseX\Resource\CallbackFilter;
+use BaseX\Resource\Iterator\CallbackFilter;
+use BaseX\Resource\Iterator\Exclude;
+use BaseX\Resource\Iterator\ListCommand;
+use BaseX\Resource\Iterator\Modified;
+use BaseX\Resource\Iterator\Resources;
+use BaseX\Resource\Iterator\Sort;
+use BaseX\Resource\Raw;
+use IteratorAggregate;
 
 /**
  * Description of Resources
  *
  * @author alxarch
  */
-class Resources implements \IteratorAggregate
+class Resources implements IteratorAggregate
 {
 
   /**
    *
-   * @var BaseX\Database;
+   * @var Database
    */
   protected $db;
 
@@ -136,7 +142,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \BaseX\Resource\Iterator\Resources
+   * @return Resources
    */
   public function bySize()
   {
@@ -146,7 +152,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \BaseX\Resource\Iterator\Resources
+   * @return Resources
    */
   public function byModified()
   {
@@ -157,7 +163,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \BaseX\Resource\Iterator\Resources
+   * @return Resources
    */
   public function byContentType()
   {
@@ -167,7 +173,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \BaseX\Resource\Iterator\Resources
+   * @return Resources
    */
   public function byPath()
   {
@@ -177,7 +183,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \BaseX\Resource\Iterator\Resources
+   * @return Resources
    */
   public function byType()
   {
@@ -187,7 +193,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \BaseX\Resource\Iterator\Denormalizer
+   * @return Resources
    */
   public function reverse()
   {
@@ -208,7 +214,7 @@ class Resources implements \IteratorAggregate
 
   /**
    * 
-   * @return \ArrayIterator
+   * @return ArrayIterator
    */
   public function getIterator()
   {
@@ -254,7 +260,7 @@ class Resources implements \IteratorAggregate
     
     $result = new Callback($resources, $converter);
     
-    return new \ArrayIterator(iterator_to_array($result));
+    return new ArrayIterator(iterator_to_array($result));
   }
   
   public function denormalize($resource)

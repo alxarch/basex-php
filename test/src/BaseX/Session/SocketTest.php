@@ -2,8 +2,8 @@
 
 namespace BaseX\Session;
 
-use BaseX\Session\Socket;
 use BaseX\Helpers as B;
+use BaseX\Session\Socket;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -13,7 +13,7 @@ class SocketTest extends TestCase
 {
   /**
    *
-   * @var BaseX\Session\Socket
+   * @var Socket
    */
   protected $socket = null;
   

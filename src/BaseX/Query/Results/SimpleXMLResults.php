@@ -6,8 +6,8 @@
  */
 namespace BaseX\Query\Results;
 
-use BaseX\Query\Results\ProcessedResults;
 use BaseX\Query;
+use BaseX\Query\Results\ProcessedResults;
 
 /**
  * Description of SimpleXMLQueryResults

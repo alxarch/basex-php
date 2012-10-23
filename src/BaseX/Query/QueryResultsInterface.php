@@ -7,11 +7,15 @@
 
 namespace BaseX\Query;
 
+use ArrayAccess;
+use Countable;
+use Iterator;
+
 /**
  *
  * @author alxarch
  */
-interface QueryResultsInterface extends \ArrayAccess, \Iterator, \Countable
+interface QueryResultsInterface extends ArrayAccess, Iterator, Countable
 {
   public function addResult($data, $type);
   public function supportsType($type);

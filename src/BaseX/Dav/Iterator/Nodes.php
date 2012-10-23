@@ -6,8 +6,8 @@
  */
 namespace BaseX\Dav\Iterator;
 
-use BaseX\Resource\Iterator\Resources;
 use BaseX\Dav\ResourceNode;
+use BaseX\Resource\Iterator\Resources;
 
 /**
  * Description of Nodes

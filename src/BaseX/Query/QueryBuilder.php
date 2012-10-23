@@ -9,8 +9,11 @@
 
 namespace BaseX\Query;
 
-use BaseX\Session;
 use BaseX\Helpers as B;
+use BaseX\Query;
+use BaseX\Query\QueryBuilder;
+use BaseX\Session;
+use InvalidArgumentException;
 
 /**
  * Helper class to facilitate xquery writting. 
@@ -83,7 +86,7 @@ class QueryBuilder
    * 
    * @param string $name
    * @param string $value
-   * @return \BaseX\Query\QueryBuilder
+   * @return BaseX\QueryBuilder
    */
   public function setParameter($name, $value)
   {
@@ -123,7 +126,7 @@ class QueryBuilder
    * 
    * @param string $name
    * @param mixed $defaultValue
-   * @return \BaseX\Query\QueryBuilder
+   * @return QueryBuilder
    */
   public function addExternalVariable($name, $defaultValue=null)
   {
@@ -168,7 +171,7 @@ class QueryBuilder
    * 
    * @param string $name
    * @param string $value
-   * @return \BaseX\Query\QueryBuilder
+   * @return QueryBuilder
    */
   public function setOption($name, $value)
   {
@@ -180,7 +183,7 @@ class QueryBuilder
   /**
    * 
    * @param array $options
-   * @return \BaseX\Query\QueryBuilder
+   * @return QueryBuilder
    */
   public function setOptions($options)
   {
@@ -204,7 +207,7 @@ class QueryBuilder
   /**
    * 
    * @param string $body
-   * @return \BaseX\Query\QueryBuilder
+   * @return QueryBuilder
    */
   public function setBody($body)
   {
@@ -280,7 +283,7 @@ class QueryBuilder
   /**
    * 
    * @param array $modules
-   * @return \BaseX\Query\QueryBuilder
+   * @return QueryBuilder
    */
   public function setModules($modules)  
   {
@@ -296,13 +299,13 @@ class QueryBuilder
    * 
    * @param string $alias
    * @param string $uri
-   * @return \BaseX\Query\QueryBuilder
-   * @throws \InvalidArgumentException if alias is invalid
+   * @return QueryBuilder
+   * @throws InvalidArgumentException if alias is invalid
    */
   public function setModule($alias, $uri)
   {
     if(!preg_match('/^[a-zA-Z0-9\-_.]+$/', $alias))
-      throw new \InvalidArgumentException('Invalid module alias: '.$alias);
+      throw new InvalidArgumentException('Invalid module alias: '.$alias);
     
     $this->modules[$alias] = $uri;
     return $this;
@@ -320,7 +323,7 @@ class QueryBuilder
   /**
    * 
    * @param array $namespaces
-   * @return \BaseX\Query\QueryBuilder
+   * @return QueryBuilder
    */
   public function setNamespaces($namespaces)  
   {
@@ -335,7 +338,7 @@ class QueryBuilder
   public function setNamespace($alias, $uri)
   {
     if(!preg_match('/^[a-zA-Z0-9\-_.]+$/', $alias))
-      throw new \InvalidArgumentException('Invalid namespace alias: '.$alias);
+      throw new InvalidArgumentException('Invalid namespace alias: '.$alias);
     $this->namespaces[$alias] = $uri;
     return $this;
   }
@@ -343,7 +346,7 @@ class QueryBuilder
   /**
    *
    * @param Session $session
-   * @return \BaseX\Query
+   * @return Query
    */
   public function getQuery(Session $session)
   {
@@ -355,7 +358,7 @@ class QueryBuilder
   
   /**
    * 
-   * @return \BaseX\Query\QueryBuilder
+   * @return QueryBuilder
    */
   public static function begin()
   {

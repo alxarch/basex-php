@@ -7,10 +7,10 @@
 
 namespace BaseX\Resource;
 
+use BaseX\Helpers as B;
+use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Resource\Streamable;
 use BaseX\StreamWrapper;
-use BaseX\PHPUnit\TestCaseDb;
-use BaseX\Helpers as B;
 
 class StreamableMock extends Streamable {
 

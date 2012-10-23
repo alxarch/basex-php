@@ -2,8 +2,8 @@
 
 namespace BaseX\Dav;
 
-use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Dav\CollectionNode;
+use BaseX\PHPUnit\TestCaseDb;
 use BaseX\StreamWrapper;
 
 class CollectionNodeTest extends TestCaseDb

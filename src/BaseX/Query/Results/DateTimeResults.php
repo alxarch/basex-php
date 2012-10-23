@@ -6,8 +6,8 @@
  */
 namespace BaseX\Query\Results;
 
-
 use BaseX\Query\Results\ProcessedResults;
+use DateTime;
 
 /**
  * Description of DateTimeQueryResults
@@ -31,7 +31,7 @@ class DateTimeResults extends ProcessedResults
   {
     if(null !== $this->format)
     {
-      $result = \DateTime::createFromFormat($this->format, $data);
+      $result = DateTime::createFromFormat($this->format, $data);
     }
     else
     {

@@ -7,17 +7,19 @@
 namespace BaseX\Query\Results;
 
 use BaseX\Query\Results\DateTimeResults;
+use DateTime;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Description of DateTimeMapperTest
  *
  * @author alxarch
  */
-class DateTimeResultsTest extends \PHPUnit_Framework_TestCase
+class DateTimeResultsTest extends PHPUnit_Framework_TestCase
 {
   /**
    *
-   * @var \BaseX\Query\Results\DateTimeResults
+   * @var DateTimeResults
    */
   protected $results;
 
@@ -33,7 +35,7 @@ class DateTimeResultsTest extends \PHPUnit_Framework_TestCase
     $date = date('c');
     $this->results->addResult($date, 23);
     $r = $this->results[0];
-    $this->assertTrue($r instanceof \DateTime);
+    $this->assertTrue($r instanceof DateTime);
     $this->assertEquals($date, $r->format('c'));
     
   }

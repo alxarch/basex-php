@@ -9,9 +9,8 @@
  */
 namespace BaseX\PHPUnit;
 
-use BaseX\PHPUnit\TestCaseSession;
-
 use BaseX\Database;
+use BaseX\PHPUnit\TestCaseSession;
 
 /**
  * TestCase for tests that require a BaseX database.
@@ -31,7 +30,7 @@ class TestCaseDb extends TestCaseSession
   
   /**
    *
-   * @var \BaseX\Database
+   * @var Database
    */
   protected $db = null;
   

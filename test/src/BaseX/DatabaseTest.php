@@ -2,8 +2,8 @@
 
 namespace BaseX;
 
-use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Database;
+use BaseX\PHPUnit\TestCaseDb;
 
 class DatabaseTest extends TestCaseDb 
 {

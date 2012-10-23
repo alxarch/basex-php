@@ -44,15 +44,11 @@ class BaseXDavServiceProvider implements ServiceProviderInterface
 
           $path = isset($opts['path']) ? $opts['path'] : '';
 
-          $dir = false;
-
           $root = new CollectionNode($db, $path);
 
-          if (isset($opts['localfiles']) && $opts['localfiles'])
+          if (isset($opts['raw_path']) && $opts['raw_path'])
           {
-            $dbpath = $app['basex']->getInfo()->dbpath;
-            $dir = implode(DIRECTORY_SEPARATOR, array_filter($dbpath, $db, 'raw', $path));
-            $root->serveRawFilesFrom($dir);
+            $root->serveRawFilesFrom($opts['raw_path']);
           }
 
           if (isset($opts['filter']))

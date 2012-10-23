@@ -11,6 +11,7 @@ namespace BaseX;
 
 use BaseX\Session\Socket;
 use BaseX\StreamWrapper;
+use DateTime;
 
 /**
  * Helper functions
@@ -272,7 +273,7 @@ class Helpers
   
   static public function date($date)
   {
-    return \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $date);
+    return DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $date);
   }
 
   static public function child($path, $root='')

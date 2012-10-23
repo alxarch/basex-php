@@ -9,9 +9,12 @@
 
 namespace BaseX;
 
-use BaseX\Helpers as B;
-use BaseX\Resource\ResourceInterface;
 use BaseX\Database;
+use BaseX\Helpers as B;
+use BaseX\Resource;
+use BaseX\Resource\ResourceInterface;
+use DateTime;
+use SimpleXMLElement;
 
 /**
  * Base class for BaseX resources.
@@ -26,7 +29,7 @@ abstract class Resource implements ResourceInterface
   /**
    * The database this resource belongs to.
    * 
-   * @var \BaseX\Database
+   * @var Database
    */
   protected $db;
 
@@ -40,7 +43,7 @@ abstract class Resource implements ResourceInterface
   /**
    * Last modified date.
    * 
-   * @var \DateTime 
+   * @var DateTime 
    */
   protected $modified;
   protected $deleted;
@@ -51,7 +54,7 @@ abstract class Resource implements ResourceInterface
    * If modified parameter is passed, it is assumed that the resource already
    * exists on the database.
    * 
-   * @param \BaseX\Database $db
+   * @param Database $db
    * @param string $path
    * @param string $modified
    */
@@ -64,7 +67,7 @@ abstract class Resource implements ResourceInterface
   /**
    * The database this document belongs to.
    * 
-   * @return \BaseX\Database
+   * @return Database
    */
   public function getDatabase()
   {
@@ -90,7 +93,7 @@ abstract class Resource implements ResourceInterface
    * 
    * @param string $dest
    * 
-   * @return \BaseX\Resource $this
+   * @return Resource $this
    */
   public function move($dest)
   {
@@ -106,7 +109,7 @@ abstract class Resource implements ResourceInterface
    * 
    * @param string $dest
    * 
-   * @return \BaseX\Resource $this
+   * @return Resource $this
    */
   public function rename($name)
   {
@@ -178,7 +181,7 @@ abstract class Resource implements ResourceInterface
 
   /**
    * 
-   * @return \DateTime
+   * @return DateTime
    */
   public function getModified()
   {
@@ -187,17 +190,17 @@ abstract class Resource implements ResourceInterface
 
   /**
    * 
-   * @return \DateTime
+   * @return DateTime
    */
   public function setModified($datetime)
   {
-    if ($datetime instanceof \DateTime)
+    if ($datetime instanceof DateTime)
     {
       $this->modified = $datetime;
     }
     else
     {
-      $this->modified = new \DateTime($datetime);
+      $this->modified = new DateTime($datetime);
     }
   }
 
@@ -211,7 +214,7 @@ abstract class Resource implements ResourceInterface
     return true === $this->deleted;
   }
 
-  public static function fromSimpleXML(Database $db, \SimpleXMLElement $xml)
+  public static function fromSimpleXML(Database $db, SimpleXMLElement $xml)
   {
     $class = get_called_class();
 
@@ -230,7 +233,7 @@ abstract class Resource implements ResourceInterface
    * 
    * @param string $date
    * 
-   * @return \DateTime|null
+   * @return DateTime|null
    */
   static public function parseDate($date)
   {

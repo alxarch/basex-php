@@ -2,16 +2,18 @@
 
 namespace BaseX\Resource\Iterator;
 
-use BaseX\Resource;
 use BaseX\Database;
 use BaseX\Query\QueryBuilder;
 use BaseX\Query\Results\DateTimeResults;
+use IteratorIterator;
+use Traversable;
+use BaseX\Resource;
 
-class Modified extends \IteratorIterator
+class Modified extends IteratorIterator
 {
   protected $timestamps;
 
-  public function __construct(\Traversable $iterator, Database $db, $path)
+  public function __construct(Traversable $iterator, Database $db, $path)
   {
     parent::__construct($iterator);
     $this->getTimestamps($db, $path);

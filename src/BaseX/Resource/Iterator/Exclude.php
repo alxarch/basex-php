@@ -10,11 +10,15 @@
 
 namespace BaseX\Resource\Iterator;
 
+use FilterIterator;
+
+
+
 /**
  * Excludes resourcess by path based on patterns.
  * 
  */
-class Exclude extends \FilterIterator
+class Exclude extends FilterIterator
 {
 
   const FILTER_GLOB = 1;

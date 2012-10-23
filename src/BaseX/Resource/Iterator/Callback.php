@@ -9,22 +9,28 @@
  */
 namespace BaseX\Resource\Iterator;
 
-class Callback extends \IteratorIterator
+use ArrayIterator;
+use InvalidArgumentException;
+use IteratorIterator;
+use Traversable;
+
+
+class Callback extends IteratorIterator
 {
   protected $callback;
   
   /**
    *
-   * @var \ArrayIterator
+   * @var ArrayIterator
    */
   protected $array;
   
-  public function __construct(\Traversable $iter, $callback)
+  public function __construct(Traversable $iter, $callback)
   {
     parent::__construct($iter);
     
     if(!is_callable($callback))
-      throw new \InvalidArgumentException('Invalid Callback');
+      throw new InvalidArgumentException('Invalid Callback');
     
     $this->callback = $callback;
   }

@@ -10,11 +10,11 @@
 
 namespace BaseX\Silex;
 
-use Silex\Application;
-use BaseX\StreamWrapper;
-use Silex\ServiceProviderInterface;
 use BaseX\Database;
 use BaseX\Session;
+use BaseX\StreamWrapper;
+use Silex\Application;
+use Silex\ServiceProviderInterface;
 
 /**
  * Silex service provider for a BaseX session.

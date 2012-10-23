@@ -10,10 +10,12 @@
 
 namespace BaseX\Symfony\Security;
 
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use BaseX\Helpers as B;
-use Serializable;
 use BaseX\Error\UnserializationError;
+use BaseX\Helpers as B;
+use BaseX\Symfony\Security\User;
+use InvalidArgumentException;
+use Serializable;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * User class for symfony security.
@@ -60,7 +62,7 @@ class User implements AdvancedUserInterface, Serializable
   /**
    * 
    * @param string $pass
-   * @return \BaseX\Symfony\Security\User
+   * @return User
    */
   public function setPassword($pass)
   {
@@ -89,7 +91,7 @@ class User implements AdvancedUserInterface, Serializable
   /**
    * 
    * @param array $roles
-   * @return \BaseX\Symfony\Security\User
+   * @return User
    */
   public function setRoles($roles)
   {
@@ -153,14 +155,14 @@ class User implements AdvancedUserInterface, Serializable
   /**
    * 
    * @param string $username
-   * @return \BaseX\Symfony\Security\User
-   * @throws \InvalidArgumentException
+   * @return User
+   * @throws InvalidArgumentException
    */
   public function setUsername($username)
   {
     if (!preg_match('/^[a-zA-Z0-9\.\-_]+$/', $username))
     {
-      throw new \InvalidArgumentException('Invalid username.');
+      throw new InvalidArgumentException('Invalid username.');
     }
 
     $this->username = $username;

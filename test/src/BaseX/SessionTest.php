@@ -2,8 +2,8 @@
 
 namespace BaseX;
 
-use BaseX\Session;
 use BaseX\PHPUnit\TestCaseSession;
+use BaseX\Session;
 
 /**
  */

@@ -7,20 +7,21 @@
 
 namespace BaseX\Query\Results;
 
-use BaseX\Query\Results\SimpleXMLResults;
 use BaseX\Query;
+use BaseX\Query\Results\SimpleXMLResults;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Description of SimpleXMLResultTest
  *
  * @author alxarch
  */
-class SimpleXMLResultsTest extends \PHPUnit_Framework_TestCase
+class SimpleXMLResultsTest extends PHPUnit_Framework_TestCase
 {
   
   /**
    *
-   * @var \BaseX\Query\Results\SimpleXMLResults
+   * @var SimpleXMLResults
    */
   protected $results;
   

@@ -7,9 +7,9 @@
 
 namespace BaseX\Dav;
 
-use Sabre_DAV_INode;
-use BaseX\Helpers as B;
 use BaseX\Database;
+use BaseX\Helpers as B;
+use Sabre_DAV_INode;
 
 /**
  * Description of INode
@@ -19,7 +19,7 @@ use BaseX\Database;
 abstract class Node implements Sabre_DAV_INode
 {
   /**
-   * @var \BaseX\Database
+   * @var Database
    */
   protected $db;
   public $path;

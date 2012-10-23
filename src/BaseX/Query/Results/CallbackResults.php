@@ -12,6 +12,8 @@
 namespace BaseX\Query\Results;
 
 use BaseX\Query\Results\ProcessedResults;
+use Closure;
+use InvalidArgumentException;
 
 /**
  * Parse query results with a callable
@@ -22,14 +24,14 @@ class CallbackResults extends ProcessedResults
 {
   /**
    *
-   * @var \Closure
+   * @var Closure
    */
   public $callback;
 
   public function __construct($callback)
   {
     if(!is_callable($callback))
-      throw new \InvalidArgumentException('Non callable callback.');
+      throw new InvalidArgumentException('Non callable callback.');
     $this->callback = $callback;
   }
   

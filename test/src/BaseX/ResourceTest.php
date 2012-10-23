@@ -2,9 +2,10 @@
 
 namespace BaseX;
 
+use BaseX\Helpers as B;
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Resource;
-use BaseX\Helpers as B;
+use DateTime;
 
 class GenericResource extends Resource
 {
@@ -32,10 +33,10 @@ class ResourceTest extends TestCaseDb
  
   public function testModified()
   {
-    $this->assertTrue($this->raw->getModified() instanceof \DateTime);
-    $this->assertEquals(\DateTime::createFromFormat(Resource::DATE_FORMAT, '2012-05-27T12:36:48.000Z'), $this->raw->getModified());
-    $this->assertTrue($this->xml->getModified() instanceof \DateTime);
-    $this->assertEquals(\DateTime::createFromFormat(Resource::DATE_FORMAT, '2012-05-27T13:38:33.988Z'), $this->xml->getModified());
+    $this->assertTrue($this->raw->getModified() instanceof DateTime);
+    $this->assertEquals(DateTime::createFromFormat(Resource::DATE_FORMAT, '2012-05-27T12:36:48.000Z'), $this->raw->getModified());
+    $this->assertTrue($this->xml->getModified() instanceof DateTime);
+    $this->assertEquals(DateTime::createFromFormat(Resource::DATE_FORMAT, '2012-05-27T13:38:33.988Z'), $this->xml->getModified());
   }
  
   public function testPath()

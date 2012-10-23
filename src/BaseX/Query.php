@@ -8,10 +8,12 @@
 
 namespace BaseX;
 
+use BaseX\Query;
+use BaseX\Query\QueryResults;
+use BaseX\Query\QueryResultsInterface;
 use BaseX\Session;
 use BaseX\Session\Socket;
-use BaseX\Query\QueryResultsInterface;
-use BaseX\Query\QueryResults;
+use InvalidArgumentException;
 
 /** 
  * Query object for a BaseX session.
@@ -102,7 +104,7 @@ class Query
   /**
    * 
    *
-   * @var \BaseX\Session
+   * @var Session
    */
   protected $session;
   
@@ -119,7 +121,7 @@ class Query
   
   /**
    *
-   * @param \BaseX\Session $session The session to use
+   * @param Session $session The session to use
    * @param string $xquery The query to execute
    * 
    */
@@ -136,7 +138,7 @@ class Query
    * @param mixed  $value  The value to assign to the variable
    * @param string $type   A type to cast the value to
    * 
-   * @return BaseX\Query $this
+   * @return Query $this
    */
   public function bind($name, $value, $type = "")
   {
@@ -151,7 +153,7 @@ class Query
    * @param string $value
    * @param string $type 
    * 
-   * @return BaseX\Query $this
+   * @return Query $this
    */
   public function context($value, $type = "") 
   {
@@ -214,7 +216,7 @@ class Query
   /**
    * Gets the session for this query.
    * 
-   * @return \BaseX\Session
+   * @return Session
    */
   public function getSession()
   {
@@ -236,23 +238,11 @@ class Query
     return $this->getSession()->sendQueryCommand(self::CLOSE, $this->id);
   }
   
-  public function getFirstResult(MapperInterface $mapper=null)
-  {
-    $results = $this->getResults($mapper);
-    return (count($results) > 0) ? $results[0] : null;
-  }
-  
-  public function getSingleResult(MapperInterface $mapper=null)
-  {
-    $results = $this->getResults($mapper);
-    return (count($results) === 1) ? $results[0] : null;
-  }
- 
   /**
    * 
-   * @param \BaseX\Query\QueryResultsInterface $results
-   * @return \BaseX\Query\QueryResultsInterface
-   * @throws \InvalidArgumentException
+   * @param QueryResultsInterface $results
+   * @return QueryResultsInterface
+   * @throws InvalidArgumentException
    */
   public function getResults(QueryResultsInterface $results=null)
   {
@@ -266,7 +256,7 @@ class Query
       $method = $options['method'];
       if(!$results->supportsMethod($options['method']))
       {
-        throw new \InvalidArgumentException("Results container does not support '$method' serialization method.");
+        throw new InvalidArgumentException("Results container does not support '$method' serialization method.");
       }
     }
      

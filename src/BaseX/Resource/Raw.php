@@ -10,8 +10,9 @@
 
 namespace BaseX\Resource;
 
-use BaseX\Resource\Streamable;
 use BaseX\Database;
+use BaseX\Resource\Streamable;
+use SimpleXMLElement;
 
 /**
  * BaseX Resource for non xml files.
@@ -53,7 +54,7 @@ class Raw extends Streamable
     $this->getDatabase()->store($this->getPath(), $data);
   }
 
-  public static function fromSimpleXML(Database $db, \SimpleXMLElement $xml)
+  public static function fromSimpleXML(Database $db, SimpleXMLElement $xml)
   {
     $resource = parent::fromSimpleXML($db, $xml);
     $resource->setSize((int) $xml['size']);

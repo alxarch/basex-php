@@ -2,6 +2,7 @@
 
 namespace BaseX\Dav\Iterator;
 
+use BaseX\Dav\Iterator\Nodes;
 use BaseX\PHPUnit\TestCaseDb;
 
 

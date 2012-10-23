@@ -2,10 +2,10 @@
 
 namespace BaseX\Dav;
 
-use BaseX\PHPUnit\TestCaseDb;
-use BaseX\Dav\ResourceNode;
-use BaseX\StreamWrapper;
 use BaseX\Dav\Iterator\Nodes;
+use BaseX\Dav\ResourceNode;
+use BaseX\PHPUnit\TestCaseDb;
+use BaseX\StreamWrapper;
 
 /**
  * Test class for ResourceNode.

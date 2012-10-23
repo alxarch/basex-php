@@ -13,6 +13,7 @@ namespace BaseX\Resource;
 use BaseX\Helpers as B;
 use BaseX\Resource;
 use BaseX\Resource\CollectionInterface;
+use BaseX\Resource\ResourceInterface;
 
 /**
  * Resource tree for a BaseX\Database.
@@ -46,7 +47,7 @@ class Collection extends Resource implements CollectionInterface
   /**
    * 
    * @param string $path
-   * @param \BaseX\Query\Results\SimpleXMLMapperInterface $mapper
+   * @param array
    * @return array
    */
   public function getChildren()
@@ -80,7 +81,7 @@ class Collection extends Resource implements CollectionInterface
   /**
    * 
    * @param string $path
-   * @return \BaseX\Resource\ResourceInterface|null
+   * @return ResourceInterface|null
    */
   public function getChild($path)
   {

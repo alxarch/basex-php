@@ -9,10 +9,17 @@
 
 namespace BaseX;
 
+use BaseX\Database;
+use BaseX\Error;
+use BaseX\Error as Error2;
 use BaseX\Helpers as B;
+use BaseX\Query;
+use BaseX\Resource\Streamable;
+use BaseX\Resource\StreamableInterface;
 use BaseX\Session;
 use BaseX\Session\Socket;
-use BaseX\Resource\Streamable;
+use Exception;
+use InvalidArgumentException;
 
 /**
  * Stream wrapper for BaseX resources
@@ -40,7 +47,7 @@ class StreamWrapper
   /**
    * The session to use for all requests.
    * 
-   * @var \BaseX\Session
+   * @var Session
    */
   static protected $session;
   
@@ -50,7 +57,7 @@ class StreamWrapper
   
   /**
    *
-   * @var \BaseX\Resource\Interfaces\StreamableInterface
+   * @var StreamableInterface
    */
   protected $resource = null;
   
@@ -107,7 +114,7 @@ class StreamWrapper
       $this->parsePath($path);
       $this->loadResource();
     }
-    catch(\Exception $e) 
+    catch(Exception $e) 
     {
       $this->error($e->getMessage());
       return false;
@@ -128,7 +135,7 @@ class StreamWrapper
       $this->parsePath($path);
       $this->db->delete($this->path);
     }
-    catch(\Exception $e)
+    catch(Exception $e)
     {
       $this->error($e->getMessage());
       return false;
@@ -443,14 +450,14 @@ class StreamWrapper
    * 
    * @param string $mode
    * 
-   * @throws \InvalidArgumentException 
+   * @throws InvalidArgumentException 
    */
   protected function setMode($mode)
   {
     if('r' === $mode || 'w' === $mode)
       $this->mode = $mode;
     else
-      throw new \InvalidArgumentException('Only r and w modes implemented.');
+      throw new InvalidArgumentException('Only r and w modes implemented.');
   }
   
   /**
@@ -458,17 +465,17 @@ class StreamWrapper
    * 
    * @param string $path
    * 
-   * @throws \InvalidArgumentException If no database and/or document is 
+   * @throws InvalidArgumentException If no database and/or document is 
    * specified in the url
    */
   protected function parsePath($path)
   {
     $url = parse_url($path);
     if(!isset($url['path']) || '/' === $url['path'])
-      throw new \InvalidArgumentException('No document specified in url.');
+      throw new InvalidArgumentException('No document specified in url.');
     
     if(!isset($url['host']))
-     throw new \InvalidArgumentException('No database specified in url.');
+     throw new InvalidArgumentException('No database specified in url.');
     
     if(isset($url['fragment']))
     {
@@ -492,7 +499,7 @@ class StreamWrapper
   /**
    * Loads resource info.
    * 
-   * @throws BaseX\Error If mode is 'r' and resource does not exist.
+   * @throws Error2 If mode is 'r' and resource does not exist.
    */
   protected function loadResource()
   {

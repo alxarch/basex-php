@@ -2,9 +2,9 @@
 
 namespace BaseX\Dav\Locks;
 
-use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Dav\Locks\Backend;
-use \Sabre_DAV_Locks_LockInfo as LockInfo;
+use BaseX\PHPUnit\TestCaseDb;
+use Sabre_DAV_Locks_LockInfo as LockInfo;
 
 /*
  * To change this template, choose Tools | Templates
@@ -24,7 +24,7 @@ class BackendTest extends TestCaseDb
 
   /**
    * 
-   * @return \BaseX\Dav\Locks\Backend
+   * @return Backend
    */
   protected function getBackend()
   {

@@ -8,7 +8,7 @@
 namespace BaseX\Query;
 
 use BaseX\Query\QueryResults;
-use \PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Description of QueryResultsTest
@@ -19,7 +19,7 @@ class QueryResultsTest extends PHPUnit_Framework_TestCase {
 
   /**
    *
-   * @var \BaseX\Query\QueryResults
+   * @var QueryResults
    */
   protected $results;
 

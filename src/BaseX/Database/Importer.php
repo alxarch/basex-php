@@ -10,8 +10,8 @@
 namespace BaseX\Database;
 
 use BaseX\Database;
-use BaseX\Error\ImportError;
 use BaseX\Error;
+use BaseX\Error\ImportError;
 use BaseX\Helpers as B;
 use Symfony\Component\Finder\Finder;
 
@@ -24,7 +24,7 @@ abstract class Importer
 {
   /**
    *
-   * @var \BaseX\Database
+   * @var Database
    */
   protected $db;
   

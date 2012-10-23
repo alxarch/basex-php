@@ -9,7 +9,7 @@
 
 namespace BaseX;
 
-use \Exception;
+use Exception;
 
 /**
  * Base exception class for BaseX namespace.

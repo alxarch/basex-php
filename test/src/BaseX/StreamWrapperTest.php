@@ -2,9 +2,11 @@
 
 namespace BaseX;
 
-use BaseX\StreamWrapper;
 use BaseX\PHPUnit\TestCaseDb;
 use BaseX\Session\Socket;
+use BaseX\StreamWrapper;
+use PHPUnit_Framework_AssertionFailedError;
+use PHPUnit_Framework_Error;
 
 class StreamWrapperTest extends TestCaseDb {
 
@@ -309,13 +311,13 @@ class StreamWrapperTest extends TestCaseDb {
   protected function assertOpenFails($url, $mode = 'r', $msg = 'Resource did not fail on open.') {
     try {
       fopen($url, $mode);
-    } catch (\PHPUnit_Framework_Error $e) {
+    } catch (PHPUnit_Framework_Error $e) {
       $needle = 'failed to open stream';
       $this->assertContains($needle, $e->getMessage());
       return;
     }
 
-    throw new \PHPUnit_Framework_AssertionFailedError($msg);
+    throw new PHPUnit_Framework_AssertionFailedError($msg);
   }
 
   public function testStartSending() {

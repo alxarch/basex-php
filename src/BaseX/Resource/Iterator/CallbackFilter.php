@@ -9,27 +9,32 @@
 
 namespace BaseX\Resource\Iterator;
 
+use ArrayIterator;
+use FilterIterator;
+use InvalidArgumentException;
+use Traversable;
+
 /**
  * CallbackFilterIterator for php 5.3
  *
  * @author alxarch
  */
-class CallbackFilter extends \FilterIterator
+class CallbackFilter extends FilterIterator
 {
   protected $callback;
   
   /**
    *
-   * @var \ArrayIterator
+   * @var ArrayIterator
    */
   protected $array;
   
-  public function __construct(\Traversable $iter, $callback)
+  public function __construct(Traversable $iter, $callback)
   {
     parent::__construct($iter);
     
     if(!is_callable($callback))
-      throw new \InvalidArgumentException('Invalid Callback');
+      throw new InvalidArgumentException('Invalid Callback');
     
     $this->callback = $callback;
   }

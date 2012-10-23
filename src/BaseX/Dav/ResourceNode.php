@@ -9,6 +9,7 @@ namespace BaseX\Dav;
 
 use BaseX\Dav\Node;
 use BaseX\Helpers as B;
+use Sabre_DAV_IFile;
 
 /**
  * WebDAV file node representing a BaseX resource.
@@ -16,7 +17,7 @@ use BaseX\Helpers as B;
  * @package BaseX
  * 
  */
-class ResourceNode extends Node implements \Sabre_DAV_IFile
+class ResourceNode extends Node implements Sabre_DAV_IFile
 {
 
   public $mime;
