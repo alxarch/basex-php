@@ -18,6 +18,7 @@ use BaseX\Iterator\DateTimeParser;
 use BaseX\Iterator\GrepFilter;
 use BaseX\Iterator\JSONParser;
 use BaseX\Iterator\ObjectParser;
+use BaseX\Iterator\RegexParser;
 use BaseX\Iterator\Reverse;
 use BaseX\Iterator\Sort;
 use BaseX\Query\QueryResultsInterface;
@@ -40,6 +41,7 @@ class QueryResults extends ArrayWrapper implements QueryResultsInterface
   protected $parms;
   protected $csv;
   protected $json;
+  protected $pattern;
   protected $format;
 
   protected function processIterator()
@@ -69,6 +71,9 @@ class QueryResults extends ArrayWrapper implements QueryResultsInterface
         break;
       case 'json':
         $iterator = new JSONParser($iterator, $this->json);
+        break;
+      case 'regex':
+        $iterator = new RegexParser($iterator, $this->pattern);
         break;
       case 'csv':
         $iterator = new CSVParser($iterator, $this->csv['header'], $this->csv);
