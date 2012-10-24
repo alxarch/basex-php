@@ -88,22 +88,29 @@ class ObjectParser extends IteratorIterator
   
   protected function getUnserializer(ReflectionClass $class)
   {
-    if($class->hasMethod('unserialize'))
-    {
-      return 'unserialize';
-    }
     
-    foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $meth)
+    while (false !== $class)
     {
-      $doc = $meth->getDocComment();
       
-      if(false === $doc || false === strpos($doc, '@unserialize'))
+      if($class->hasMethod('unserialize'))
       {
-        continue;
+        return 'unserialize';
+      }
+
+      foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $meth)
+      {
+        $doc = $meth->getDocComment();
+
+        if(false === $doc || false === strpos($doc, '@unserialize'))
+        {
+          continue;
+        }
+
+        return $meth->getName();
+
       }
       
-      return $meth->getName();
-    
+      $class = $class->getParentClass();
     }
     
     return null;
