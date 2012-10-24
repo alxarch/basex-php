@@ -4,19 +4,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace BaseX\Query\Results;
+namespace BaseX\Iterator;
 
-use BaseX\Query\Results\ProcessedResults;
-use InvalidArgumentException;
+use IteratorIterator;
 use ReflectionClass;
 use ReflectionMethod;
+use InvalidArgumentException;
+use Traversable;
+
 
 /**
- * Description of SerializableResults
+ * Description of Unserializable
  *
  * @author alxarch
  */
-class UnserializableResults extends ProcessedResults
+class ObjectParser extends IteratorIterator
 {
   /**
    *
@@ -32,8 +34,9 @@ class UnserializableResults extends ProcessedResults
   
   protected $method;
   
-  public function __construct($class, $args=array()) 
+  public function __construct(Traversable $traversable, $class, $args=array()) 
   {
+    
     $class = new ReflectionClass($class);
     
     if(!$this->isValidClass($class, $args))
@@ -60,6 +63,8 @@ class UnserializableResults extends ProcessedResults
     }
     
     $this->method = $this->getUnserializer($class);
+    
+     parent::__construct($traversable);
   }
   
   protected function getUnserializer(ReflectionClass $class)
@@ -124,10 +129,13 @@ class UnserializableResults extends ProcessedResults
     
   }
 
-  protected function processData($data, $type) 
+  public function current()
   {
-    $class = $this->class->newInstanceArgs($this->args);
-    $class->{$this->method}($data);
-    return $class;
+    $data = parent::current();
+    
+    $instance = $this->class->newInstanceArgs($this->args);
+    $instance->{$this->method}($data);
+    
+    return $instance;
   }
 }

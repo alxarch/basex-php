@@ -12,23 +12,24 @@ namespace BaseX\Resource\Iterator;
 
 use ArrayIterator;
 use BaseX\Database;
+use BaseX\Iterator\ArrayWrapper;
+use BaseX\Iterator\CallbackFilter;
+use BaseX\Iterator\CallbackParser;
+use BaseX\Iterator\Reverse;
 use BaseX\Resource\Document;
-use BaseX\Resource\Iterator\Callback;
-use BaseX\Resource\Iterator\CallbackFilter;
 use BaseX\Resource\Iterator\Exclude;
 use BaseX\Resource\Iterator\ListCommand;
 use BaseX\Resource\Iterator\Modified;
 use BaseX\Resource\Iterator\Resources;
-use BaseX\Resource\Iterator\Sort;
+use BaseX\Resource\Iterator\SortResource;
 use BaseX\Resource\Raw;
-use IteratorAggregate;
 
 /**
  * Description of Resources
  *
  * @author alxarch
  */
-class Resources implements IteratorAggregate
+class Resources extends ArrayWrapper
 {
 
   /**
@@ -42,13 +43,6 @@ class Resources implements IteratorAggregate
    * @var string
    */
   protected $path;
-  
-  /**
-   *
-   * @var boolean
-   */
-  protected $reverse=false;
-
 
   /**
    *
@@ -76,6 +70,7 @@ class Resources implements IteratorAggregate
   {
     $this->db = $db;
     $this->path = $path;
+    parent::__construct();
   }
 
   public function setPath($path)
@@ -190,20 +185,11 @@ class Resources implements IteratorAggregate
     $this->sort = 'type';
     return $this;
   }
-
-  /**
-   * 
-   * @return Resources
-   */
-  public function reverse()
-  {
-    $this->reverse = !((boolean) $this->reverse);
-    return $this;
-  }
   
   public function getDenormalizer()
   {
-    return $this->denormalizer;
+    return null === $this->denormalizer ? 
+      array($this, 'denormalize') : $this->denormalizer;
   }
   
   public function setDenormalizer($denormalizer)
@@ -212,21 +198,33 @@ class Resources implements IteratorAggregate
     return $this;
   }
 
-  /**
-   * 
-   * @return ArrayIterator
-   */
-  public function getIterator()
+  public function getInitialIterator()
   {
-    $base = new ListCommand($this->db, $this->path);
-    $resources = new Callback($base, array('\BaseX\Resource', 'parseLine'));
+    $data = $this->db
+      ->getSession()
+      ->execute("LIST $this->db \"$this->path\"");
+
+    $lines = explode("\n", $data);
+
+    array_shift($lines);
+    array_shift($lines);
+    array_pop($lines);
+    array_pop($lines);
+    array_pop($lines);
     
-    if($this->modified)
+    return new \ArrayObject($lines);;
+  }
+  
+  protected function processIterator()
+  {
+    $resources = new ListCommand($this->db, $this->path);
+    $resources = new CallbackParser($resources, array('\BaseX\Resource', 'parseLine'));
+    if(null !== $this->modified)
     {
       $resources = new Modified($resources, $this->db, $this->path);
     }
     
-    if(null !== $this->type)
+     if(null !== $this->type)
     {
       $type = $this->type;
       $resources = new CallbackFilter($resources, function($resource) use ($type){
@@ -253,14 +251,17 @@ class Resources implements IteratorAggregate
     
     if(null !== $this->sort)
     {
-      $resources = new Sort($resources, $this->sort);
+      $resources = new SortResource($resources, $this->sort);
     }
     
-    $converter = null === $this->denormalizer ? array($this, 'denormalize') : $this->denormalizer;
+    $resources = new CallbackParser($resources, $this->getDenormalizer());
     
-    $result = new Callback($resources, $converter);
+    if($this->reverse === true)
+    {
+      $resources = new Reverse($resources);
+    }
     
-    return new ArrayIterator(iterator_to_array($result));
+    return $resources;
   }
   
   public function denormalize($resource)
@@ -289,26 +290,6 @@ class Resources implements IteratorAggregate
   {
     $class = get_called_class();
     return new $class($db, '');
-  }
-  
-  public function getFirst()
-  {
-    $iter = $this->getIterator();
-    
-    return $iter->count() > 0 ? $iter->offsetGet(0) : null;
-  }
-  
-  public function getLast()
-  {
-    $iter = $this->getIterator();
-    $total = $iter->count();
-    return $total > 0 ? $iter->offsetGet($total - 1) : null;
-  }
-  
-  public function getSingle()
-  {
-    $iter = $this->getIterator();
-    return $iter->count() === 1 ? $iter->offsetGet(0) : null;
   }
 }
 

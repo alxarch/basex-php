@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BaseX\Resource\Iterator;
+namespace BaseX\Iterator;
 
 use ArrayIterator;
 use IteratorAggregate;
@@ -19,7 +19,9 @@ class Reverse implements IteratorAggregate
 
   public function getIterator()
   {
-    return new ArrayIterator(reverse(iterator_to_array($this->iterator)));
+    $array = iterator_to_array($this->iterator);
+    $rev = array_reverse($array);
+    return new ArrayIterator($rev);
   }
 
 }

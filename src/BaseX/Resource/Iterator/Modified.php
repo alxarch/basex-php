@@ -4,10 +4,9 @@ namespace BaseX\Resource\Iterator;
 
 use BaseX\Database;
 use BaseX\Query\QueryBuilder;
-use BaseX\Query\Results\DateTimeResults;
+use BaseX\Resource;
 use IteratorIterator;
 use Traversable;
-use BaseX\Resource;
 
 class Modified extends IteratorIterator
 {
@@ -21,18 +20,19 @@ class Modified extends IteratorIterator
   
   private function getTimestamps($db, $path)
   {
-    
     $xql = sprintf("db:list-details('%s', '%s')/@modified-date/string()", $db, $path);
-    $this->timestamps = QueryBuilder::begin()
+    $timestamps = QueryBuilder::begin()
       ->setBody($xql)
       ->getQuery($db->getSession())
-      ->getResults(new DateTimeResults(Resource::DATE_FORMAT));
+      ->execute();
+    $this->timestamps = explode(' ', $timestamps);
   }
 
   public function current()
   {
     $resource = $this->getInnerIterator()->current();
-    $resource['modified'] = $this->timestamps[$this->getInnerIterator()->key()];
+    $timestamp = $this->timestamps[$this->getInnerIterator()->key()];
+    $resource['modified'] = Resource::parseDate($timestamp);
     return $resource;
   }
 }

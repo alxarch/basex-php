@@ -10,10 +10,7 @@
 
 namespace BaseX;
 
-use BaseX\Database;
-use BaseX\Database as Database2;
 use BaseX\Query\QueryResultsInterface;
-use BaseX\Query\Results\UnserializableResults;
 use BaseX\Resource;
 use BaseX\Resource\Iterator\Resources;
 use BaseX\Session;
@@ -70,7 +67,7 @@ class Database
   /**
    * Creates the database if it does not exist.
    * 
-   * @return Database2
+   * @return Database
    */
   public function create()
   {
@@ -97,7 +94,7 @@ class Database
    * @param string $path
    * @param string|resource $input
    * 
-   * @return Database2
+   * @return Database
    */
   public function add($path, $input)
   {
@@ -114,7 +111,7 @@ class Database
    * @param string $path
    * @param string|resource $input
    * 
-   * @return Database2
+   * @return Database
    */
   public function replace($path, $input)
   {
@@ -238,8 +235,7 @@ class Database
    * @return QueryResultsInterface
    * 
    */
-  public function xpath($xpath, $path = null,
-                        QueryResultsInterface $results = null)
+  public function xpath($xpath, $path = null)
   {
     if (null === $path)
     {
@@ -250,7 +246,7 @@ class Database
       $xq = sprintf("db:open('%s', '%s')%s", $this->getName(), $path, $xpath);
     }
 
-    return $this->getSession()->query($xq)->getResults($results);
+    return $this->getSession()->query($xq)->getResults();
   }
 
   /**
@@ -276,7 +272,7 @@ class Database
    * 
    * @param string $src
    * @param string $dest
-   * @return Database2
+   * @return Database
    */
   public function copy($src, $dest)
   {
@@ -311,12 +307,13 @@ XQL;
 XQL;
     return $this->getSession()
         ->query($xql)
-        ->getResults(new UnserializableResults('BaseX\Database\Backup'));
+        ->getResults()
+        ->parseObject('BaseX\Database\Backup');
   }
 
   /**
    * Create a new backup for this Database.
-   * @return Database2
+   * @return Database
    */
   public function backup()
   {

@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use IteratorAggregate;
 use Traversable;
 
-class Sort implements IteratorAggregate
+class SortResource implements IteratorAggregate
 {
   protected $key;
   protected $iterator;
@@ -15,7 +15,7 @@ class Sort implements IteratorAggregate
   public function __construct(Traversable $iterator, $key)
   {
     if(!in_array($key, array('size', 'path', 'modified', 'mime')))
-      throw new InvalidArgumentException('Invlid sort key.');
+      throw new InvalidArgumentException('Invalid sort key.');
     
     $this->key = $key;
     $this->iterator = $iterator;

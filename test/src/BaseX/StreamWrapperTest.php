@@ -31,12 +31,12 @@ class StreamWrapperTest extends TestCaseDb {
     $this->db->add('test.xml', '<test/>');
     $path = '';
     $this->assertTrue($wrapper->stream_open("basex://$this->dbname/test.xml", 'r', STREAM_REPORT_ERRORS, $path));
-    $this->session->getSocket()->read();
+//    $this->session->getSocket()->read();
     $this->session->getSocket()->clearBuffer();
     $this->session->unlock();
 
     $this->assertTrue($wrapper->stream_open("basex://$this->dbname/test.xml", 'w', STREAM_REPORT_ERRORS, $path));
-    $this->session->getSocket()->read();
+//    $this->session->getSocket()->read();
     $this->session->getSocket()->clearBuffer();
     $this->session->unlock();
   }
@@ -207,9 +207,7 @@ class StreamWrapperTest extends TestCaseDb {
 
     fclose($jpg);
 
-
     $url = 'basex://' . $this->dbname . '/test.jpg';
-
 
     $basex = fopen($url, 'w');
 

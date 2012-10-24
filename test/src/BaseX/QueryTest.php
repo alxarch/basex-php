@@ -47,7 +47,7 @@ class QueryTest extends TestCaseSession
     $this->assertTrue($results instanceof QueryResults);
     
     $this->assertEquals(1, count($results));
-    $result = $results[0];
+    $result = $results->getFirst();
     $this->assertXmlStringEqualsXmlString('<root/>', $result);
   }
 }

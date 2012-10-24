@@ -65,7 +65,8 @@ class Backend extends AbstractBackend
     $locks = QueryBuilder::begin()
           ->setBody("db:open('$this->db', '$this->path')//*:lock")
           ->getQuery($this->db->getSession())
-          ->getResults(new CallbackResults(array($this, 'unserialize')));
+          ->getResults()
+          ->map(array($this, 'unserialize'));
     
     $result = array();
     

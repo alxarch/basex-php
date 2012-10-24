@@ -46,9 +46,9 @@ class Document extends Streamable
    * @param QueryResultsInterface $results
    * @return string $result
    */
-  public function xpath($xpath, QueryResultsInterface $results = null)
+  public function xpath($xpath)
   {
-    return $this->getDatabase()->xpath($xpath, $this->getPath(), $results);
+    return $this->getDatabase()->xpath($xpath, $this->getPath());
   }
 
   public function getWriteMethod()

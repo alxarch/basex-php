@@ -4,8 +4,8 @@
     "sabre/dav": "1.7.1",
     "silex/silex": "dev-master",
     "symfony/security": "2.1.x",
-    "symfony/serializer": "2.1.x",
-    "symfony/finder": "2.1.x"
+    "symfony/finder": "2.1.x",
+    "symfony/serializer": "2.1.x"
   },
   "autoload": {
     "psr-0": {"BaseX": "src/"}

@@ -53,9 +53,9 @@ class UserProvider implements UserProviderInterface
    */
   protected function xpath($xpath)
   {
-    $results = new UnserializableResults('BaseX\Symfony\Security\User');
-
-    return $this->db->xpath($xpath, $this->path, $results);
+    return $this->db
+      ->xpath($xpath, $this->path)
+      ->parseObject('BaseX\Symfony\Security\User');
   }
 
   public function loadUserByUsername($username)

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package BaseX 
  * 
@@ -7,15 +6,21 @@
  * @author Alexandros Sigalas <alxarch@gmail.com>
  * @license BSD License
  */
-namespace BaseX\Resource\Iterator;
+
+namespace BaseX\Iterator;
 
 use ArrayIterator;
+use FilterIterator;
 use InvalidArgumentException;
-use IteratorIterator;
 use Traversable;
+use FilterIterator;
 
-
-class Callback extends IteratorIterator
+/**
+ * CallbackFilterIterator for php 5.3
+ *
+ * @author alxarch
+ */
+class CallbackFilter extends FilterIterator
 {
   protected $callback;
   
@@ -35,13 +40,8 @@ class Callback extends IteratorIterator
     $this->callback = $callback;
   }
   
-  public function current()
+  public function accept()
   {
-    $item = parent::current();
-    
-    if(null === $item) 
-      return $item;
-    
-    return call_user_func($this->callback, $item);
-  }
+    $resource = parent::current();
+    return call_user_func($this->callback, $resource);  }
 }
