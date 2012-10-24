@@ -10,7 +10,6 @@
 
 namespace BaseX\Iterator;
 
-use FilterIterator;
 use InvalidArgumentException;
 use Traversable;
 use FilterIterator;
