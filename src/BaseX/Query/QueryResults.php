@@ -71,7 +71,7 @@ class QueryResults extends ArrayWrapper implements QueryResultsInterface
         $iterator = new JSONParser($iterator, $this->json);
         break;
       case 'csv':
-        $iterator = new CSVParser($iterator, $this->csv);
+        $iterator = new CSVParser($iterator, $this->csv['header'], $this->csv);
         break;
       default:
         if (null !== $this->callback)

@@ -214,7 +214,8 @@ class Resources extends ArrayWrapper
   
   protected function processIterator()
   {
-    $resources = new ListCommand($this->db, $this->path);
+    $base = new ListCommand($this->db, $this->path);
+    $resources = $base->getIterator();
 
     if(null !== $this->modified)
     {
