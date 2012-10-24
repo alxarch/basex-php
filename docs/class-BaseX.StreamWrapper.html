@@ -7,7 +7,7 @@
 	<title>Class BaseX\StreamWrapper | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,18 +30,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -145,7 +146,7 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.StreamWrapper.html#17-559" title="Go to source code">src/BaseX/StreamWrapper.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.StreamWrapper.html#24-565" title="Go to source code">src/BaseX/StreamWrapper.php</a><br />
 	</div>
 
 
@@ -163,7 +164,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_stream_open">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#77-117" title="Go to source code">stream_open</a>( <span>string <var>$path</var></span>, <span>string <var>$mode</var></span>, <span>integer <var>$options</var></span>, <span>string <var>&amp; $opath</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#84-124" title="Go to source code">stream_open</a>( <span>string <var>$path</var></span>, <span>string <var>$mode</var></span>, <span>integer <var>$options</var></span>, <span>string <var>&amp; $opath</var></span> )</code>
 
 		<div class="description short">
 			
@@ -221,7 +222,7 @@ basex://database/path/to/file.json?parseropt=jsonml%3Dtrue#json</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_unlink">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#119-138" title="Go to source code">unlink</a>( <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#126-145" title="Go to source code">unlink</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -259,7 +260,7 @@ basex://database/path/to/file.json?parseropt=jsonml%3Dtrue#json</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_stream_eof">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#140-148" title="Go to source code">stream_eof</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#147-155" title="Go to source code">stream_eof</a>( )</code>
 
 		<div class="description short">
 			
@@ -296,7 +297,7 @@ basex://database/path/to/file.json?parseropt=jsonml%3Dtrue#json</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_stream_write">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#150-177" title="Go to source code">stream_write</a>( <span>string <var>$data</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#157-184" title="Go to source code">stream_write</a>( <span>string <var>$data</var></span> )</code>
 
 		<div class="description short">
 			
@@ -340,7 +341,7 @@ basex://database/path/to/file.json?parseropt=jsonml%3Dtrue#json</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_stream_stat">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#179-217" title="Go to source code">stream_stat</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#186-224" title="Go to source code">stream_stat</a>( )</code>
 
 		<div class="description short">
 			
@@ -369,7 +370,7 @@ basex://database/path/to/file.json?parseropt=jsonml%3Dtrue#json</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_stream_read">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#219-252" title="Go to source code">stream_read</a>( <span>integer <var>$count</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#226-259" title="Go to source code">stream_read</a>( <span>integer <var>$count</var></span> )</code>
 
 		<div class="description short">
 			
@@ -414,7 +415,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_stream_close">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#254-265" title="Go to source code">stream_close</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#261-272" title="Go to source code">stream_close</a>( )</code>
 
 		<div class="description short">
 			
@@ -453,7 +454,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_stopReceiving">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#267-294" title="Go to source code">stopReceiving</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#274-301" title="Go to source code">stopReceiving</a>( )</code>
 
 		<div class="description short">
 			
@@ -486,7 +487,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_startSending">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#296-326" title="Go to source code">startSending</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#303-333" title="Go to source code">startSending</a>( )</code>
 
 		<div class="description short">
 			
@@ -519,7 +520,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_stopSending">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#328-367" title="Go to source code">stopSending</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#335-374" title="Go to source code">stopSending</a>( )</code>
 
 		<div class="description short">
 			
@@ -552,7 +553,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_detectMethod">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#369-390" title="Go to source code">detectMethod</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#376-396" title="Go to source code">detectMethod</a>( )</code>
 
 		<div class="description short">
 			
@@ -585,7 +586,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_startReceiving">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#392-438" title="Go to source code">startReceiving</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#398-444" title="Go to source code">startReceiving</a>( )</code>
 
 		<div class="description short">
 			
@@ -620,7 +621,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setMode">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#440-455" title="Go to source code">setMode</a>( <span>string <var>$mode</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#446-461" title="Go to source code">setMode</a>( <span>string <var>$mode</var></span> )</code>
 
 		<div class="description short">
 			
@@ -664,7 +665,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parsePath">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#457-491" title="Go to source code">parsePath</a>( <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#463-497" title="Go to source code">parsePath</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -706,7 +707,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_loadResource">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#493-514" title="Go to source code">loadResource</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#499-520" title="Go to source code">loadResource</a>( )</code>
 
 		<div class="description short">
 			
@@ -743,7 +744,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_error">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#516-527" title="Go to source code">error</a>( <span>string <var>$msg</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#522-533" title="Go to source code">error</a>( <span>string <var>$msg</var></span> )</code>
 
 		<div class="description short">
 			
@@ -781,7 +782,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_register">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#529-541" title="Go to source code">register</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#535-547" title="Go to source code">register</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span> )</code>
 
 		<div class="description short">
 			
@@ -827,7 +828,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_unregister">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#543-553" title="Go to source code">unregister</a>( )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#549-559" title="Go to source code">unregister</a>( )</code>
 
 		<div class="description short">
 			
@@ -868,7 +869,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setResource">#</a>
-		<code><a href="source-class-BaseX.StreamWrapper.html#555-558" title="Go to source code">setResource</a>( <span><code><a href="class-BaseX.Resource.Streamable.html">BaseX\Resource\Streamable</a></code> <var>$resource</var></span> )</code>
+		<code><a href="source-class-BaseX.StreamWrapper.html#561-564" title="Go to source code">setResource</a>( <span><code><a href="class-BaseX.Resource.Streamable.html">BaseX\Resource\Streamable</a></code> <var>$resource</var></span> )</code>
 
 		<div class="description short">
 			
@@ -901,7 +902,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 
 		<td class="attributes"><code>string</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.StreamWrapper.html#24-29" title="Go to source code"><b>NAME</b></a>
+				<a href="source-class-BaseX.StreamWrapper.html#31-36" title="Go to source code"><b>NAME</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-quote">'basex'</span></code></td>
 		<td class="description"><div>
@@ -937,7 +938,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#31-38" title="Go to source code"><var>$context</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#38-45" title="Go to source code"><var>$context</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -966,7 +967,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#40-45" title="Go to source code"><var>$session</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#47-52" title="Go to source code"><var>$session</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -993,7 +994,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#47" title="Go to source code"><var>$path</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#54" title="Go to source code"><var>$path</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -1016,7 +1017,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#49" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#56" title="Go to source code"><var>$db</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -1035,11 +1036,11 @@ If no more data is available, return either FALSE or an empty string.<br />
 	<tr data-order="resource" id="$resource">
 		<td class="attributes"><code>
 			protected  
-			BaseX\Resource\Interfaces\StreamableInterface
+			<code><a href="class-BaseX.Resource.StreamableInterface.html">BaseX\Resource\StreamableInterface</a></code>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#51-55" title="Go to source code"><var>$resource</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#58-62" title="Go to source code"><var>$resource</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">null</span></code></td>
 		<td class="description"><div>
@@ -1062,7 +1063,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#57" title="Go to source code"><var>$eof</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#64" title="Go to source code"><var>$eof</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">false</span></code></td>
 		<td class="description"><div>
@@ -1085,7 +1086,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#59" title="Go to source code"><var>$mode</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#66" title="Go to source code"><var>$mode</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -1108,7 +1109,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#61" title="Go to source code"><var>$receiving</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#68" title="Go to source code"><var>$receiving</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">false</span></code></td>
 		<td class="description"><div>
@@ -1131,7 +1132,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#63" title="Go to source code"><var>$sending</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#70" title="Go to source code"><var>$sending</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">false</span></code></td>
 		<td class="description"><div>
@@ -1154,7 +1155,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#65" title="Go to source code"><var>$buffer</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#72" title="Go to source code"><var>$buffer</var></a>
 		</td>
 		<td class="value"><code><span class="php-quote">''</span></code></td>
 		<td class="description"><div>
@@ -1177,7 +1178,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#67" title="Go to source code"><var>$parser</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#74" title="Go to source code"><var>$parser</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">null</span></code></td>
 		<td class="description"><div>
@@ -1200,7 +1201,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#69" title="Go to source code"><var>$options</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#76" title="Go to source code"><var>$options</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -1223,7 +1224,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#71" title="Go to source code"><var>$errors</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#78" title="Go to source code"><var>$errors</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">false</span></code></td>
 		<td class="description"><div>
@@ -1246,7 +1247,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#73" title="Go to source code"><var>$replace</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#80" title="Go to source code"><var>$replace</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">false</span></code></td>
 		<td class="description"><div>
@@ -1269,7 +1270,7 @@ If no more data is available, return either FALSE or an empty string.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.StreamWrapper.html#75" title="Go to source code"><var>$restore</var></a>
+				<a href="source-class-BaseX.StreamWrapper.html#82" title="Go to source code"><var>$restore</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">null</span></code></td>
 		<td class="description"><div>

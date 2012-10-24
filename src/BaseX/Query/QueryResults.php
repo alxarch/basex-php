@@ -10,7 +10,6 @@
 
 namespace BaseX\Query;
 
-use ArrayIterator;
 use BaseX\Iterator\ArrayWrapper;
 use BaseX\Iterator\CallbackFilter;
 use BaseX\Iterator\CallbackParser;
@@ -24,10 +23,9 @@ use BaseX\Iterator\Sort;
 use BaseX\Query\QueryResultsInterface;
 use Closure;
 use SimpleXMLIterator;
-use Traversable;
 
 /**
- * Description of QueryResults
+ * Iterator for query results
  *
  * @author alxarch
  */

@@ -14,7 +14,7 @@ use Traversable;
 
 
 /**
- * Iterator to parse json data
+ * Parses values in the input iterator as JSON.
  *
  * @author alxarch
  */
@@ -23,6 +23,13 @@ class JSONParser extends IteratorIterator
   public $assoc;
   public $depth;
 
+  /**
+   * Constructor.
+   * 
+   * @see json_decode()
+   * @param Traversable $iterator
+   * @param array $opts Options for json_decode
+   */
   public function __construct(Traversable $iterator, $opts=array())
   {
     parent::__construct($iterator);

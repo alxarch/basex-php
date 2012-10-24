@@ -7,7 +7,7 @@
 	<title>Class BaseX\Query\QueryResults | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,18 +30,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li class="active"><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li class="active"><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -123,12 +124,25 @@
 
 	<div class="description">
 	
-<p>Description of QueryResults</p>
+<p>Iterator for query results</p>
 
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
+			<a href="class-BaseX.Iterator.ArrayWrapper.html"><span>BaseX\Iterator\ArrayWrapper</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
 <b><span>BaseX\Query\QueryResults</span></b>			
 			 implements 
 				<a href="class-BaseX.Query.QueryResultsInterface.html"><span>BaseX\Query\QueryResultsInterface</span></a>
@@ -138,24 +152,7 @@
 	</dl>
 
 
-	<div>
-		<h4>Direct known subclasses</h4>
-			<a href="class-BaseX.Query.Results.ProcessedResults.html">BaseX\Query\Results\ProcessedResults</a>
-	</div>
 
-	<div>
-		<h4>Indirect known subclasses</h4>
-			<a href="class-BaseX.Query.Results.CallbackResults.html">BaseX\Query\Results\CallbackResults</a>, 
-			<a href="class-BaseX.Query.Results.CSVResults.html">BaseX\Query\Results\CSVResults</a>, 
-			<a href="class-BaseX.Query.Results.DateTimeResults.html">BaseX\Query\Results\DateTimeResults</a>, 
-			<a href="class-BaseX.Query.Results.JSONResults.html">BaseX\Query\Results\JSONResults</a>, 
-			<a href="class-BaseX.Query.Results.RegexResults.html">BaseX\Query\Results\RegexResults</a>, 
-			<a href="class-BaseX.Query.Results.SimpleXMLResults.html">BaseX\Query\Results\SimpleXMLResults</a>, 
-			<a href="class-BaseX.Query.Results.UnserializableResults.html">BaseX\Query\Results\UnserializableResults</a>, 
-			<a href="class-BaseX.Resource.MimeResourceResults.html">BaseX\Resource\MimeResourceResults</a>, 
-			<a href="class-BaseX.Resource.ResourceResults.html">BaseX\Resource\ResourceResults</a>, 
-			<a href="class-BaseX.Symfony.SerializerResults.html">BaseX\Symfony\SerializerResults</a>
-	</div>
 
 
 
@@ -169,13 +166,52 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Query.QueryResults.html#11-108" title="Go to source code">src/BaseX/Query/QueryResults.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Query.QueryResults.html#27-182" title="Go to source code">src/BaseX/Query/QueryResults.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="processIterator" id="_processIterator">
+
+		<td class="attributes"><code>
+			 protected 
+			<code><a href="class-Traversable.html">Traversable</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_processIterator">#</a>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#44-92" title="Go to source code">processIterator</a>( )</code>
+
+		<div class="description short">
+			
+<p>Applies all process instructions to the base array iterator/</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Applies all process instructions to the base array iterator/</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Traversable.html">Traversable</a></code></code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-BaseX.Iterator.ArrayWrapper.html#_processIterator">BaseX\Iterator\ArrayWrapper::processIterator()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="addResult" id="_addResult">
 
 		<td class="attributes"><code>
@@ -187,7 +223,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addResult">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#31-40" title="Go to source code">addResult</a>( <span>scalar <var>$data</var></span>, <span>integer <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#94-105" title="Go to source code">addResult</a>( <span>string <var>$data</var></span>, <span>integer <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -200,7 +236,7 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$data</var></dt>
-					<dd><code>scalar</code><br>$data</dd>
+					<dd><code>string</code><br>$data</dd>
 					<dt><var>$type</var></dt>
 					<dd><code>integer</code><br>$type</dd>
 				</dl></div>
@@ -214,415 +250,18 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="key" id="_key">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_key">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#42-44" title="Go to source code">key</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Iterator.html#_key">Iterator::key()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="next" id="_next">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_next">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#46-48" title="Go to source code">next</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Iterator.html#_next">Iterator::next()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="rewind" id="_rewind">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_rewind">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#50-52" title="Go to source code">rewind</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Iterator.html#_rewind">Iterator::rewind()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="current" id="_current">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_current">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#54-56" title="Go to source code">current</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Iterator.html#_current">Iterator::current()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="valid" id="_valid">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_valid">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#58-60" title="Go to source code">valid</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Iterator.html#_valid">Iterator::valid()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="offsetExists" id="_offsetExists">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_offsetExists">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#62-65" title="Go to source code">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-ArrayAccess.html#_offsetExists">ArrayAccess::offsetExists()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="offsetGet" id="_offsetGet">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_offsetGet">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#67-70" title="Go to source code">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-ArrayAccess.html#_offsetGet">ArrayAccess::offsetGet()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="offsetSet" id="_offsetSet">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_offsetSet">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#72-74" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-ArrayAccess.html#_offsetSet">ArrayAccess::offsetSet()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="offsetUnset" id="_offsetUnset">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_offsetUnset">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#76-78" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-ArrayAccess.html#_offsetUnset">ArrayAccess::offsetUnset()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getFirst" id="_getFirst">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getFirst">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#80-83" title="Go to source code">getFirst</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getLast" id="_getLast">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getLast">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#85-88" title="Go to source code">getLast</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getSingle" id="_getSingle">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getSingle">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#90-93" title="Go to source code">getSingle</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="count" id="_count">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_count">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#95-98" title="Go to source code">count</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-Countable.html#_count">Countable::count()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="supportsType" id="_supportsType">
 
 		<td class="attributes"><code>
 			 public 
-			
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_supportsType">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#100-102" title="Go to source code">supportsType</a>( <span>mixed <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#107-115" title="Go to source code">supportsType</a>( <span>string <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -632,7 +271,16 @@
 			
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd><code>string</code><br>$type</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
 
 
 
@@ -646,14 +294,54 @@
 
 		<td class="attributes"><code>
 			 public 
-			
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_supportsMethod">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResults.html#104-106" title="Go to source code">supportsMethod</a>( <span>mixed <var>$method</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#117-125" title="Go to source code">supportsMethod</a>( <span>string <var>$method</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$method</var></dt>
+					<dd><code>string</code><br>$method</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-BaseX.Query.QueryResultsInterface.html#_supportsMethod">BaseX\Query\QueryResultsInterface::supportsMethod()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseJSON" id="_parseJSON">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseJSON">#</a>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#127-132" title="Go to source code">parseJSON</a>( <span>mixed <var>$assoc</var> = <span class="php-keyword1">false</span></span>, <span>mixed <var>$depth</var> = <span class="php-num">512</span></span> )</code>
 
 		<div class="description short">
 			
@@ -668,10 +356,205 @@
 
 
 
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-BaseX.Query.QueryResultsInterface.html#_supportsMethod">BaseX\Query\QueryResultsInterface::supportsMethod()</a></code></div>
 		</div>
 		</div></td>
+	</tr>
+	<tr data-order="parseDateTime" id="_parseDateTime">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseDateTime">#</a>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#134-139" title="Go to source code">parseDateTime</a>( <span>mixed <var>$format</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseSimpleXML" id="_parseSimpleXML">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseSimpleXML">#</a>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#141-146" title="Go to source code">parseSimpleXML</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseCSV" id="_parseCSV">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseCSV">#</a>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#148-159" title="Go to source code">parseCSV</a>( <span>mixed <var>$header</var> = <span class="php-keyword1">false</span></span>, <span>mixed <var>$delimiter</var> = <span class="php-quote">','</span></span>, <span>mixed <var>$enclosure</var> = <span class="php-quote">'&quot;'</span></span>, <span>mixed <var>$escape</var> = <span class="php-quote">'\\'</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseObject" id="_parseObject">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseObject">#</a>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#161-166" title="Go to source code">parseObject</a>( <span>mixed <var>$class</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseRegex" id="_parseRegex">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseRegex">#</a>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#168-173" title="Go to source code">parseRegex</a>( <span>mixed <var>$pattern</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parseCallback" id="_parseCallback">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseCallback">#</a>
+		<code><a href="source-class-BaseX.Query.QueryResults.html#175-180" title="Go to source code">parseCallback</a>( <span><code><a href="class-Closure.html">Closure</a></code> <var>$callback</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-BaseX.Iterator.ArrayWrapper.html#methods">BaseX\Iterator\ArrayWrapper</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#___construct">__construct()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_count">count()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_filter">filter()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_getFirst">getFirst()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_getIterator">getIterator()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_getLast">getLast()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_getSingle">getSingle()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_grep">grep()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_map">map()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_offsetExists">offsetExists()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_offsetGet">offsetGet()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_offsetSet">offsetSet()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_offsetUnset">offsetUnset()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_reverse">reverse()</a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#_sort">sort()</a>
+		</code></td>
 	</tr>
 	</table>
 
@@ -685,42 +568,18 @@
 
 
 
-
 	<table class="summary" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="current" id="$current">
-		<td class="attributes"><code>
-			protected  
-			integer
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-BaseX.Query.QueryResults.html#18-22" title="Go to source code"><var>$current</var></a>
-		</td>
-		<td class="value"><code><span class="php-num">0</span></code></td>
-		<td class="description"><div>
-			<a href="#$current" class="anchor">#</a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</div></td>
-	</tr>
 	<tr data-order="data" id="$data">
 		<td class="attributes"><code>
 			protected  
-			array
+			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.QueryResults.html#24-28" title="Go to source code"><var>$data</var></a>
+				<a href="source-class-BaseX.Query.QueryResults.html#35" title="Go to source code"><var>$data</var></a>
 		</td>
-		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+		<td class="value"><code></code></td>
 		<td class="description"><div>
 			<a href="#$data" class="anchor">#</a>
 
@@ -737,13 +596,13 @@
 	<tr data-order="types" id="$types">
 		<td class="attributes"><code>
 			protected  
-			array
+			mixed
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.QueryResults.html#29" title="Go to source code"><var>$types</var></a>
+				<a href="source-class-BaseX.Query.QueryResults.html#36" title="Go to source code"><var>$types</var></a>
 		</td>
-		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
+		<td class="value"><code></code></td>
 		<td class="description"><div>
 			<a href="#$types" class="anchor">#</a>
 
@@ -757,8 +616,137 @@
 			</div>
 		</div></td>
 	</tr>
+	<tr data-order="parser" id="$parser">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Query.QueryResults.html#38" title="Go to source code"><var>$parser</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$parser" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="class" id="$class">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Query.QueryResults.html#39" title="Go to source code"><var>$class</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$class" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="csv" id="$csv">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Query.QueryResults.html#40" title="Go to source code"><var>$csv</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$csv" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="json" id="$json">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Query.QueryResults.html#41" title="Go to source code"><var>$json</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$json" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="format" id="$format">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Query.QueryResults.html#42" title="Go to source code"><var>$format</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$format" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-BaseX.Iterator.ArrayWrapper.html#properties">BaseX\Iterator\ArrayWrapper</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#$callback"><var>$callback</var></a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#$filter"><var>$filter</var></a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#$grep"><var>$grep</var></a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#$iterator"><var>$iterator</var></a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#$reverse"><var>$reverse</var></a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#$sort"><var>$sort</var></a>, 
+			<a href="class-BaseX.Iterator.ArrayWrapper.html#$total"><var>$total</var></a>
+		</code></td>
+	</tr>
+	</table>
 
 
 

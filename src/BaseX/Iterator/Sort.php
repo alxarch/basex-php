@@ -1,11 +1,22 @@
 <?php
 
+/**
+ * @package BaseX 
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
+
 namespace BaseX\Iterator;
 
 use ArrayIterator;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * Sorts an input iterator using a callable.
+ */
 class Sort implements IteratorAggregate
 {
   protected $callback;

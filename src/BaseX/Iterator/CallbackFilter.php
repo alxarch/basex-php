@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package BaseX 
  * 
@@ -9,7 +10,6 @@
 
 namespace BaseX\Iterator;
 
-use ArrayIterator;
 use FilterIterator;
 use InvalidArgumentException;
 use Traversable;
@@ -22,26 +22,23 @@ use FilterIterator;
  */
 class CallbackFilter extends FilterIterator
 {
+
   protected $callback;
-  
-  /**
-   *
-   * @var ArrayIterator
-   */
-  protected $array;
-  
+
   public function __construct(Traversable $iter, $callback)
   {
     parent::__construct($iter);
-    
-    if(!is_callable($callback))
+
+    if (!is_callable($callback))
       throw new InvalidArgumentException('Invalid Callback');
-    
+
     $this->callback = $callback;
   }
-  
+
   public function accept()
   {
     $resource = parent::current();
-    return call_user_func($this->callback, $resource);  }
+    return call_user_func($this->callback, $resource);
+  }
+
 }

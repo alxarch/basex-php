@@ -7,7 +7,7 @@
 	<title>Interface BaseX\Query\QueryResultsInterface | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,18 +30,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li class="active"><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li class="active"><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -126,9 +127,7 @@
 		<dd style="padding-left:0px">
 <b><span>BaseX\Query\QueryResultsInterface</span></b>			
 			 implements 
-				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
-			
-				<a href="class-Iterator.html"><span>Iterator</span></a>, 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
 			
 				<a href="class-Countable.html"><span>Countable</span></a>
 			
@@ -144,20 +143,6 @@
 			<a href="class-BaseX.Query.QueryResults.html">BaseX\Query\QueryResults</a>
 	</div>
 
-	<div>
-		<h4>Indirect known implementers</h4>
-			<a href="class-BaseX.Query.Results.CallbackResults.html">BaseX\Query\Results\CallbackResults</a>, 
-			<a href="class-BaseX.Query.Results.CSVResults.html">BaseX\Query\Results\CSVResults</a>, 
-			<a href="class-BaseX.Symfony.SerializerResults.html">BaseX\Symfony\SerializerResults</a>, 
-			<a href="class-BaseX.Query.Results.DateTimeResults.html">BaseX\Query\Results\DateTimeResults</a>, 
-			<a href="class-BaseX.Query.Results.JSONResults.html">BaseX\Query\Results\JSONResults</a>, 
-			<a href="class-BaseX.Query.Results.ProcessedResults.html">BaseX\Query\Results\ProcessedResults</a>, 
-			<a href="class-BaseX.Query.Results.RegexResults.html">BaseX\Query\Results\RegexResults</a>, 
-			<a href="class-BaseX.Query.Results.SimpleXMLResults.html">BaseX\Query\Results\SimpleXMLResults</a>, 
-			<a href="class-BaseX.Query.Results.UnserializableResults.html">BaseX\Query\Results\UnserializableResults</a>, 
-			<a href="class-BaseX.Resource.MimeResourceResults.html">BaseX\Resource\MimeResourceResults</a>, 
-			<a href="class-BaseX.Resource.ResourceResults.html">BaseX\Resource\ResourceResults</a>
-	</div>
 
 
 
@@ -169,7 +154,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Query.QueryResultsInterface.html#10-19" title="Go to source code">src/BaseX/Query/QueryResultsInterface.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Query.QueryResultsInterface.html#18-27" title="Go to source code">src/BaseX/Query/QueryResultsInterface.php</a><br />
 	</div>
 
 
@@ -187,7 +172,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addResult">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResultsInterface.html#16" title="Go to source code">addResult</a>( <span>mixed <var>$data</var></span>, <span>mixed <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResultsInterface.html#24" title="Go to source code">addResult</a>( <span>mixed <var>$data</var></span>, <span>mixed <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -216,7 +201,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_supportsType">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResultsInterface.html#17" title="Go to source code">supportsType</a>( <span>mixed <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResultsInterface.html#25" title="Go to source code">supportsType</a>( <span>mixed <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -245,7 +230,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_supportsMethod">#</a>
-		<code><a href="source-class-BaseX.Query.QueryResultsInterface.html#18" title="Go to source code">supportsMethod</a>( <span>mixed <var>$method</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryResultsInterface.html#26" title="Go to source code">supportsMethod</a>( <span>mixed <var>$method</var></span> )</code>
 
 		<div class="description short">
 			
@@ -266,25 +251,10 @@
 	</table>
 
 	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-ArrayAccess.html#methods">ArrayAccess</a></caption>
+	<caption>Methods inherited from <a href="class-IteratorAggregate.html#methods">IteratorAggregate</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-ArrayAccess.html#_offsetExists">offsetExists()</a>, 
-			<a href="class-ArrayAccess.html#_offsetGet">offsetGet()</a>, 
-			<a href="class-ArrayAccess.html#_offsetSet">offsetSet()</a>, 
-			<a href="class-ArrayAccess.html#_offsetUnset">offsetUnset()</a>
-		</code></td>
-	</tr>
-	</table>
-	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-Iterator.html#methods">Iterator</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-Iterator.html#_current">current()</a>, 
-			<a href="class-Iterator.html#_key">key()</a>, 
-			<a href="class-Iterator.html#_next">next()</a>, 
-			<a href="class-Iterator.html#_rewind">rewind()</a>, 
-			<a href="class-Iterator.html#_valid">valid()</a>
+			<a href="class-IteratorAggregate.html#_getIterator">getIterator()</a>
 		</code></td>
 	</tr>
 	</table>

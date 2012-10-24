@@ -1,8 +1,11 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @package BaseX
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
  */
 
 namespace BaseX\Iterator;
@@ -11,7 +14,7 @@ use IteratorIterator;
 use Traversable;
 
 /**
- * Description of CSVIterator
+ * Parses values in the input iterator as csv.
  *
  * @author alxarch
  */
@@ -25,23 +28,28 @@ class CSVParser extends IteratorIterator
   protected $keys;
 
   /**
+   * Constructor
+   * 
+   * @see str_get_csv
    * 
    * @param Traversable $iterator
-   * @param array $options header, delimiter, enclosure, escape
+   * @param boolean $header Whether to treat the first row as header and 
+   * use it's values as keys for the rest.
+   * @param array $options Options to pass to str_get_csv delimiter, enclosure, 
+   * escape
    */
-  public function __construct(Traversable $iterator, $options = array())
+  public function __construct(Traversable $iterator, $header=false, $options = array())
   {
     parent::__construct($iterator);
 
     $opts = array(
-      'header'    => false,
       'delimiter' => ',',
       'enclosure' => '"',
       'escape'    => '\\'
       ) + $options;
 
     $this->delimiter = (string)$opts['delimiter'];
-    $this->header = (boolean)$opts['header'];
+    $this->header = $header;
     $this->escape = (string)$opts['escape'];
     $this->enclosure = (string)$opts['enclosure'];
   }
@@ -59,6 +67,14 @@ class CSVParser extends IteratorIterator
     }
   }
 
+  /**
+   * Gets current row.
+   * 
+   * If header was set the array will be an associative array using first row
+   * values as keys.
+   * 
+   * @return array
+   */
   public function current()
   {
 

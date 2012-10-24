@@ -7,7 +7,7 @@
 	<title>Class BaseX\Resource\Streamable | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,18 +30,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -69,9 +70,7 @@
 			<ul>
 				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
-				<li><a href="class-BaseX.Resource.MimeResourceResults.html">MimeResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
-				<li><a href="class-BaseX.Resource.ResourceResults.html">ResourceResults</a></li>
 				<li class="active"><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
 				<li><a href="class-BaseX.Resource.Tree.html">Tree</a></li>
 			</ul>
@@ -173,7 +172,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Resource.Streamable.html#19-137" title="Go to source code">src/BaseX/Resource/Streamable.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.Streamable.html#21-139" title="Go to source code">src/BaseX/Resource/Streamable.php</a><br />
 	</div>
 
 
@@ -191,7 +190,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUri">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#41-45" title="Go to source code">getUri</a>( <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#43-47" title="Go to source code">getUri</a>( <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -220,7 +219,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getStream">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#47-67" title="Go to source code">getStream</a>( <span>string <var>$mode</var> = <span class="php-quote">'r'</span></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#49-69" title="Go to source code">getStream</a>( <span>string <var>$mode</var> = <span class="php-quote">'r'</span></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -270,7 +269,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContentType">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#69-77" title="Go to source code">getContentType</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#71-79" title="Go to source code">getContentType</a>( )</code>
 
 		<div class="description short">
 			
@@ -309,7 +308,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setContentType">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#79-89" title="Go to source code">setContentType</a>( <span>string <var>$type</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#81-91" title="Go to source code">setContentType</a>( <span>string <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -351,7 +350,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_refresh">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#91-118" title="Go to source code">refresh</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#93-120" title="Go to source code">refresh</a>( )</code>
 
 		<div class="description short">
 			
@@ -391,7 +390,7 @@ or has changed from Raw to Document or vice versa.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_fromSimpleXML">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#120-125" title="Go to source code">fromSimpleXML</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>$xml</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#122-127" title="Go to source code">fromSimpleXML</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>$xml</var></span> )</code>
 
 		<div class="description short">
 			
@@ -422,7 +421,7 @@ or has changed from Raw to Document or vice versa.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setSize">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#127-130" title="Go to source code">setSize</a>( <span>mixed <var>$size</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#129-132" title="Go to source code">setSize</a>( <span>mixed <var>$size</var></span> )</code>
 
 		<div class="description short">
 			
@@ -451,7 +450,7 @@ or has changed from Raw to Document or vice versa.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSize">#</a>
-		<code><a href="source-class-BaseX.Resource.Streamable.html#132-135" title="Go to source code">getSize</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Streamable.html#134-137" title="Go to source code">getSize</a>( )</code>
 
 		<div class="description short">
 			
@@ -535,7 +534,7 @@ or has changed from Raw to Document or vice versa.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Streamable.html#28-32" title="Go to source code"><var>$size</var></a>
+				<a href="source-class-BaseX.Resource.Streamable.html#30-34" title="Go to source code"><var>$size</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -558,7 +557,7 @@ or has changed from Raw to Document or vice versa.<br />
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Streamable.html#34-39" title="Go to source code"><var>$mime</var></a>
+				<a href="source-class-BaseX.Resource.Streamable.html#36-41" title="Go to source code"><var>$mime</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * @package BaseX 
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
+ */
+
 namespace BaseX\Resource\Iterator;
 
 use ArrayIterator;
 use BaseX\Database;
+use BaseX\Iterator\CallbackParser;
 use IteratorAggregate;
 
+/**
+ * Fetches the results of a LIST command to an array of arrays.
+ */
 class ListCommand implements IteratorAggregate
 {
 
@@ -41,9 +53,9 @@ class ListCommand implements IteratorAggregate
     array_pop($lines);
     array_pop($lines);
     array_pop($lines);
-    
-    return new ArrayIterator($lines);
-    
+
+    $resources = new ArrayIterator($lines);
+    return new CallbackParser($resources, array('\BaseX\Resource', 'parseLine'));
   }
 
 }

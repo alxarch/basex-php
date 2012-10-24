@@ -7,7 +7,7 @@
 	<title>Class BaseX\Resource\Collection | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,18 +30,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -69,9 +70,7 @@
 			<ul>
 				<li class="active"><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
-				<li><a href="class-BaseX.Resource.MimeResourceResults.html">MimeResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
-				<li><a href="class-BaseX.Resource.ResourceResults.html">ResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
 				<li><a href="class-BaseX.Resource.Tree.html">Tree</a></li>
 			</ul>
@@ -168,7 +167,7 @@
 
 				<b>Author:</b>
 				alxarch<br />
-		<b>Located at</b> <a href="source-class-BaseX.Resource.Collection.html#17-169" title="Go to source code">src/BaseX/Resource/Collection.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.Collection.html#18-132" title="Go to source code">src/BaseX/Resource/Collection.php</a><br />
 	</div>
 
 
@@ -186,7 +185,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getModified">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#30-42" title="Go to source code">getModified</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Collection.html#32-45" title="Go to source code">getModified</a>( )</code>
 
 		<div class="description short">
 			
@@ -223,7 +222,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getChildren">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#44-58" title="Go to source code">getChildren</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Collection.html#47-79" title="Go to source code">getChildren</a>( )</code>
 
 		<div class="description short">
 			
@@ -247,35 +246,6 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getTree" id="_getTree">
-
-		<td class="attributes"><code>
-			 protected 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getTree">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#60-93" title="Go to source code">getTree</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="getChild" id="_getChild">
 
 		<td class="attributes"><code>
@@ -287,7 +257,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getChild">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#95-108" title="Go to source code">getChild</a>( <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Collection.html#81-91" title="Go to source code">getChild</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -325,7 +295,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_hasChild">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#110-124" title="Go to source code">hasChild</a>( <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Collection.html#93-106" title="Go to source code">hasChild</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -365,7 +335,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRelativePath">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#126-134" title="Go to source code">getRelativePath</a>( <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Collection.html#108-117" title="Go to source code">getRelativePath</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -409,7 +379,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getChildPath">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#136-138" title="Go to source code">getChildPath</a>( <span>mixed <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Collection.html#119-122" title="Go to source code">getChildPath</a>( <span>mixed <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -440,7 +410,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_refresh">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#140-147" title="Go to source code">refresh</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Collection.html#124-129" title="Go to source code">refresh</a>( )</code>
 
 		<div class="description short">
 			
@@ -461,130 +431,6 @@
 
 				<h4>Implementation of</h4>
 				<div class="list"><code><a href="class-BaseX.Resource.ResourceInterface.html#_refresh">BaseX\Resource\ResourceInterface::refresh()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="offsetExists" id="_offsetExists">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_offsetExists">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#149-152" title="Go to source code">offsetExists</a>( <span>mixed <var>$offset</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-ArrayAccess.html#_offsetExists">ArrayAccess::offsetExists()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="offsetGet" id="_offsetGet">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_offsetGet">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#154-157" title="Go to source code">offsetGet</a>( <span>mixed <var>$offset</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-ArrayAccess.html#_offsetGet">ArrayAccess::offsetGet()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="offsetSet" id="_offsetSet">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_offsetSet">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#159-162" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-ArrayAccess.html#_offsetSet">ArrayAccess::offsetSet()</a></code></div>
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="offsetUnset" id="_offsetUnset">
-
-		<td class="attributes"><code>
-			 public 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_offsetUnset">#</a>
-		<code><a href="source-class-BaseX.Resource.Collection.html#164-167" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-				<h4>Implementation of</h4>
-				<div class="list"><code><a href="class-ArrayAccess.html#_offsetUnset">ArrayAccess::offsetUnset()</a></code></div>
 		</div>
 		</div></td>
 	</tr>
@@ -641,7 +487,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.Collection.html#24-28" title="Go to source code"><var>$children</var></a>
+				<a href="source-class-BaseX.Resource.Collection.html#26-30" title="Go to source code"><var>$children</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

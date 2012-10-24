@@ -10,7 +10,6 @@
 
 namespace BaseX\Resource\Iterator;
 
-use ArrayIterator;
 use BaseX\Database;
 use BaseX\Iterator\ArrayWrapper;
 use BaseX\Iterator\CallbackFilter;
@@ -25,7 +24,7 @@ use BaseX\Resource\Iterator\SortResource;
 use BaseX\Resource\Raw;
 
 /**
- * Description of Resources
+ * Iterator for basex resources.
  *
  * @author alxarch
  */
@@ -136,6 +135,7 @@ class Resources extends ArrayWrapper
   }
 
   /**
+   * Sort resources by size.
    * 
    * @return Resources
    */
@@ -146,6 +146,7 @@ class Resources extends ArrayWrapper
   }
 
   /**
+   * Sort resources by modification time.
    * 
    * @return Resources
    */
@@ -157,6 +158,7 @@ class Resources extends ArrayWrapper
   }
 
   /**
+   * Sort resources by content type.
    * 
    * @return Resources
    */
@@ -167,6 +169,7 @@ class Resources extends ArrayWrapper
   }
 
   /**
+   * Sort resources by path.
    * 
    * @return Resources
    */
@@ -177,6 +180,7 @@ class Resources extends ArrayWrapper
   }
 
   /**
+   * Sort by resource type (raw|xml).
    * 
    * @return Resources
    */
@@ -186,39 +190,32 @@ class Resources extends ArrayWrapper
     return $this;
   }
   
+  /**
+   * Get the callable to use for converting array resource data to objects.
+   * 
+   * @return callable
+   */
   public function getDenormalizer()
   {
     return null === $this->denormalizer ? 
       array($this, 'denormalize') : $this->denormalizer;
   }
   
+  /**
+   * Set the callable to use for converting array resource data to objects.
+   * 
+   * @return callable
+   */
   public function setDenormalizer($denormalizer)
   {
     $this->denormalizer = $denormalizer;
     return $this;
   }
-
-  public function getInitialIterator()
-  {
-    $data = $this->db
-      ->getSession()
-      ->execute("LIST $this->db \"$this->path\"");
-
-    $lines = explode("\n", $data);
-
-    array_shift($lines);
-    array_shift($lines);
-    array_pop($lines);
-    array_pop($lines);
-    array_pop($lines);
-    
-    return new \ArrayObject($lines);;
-  }
   
   protected function processIterator()
   {
     $resources = new ListCommand($this->db, $this->path);
-    $resources = new CallbackParser($resources, array('\BaseX\Resource', 'parseLine'));
+
     if(null !== $this->modified)
     {
       $resources = new Modified($resources, $this->db, $this->path);
@@ -264,6 +261,12 @@ class Resources extends ArrayWrapper
     return $resources;
   }
   
+  /**
+   * Default converter from array to resource object.
+   * 
+   * @param array $resource
+   * @return Document|Raw
+   */
   public function denormalize($resource)
   {
     if ($resource['type'] === 'raw')

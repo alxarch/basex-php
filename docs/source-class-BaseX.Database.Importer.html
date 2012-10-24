@@ -8,7 +8,7 @@
 	<title>File src/BaseX/Database/Importer.php | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -31,18 +31,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -127,8 +128,8 @@
 </span><span id="10" class="l"><a class="l" href="#10"> 10: </a><span class="php-keyword1">namespace</span> BaseX\Database;
 </span><span id="11" class="l"><a class="l" href="#11"> 11: </a>
 </span><span id="12" class="l"><a class="l" href="#12"> 12: </a><span class="php-keyword1">use</span> BaseX\Database;
-</span><span id="13" class="l"><a class="l" href="#13"> 13: </a><span class="php-keyword1">use</span> BaseX\Error\ImportError;
-</span><span id="14" class="l"><a class="l" href="#14"> 14: </a><span class="php-keyword1">use</span> BaseX\Error;
+</span><span id="13" class="l"><a class="l" href="#13"> 13: </a><span class="php-keyword1">use</span> BaseX\Error;
+</span><span id="14" class="l"><a class="l" href="#14"> 14: </a><span class="php-keyword1">use</span> BaseX\Error\ImportError;
 </span><span id="15" class="l"><a class="l" href="#15"> 15: </a><span class="php-keyword1">use</span> BaseX\Helpers <span class="php-keyword1">as</span> B;
 </span><span id="16" class="l"><a class="l" href="#16"> 16: </a><span class="php-keyword1">use</span> Symfony\Component\Finder\Finder;
 </span><span id="17" class="l"><a class="l" href="#17"> 17: </a>
@@ -141,7 +142,7 @@
 </span><span id="24" class="l"><a class="l" href="#24"> 24: </a>{
 </span><span id="25" class="l"><a class="l" href="#25"> 25: </a>  <span class="php-comment">/**
 </span></span><span id="26" class="l"><a class="l" href="#26"> 26: </a><span class="php-comment">   *
-</span></span><span id="27" class="l"><a class="l" href="#27"> 27: </a><span class="php-comment">   * @var \BaseX\Database
+</span></span><span id="27" class="l"><a class="l" href="#27"> 27: </a><span class="php-comment">   * @var Database
 </span></span><span id="28" class="l"><a class="l" href="#28"> 28: </a><span class="php-comment">   */</span>
 </span><span id="29" class="l"><a class="l" href="#29"> 29: </a>  <span class="php-keyword1">protected</span> <span class="php-var"><a id="$db" href="#$db">$db</a></span>;
 </span><span id="30" class="l"><a class="l" href="#30"> 30: </a>  
@@ -169,7 +170,7 @@
 </span><span id="52" class="l"><a class="l" href="#52"> 52: </a>    <span class="php-var">$parseropt</span> = (<span class="php-quote">'html'</span> === <span class="php-var">$parser</span>) ? <span class="php-quote">'HTMLOPT'</span> : <span class="php-quote">'PARSEROPT'</span>;
 </span><span id="53" class="l"><a class="l" href="#53"> 53: </a>    
 </span><span id="54" class="l"><a class="l" href="#54"> 54: </a>    <span class="php-var">$session</span> =  <span class="php-var">$this</span>-&gt;db-&gt;getSession();
-</span><span id="55" class="l"><a class="l" href="#55"> 55: </a>    <span class="php-var">$restore</span> = <span class="php-var">$session</span>-&gt;getInfo();
+</span><span id="55" class="l"><a class="l" href="#55"> 55: </a>    <span class="php-var">$restore</span> = <span class="php-var">$session</span>-&gt;getOptions();
 </span><span id="56" class="l"><a class="l" href="#56"> 56: </a>    
 </span><span id="57" class="l"><a class="l" href="#57"> 57: </a>    <span class="php-var">$session</span>-&gt;setOption(<span class="php-quote">'parser'</span>, <span class="php-var">$parser</span>)
 </span><span id="58" class="l"><a class="l" href="#58"> 58: </a>            -&gt;setOption(<span class="php-var">$parseropt</span>, <span class="php-var">$opts</span>)
@@ -178,75 +179,74 @@
 </span><span id="61" class="l"><a class="l" href="#61"> 61: </a>    <span class="php-keyword1">return</span> <span class="php-var">$restore</span>;
 </span><span id="62" class="l"><a class="l" href="#62"> 62: </a>  }
 </span><span id="63" class="l"><a class="l" href="#63"> 63: </a>  
-</span><span id="64" class="l"><a class="l" href="#64"> 64: </a>  <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> <a id="_endImport" href="#_endImport">endImport</a>(SessionInfo <span class="php-var">$restore</span>)
+</span><span id="64" class="l"><a class="l" href="#64"> 64: </a>  <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> <a id="_endImport" href="#_endImport">endImport</a>(<span class="php-var">$restore</span>)
 </span><span id="65" class="l"><a class="l" href="#65"> 65: </a>  {
 </span><span id="66" class="l"><a class="l" href="#66"> 66: </a>     <span class="php-var">$this</span>-&gt;db-&gt;getSession()
-</span><span id="67" class="l"><a class="l" href="#67"> 67: </a>        -&gt;setOption(<span class="php-quote">'parser'</span>, <span class="php-var">$restore</span>)
-</span><span id="68" class="l"><a class="l" href="#68"> 68: </a>        -&gt;setOption(<span class="php-quote">'parseropt'</span>, <span class="php-var">$restore</span>)
-</span><span id="69" class="l"><a class="l" href="#69"> 69: </a>        -&gt;setOption(<span class="php-quote">'parser'</span>, <span class="php-var">$restore</span>)
-</span><span id="70" class="l"><a class="l" href="#70"> 70: </a>        -&gt;setOption(<span class="php-quote">'htmlopt'</span>, <span class="php-var">$restore</span>)
-</span><span id="71" class="l"><a class="l" href="#71"> 71: </a>        -&gt;setOption(<span class="php-quote">'createfilter'</span>, <span class="php-var">$restore</span>);
-</span><span id="72" class="l"><a class="l" href="#72"> 72: </a>  }
-</span><span id="73" class="l"><a class="l" href="#73"> 73: </a>  
-</span><span id="74" class="l"><a class="l" href="#74"> 74: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_importDir" href="#_importDir">importDir</a>(<span class="php-var">$dir</span>, <span class="php-var">$path</span>, <span class="php-var">$options</span>=<span class="php-keyword1">array</span>(), <span class="php-var">$createfilter</span>=<span class="php-keyword1">null</span>)
-</span><span id="75" class="l"><a class="l" href="#75"> 75: </a>  {
-</span><span id="76" class="l"><a class="l" href="#76"> 76: </a>    <span class="php-keyword1">if</span>(<span class="php-keyword1">null</span> === <span class="php-var">$createfilter</span>)
-</span><span id="77" class="l"><a class="l" href="#77"> 77: </a>    {
-</span><span id="78" class="l"><a class="l" href="#78"> 78: </a>      <span class="php-var">$createfilter</span> = <span class="php-var">$this</span>-&gt;getDefaultCreateFilter();
-</span><span id="79" class="l"><a class="l" href="#79"> 79: </a>    }
-</span><span id="80" class="l"><a class="l" href="#80"> 80: </a>    
-</span><span id="81" class="l"><a class="l" href="#81"> 81: </a>    <span class="php-var">$finder</span> = Finder::create()-&gt;files()-&gt;name(<span class="php-var">$createfilter</span>)-&gt;in(<span class="php-var">$dir</span>);
-</span><span id="82" class="l"><a class="l" href="#82"> 82: </a>    
-</span><span id="83" class="l"><a class="l" href="#83"> 83: </a>    <span class="php-var">$this</span>-&gt;beginImport(<span class="php-var">$options</span>, <span class="php-var">$createfilter</span>);
-</span><span id="84" class="l"><a class="l" href="#84"> 84: </a>    
-</span><span id="85" class="l"><a class="l" href="#85"> 85: </a>    <span class="php-keyword1">foreach</span> (<span class="php-var">$finder</span> <span class="php-keyword1">as</span> <span class="php-var">$file</span>)
-</span><span id="86" class="l"><a class="l" href="#86"> 86: </a>    {
-</span><span id="87" class="l"><a class="l" href="#87"> 87: </a>      <span class="php-var">$input</span> = <span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>-&gt;getRealpath(), <span class="php-quote">'r'</span>);
-</span><span id="88" class="l"><a class="l" href="#88"> 88: </a>      <span class="php-var">$dest</span> = B::path(<span class="php-var">$path</span>, <span class="php-var">$file</span>-&gt;getRelativePathname());
-</span><span id="89" class="l"><a class="l" href="#89"> 89: </a>      <span class="php-var">$this</span>-&gt;add(<span class="php-var">$dest</span>, <span class="php-var">$input</span>);
-</span><span id="90" class="l"><a class="l" href="#90"> 90: </a>    }
-</span><span id="91" class="l"><a class="l" href="#91"> 91: </a>    
-</span><span id="92" class="l"><a class="l" href="#92"> 92: </a>    <span class="php-var">$this</span>-&gt;endimport();
-</span><span id="93" class="l"><a class="l" href="#93"> 93: </a>  }
-</span><span id="94" class="l"><a class="l" href="#94"> 94: </a>  
-</span><span id="95" class="l"><a class="l" href="#95"> 95: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_importMultiple" href="#_importMultiple">importMultiple</a>(<span class="php-var">$imports</span>, <span class="php-var">$options</span>=<span class="php-keyword1">array</span>(), <span class="php-var">$createfilter</span>=<span class="php-keyword1">null</span>)
-</span><span id="96" class="l"><a class="l" href="#96"> 96: </a>  {
-</span><span id="97" class="l"><a class="l" href="#97"> 97: </a>    
-</span><span id="98" class="l"><a class="l" href="#98"> 98: </a>    <span class="php-var">$this</span>-&gt;beginImport(<span class="php-var">$options</span>, <span class="php-var">$createfilter</span>);
-</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>    
-</span><span id="100" class="l"><a class="l" href="#100">100: </a>    <span class="php-keyword1">foreach</span> (<span class="php-var">$imports</span> <span class="php-keyword1">as</span> <span class="php-var">$path</span> =&gt; <span class="php-var">$input</span>)
-</span><span id="101" class="l"><a class="l" href="#101">101: </a>    {
-</span><span id="102" class="l"><a class="l" href="#102">102: </a>      <span class="php-var">$this</span>-&gt;add(<span class="php-var">$path</span>, <span class="php-var">$input</span>);
-</span><span id="103" class="l"><a class="l" href="#103">103: </a>    }
-</span><span id="104" class="l"><a class="l" href="#104">104: </a>    
-</span><span id="105" class="l"><a class="l" href="#105">105: </a>    <span class="php-var">$this</span>-&gt;endimport();
-</span><span id="106" class="l"><a class="l" href="#106">106: </a>  }
-</span><span id="107" class="l"><a class="l" href="#107">107: </a>
-</span><span id="108" class="l"><a class="l" href="#108">108: </a>  <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> <a id="_add" href="#_add">add</a>(<span class="php-var">$path</span>, <span class="php-var">$input</span>)
-</span><span id="109" class="l"><a class="l" href="#109">109: </a>  {
-</span><span id="110" class="l"><a class="l" href="#110">110: </a>    <span class="php-keyword1">try</span>
-</span><span id="111" class="l"><a class="l" href="#111">111: </a>    {
-</span><span id="112" class="l"><a class="l" href="#112">112: </a>      <span class="php-var">$this</span>-&gt;db-&gt;replace(<span class="php-var">$path</span>, <span class="php-var">$input</span>);
-</span><span id="113" class="l"><a class="l" href="#113">113: </a>    }
-</span><span id="114" class="l"><a class="l" href="#114">114: </a>    <span class="php-keyword1">catch</span> (Error <span class="php-var">$e</span>)
-</span><span id="115" class="l"><a class="l" href="#115">115: </a>    {
-</span><span id="116" class="l"><a class="l" href="#116">116: </a>      <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> ImportError(<span class="php-var">$e</span>-&gt;getMessage());
-</span><span id="117" class="l"><a class="l" href="#117">117: </a>    }
-</span><span id="118" class="l"><a class="l" href="#118">118: </a>  }
-</span><span id="119" class="l"><a class="l" href="#119">119: </a>
-</span><span id="120" class="l"><a class="l" href="#120">120: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_import" href="#_import">import</a>(<span class="php-var">$path</span>, <span class="php-var">$input</span>, <span class="php-var">$options</span>=<span class="php-keyword1">array</span>(), <span class="php-var">$createfilter</span>=<span class="php-keyword1">null</span>)
-</span><span id="121" class="l"><a class="l" href="#121">121: </a>  {
-</span><span id="122" class="l"><a class="l" href="#122">122: </a>    <span class="php-var">$this</span>-&gt;beginImport(<span class="php-var">$options</span>, <span class="php-var">$createfilter</span>);
-</span><span id="123" class="l"><a class="l" href="#123">123: </a>    
-</span><span id="124" class="l"><a class="l" href="#124">124: </a>    <span class="php-var">$this</span>-&gt;add(<span class="php-var">$path</span>, <span class="php-var">$input</span>);
-</span><span id="125" class="l"><a class="l" href="#125">125: </a>    
-</span><span id="126" class="l"><a class="l" href="#126">126: </a>    <span class="php-var">$this</span>-&gt;endimport();
-</span><span id="127" class="l"><a class="l" href="#127">127: </a>    
-</span><span id="128" class="l"><a class="l" href="#128">128: </a>  }
-</span><span id="129" class="l"><a class="l" href="#129">129: </a>  
-</span><span id="130" class="l"><a class="l" href="#130">130: </a>}
-</span><span id="131" class="l"><a class="l" href="#131">131: </a>
-</span><span id="132" class="l"><a class="l" href="#132">132: </a></span></code></pre>
+</span><span id="67" class="l"><a class="l" href="#67"> 67: </a>        -&gt;setOption(<span class="php-quote">'PARSER'</span>, <span class="php-var">$restore</span>[<span class="php-quote">'PARSER'</span>])
+</span><span id="68" class="l"><a class="l" href="#68"> 68: </a>        -&gt;setOption(<span class="php-quote">'PARSEROPT'</span>, <span class="php-var">$restore</span>[<span class="php-quote">'PARSEROPT'</span>])
+</span><span id="69" class="l"><a class="l" href="#69"> 69: </a>        -&gt;setOption(<span class="php-quote">'HTMLOPT'</span>, <span class="php-var">$restore</span>[<span class="php-quote">'HTMLOPT'</span>])
+</span><span id="70" class="l"><a class="l" href="#70"> 70: </a>        -&gt;setOption(<span class="php-quote">'CREATEFILTER'</span>, <span class="php-var">$restore</span>[<span class="php-quote">'CREATEFILTER'</span>]);
+</span><span id="71" class="l"><a class="l" href="#71"> 71: </a>  }
+</span><span id="72" class="l"><a class="l" href="#72"> 72: </a>  
+</span><span id="73" class="l"><a class="l" href="#73"> 73: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_importDir" href="#_importDir">importDir</a>(<span class="php-var">$dir</span>, <span class="php-var">$path</span>, <span class="php-var">$options</span>=<span class="php-keyword1">array</span>(), <span class="php-var">$createfilter</span>=<span class="php-keyword1">null</span>)
+</span><span id="74" class="l"><a class="l" href="#74"> 74: </a>  {
+</span><span id="75" class="l"><a class="l" href="#75"> 75: </a>    <span class="php-keyword1">if</span>(<span class="php-keyword1">null</span> === <span class="php-var">$createfilter</span>)
+</span><span id="76" class="l"><a class="l" href="#76"> 76: </a>    {
+</span><span id="77" class="l"><a class="l" href="#77"> 77: </a>      <span class="php-var">$createfilter</span> = <span class="php-var">$this</span>-&gt;getDefaultCreateFilter();
+</span><span id="78" class="l"><a class="l" href="#78"> 78: </a>    }
+</span><span id="79" class="l"><a class="l" href="#79"> 79: </a>    
+</span><span id="80" class="l"><a class="l" href="#80"> 80: </a>    <span class="php-var">$finder</span> = Finder::create()-&gt;files()-&gt;name(<span class="php-var">$createfilter</span>)-&gt;in(<span class="php-var">$dir</span>);
+</span><span id="81" class="l"><a class="l" href="#81"> 81: </a>    
+</span><span id="82" class="l"><a class="l" href="#82"> 82: </a>    <span class="php-var">$this</span>-&gt;beginImport(<span class="php-var">$options</span>, <span class="php-var">$createfilter</span>);
+</span><span id="83" class="l"><a class="l" href="#83"> 83: </a>    
+</span><span id="84" class="l"><a class="l" href="#84"> 84: </a>    <span class="php-keyword1">foreach</span> (<span class="php-var">$finder</span> <span class="php-keyword1">as</span> <span class="php-var">$file</span>)
+</span><span id="85" class="l"><a class="l" href="#85"> 85: </a>    {
+</span><span id="86" class="l"><a class="l" href="#86"> 86: </a>      <span class="php-var">$input</span> = <span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>-&gt;getRealpath(), <span class="php-quote">'r'</span>);
+</span><span id="87" class="l"><a class="l" href="#87"> 87: </a>      <span class="php-var">$dest</span> = B::path(<span class="php-var">$path</span>, <span class="php-var">$file</span>-&gt;getRelativePathname());
+</span><span id="88" class="l"><a class="l" href="#88"> 88: </a>      <span class="php-var">$this</span>-&gt;add(<span class="php-var">$dest</span>, <span class="php-var">$input</span>);
+</span><span id="89" class="l"><a class="l" href="#89"> 89: </a>    }
+</span><span id="90" class="l"><a class="l" href="#90"> 90: </a>    
+</span><span id="91" class="l"><a class="l" href="#91"> 91: </a>    <span class="php-var">$this</span>-&gt;endimport();
+</span><span id="92" class="l"><a class="l" href="#92"> 92: </a>  }
+</span><span id="93" class="l"><a class="l" href="#93"> 93: </a>  
+</span><span id="94" class="l"><a class="l" href="#94"> 94: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_importMultiple" href="#_importMultiple">importMultiple</a>(<span class="php-var">$imports</span>, <span class="php-var">$options</span>=<span class="php-keyword1">array</span>(), <span class="php-var">$createfilter</span>=<span class="php-keyword1">null</span>)
+</span><span id="95" class="l"><a class="l" href="#95"> 95: </a>  {
+</span><span id="96" class="l"><a class="l" href="#96"> 96: </a>    
+</span><span id="97" class="l"><a class="l" href="#97"> 97: </a>    <span class="php-var">$this</span>-&gt;beginImport(<span class="php-var">$options</span>, <span class="php-var">$createfilter</span>);
+</span><span id="98" class="l"><a class="l" href="#98"> 98: </a>    
+</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>    <span class="php-keyword1">foreach</span> (<span class="php-var">$imports</span> <span class="php-keyword1">as</span> <span class="php-var">$path</span> =&gt; <span class="php-var">$input</span>)
+</span><span id="100" class="l"><a class="l" href="#100">100: </a>    {
+</span><span id="101" class="l"><a class="l" href="#101">101: </a>      <span class="php-var">$this</span>-&gt;add(<span class="php-var">$path</span>, <span class="php-var">$input</span>);
+</span><span id="102" class="l"><a class="l" href="#102">102: </a>    }
+</span><span id="103" class="l"><a class="l" href="#103">103: </a>    
+</span><span id="104" class="l"><a class="l" href="#104">104: </a>    <span class="php-var">$this</span>-&gt;endimport();
+</span><span id="105" class="l"><a class="l" href="#105">105: </a>  }
+</span><span id="106" class="l"><a class="l" href="#106">106: </a>
+</span><span id="107" class="l"><a class="l" href="#107">107: </a>  <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> <a id="_add" href="#_add">add</a>(<span class="php-var">$path</span>, <span class="php-var">$input</span>)
+</span><span id="108" class="l"><a class="l" href="#108">108: </a>  {
+</span><span id="109" class="l"><a class="l" href="#109">109: </a>    <span class="php-keyword1">try</span>
+</span><span id="110" class="l"><a class="l" href="#110">110: </a>    {
+</span><span id="111" class="l"><a class="l" href="#111">111: </a>      <span class="php-var">$this</span>-&gt;db-&gt;replace(<span class="php-var">$path</span>, <span class="php-var">$input</span>);
+</span><span id="112" class="l"><a class="l" href="#112">112: </a>    }
+</span><span id="113" class="l"><a class="l" href="#113">113: </a>    <span class="php-keyword1">catch</span> (Error <span class="php-var">$e</span>)
+</span><span id="114" class="l"><a class="l" href="#114">114: </a>    {
+</span><span id="115" class="l"><a class="l" href="#115">115: </a>      <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> ImportError(<span class="php-var">$e</span>-&gt;getMessage());
+</span><span id="116" class="l"><a class="l" href="#116">116: </a>    }
+</span><span id="117" class="l"><a class="l" href="#117">117: </a>  }
+</span><span id="118" class="l"><a class="l" href="#118">118: </a>
+</span><span id="119" class="l"><a class="l" href="#119">119: </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_import" href="#_import">import</a>(<span class="php-var">$path</span>, <span class="php-var">$input</span>, <span class="php-var">$options</span>=<span class="php-keyword1">array</span>(), <span class="php-var">$createfilter</span>=<span class="php-keyword1">null</span>)
+</span><span id="120" class="l"><a class="l" href="#120">120: </a>  {
+</span><span id="121" class="l"><a class="l" href="#121">121: </a>    <span class="php-var">$this</span>-&gt;beginImport(<span class="php-var">$options</span>, <span class="php-var">$createfilter</span>);
+</span><span id="122" class="l"><a class="l" href="#122">122: </a>    
+</span><span id="123" class="l"><a class="l" href="#123">123: </a>    <span class="php-var">$this</span>-&gt;add(<span class="php-var">$path</span>, <span class="php-var">$input</span>);
+</span><span id="124" class="l"><a class="l" href="#124">124: </a>    
+</span><span id="125" class="l"><a class="l" href="#125">125: </a>    <span class="php-var">$this</span>-&gt;endimport();
+</span><span id="126" class="l"><a class="l" href="#126">126: </a>    
+</span><span id="127" class="l"><a class="l" href="#127">127: </a>  }
+</span><span id="128" class="l"><a class="l" href="#128">128: </a>  
+</span><span id="129" class="l"><a class="l" href="#129">129: </a>}
+</span><span id="130" class="l"><a class="l" href="#130">130: </a>
+</span><span id="131" class="l"><a class="l" href="#131">131: </a></span></code></pre>
 
 	<div id="footer">
 		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

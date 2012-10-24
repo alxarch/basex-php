@@ -7,7 +7,7 @@
 	<title>Class BaseX\Resource | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,18 +30,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -164,7 +165,7 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Resource.html#16-260" title="Go to source code">src/BaseX/Resource.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.html#19-263" title="Go to source code">src/BaseX/Resource.php</a><br />
 	</div>
 
 
@@ -182,7 +183,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-BaseX.Resource.html#48-62" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span>string <var>$path</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.html#51-65" title="Go to source code">__construct</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
@@ -227,7 +228,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDatabase">#</a>
-		<code><a href="source-class-BaseX.Resource.html#64-72" title="Go to source code">getDatabase</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#67-75" title="Go to source code">getDatabase</a>( )</code>
 
 		<div class="description short">
 			
@@ -266,7 +267,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_copy">#</a>
-		<code><a href="source-class-BaseX.Resource.html#74-86" title="Go to source code">copy</a>( <span>string <var>$dest</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.html#77-89" title="Go to source code">copy</a>( <span>string <var>$dest</var></span> )</code>
 
 		<div class="description short">
 			
@@ -308,7 +309,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_move">#</a>
-		<code><a href="source-class-BaseX.Resource.html#88-102" title="Go to source code">move</a>( <span>string <var>$dest</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.html#91-105" title="Go to source code">move</a>( <span>string <var>$dest</var></span> )</code>
 
 		<div class="description short">
 			
@@ -352,7 +353,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_rename">#</a>
-		<code><a href="source-class-BaseX.Resource.html#104-121" title="Go to source code">rename</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.html#107-124" title="Go to source code">rename</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -396,7 +397,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-BaseX.Resource.html#123-130" title="Go to source code">delete</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#126-133" title="Go to source code">delete</a>( )</code>
 
 		<div class="description short">
 			
@@ -431,7 +432,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_refresh">#</a>
-		<code><a href="source-class-BaseX.Resource.html#132-136" title="Go to source code">refresh</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#135-139" title="Go to source code">refresh</a>( )</code>
 
 		<div class="description short">
 			
@@ -466,7 +467,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEtag">#</a>
-		<code><a href="source-class-BaseX.Resource.html#138-148" title="Go to source code">getEtag</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#141-151" title="Go to source code">getEtag</a>( )</code>
 
 		<div class="description short">
 			
@@ -505,7 +506,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-BaseX.Resource.html#150-158" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#153-161" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			
@@ -542,7 +543,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPath">#</a>
-		<code><a href="source-class-BaseX.Resource.html#160-167" title="Go to source code">getPath</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#163-170" title="Go to source code">getPath</a>( )</code>
 
 		<div class="description short">
 			
@@ -581,7 +582,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-BaseX.Resource.html#169-177" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#172-180" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			
@@ -620,7 +621,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getModified">#</a>
-		<code><a href="source-class-BaseX.Resource.html#179-186" title="Go to source code">getModified</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#182-189" title="Go to source code">getModified</a>( )</code>
 
 		<div class="description short">
 			
@@ -655,7 +656,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setModified">#</a>
-		<code><a href="source-class-BaseX.Resource.html#188-202" title="Go to source code">setModified</a>( <span>mixed <var>$datetime</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.html#191-205" title="Go to source code">setModified</a>( <span>mixed <var>$datetime</var></span> )</code>
 
 		<div class="description short">
 			
@@ -690,7 +691,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-BaseX.Resource.html#204-207" title="Go to source code">exists</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#207-210" title="Go to source code">exists</a>( )</code>
 
 		<div class="description short">
 			
@@ -721,7 +722,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isDeleted">#</a>
-		<code><a href="source-class-BaseX.Resource.html#209-212" title="Go to source code">isDeleted</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.html#212-215" title="Go to source code">isDeleted</a>( )</code>
 
 		<div class="description short">
 			
@@ -752,7 +753,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_fromSimpleXML">#</a>
-		<code><a href="source-class-BaseX.Resource.html#214-226" title="Go to source code">fromSimpleXML</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>$xml</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.html#217-229" title="Go to source code">fromSimpleXML</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>$xml</var></span> )</code>
 
 		<div class="description short">
 			
@@ -781,7 +782,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parseDate">#</a>
-		<code><a href="source-class-BaseX.Resource.html#228-239" title="Go to source code">parseDate</a>( <span>string <var>$date</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.html#231-242" title="Go to source code">parseDate</a>( <span>string <var>$date</var></span> )</code>
 
 		<div class="description short">
 			
@@ -823,7 +824,7 @@ exists on the database.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parseLine">#</a>
-		<code><a href="source-class-BaseX.Resource.html#241-258" title="Go to source code">parseLine</a>( <span>string <var>$line</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.html#244-261" title="Go to source code">parseLine</a>( <span>string <var>$line</var></span> )</code>
 
 		<div class="description short">
 			
@@ -865,7 +866,7 @@ exists on the database.</p>
 
 		<td class="attributes"><code>string</code></td>
 		<td class="name"><code>
-				<a href="source-class-BaseX.Resource.html#24" title="Go to source code"><b>DATE_FORMAT</b></a>
+				<a href="source-class-BaseX.Resource.html#27" title="Go to source code"><b>DATE_FORMAT</b></a>
 		</code></td>
 		<td class="value"><code><span class="php-quote">'Y-m-d\TH:i:s.u\Z'</span></code></td>
 		<td class="description"><div>
@@ -895,7 +896,7 @@ exists on the database.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.html#26-31" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-BaseX.Resource.html#29-34" title="Go to source code"><var>$db</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -922,7 +923,7 @@ exists on the database.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.html#33-38" title="Go to source code"><var>$path</var></a>
+				<a href="source-class-BaseX.Resource.html#36-41" title="Go to source code"><var>$path</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -949,7 +950,7 @@ exists on the database.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.html#40-45" title="Go to source code"><var>$modified</var></a>
+				<a href="source-class-BaseX.Resource.html#43-48" title="Go to source code"><var>$modified</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>
@@ -976,7 +977,7 @@ exists on the database.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Resource.html#46" title="Go to source code"><var>$deleted</var></a>
+				<a href="source-class-BaseX.Resource.html#49" title="Go to source code"><var>$deleted</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

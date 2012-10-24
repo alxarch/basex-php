@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class BaseX\Iterator\ArrayWrapper | basex-php</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-BaseX.html">BaseX<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.html">Database<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Database.Importer.html">Importer</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
+				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-BaseX.Error.html">Error</a>
+						</li>
+				<li class="active"><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
+				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
+						</li>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
+						</li>
+				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-BaseX.Session.html">Session</a>
+						</li>
+				<li><a href="namespace-BaseX.Silex.html">Silex</a>
+						</li>
+				<li><a href="namespace-BaseX.Symfony.html">Symfony<span></span></a>
+						<ul>
+				<li><a href="namespace-BaseX.Symfony.Security.html">Security</a>
+						</li>
+							</ul></li></ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-BaseX.Iterator.ArrayWrapper.html">ArrayWrapper</a></li>
+				<li><a href="class-BaseX.Iterator.CallbackParser.html">CallbackParser</a></li>
+				<li><a href="class-BaseX.Iterator.CSVParser.html">CSVParser</a></li>
+				<li><a href="class-BaseX.Iterator.DateTimeParser.html">DateTimeParser</a></li>
+				<li><a href="class-BaseX.Iterator.GrepFilter.html">GrepFilter</a></li>
+				<li><a href="class-BaseX.Iterator.JSONParser.html">JSONParser</a></li>
+				<li><a href="class-BaseX.Iterator.ObjectParser.html">ObjectParser</a></li>
+				<li><a href="class-BaseX.Iterator.RegexParser.html">RegexParser</a></li>
+				<li><a href="class-BaseX.Iterator.Reverse.html">Reverse</a></li>
+				<li><a href="class-BaseX.Iterator.SimpleXMLParser.html">SimpleXMLParser</a></li>
+				<li><a href="class-BaseX.Iterator.Sort.html">Sort</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-BaseX.Iterator.html" title="Summary of BaseX\Iterator"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ArrayWrapper</h1>
+
+
+	<div class="description">
+	
+<p>Wrapper for arrays adding extra functionality</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>BaseX\Iterator\ArrayWrapper</span></b>			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-BaseX.Query.QueryResults.html">BaseX\Query\QueryResults</a>, 
+			<a href="class-BaseX.Resource.Iterator.Resources.html">BaseX\Resource\Iterator\Resources</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-BaseX.Dav.Iterator.Nodes.html">BaseX\Dav\Iterator\Nodes</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Iterator.html">Iterator</a><br />
+		
+
+				<b>Author:</b>
+				alxarch<br />
+		<b>Located at</b> <a href="source-class-BaseX.Iterator.ArrayWrapper.html#25-287" title="Go to source code">src/BaseX/Iterator/ArrayWrapper.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#45-63" title="Go to source code">__construct</a>( <span>mixed <var>$array</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Constructor.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Constructor.</p>
+
+<p>Initial array can be either</p>
+
+<ul>
+	<li>an ArrayIterator or</li>
+
+	<li>any type convertable to an ArrayIterator</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$array</var></dt>
+					<dd><code>mixed</code><br>$array</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="processIterator" id="_processIterator">
+
+		<td class="attributes"><code>
+			 protected 
+			<code><a href="class-Traversable.html">Traversable</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_processIterator">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#65-100" title="Go to source code">processIterator</a>( )</code>
+
+		<div class="description short">
+			
+<p>Applies all process instructions to the base array iterator/</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Applies all process instructions to the base array iterator/</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Traversable.html">Traversable</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getIterator" id="_getIterator">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-ArrayIterator.html">ArrayIterator</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getIterator">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#102-127" title="Go to source code">getIterator</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns an iterator according to current process instructions.</p>
+
+<p>Order of application is:</p>
+
+<ul>
+	<li>grep</li>
+
+	<li>filter</li>
+
+	<li>map</li>
+
+	<li>sort</li>
+
+	<li>reverse</li>
+</ul>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-ArrayIterator.html">ArrayIterator</a></code></code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-IteratorAggregate.html#_getIterator">IteratorAggregate::getIterator()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFirst" id="_getFirst">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFirst">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#129-137" title="Go to source code">getFirst</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the first element of the processed array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the first element of the processed array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLast" id="_getLast">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLast">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#139-148" title="Go to source code">getLast</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the last element of the processed array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the last element of the processed array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSingle" id="_getSingle">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSingle">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#150-160" title="Go to source code">getSingle</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the only element of the processed array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the only element of the processed array.</p>
+
+<p>If the array has more than one elements it returns null</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sort" id="_sort">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sort">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#162-173" title="Go to source code">sort</a>( <span>callable <var>$callback</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Sort this array with a callable.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sort this array with a callable.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$callback</var></dt>
+					<dd><code>callable</code><br>$callback</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code></code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						usort()<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="filter" id="_filter">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_filter">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#175-188" title="Go to source code">filter</a>( <span>callable <var>$callback</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Filters this array with a callable.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Filters this array with a callable.</p>
+
+<p>The callable must accept a single item as parameter and return
+true/false.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$callback</var></dt>
+					<dd><code>callable</code><br>$callback</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="map" id="_map">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_map">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#190-200" title="Go to source code">map</a>( <span>callable <var>$callback</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Convert each element of the array using a callable.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Convert each element of the array using a callable.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$callback</var></dt>
+					<dd><code>callable</code><br>$callback</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="grep" id="_grep">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_grep">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#202-213" title="Go to source code">grep</a>( <span>string <var>$pattern</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Filter the input array using a regular expression.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Filter the input array using a regular expression.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$pattern</var></dt>
+					<dd><code>string</code><br>$pattern</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="reverse" id="_reverse">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_reverse">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#215-224" title="Go to source code">reverse</a>( )</code>
+
+		<div class="description short">
+			
+<p>Reverse the input array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reverse the input array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-BaseX.Iterator.ArrayWrapper.html">BaseX\Iterator\ArrayWrapper</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="count" id="_count">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_count">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#226-239" title="Go to source code">count</a>( )</code>
+
+		<div class="description short">
+			
+<p>Count the items in the processed array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Count the items in the processed array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Countable.html#_count">Countable::count()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetExists" id="_offsetExists">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetExists">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#241-252" title="Go to source code">offsetExists</a>( <span>integer <var>$offset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Verify offset exists in the processed array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Verify offset exists in the processed array.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$offset</var></dt>
+					<dd><code>integer</code><br>$offset</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_offsetExists">ArrayAccess::offsetExists()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetGet" id="_offsetGet">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetGet">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#253-262" title="Go to source code">offsetGet</a>( <span>integer <var>$offset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Fet a single element from the processed array at a specified offset.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Fet a single element from the processed array at a specified offset.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$offset</var></dt>
+					<dd><code>integer</code><br>$offset</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_offsetGet">ArrayAccess::offsetGet()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetSet" id="_offsetSet">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetSet">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#264-274" title="Go to source code">offsetSet</a>( <span>mixed <var>$offset</var></span>, <span>mixed <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Not implemented. ArrayWrapper is read only.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Not implemented. ArrayWrapper is read only.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$offset</var></dt>
+					<dd><code>mixed</code><br>$offset</dd>
+					<dt><var>$value</var></dt>
+					<dd><code>mixed</code><br>$value</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_offsetSet">ArrayAccess::offsetSet()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetUnset" id="_offsetUnset">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetUnset">#</a>
+		<code><a href="source-class-BaseX.Iterator.ArrayWrapper.html#276-285" title="Go to source code">offsetUnset</a>( <span>mixed <var>$offset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Not implemented. ArrayWrapper is read only.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Not implemented. ArrayWrapper is read only.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$offset</var></dt>
+					<dd><code>mixed</code><br>$offset</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_offsetUnset">ArrayAccess::offsetUnset()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="iterator" id="$iterator">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-ArrayIterator.html">ArrayIterator</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Iterator.ArrayWrapper.html#33-37" title="Go to source code"><var>$iterator</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$iterator" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="reverse" id="$reverse">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Iterator.ArrayWrapper.html#38" title="Go to source code"><var>$reverse</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$reverse" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="callback" id="$callback">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Iterator.ArrayWrapper.html#39" title="Go to source code"><var>$callback</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$callback" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="filter" id="$filter">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Iterator.ArrayWrapper.html#40" title="Go to source code"><var>$filter</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$filter" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="grep" id="$grep">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Iterator.ArrayWrapper.html#41" title="Go to source code"><var>$grep</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$grep" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="sort" id="$sort">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Iterator.ArrayWrapper.html#42" title="Go to source code"><var>$sort</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$sort" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="total" id="$total">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-BaseX.Iterator.ArrayWrapper.html#43" title="Go to source code"><var>$total</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$total" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		basex-php API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

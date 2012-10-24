@@ -7,7 +7,7 @@
 	<title>Class BaseX\Resource\Raw | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,18 +30,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li class="active"><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -69,9 +70,7 @@
 			<ul>
 				<li><a href="class-BaseX.Resource.Collection.html">Collection</a></li>
 				<li><a href="class-BaseX.Resource.Document.html">Document</a></li>
-				<li><a href="class-BaseX.Resource.MimeResourceResults.html">MimeResourceResults</a></li>
 				<li class="active"><a href="class-BaseX.Resource.Raw.html">Raw</a></li>
-				<li><a href="class-BaseX.Resource.ResourceResults.html">ResourceResults</a></li>
 				<li><a href="class-BaseX.Resource.Streamable.html">Streamable</a></li>
 				<li><a href="class-BaseX.Resource.Tree.html">Tree</a></li>
 			</ul>
@@ -173,7 +172,7 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Resource.html">Resource</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Resource.Raw.html#16-66" title="Go to source code">src/BaseX/Resource/Raw.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Resource.Raw.html#17-64" title="Go to source code">src/BaseX/Resource/Raw.php</a><br />
 	</div>
 
 
@@ -191,7 +190,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isRaw">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#25-28" title="Go to source code">isRaw</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Raw.html#26-29" title="Go to source code">isRaw</a>( )</code>
 
 		<div class="description short">
 			
@@ -220,7 +219,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFilepath">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#30-36" title="Go to source code">getFilepath</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Raw.html#31-34" title="Go to source code">getFilepath</a>( <span>mixed <var>$dbpath</var></span> )</code>
 
 		<div class="description short">
 			
@@ -249,7 +248,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getReadMethod">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#38-41" title="Go to source code">getReadMethod</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Raw.html#36-39" title="Go to source code">getReadMethod</a>( )</code>
 
 		<div class="description short">
 			
@@ -278,7 +277,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getWriteMethod">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#43-46" title="Go to source code">getWriteMethod</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Raw.html#41-44" title="Go to source code">getWriteMethod</a>( )</code>
 
 		<div class="description short">
 			
@@ -307,7 +306,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContents">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#48-52" title="Go to source code">getContents</a>( )</code>
+		<code><a href="source-class-BaseX.Resource.Raw.html#46-50" title="Go to source code">getContents</a>( )</code>
 
 		<div class="description short">
 			
@@ -336,7 +335,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setContents">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#54-57" title="Go to source code">setContents</a>( <span>mixed <var>$data</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Raw.html#52-55" title="Go to source code">setContents</a>( <span>mixed <var>$data</var></span> )</code>
 
 		<div class="description short">
 			
@@ -365,7 +364,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_fromSimpleXML">#</a>
-		<code><a href="source-class-BaseX.Resource.Raw.html#59-64" title="Go to source code">fromSimpleXML</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>$xml</var></span> )</code>
+		<code><a href="source-class-BaseX.Resource.Raw.html#57-62" title="Go to source code">fromSimpleXML</a>( <span><code><a href="class-BaseX.Database.html">BaseX\Database</a></code> <var>$db</var></span>, <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>$xml</var></span> )</code>
 
 		<div class="description short">
 			

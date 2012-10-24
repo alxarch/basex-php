@@ -1,9 +1,13 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @package BaseX 
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
  */
+
 namespace BaseX\Iterator;
 
 use DateTime;
@@ -12,14 +16,28 @@ use Traversable;
 
 
 /**
- * Description of DateTime
+ * Parses each item in the input iterator as a DateTime object.
  *
  * @author alxarch
  */
 class DateTimeParser extends IteratorIterator
 {
+  /**
+   * The date format to use to parse data.
+   * 
+   * @link http://php.net/manual/en/datetime.createfromformat.php
+   * 
+   * @var string
+   */
   protected $format;
   
+  /**
+   * Constructor.
+   * 
+   * @param Traversable $iterator
+   * @param string  $format The date format to use to parse data. 
+   * If none is specified default DateTime constructor is used
+   */
   public function __construct(Traversable $iterator, $format=null) {
     $this->format = $format;
     parent::__construct($iterator);

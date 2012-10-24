@@ -7,7 +7,7 @@
 	<title>Class BaseX\Query\QueryBuilder | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,18 +30,19 @@
 							</ul></li>
 				<li><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li class="active"><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li class="active"><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -141,7 +142,7 @@
 		<b>Namespace:</b> <a href="namespace-BaseX.html">BaseX</a>\<a href="namespace-BaseX.Query.html">Query</a><br />
 		<b>Package:</b> BaseX<br />
 
-		<b>Located at</b> <a href="source-class-BaseX.Query.QueryBuilder.html#15-366" title="Go to source code">src/BaseX/Query/QueryBuilder.php</a><br />
+		<b>Located at</b> <a href="source-class-BaseX.Query.QueryBuilder.html#18-369" title="Go to source code">src/BaseX/Query/QueryBuilder.php</a><br />
 	</div>
 
 
@@ -159,7 +160,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getParameters">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#63-70" title="Go to source code">getParameters</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#66-73" title="Go to source code">getParameters</a>( )</code>
 
 		<div class="description short">
 			
@@ -192,7 +193,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getParameter">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#72-80" title="Go to source code">getParameter</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#75-83" title="Go to source code">getParameter</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -223,14 +224,14 @@
 
 		<td class="attributes"><code>
 			 public 
-			<code><a href="class-BaseX.Query.QueryBuilder.html">BaseX\Query\QueryBuilder</a></code>
+			BaseX\QueryBuilder
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setParameter">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#82-92" title="Go to source code">setParameter</a>( <span>string <var>$name</var></span>, <span>string <var>$value</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#85-95" title="Go to source code">setParameter</a>( <span>string <var>$name</var></span>, <span>string <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
@@ -250,7 +251,7 @@
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><code><a href="class-BaseX.Query.QueryBuilder.html">BaseX\Query\QueryBuilder</a></code></code><br />
+					<code>BaseX\QueryBuilder</code><br />
 				</div>
 
 
@@ -270,7 +271,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setParameters">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#94-101" title="Go to source code">setParameters</a>( <span>mixed <var>$parameters</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#97-104" title="Go to source code">setParameters</a>( <span>mixed <var>$parameters</var></span> )</code>
 
 		<div class="description short">
 			
@@ -299,7 +300,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getVariables">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#103-110" title="Go to source code">getVariables</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#106-113" title="Go to source code">getVariables</a>( )</code>
 
 		<div class="description short">
 			
@@ -332,7 +333,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getVariable">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#112-120" title="Go to source code">getVariable</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#115-123" title="Go to source code">getVariable</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -370,7 +371,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addExternalVariable">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#122-132" title="Go to source code">addExternalVariable</a>( <span>string <var>$name</var></span>, <span>mixed <var>$defaultValue</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#125-135" title="Go to source code">addExternalVariable</a>( <span>string <var>$name</var></span>, <span>mixed <var>$defaultValue</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -410,7 +411,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addExternalVariables">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#134-155" title="Go to source code">addExternalVariables</a>( <span>array <var>$variables</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#137-158" title="Go to source code">addExternalVariables</a>( <span>array <var>$variables</var></span> )</code>
 
 		<div class="description short">
 			
@@ -452,7 +453,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOption">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#157-165" title="Go to source code">getOption</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#160-168" title="Go to source code">getOption</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			
@@ -490,7 +491,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setOption">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#167-178" title="Go to source code">setOption</a>( <span>string <var>$name</var></span>, <span>string <var>$value</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#170-181" title="Go to source code">setOption</a>( <span>string <var>$name</var></span>, <span>string <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
@@ -530,7 +531,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setOptions">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#180-193" title="Go to source code">setOptions</a>( <span>array <var>$options</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#183-196" title="Go to source code">setOptions</a>( <span>array <var>$options</var></span> )</code>
 
 		<div class="description short">
 			
@@ -568,7 +569,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOptions">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#195-202" title="Go to source code">getOptions</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#198-205" title="Go to source code">getOptions</a>( )</code>
 
 		<div class="description short">
 			
@@ -601,7 +602,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setBody">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#204-214" title="Go to source code">setBody</a>( <span>string <var>$body</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#207-217" title="Go to source code">setBody</a>( <span>string <var>$body</var></span> )</code>
 
 		<div class="description short">
 			
@@ -639,7 +640,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getBody">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#216-223" title="Go to source code">getBody</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#219-226" title="Go to source code">getBody</a>( )</code>
 
 		<div class="description short">
 			
@@ -672,7 +673,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_build">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#225-269" title="Go to source code">build</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#228-272" title="Go to source code">build</a>( )</code>
 
 		<div class="description short">
 			
@@ -705,7 +706,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getModules">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#271-278" title="Go to source code">getModules</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#274-281" title="Go to source code">getModules</a>( )</code>
 
 		<div class="description short">
 			
@@ -738,7 +739,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setModules">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#280-293" title="Go to source code">setModules</a>( <span>array <var>$modules</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#283-296" title="Go to source code">setModules</a>( <span>array <var>$modules</var></span> )</code>
 
 		<div class="description short">
 			
@@ -776,7 +777,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setModule">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#295-309" title="Go to source code">setModule</a>( <span>string <var>$alias</var></span>, <span>string <var>$uri</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#298-312" title="Go to source code">setModule</a>( <span>string <var>$alias</var></span>, <span>string <var>$uri</var></span> )</code>
 
 		<div class="description short">
 			
@@ -820,7 +821,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getNamespaces">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#311-318" title="Go to source code">getNamespaces</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#314-321" title="Go to source code">getNamespaces</a>( )</code>
 
 		<div class="description short">
 			
@@ -853,7 +854,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setNamespaces">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#320-333" title="Go to source code">setNamespaces</a>( <span>array <var>$namespaces</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#323-336" title="Go to source code">setNamespaces</a>( <span>array <var>$namespaces</var></span> )</code>
 
 		<div class="description short">
 			
@@ -891,7 +892,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setNamespace">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#335-341" title="Go to source code">setNamespace</a>( <span>mixed <var>$alias</var></span>, <span>mixed <var>$uri</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#338-344" title="Go to source code">setNamespace</a>( <span>mixed <var>$alias</var></span>, <span>mixed <var>$uri</var></span> )</code>
 
 		<div class="description short">
 			
@@ -920,7 +921,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getQuery">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#343-354" title="Go to source code">getQuery</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span> )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#346-357" title="Go to source code">getQuery</a>( <span><code><a href="class-BaseX.Session.html">BaseX\Session</a></code> <var>$session</var></span> )</code>
 
 		<div class="description short">
 			
@@ -958,7 +959,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_begin">#</a>
-		<code><a href="source-class-BaseX.Query.QueryBuilder.html#356-364" title="Go to source code">begin</a>( )</code>
+		<code><a href="source-class-BaseX.Query.QueryBuilder.html#359-367" title="Go to source code">begin</a>( )</code>
 
 		<div class="description short">
 			
@@ -1002,7 +1003,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.QueryBuilder.html#22-27" title="Go to source code"><var>$options</var></a>
+				<a href="source-class-BaseX.Query.QueryBuilder.html#25-30" title="Go to source code"><var>$options</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -1029,7 +1030,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.QueryBuilder.html#29-34" title="Go to source code"><var>$parameters</var></a>
+				<a href="source-class-BaseX.Query.QueryBuilder.html#32-37" title="Go to source code"><var>$parameters</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -1056,7 +1057,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.QueryBuilder.html#36-41" title="Go to source code"><var>$variables</var></a>
+				<a href="source-class-BaseX.Query.QueryBuilder.html#39-44" title="Go to source code"><var>$variables</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -1083,7 +1084,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.QueryBuilder.html#43-48" title="Go to source code"><var>$namespaces</var></a>
+				<a href="source-class-BaseX.Query.QueryBuilder.html#46-51" title="Go to source code"><var>$namespaces</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -1110,7 +1111,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.QueryBuilder.html#50-55" title="Go to source code"><var>$modules</var></a>
+				<a href="source-class-BaseX.Query.QueryBuilder.html#53-58" title="Go to source code"><var>$modules</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
 		<td class="description"><div>
@@ -1137,7 +1138,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-BaseX.Query.QueryBuilder.html#57-61" title="Go to source code"><var>$body</var></a>
+				<a href="source-class-BaseX.Query.QueryBuilder.html#60-64" title="Go to source code"><var>$body</var></a>
 		</td>
 		<td class="value"><code></code></td>
 		<td class="description"><div>

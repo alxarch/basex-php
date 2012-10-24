@@ -1,9 +1,13 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @package BaseX 
+ * 
+ * @copyright Copyright (c) 2012, Alexandors Sigalas
+ * @author Alexandros Sigalas <alxarch@gmail.com>
+ * @license BSD License
  */
+
 namespace BaseX\Iterator;
 
 use IteratorIterator;
@@ -14,8 +18,11 @@ use Traversable;
 
 
 /**
- * Description of Unserializable
- *
+ * Parses items in the input iterator by unserializing them to objects.
+ * 
+ * Looks for a method named 'unserialize' or 
+ * a method with the annotation '@unserialize' in the given class
+ * 
  * @author alxarch
  */
 class ObjectParser extends IteratorIterator
@@ -34,12 +41,24 @@ class ObjectParser extends IteratorIterator
   
   protected $method;
   
-  public function __construct(Traversable $traversable, $class, $args=array()) 
+  /**
+   * Parses items in the input iterator by unserializing them to objects.
+   * 
+   * Looks for a method named 'unserialize' or a method with the annotation 
+   * '@unserialize' in the given class.
+   * 
+   * @param Traversable $traversable
+   * @param string|object $class The class to use for new objects.
+   * @param array $params Extra parameters for the constructor.
+   * @throws InvalidArgumentException If no unserialization method can be found
+   * or if the given parameters are not sufficient to instanciate the objects.
+   */
+  public function __construct(Traversable $traversable, $class, $params=array()) 
   {
     
     $class = new ReflectionClass($class);
     
-    if(!$this->isValidClass($class, $args))
+    if(!$this->isValidClass($class, $params))
     {
       throw new InvalidArgumentException('Invalid class provided.');
     }
@@ -55,9 +74,9 @@ class ObjectParser extends IteratorIterator
       {
         $name = $p->getName();
         $pos = $p->getPosition();
-        if(isset($args[$name]))
+        if(isset($params[$name]))
         {
-          $this->args[$pos] = $args[$name];
+          $this->args[$pos] = $params[$name];
         }
       }
     }

@@ -23,7 +23,7 @@ use IteratorAggregate;
 use Traversable;
 
 /**
- * Description of ArrayWrapper
+ * Wrapper for arrays adding extra functionality
  *
  * @author alxarch
  */
@@ -42,14 +42,31 @@ abstract class ArrayWrapper implements IteratorAggregate, ArrayAccess, Countable
   protected $sort;
   protected $total;
 
+  /**
+   * Constructor.
+   * 
+   * Initial array can be either 
+   * - an ArrayIterator or 
+   * - any type convertable to an ArrayIterator
+   * 
+   * @param mixed $array
+   */
   public function __construct($array = null)
   {
     if (null === $array)
       $array = array();
-
-    $this->iterator = new ArrayIterator($array);
+    
+    if($array instanceof ArrayIterator)
+      $this->iterator = $array;
+    else
+      $this->iterator = new ArrayIterator($array);
   }
 
+  /**
+   * Applies all process instructions to the base array iterator/
+   * 
+   * @return Traversable
+   */
   protected function processIterator()
   {
     $iterator = $this->iterator;
@@ -84,7 +101,7 @@ abstract class ArrayWrapper implements IteratorAggregate, ArrayAccess, Countable
 
   /**
    * 
-   * Returns an iterator according to current settings.
+   * Returns an iterator according to current process instructions.
    * 
    * Order of application is:
    * 
@@ -109,28 +126,60 @@ abstract class ArrayWrapper implements IteratorAggregate, ArrayAccess, Countable
     return $result;
   }
 
+  /**
+   * Gets the first element of the processed array.
+   * 
+   * @return mixed
+   */
   public function getFirst()
   {
     return $this->count() > 0 ? $this->getIterator()->current() : null;
   }
 
+  /**
+   * Gets the last element of the processed array.
+   * 
+   * @return mixed
+   */
   public function getLast()
   {
     return $this->count() > 0 ?
       $this->getIterator()->offsetGet($this->count() - 1) : null;
   }
 
+  /**
+   * Gets the only element of the processed array.
+   * 
+   * If the array has more than one elements it returns null
+   * 
+   * @return mixed
+   */
   public function getSingle()
   {
     return $this->count() === 1 ? $this->getIterator()->offsetGet(0) : null;
   }
 
+  /**
+   * Sort this array with a callable.
+   * 
+   * @see usort()
+   * @param callable $callback
+   * @return \BaseX\Iterator\ArrayWrapper
+   */
   public function sort($callback)
   {
     $this->sort = $callback;
     return $this;
   }
 
+  /**
+   * Filters this array with a callable.
+   * 
+   * The callable must accept a single item as parameter and return true/false.
+   * 
+   * @param callable $callback
+   * @return \BaseX\Iterator\ArrayWrapper
+   */
   public function filter($callback)
   {
     $this->filters[] = $callback;
@@ -138,12 +187,24 @@ abstract class ArrayWrapper implements IteratorAggregate, ArrayAccess, Countable
     return $this;
   }
 
+  /**
+   * Convert each element of the array using a callable.
+   * 
+   * @param callable $callback
+   * @return \BaseX\Iterator\ArrayWrapper
+   */
   public function map($callback)
   {
     $this->callback = $callback;
     return $this;
   }
 
+  /**
+   * Filter the input array using a regular expression.
+   * 
+   * @param string $pattern 
+   * @return \BaseX\Iterator\ArrayWrapper
+   */
   public function grep($pattern)
   {
     $this->grep = $pattern;
@@ -151,6 +212,11 @@ abstract class ArrayWrapper implements IteratorAggregate, ArrayAccess, Countable
     return $this;
   }
 
+  /**
+   * Reverse the input array.
+   * 
+   * @return \BaseX\Iterator\ArrayWrapper
+   */
   public function reverse()
   {
     $this->reverse = !$this->reverse;
@@ -158,6 +224,7 @@ abstract class ArrayWrapper implements IteratorAggregate, ArrayAccess, Countable
   }
 
   /**
+   * Count the items in the processed array.
    * 
    * @return int
    */
@@ -171,6 +238,11 @@ abstract class ArrayWrapper implements IteratorAggregate, ArrayAccess, Countable
     return $this->total;
   }
 
+  /**
+   * Verify offset exists in the processed array.
+   * @param int $offset
+   * @return boolean
+   */
   public function offsetExists($offset)
   {
     return is_int($offset)
@@ -178,17 +250,35 @@ abstract class ArrayWrapper implements IteratorAggregate, ArrayAccess, Countable
       && $this->count() > 0
       && $offset < $this->count();
   }
-
+  /**
+   * Fet a single element from the processed array at a specified offset.
+   * 
+   * @param int $offset
+   * @return mixed
+   */
   public function offsetGet($offset)
   {
     return $this->offsetExists($offset) && $this->getIterator()->offsetGet($offset);
   }
 
+  /**
+   * Not implemented. ArrayWrapper is read only.
+   * 
+   * @param mixed $offset
+   * @param mixed $value
+   * @throws Exception
+   */
   public function offsetSet($offset, $value)
   {
     throw new Exception('Not implemented.');
   }
 
+  /**
+   * Not implemented. ArrayWrapper is read only.
+   * 
+   * @param mixed $offset
+   * @throws Exception
+   */
   public function offsetUnset($offset)
   {
     throw new Exception('Not implemented.');

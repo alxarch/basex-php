@@ -8,7 +8,7 @@
 	<title>File src/BaseX/Dav/Node.php | basex-php</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1398979022"></script>
+	<script type="text/javascript" src="elementlist.js?2248114710"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -31,18 +31,19 @@
 							</ul></li>
 				<li class="active"><a href="namespace-BaseX.Dav.html">Dav<span></span></a>
 						<ul>
+				<li><a href="namespace-BaseX.Dav.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.Dav.Locks.html">Locks</a>
 						</li>
 							</ul></li>
 				<li><a href="namespace-BaseX.Error.html">Error</a>
 						</li>
+				<li><a href="namespace-BaseX.Iterator.html">Iterator</a>
+						</li>
 				<li><a href="namespace-BaseX.PHPUnit.html">PHPUnit</a>
 						</li>
-				<li><a href="namespace-BaseX.Query.html">Query<span></span></a>
-						<ul>
-				<li><a href="namespace-BaseX.Query.Results.html">Results</a>
+				<li><a href="namespace-BaseX.Query.html">Query</a>
 						</li>
-							</ul></li>
 				<li><a href="namespace-BaseX.Resource.html">Resource<span></span></a>
 						<ul>
 				<li><a href="namespace-BaseX.Resource.Iterator.html">Iterator</a>
@@ -71,7 +72,6 @@
 				<li><a href="class-BaseX.Dav.CollectionNode.html">CollectionNode</a></li>
 				<li class="active"><a href="class-BaseX.Dav.Node.html">Node</a></li>
 				<li><a href="class-BaseX.Dav.ResourceNode.html">ResourceNode</a></li>
-				<li><a href="class-BaseX.Dav.ResourceNodeIterator.html">ResourceNodeIterator</a></li>
 			</ul>
 
 
@@ -126,9 +126,9 @@
 </span><span id="7" class="l"><a class="l" href="#7"> 7: </a>
 </span><span id="8" class="l"><a class="l" href="#8"> 8: </a><span class="php-keyword1">namespace</span> BaseX\Dav;
 </span><span id="9" class="l"><a class="l" href="#9"> 9: </a>
-</span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-keyword1">use</span> Sabre_DAV_INode;
+</span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-keyword1">use</span> BaseX\Database;
 </span><span id="11" class="l"><a class="l" href="#11">11: </a><span class="php-keyword1">use</span> BaseX\Helpers <span class="php-keyword1">as</span> B;
-</span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-keyword1">use</span> BaseX\Database;
+</span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-keyword1">use</span> Sabre_DAV_INode;
 </span><span id="13" class="l"><a class="l" href="#13">13: </a>
 </span><span id="14" class="l"><a class="l" href="#14">14: </a><span class="php-comment">/**
 </span></span><span id="15" class="l"><a class="l" href="#15">15: </a><span class="php-comment"> * Description of INode
@@ -138,7 +138,7 @@
 </span><span id="19" class="l"><a class="l" href="#19">19: </a><span class="php-keyword1">abstract</span> <span class="php-keyword1">class</span> <a id="Node" href="#Node">Node</a> <span class="php-keyword1">implements</span> Sabre_DAV_INode
 </span><span id="20" class="l"><a class="l" href="#20">20: </a>{
 </span><span id="21" class="l"><a class="l" href="#21">21: </a>  <span class="php-comment">/**
-</span></span><span id="22" class="l"><a class="l" href="#22">22: </a><span class="php-comment">   * @var \BaseX\Database
+</span></span><span id="22" class="l"><a class="l" href="#22">22: </a><span class="php-comment">   * @var Database
 </span></span><span id="23" class="l"><a class="l" href="#23">23: </a><span class="php-comment">   */</span>
 </span><span id="24" class="l"><a class="l" href="#24">24: </a>  <span class="php-keyword1">protected</span> <span class="php-var"><a id="$db" href="#$db">$db</a></span>;
 </span><span id="25" class="l"><a class="l" href="#25">25: </a>  <span class="php-keyword1">public</span> <span class="php-var"><a id="$path" href="#$path">$path</a></span>;
