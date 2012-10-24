@@ -37,6 +37,7 @@ class QueryResults extends ArrayWrapper implements QueryResultsInterface
   
   protected $parser;
   protected $class;
+  protected $parms;
   protected $csv;
   protected $json;
   protected $format;
@@ -58,7 +59,7 @@ class QueryResults extends ArrayWrapper implements QueryResultsInterface
     switch ($this->parser)
     {
       case 'object':
-        $iterator = new ObjectParser($iterator, $this->class);
+        $iterator = new ObjectParser($iterator, $this->class, $this->params);
         break;
       case 'simplexml':
         $iterator = new SimpleXMLIterator($iterator);
@@ -158,10 +159,11 @@ class QueryResults extends ArrayWrapper implements QueryResultsInterface
     return $this;
   }
 
-  public function parseObject($class)
+  public function parseObject($class, $params=array())
   {
     $this->parser = 'object';
     $this->class = $class;
+    $this->params = $params;
     return $this;
   }
 
