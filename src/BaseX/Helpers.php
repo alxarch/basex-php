@@ -268,7 +268,12 @@ class Helpers
   
   static public function stripXMLDeclaration($xml)
   {
-    return substr($xml, strlen('<?xml version="1.0"?>'));
+    if(strpos($xml, '<?xml') === 0)
+    {
+      return substr($xml, strpos($xml, '?>') + 2);
+    }
+    
+    return $xml;
   }
   
   static public function date($date)
