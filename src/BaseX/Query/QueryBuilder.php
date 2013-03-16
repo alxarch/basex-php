@@ -105,60 +105,6 @@ class QueryBuilder
   
   /**
    * 
-   * @return array
-   */
-  public function getVariables()
-  {
-    return $this->variables;
-  }
-  
-  /**
-   * 
-   * @param string $name
-   * @return mixed
-   */
-  public function getVariable($name)
-  {
-    return isset($this->variables[$name]) ? $this->variables[$name] : null;
-  }
-  
-  /**
-   * 
-   * @param string $name
-   * @param mixed $defaultValue
-   * @return QueryBuilder
-   */
-  public function addExternalVariable($name, $defaultValue=null)
-  {
-    $this->variables[$name] = $defaultValue;
-    return $this;
-  }
-  
-  /**
-   * Add external variable definitions to the query.
-   * 
-   * @param array $variables
-   * @return \BaseX\QueryBuilder
-   */
-  public function addExternalVariables($variables)
-  {
-    foreach($variables as $key => $value)
-    {
-      if(!is_string($key))
-      {
-        $key = (string)$value;
-        $value = null;
-      }
-      
-      if($key != '')
-        $this->addExternalVariable($key, $value);
-    }
-    
-    return $this;
-  }
-  
-  /**
-   * 
    * @param string $name
    * @return string
    */
@@ -232,9 +178,7 @@ class QueryBuilder
   public function build()
   {
     $xq = array();
-    
-    
-    
+        
     foreach ($this->getNamespaces() as $alias => $uri)
     {
       $xq[] = sprintf("declare namespace %s = '%s';", $alias, $uri);
@@ -253,18 +197,6 @@ class QueryBuilder
     foreach ($this->getOptions() as $name => $value)
     {
       $xq[] = sprintf("declare option db:%s %s;", $name, B::value($value));
-    }
-    
-    foreach ($this->getVariables() as $name => $value)
-    {
-      if(null === $value)
-      {
-        $xq[] = sprintf("declare variable $%s external;", $name);
-      }
-      else
-      {
-        $xq[] = sprintf("declare variable $%s external := %s;", $name, B::value($value));
-      }
     }
     
     $xq[] = $this->getBody();

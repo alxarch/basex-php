@@ -159,50 +159,6 @@ class QueryBuilderTest extends TestCase
     $this->assertNull($w->getOption('undefined'));
   }
   
-    
-  public function testGetVariable()
-  {
-    $w = QueryBuilder::begin()->setBody('<test/>')->addExternalVariable('test', 3);
-    $this->assertEquals($w->getVariable('test'), 3);
-    $this->assertNull($w->getVariable('undefined'));
-  }
-  
-  public function testGetVariables()
-  {
-    $vars = array('test' => 3);
-    $w = QueryBuilder::begin()->setBody('<test/>')->addExternalVariables($vars);
-    $result = $w->getVariables();
-    $this->assertTrue(is_array($result));
-    $this->assertEquals($result, $vars);
-  }
-  
-  /**
-   * @depends testGetVariables 
-   */
-  public function testSetVariables()
-  {
-    $vars = array('test' => 3);
-    $w = QueryBuilder::begin()->setBody('<test/>')->addExternalVariables($vars);
-    $extra = array('test'=>8, 'other' => 'voidsalt');
-    $result = $w->addExternalVariables($extra);
-    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
-    $this->assertTrue($result === $w);
-    $this->assertEquals($w->getVariables(), array('test' => 8, 'other' => 'voidsalt'));
-  }
-  
-  /**
-   * @depends testGetVariable 
-   */
-  public function testSetVariable()
-  {
-    $vars = array('test' => 3);
-    $w = QueryBuilder::begin()->setBody('<test/>')->addExternalVariables($vars);
-    $result = $w->addExternalVariable('test', 8);
-    $this->assertInstanceOf('BaseX\Query\QueryBuilder', $result);
-    $this->assertTrue($result === $w);
-    $this->assertEquals($w->getVariable('test'), 8);
-  }
-  
   public function testGetBody()
   {
     $w = QueryBuilder::begin()->setBody('<body/>');
@@ -220,9 +176,8 @@ class QueryBuilderTest extends TestCase
   }
   public function testBuild()
   {
-    $vars = array('contents' => "Hello World!");
     $w = QueryBuilder::begin();
-    $w->setBody('<body>{$contents}</body>')->addExternalVariables($vars);
+    $w->setBody('<body>{$contents}</body>');
     
     $opts = array('chop' => 'false');
     $params = array('method' => 'xml');
@@ -235,7 +190,6 @@ class QueryBuilderTest extends TestCase
       ->setModules($modules);
     
     $expect = implode("\n", array(
-      "declare variable \$contents external := 'Hello World!';",
       "declare namespace tei = 'http://www.tei-c.org/ns/1.0';",
       "import module namespace functx = 'http://www.functx.com';",
       "declare option output:method 'xml';",
@@ -258,12 +212,10 @@ class QueryBuilderTest extends TestCase
     $this->assertInstanceOf('BaseX\Query', $q);
     $this->assertTrue($session === $q->getSession());
     
-    $vars = array('contents' => "Hello World!");
     $opts = array('chop' => 'false');
     $params = array('method' => 'xml');
     $w = QueryBuilder::begin()
-            ->setBody('<body>{$contents}</body>')
-            ->addExternalVariables($vars)
+            ->setBody('<body>{"Hello World!"}</body>')
             ->setOptions($opts)
             ->setParameters($params);
     
