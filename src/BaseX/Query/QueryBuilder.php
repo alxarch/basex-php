@@ -233,17 +233,7 @@ class QueryBuilder
   {
     $xq = array();
     
-    foreach ($this->getVariables() as $name => $value)
-    {
-      if(null === $value)
-      {
-        $xq[] = sprintf("declare variable $%s external;", $name);
-      }
-      else
-      {
-        $xq[] = sprintf("declare variable $%s external := %s;", $name, B::value($value));
-      }
-    }
+    
     
     foreach ($this->getNamespaces() as $alias => $uri)
     {
@@ -265,6 +255,17 @@ class QueryBuilder
       $xq[] = sprintf("declare option db:%s %s;", $name, B::value($value));
     }
     
+    foreach ($this->getVariables() as $name => $value)
+    {
+      if(null === $value)
+      {
+        $xq[] = sprintf("declare variable $%s external;", $name);
+      }
+      else
+      {
+        $xq[] = sprintf("declare variable $%s external := %s;", $name, B::value($value));
+      }
+    }
     
     $xq[] = $this->getBody();
     
